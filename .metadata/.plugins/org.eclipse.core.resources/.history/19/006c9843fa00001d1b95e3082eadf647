@@ -1,0 +1,58 @@
+package com.swm.filter;
+
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.swm.exception.UserDisableException;
+import com.swm.security.token.JwtTokenUtil;
+
+
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private JwtTokenUtil jwtUtil;
+	
+	private static Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+	
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
+		try {
+			String getTokenString = jwtUtil.getJwtTokenStringFromRequestHeader(request);
+			String username = jwtUtil.getUsernameFromToken(getTokenString);
+			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+			if(userDetails.isEnabled() && jwtUtil.validateJwtTokenString(getTokenString)) {
+				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, 
+						null, userDetails.getAuthorities());
+				SecurityContext context = SecurityContextHolder.createEmptyContext();
+				context.setAuthentication(authToken);
+				SecurityContextHolder.setContext(context);
+				log.debug("Authenticated");
+			} else  {
+				throw new UserDisableException(username);
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		
+		filterChain.doFilter(request, response);
+	}
+
+}

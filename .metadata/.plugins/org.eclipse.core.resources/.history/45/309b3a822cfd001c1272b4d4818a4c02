@@ -1,0 +1,15 @@
+package com.swm.security.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.google.common.hash.Hashing;
+
+@Configuration
+public class SHA256Generator {
+	
+	@Bean
+	public String sha256Generation(String secretKey) {
+		return Hashing.hmacSha256(secretKey.getBytes()).hashString(secretKey, null)
+	}
+}

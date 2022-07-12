@@ -1,0 +1,83 @@
+package com.swm.entity;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "booking")
+@NoArgsConstructor
+@Getter
+public class BookingEntity extends BaseEntity{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@SequenceGenerator(name = "booking_sequence", sequenceName = "booking_sequence", initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "booking_sequence")
+	private Long Id;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(unique = true, nullable = false)
+	@Setter
+	private Date checkIn;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
+	@Setter
+	private Date checkOut;
+	
+	@Column(nullable = false)
+	@Setter
+	private double totalPrice;
+	
+	@Column(nullable = false)
+	@Setter
+	private String status;
+	
+	// booking properties - end
+	
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@JoinTable(name = "booking_homestay",joinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "Id"),
+			inverseJoinColumns = @JoinColumn(name = "homestay_id", referencedColumnName = "Id"))
+	@Setter
+	private HomestayEntity bookingHomestay;
+	
+	@OneToOne(targetEntity = UserEntity.class, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "user_id", referencedColumnName = "Id")
+	@Setter
+	private PassengerEntity bookingCreator;
+	
+	@OneToOne(mappedBy = "bookingContainer",cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@Setter
+	private BookingOtpEntity bookingOtp;
+	
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "request_update", referencedColumnName = "Id")
+	@Setter
+	private UpdateBookingRequestEntity requestUpdateBooking;
+	
+	@OneToOne(mappedBy = "requestBooking", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@Setter
+	private BookingRequestEntity bookingRequest;
+}

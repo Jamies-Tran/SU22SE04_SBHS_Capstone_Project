@@ -1,0 +1,15 @@
+package com.swm.service;
+
+import com.swm.entity.UserEntity;
+
+public interface IUserService {
+	UserEntity findUserById(Long Id);
+	
+	UserEntity findUserByUsername(String username);
+	
+	UserEntity createPassengerUser(UserEntity user);
+	
+	UserEntity createLandlordUser(UserEntity user, String CitizenIdentificationUrl);
+	
+	UserEntity createAdminUser(UserEntity user);
+}

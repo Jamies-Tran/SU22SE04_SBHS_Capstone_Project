@@ -1,0 +1,7 @@
+package com.swm.enums;
+
+public enum RequestType {
+	HOMESTAY_POSTING_REQUEST,
+	BOOKING_UPDATE_REQUEST,
+	LANDLORD_CREATING_REQUEST
+}

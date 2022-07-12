@@ -1,0 +1,23 @@
+package com.swm.serviceImpl;
+
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
+import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
+import com.swm.service.ISendmailService;
+
+public class SendMailService implements ISendmailService  {
+	@Autowired
+	private JavaMailSender mailSender;
+
+	@Override
+	public void SendMail(String email, String msg) throws MessagingException {
+		MimeMessage mimeMail = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMail);
+		helper.setTo(email);
+		helper.setSubject(msg);
+	}
+}

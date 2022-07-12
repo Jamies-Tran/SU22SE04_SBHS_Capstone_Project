@@ -1,0 +1,104 @@
+package com.swm.serviceImpl;
+
+import java.util.Base64;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.swm.entity.BookingDepositEntity;
+import com.swm.entity.BookingEntity;
+import com.swm.entity.LandlordEntity;
+import com.swm.entity.MomoOrderProcessEntity;
+import com.swm.entity.PassengerEntity;
+import com.swm.entity.UserEntity;
+import com.swm.entity.WalletEntity;
+import com.swm.enums.UserStatus;
+import com.swm.exception.ParseJsonException;
+import com.swm.exception.ResourceNotFoundException;
+import com.swm.exception.UserDisableException;
+import com.swm.repository.IMomoProcessOrderRepository;
+import com.swm.repository.IWalletRepository;
+import com.swm.service.IUserService;
+import com.swm.service.IMoneyService;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Service
+public class WalletService implements IMoneyService {
+
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class UsernameMapper {
+		private String username;
+	}
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class HomestayNameMapper {
+		private String homestay;
+	}
+
+	@Autowired
+	private IWalletRepository walletRepo;
+
+	@Autowired
+	private IMomoProcessOrderRepository momoProcessRepo;
+
+	@Autowired
+	private IUserService userService;
+
+	@Transactional
+	@Override
+	public void addWalletBalance(MomoOrderProcessEntity momoProcess) {
+		String userName = new String(Base64.getDecoder().decode(momoProcess.getExtraData()));
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			UsernameMapper usernameMapper = objectMapper.readValue(userName, UsernameMapper.class);
+			UserEntity userEntity = userService.findUserByUsername(usernameMapper.getUsername());
+			if (!userEntity.getStatus().equalsIgnoreCase(UserStatus.ACTIVE.name())) {
+				throw new UserDisableException(userName);
+			}
+			MomoOrderProcessEntity momoPersisted = momoProcessRepo.save(momoProcess);
+			if (momoProcess.getOrderInfo().equalsIgnoreCase("landlord_wallet")) {
+				LandlordEntity landLordEntity = userEntity.getLandlord();
+				WalletEntity walletEntity = landLordEntity.getWallet();
+				Long currentBalance = walletEntity.getBalance();
+				currentBalance = currentBalance + momoPersisted.getAmount();
+				walletEntity.setBalance(currentBalance);
+				walletEntity.setMomoOrderList(List.of(momoPersisted));
+				momoPersisted.setWalletOrder(walletEntity);
+			} else {
+				String homestayName = new String(Base64.getDecoder().decode(momoProcess.getExtraData()));
+				HomestayNameMapper homestayMapper = objectMapper.readValue(homestayName, HomestayNameMapper.class);
+				PassengerEntity passengerEntity = userEntity.getPassenger();
+				BookingEntity bookingEntity = passengerEntity.getBooking().stream()
+						.filter(b -> b.getBookingHomestay().getName().equalsIgnoreCase(homestayMapper.getHomestay()))
+						.findAny()
+						.orElseThrow(() -> new ResourceNotFoundException(homestayName, "Homestay not found"));
+				BookingDepositEntity bookingDepositEntity = bookingEntity.getBookingDeposit();
+				Long depositAmount = momoPersisted.getAmount();
+				bookingDepositEntity.setDepositAmount(depositAmount);
+			}
+		} catch (JsonProcessingException e) {
+			throw new ParseJsonException(e.getMessage());
+		}
+
+	}
+
+	@Override
+	public void payBookingDeposit(MomoOrderProcessEntity momoProces, Long totalPrice) {
+
+	}
+}

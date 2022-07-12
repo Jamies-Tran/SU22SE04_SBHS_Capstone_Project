@@ -1,0 +1,5 @@
+package com.swm.repository;
+
+public interface IHomestayPostingRequestRepository {
+
+}

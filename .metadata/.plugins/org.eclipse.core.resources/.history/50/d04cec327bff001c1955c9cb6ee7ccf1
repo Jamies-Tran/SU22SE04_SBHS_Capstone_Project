@@ -1,0 +1,24 @@
+package com.swm.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class MomoOrderProcessDto {
+	private String accessKey;
+	private Long amount;
+	private String extraData;
+	private String ipnUrl;
+	private String orderId;
+	private String orderInfo;
+	private String partnerCode;
+	private String redirectUrl;
+	private String requestId;
+	private String requestType;
+
+}

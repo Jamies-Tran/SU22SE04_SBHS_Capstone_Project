@@ -1,0 +1,19 @@
+package com.swm.serviceImpl;
+
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+
+import com.swm.service.ISendmailService;
+
+public class SendMailService implements ISendmailService  {
+	@Autowired
+	private JavaMailSender mailSender;
+
+	@Override
+	public void SendMail(String email, String msg) {
+		MimeMessage mimeMail = mailSender.createMimeMessage();
+		
+	}
+}

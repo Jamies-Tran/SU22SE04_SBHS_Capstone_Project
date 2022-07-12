@@ -1,0 +1,20 @@
+package com.swm.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.swm.entity.HomestayEntity;
+
+public interface IHomestayService {
+	
+	HomestayEntity findHomestayByName(String name);
+	
+	List<HomestayEntity> findLandlordHomestayList();
+	
+	HomestayEntity createHomestay(HomestayEntity homestay);
+	
+	HomestayEntity deleteHomestayById(Long Id);
+	
+	HomestayEntity updateHomestay(Long Id, HomestayEntity newHomestayInf);
+	
+}

@@ -1,0 +1,120 @@
+package com.swm.converter;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import com.swm.dto.AdminDto;
+import com.swm.dto.LandlordDto;
+import com.swm.dto.PassengerDto;
+import com.swm.dto.UserDto;
+import com.swm.entity.AvatarEntity;
+import com.swm.entity.RoleEntity;
+import com.swm.entity.UserEntity;
+import com.swm.enums.AccountRole;
+import com.swm.enums.UserStatus;
+import com.swm.exception.ParseDateException;
+import com.swm.service.IRoleService;
+
+@Component
+public class UserConverter {
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private IRoleService roleService;
+	
+	private Date currentDate = new Date();
+	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+	public UserEntity passengerEntityConvert(PassengerDto passengerDto) {
+		UserEntity passengerEntity = new UserEntity();
+		try {
+			passengerEntity.setUsername(passengerDto.getUsername());
+			passengerEntity.setPassword(passwordEncoder.encode(passengerDto.getPassword()));
+			passengerEntity.setEmail(passengerDto.getEmail());
+			passengerEntity.setPhone(passengerDto.getPhone());
+			passengerEntity.setDob(dateFormat.parse(passengerDto.getDob()));
+			RoleEntity passengerRole = roleService.findRoleByName(AccountRole.PASSENGER.name());
+			passengerEntity.setRoles(List.of(passengerRole));
+			passengerEntity.setCreatedDate(currentDate);
+			
+			return passengerEntity;
+		} catch (ParseException e) {
+			throw new ParseDateException(passengerDto.getDob());
+		}
+	}
+	
+	public UserEntity userEntityConvert(UserDto userDto) {
+		UserEntity userEntity = new UserEntity();
+		userEntity.setUsername(userDto.getUsername());
+		userEntity.setEmail(userDto.getEmail());
+		userEntity.setPhone(userDto.getPhone());
+		try {
+			Date dob = dateFormat.parse(userDto.getDob());
+			userEntity.setDob(dob);
+		} catch (ParseException e) {
+			throw new ParseDateException(userDto.getDob());
+		}
+		
+		return userEntity;
+	}
+
+	public UserDto userDtoConvert(UserEntity fromEntity) {
+		UserDto toDto = new UserDto();
+		toDto.setId(fromEntity.getId());
+		toDto.setUsername(fromEntity.getUsername());
+		toDto.setEmail(fromEntity.getEmail());
+		toDto.setPhone(fromEntity.getPhone());
+		toDto.setDob(dateFormat.format(fromEntity.getDob()));
+		
+		return toDto;
+	}
+	
+	public UserEntity landlordEntityConvert(LandlordDto landlordDto) {
+		UserEntity userEntity = new UserEntity();
+		
+		try {
+			userEntity.setUsername(landlordDto.getUsername());
+			userEntity.setPassword(passwordEncoder.encode(landlordDto.getPassword()));
+			userEntity.setEmail(landlordDto.getEmail());
+			userEntity.setPhone(landlordDto.getPhone());
+			userEntity.setDob(dateFormat.parse(landlordDto.getDob()));
+			userEntity.setCitizenIdentificationString(landlordDto.getCitizenIdentification());
+			RoleEntity landlordRole = roleService.findRoleByName(AccountRole.LANDLORD.name());
+			userEntity.setRoles(List.of(landlordRole));
+			userEntity.setCreatedDate(currentDate);
+			
+			return userEntity;
+		} catch (ParseException e) {
+			throw new ParseDateException(landlordDto.getDob());		}
+	}
+	
+	public UserEntity AdminEntityConvert(AdminDto fromDto) {
+		UserEntity toEntity = new UserEntity();
+		try {
+			toEntity.setUsername(fromDto.getUsername());
+			toEntity.setPassword(passwordEncoder.encode(fromDto.getPassword()));
+			toEntity.setEmail(fromDto.getEmail());
+			toEntity.setPhone(fromDto.getPhone());
+			toEntity.setDob(dateFormat.parse(fromDto.getDob()));
+			toEntity.setStatus(UserStatus.valueOf(fromDto.getStatus()).name());
+			toEntity.setAvatar(List.of(new AvatarEntity(fromDto.getAvatarUrl(), this.currentDate, toEntity)));
+			RoleEntity adminRole = roleService.findRoleByName(AccountRole.ADMIN.name());
+			toEntity.setRoles(List.of(adminRole));
+			toEntity.setCreatedDate(currentDate);
+
+			return toEntity;
+		} catch (ParseException e) {
+			throw new ParseDateException(fromDto.getDob());
+		}
+	}
+}

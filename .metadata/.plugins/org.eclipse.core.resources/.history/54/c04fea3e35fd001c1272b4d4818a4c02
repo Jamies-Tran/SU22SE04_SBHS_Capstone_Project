@@ -1,0 +1,19 @@
+package com.swm.security.config;
+
+import java.nio.charset.StandardCharsets;
+
+import org.apache.commons.lang3.CharSet;
+import org.springframework.beans.factory.annotation.Value;
+
+import com.google.common.hash.Hashing;
+
+public class SignatureHashingConfig {
+	@Value("${momo.access.key}")
+	private String secretKey;
+	
+	public String sha256SigningKey(String msg) {
+		String signature = Hashing.hmacSha256(secretKey.getBytes()).hashString(msg, StandardCharsets.UTF_8).toString();
+		
+		return signature;
+	}
+}

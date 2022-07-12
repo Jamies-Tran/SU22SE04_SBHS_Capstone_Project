@@ -1,0 +1,5 @@
+package com.swm.exception;
+
+public class ParseJsonException {
+
+}

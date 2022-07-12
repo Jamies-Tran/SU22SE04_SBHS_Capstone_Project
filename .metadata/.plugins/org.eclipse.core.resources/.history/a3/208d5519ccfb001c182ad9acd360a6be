@@ -1,0 +1,34 @@
+package com.swm.service;
+
+import java.util.List;
+
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.entity.HomestayFacilityEntity;
+import com.swm.entity.HomestayImageEntity;
+import com.swm.entity.HomestayLicenseImageEntity;
+
+public interface IHomestayService {
+
+	HomestayEntity findHomestayByName(String name);
+	
+	HomestayEntity findHomestayById(Long Id);
+
+	List<HomestayEntity> findLandlordHomestayList();
+	
+	List<HomestayEntity> findHomestayContainLoction(String location);
+
+	HomestayEntity createHomestay(HomestayEntity homestay, HomestayLicenseImageEntity homestayLicense,
+											List<HomestayImageEntity> homestayImages, 
+											List<HomestayAftercareEntity> homestayServices,
+											List<HomestayFacilityEntity> homestayFacilities);
+
+	HomestayEntity deleteHomestayById(Long Id);
+
+	HomestayEntity updateHomestayService(Long Id, List<HomestayAftercareEntity> homestayServiceList);
+	
+	HomestayEntity updateHomestayFacility(Long Id, HomestayFacilityEntity... homestayFacility);
+	
+	HomestayEntity updateHomestayLicense(Long Id, String homestayName, String homestayLicense, HomestayLicenseImageEntity license);
+
+}

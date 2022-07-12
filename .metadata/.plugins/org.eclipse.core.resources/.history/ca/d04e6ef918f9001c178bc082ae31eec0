@@ -1,0 +1,35 @@
+package com.swm.service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
+
+public class SendMailService implements ISendMailService {
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	private final String CONFIRM_LANDLORD_REQUEST = "Confirm landlord account request";
+	
+	@Override
+	public void confirmLandlordAccountRequest(String userEmail, String adminEmail,boolean isAccepted) throws MessagingException {
+		String content = "";
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+		helper.setFrom(adminEmail);
+		helper.setTo(userEmail);
+		helper.setSubject(CONFIRM_LANDLORD_REQUEST);
+		if(isAccepted) {
+			content = "Your request for landlord account has been approved";
+		} else {
+			content = "Your request for landlord account has been rejected";
+		}
+		helper.setText(content);
+		mailSender.send(mimeMessage);
+	}
+
+}

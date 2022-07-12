@@ -1,0 +1,14 @@
+1656649767688	Rename method 'homestayEntityConverte'
+1656663035385	Delete element
+1656663652098	Delete element
+1656663657908	Delete element
+1656664620178	Move compilation unit
+1656665194439	Delete element
+1656712460542	Rename method 'verifyLandlordAccountRequestId'
+1656713582379	Rename enum constant 'HOMESTAY_PENDING_REQUEST'
+1656714026128	Rename method 'SendMail'
+1656739029376	Rename local variable 'content'
+1656741033124	Rename local variable 'requestByTypeList'
+1656763881618	Delete element
+1656764143109	Delete element
+1656771580700	Rename method 'findAllHomestayPostingRequestByType'

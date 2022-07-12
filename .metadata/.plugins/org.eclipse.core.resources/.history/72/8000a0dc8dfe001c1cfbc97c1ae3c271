@@ -1,0 +1,5 @@
+package com.swm.entity;
+
+public class MomoOrderProcessEntity {
+
+}

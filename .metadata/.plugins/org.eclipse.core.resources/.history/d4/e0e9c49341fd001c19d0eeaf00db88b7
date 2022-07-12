@@ -1,0 +1,26 @@
+package com.swm.serviceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.swm.entity.UserEntity;
+import com.swm.entity.WalletEntity;
+import com.swm.repository.IWalletRepository;
+import com.swm.service.IUserService;
+import com.swm.service.IWalletService;
+
+public class WalletService implements IWalletService {
+	@Autowired
+	private IWalletRepository walletRepo;
+	
+	@Autowired
+	private IUserService userService;
+
+	
+
+	@Override
+	public WalletEntity addWalletBalance(Long userId, String orderInfo, double amount) {
+		UserEntity userEntity = userService.find
+		
+		return null;
+	}
+}

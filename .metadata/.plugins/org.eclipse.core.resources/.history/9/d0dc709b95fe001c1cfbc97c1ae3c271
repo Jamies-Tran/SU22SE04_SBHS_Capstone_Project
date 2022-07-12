@@ -1,0 +1,7 @@
+package com.swm.service;
+
+import com.swm.entity.WalletEntity;
+
+public interface IWalletService {
+	WalletEntity addWalletBalance(Long userId, double amount);
+}

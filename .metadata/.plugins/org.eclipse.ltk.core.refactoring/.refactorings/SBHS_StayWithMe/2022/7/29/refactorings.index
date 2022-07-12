@@ -1,0 +1,22 @@
+1657450905589	Delete element
+1657450926908	Rename type 'TestController'
+1657450950793	Rename type 'WalletController'
+1657454227927	Rename type 'IWalletService'
+1657454253395	Rename type 'WalletService'
+1657510027389	Rename type 'BookingDto'
+1657510399174	Rename method 'entityConverter'
+1657511049854	Rename local variable 'toEntity'
+1657523936914	Rename local variable 'avatar'
+1657525000387	Rename local variable 'passengerEntity'
+1657525041147	Rename method 'userDtoConvert'
+1657525056201	Rename local variable 'toDto'
+1657525120154	Delete element
+1657525143572	Rename type 'AccountDto'
+1657526143023	Rename local variable 'user'
+1657526186316	Rename local variable 'user'
+1657526529083	Rename local variable 'role'
+1657526561107	Rename method 'dtoConverter'
+1657526568261	Rename method 'roleEntityConverter'
+1657527256618	Rename local variable 'user'
+1657531039848	Rename type 'UserDisableException'
+1657628121378	Delete element

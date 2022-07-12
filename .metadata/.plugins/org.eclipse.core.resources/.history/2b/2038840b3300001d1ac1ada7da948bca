@@ -1,0 +1,42 @@
+# db connection
+spring.datasource.driver-class-name = com.microsoft.sqlserver.jdbc.SQLServerDriver
+spring.datasource.url = jdbc:sqlserver://localhost;databaseName=staywithmeDb;encrypt=true;trustServerCertificate=true;
+spring.datasource.username = minhtq2197
+spring.datasource.password = minhkgd997
+
+# data jpa
+#spring.jpa.show-sql = true
+spring.jpa.hibernate.ddl-auto = update
+spring.jpa.properties.hibernate.format_sql = true
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.SQLServer2012Dialect
+
+# server
+server.port = 8080
+server.error.include-message = always
+
+# security
+logging.level.org.springframework.security = debug
+
+# jwt
+jwt.config.secret-key = 0u2liugwctj7ohtsrn02f4ybktjdv72b6ysenvb9
+jwt.config.expired-time = 31104000
+
+# mail
+spring.mail.host = smtp.gmail.com
+spring.mail.port = 587
+spring.mail.username = brokenstar2197@gmail.com
+spring.mail.password = qftwxqwwuvoudygb
+spring.mail.properties.mail.smtp.auth = true
+spring.mail.properties.mail.smtp.starttls.enable = true
+
+#Cross orgin config
+allowed.origin.staywithme = http://localhost:4200
+allowed.origin.momo = https://test-payment.momo.vn
+
+# Momo config
+momo.partner.code = MOMO3I0H20220705
+momo.access.key = jaRcr7hDRUVLMTpB
+momo.secret.key = FasheySTHkkRHFUBf3a1Zm46He5voo9P
+url.momo.api =  https://test-payment.momo.vn/v2/gateway/api/create
+url.redirect = http://localhost:8080/momo/redirect
+url.ipn = http://localhost:8080/api/wallet/payment

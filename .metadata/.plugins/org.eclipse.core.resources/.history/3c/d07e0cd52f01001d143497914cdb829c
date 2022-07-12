@@ -1,0 +1,46 @@
+package com.swm.serviceImpl;
+
+import java.io.UnsupportedEncodingException;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+
+import com.swm.entity.UserEntity;
+import com.swm.service.ISendMailService;
+import com.swm.service.IUserService;
+
+@Service
+public class SendMailService implements ISendMailService {
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	@Autowired
+	@Lazy
+	private IUserService userService;
+	
+	
+	@Override
+	public void confirmLandlordAccountRequest(String landlordName, String adminName, String message, String subject, boolean isHtml) throws MessagingException, UnsupportedEncodingException {
+		UserEntity adminUser = userService.findUserByUsername(adminName);
+		UserEntity landlordUser = userService.findUserByUsername(landlordName);
+		String adminEmail = adminUser.getEmail();
+		String landlordEmail = landlordUser.getEmail();
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+		System.out.println(adminEmail);
+		helper.setFrom(adminEmail, "Admin support");
+		helper.setTo(landlordEmail);
+		helper.setSubject(subject);
+		helper.setText(message, isHtml);
+		mailSender.send(mimeMessage);
+		
+	}
+
+}

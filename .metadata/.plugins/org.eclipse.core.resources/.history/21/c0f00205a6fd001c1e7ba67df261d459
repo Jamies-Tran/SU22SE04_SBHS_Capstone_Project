@@ -1,0 +1,5 @@
+package com.swm.dto;
+
+public class MomoMessageResponseDto {
+
+}

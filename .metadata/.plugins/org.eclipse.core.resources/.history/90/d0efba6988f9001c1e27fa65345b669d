@@ -1,0 +1,24 @@
+package com.swm.service;
+
+import java.util.List;
+
+import com.swm.entity.HomestayPostingRequestEntity;
+import com.swm.entity.LandlordAccountRequestEntity;
+import com.swm.entity.RequestEntity;
+
+public interface IRequestService {
+	
+	// landlord request 
+	
+	RequestEntity createLandlordAccountRequest(Long requestId);
+	
+	RequestEntity createHomestayPostingRequest(Long requestId);
+	
+	LandlordAccountRequestEntity findLandlordAccountRequestById(Long requestId);
+	
+	HomestayPostingRequestEntity findHomestayPostingRequest(Long requestId);
+	
+	RequestEntity verifyLandlordAccountRequestId(Long requestId, boolean isAccepted);
+	
+	List<RequestEntity> findAllRequest();
+}

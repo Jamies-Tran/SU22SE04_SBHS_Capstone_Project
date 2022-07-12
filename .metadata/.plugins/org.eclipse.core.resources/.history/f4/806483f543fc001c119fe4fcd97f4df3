@@ -1,0 +1,92 @@
+package com.swm.serviceImpl;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.exception.ResourceNotFoundException;
+import com.swm.repository.IHomestayAftercarerRepository;
+import com.swm.service.IAuthenticationService;
+import com.swm.service.IHomestayAftercareService;
+import com.swm.service.IHomestayService;
+
+@Service
+public class HomestayAftercareService implements IHomestayAftercareService {
+
+	@Autowired
+	private IHomestayAftercarerRepository homestayServiceRepo;
+
+	@Autowired
+	@Lazy
+	private IHomestayService homestayService;
+	
+	@Autowired
+	private IAuthenticationService authenticationService;
+	
+	private Date currentDate = new Date();
+
+	@Override
+	public HomestayAftercareEntity findHomestayServiceByName(String name) {
+		HomestayAftercareEntity homestayServiceEntity = homestayServiceRepo.findHomestayServiceByName(name)
+				.orElseThrow(() -> new ResourceNotFoundException(name, "Homestay not found"));
+		
+		return homestayServiceEntity;
+	}
+
+	@Transactional
+	@Override
+	public HomestayEntity updateHomestayServiceById(String homestayName, Long serviceId, HomestayAftercareEntity newHomestayService) {
+		HomestayEntity homestayEntity = homestayService.findHomestayByName(homestayName);
+		List<HomestayAftercareEntity> homestayServiceList = homestayEntity.getHomestayService();
+		homestayServiceList.forEach(s -> {
+			if(s.getId().equals(serviceId)) {
+				s.setModifiedBy(authenticationService.getAuthenticatedUser().getUsername());
+				s.setModifiedDate(currentDate);
+				s.setServiceName(newHomestayService.getServiceName());
+				s.setPrice(newHomestayService.getPrice());
+			}
+		});
+		return homestayEntity;
+	}
+
+	@Override
+	public HomestayAftercareEntity deleteAllHomestayServiceById(List<Integer> currentHomestayServiceIdList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HomestayAftercareEntity deleteHomestayServiceById(Long Id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Transactional
+	@Override
+	public HomestayEntity addNewHomestayService(String homestayName, String serviceName, double price) {
+		HomestayEntity homestayEntity = homestayService.findHomestayByName(homestayName);
+		HomestayAftercareEntity homestayServiceEntity = new HomestayAftercareEntity(serviceName, price, homestayEntity);
+		homestayServiceEntity.setCreatedBy(authenticationService.getAuthenticatedUser().getUsername());
+		homestayServiceEntity.setCreatedDate(currentDate);
+		homestayEntity.getHomestayService().add(homestayServiceEntity);
+		
+		return homestayEntity;
+	}
+
+	@Transactional
+	@Override
+	public HomestayEntity addNewHomestayServiceList(String homestayName, List<HomestayAftercareEntity> newHomestayServiceList) {
+		HomestayEntity homestayEntity = homestayService.findHomestayByName(homestayName);
+		homestayEntity.getHomestayService().addAll(newHomestayServiceList);
+		
+		return homestayEntity;
+	}
+
+}

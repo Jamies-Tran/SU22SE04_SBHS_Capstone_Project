@@ -1,0 +1,17 @@
+package com.swm.service;
+
+import java.lang.StackWalker.Option;
+import java.util.List;
+
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayEntity;
+
+public interface IHomestayAftercareService {
+	Option<HomestayAftercareEntity> findHomestayServiceByName(String name);
+	
+	HomestayAftercareEntity updateHomestayServiceById(Long homestayId, HomestayEntity newHomestayService);
+	
+	HomestayAftercareEntity deleteAllHomestayServiceById(List<Integer> currentHomestayServiceIdList);
+	
+	HomestayAftercareEntity deleteHomestayServiceById(Long Id);
+}

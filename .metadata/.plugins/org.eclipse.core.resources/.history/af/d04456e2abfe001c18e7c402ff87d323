@@ -1,0 +1,10 @@
+package com.swm.converter;
+
+import org.springframework.stereotype.Component;
+
+import com.swm.entity.MomoOrderProcessEntity;
+
+@Component
+public class MomoProcessOrderConverter {
+//	public MomoOrderProcessEntity
+}

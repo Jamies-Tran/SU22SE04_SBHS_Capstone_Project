@@ -1,0 +1,34 @@
+# db connection
+spring.datasource.driver-class-name = com.microsoft.sqlserver.jdbc.SQLServerDriver
+spring.datasource.url = jdbc:sqlserver://localhost;databaseName=staywithmeDb;encrypt=true;trustServerCertificate=true;
+spring.datasource.username = minhtq2197
+spring.datasource.password = minhkgd997
+
+# data jpa
+spring.jpa.show-sql = false
+#spring.jpa.hibernate.ddl-auto = update
+spring.jpa.hibernate.ddl-auto = create
+spring.jpa.properties.hibernate.format_sql = true
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.SQLServer2012Dialect
+
+# server
+server.port = 8080
+server.error.include-message = always
+
+# security
+logging.level.org.springframework.security = debug
+
+# jwt
+jwt.config.secret-key = 0u2liugwctj7ohtsrn02f4ybktjdv72b6ysenvb9
+jwt.config.expired-time = 31104000
+
+# mail
+spring.mail.host = smtp.gmail.com
+spring.mail.port = 587
+spring.mail.username = brokenstar2197@gmail.com
+spring.mail.password = qftwxqwwuvoudygb
+spring.mail.properties.mail.smtp.auth = true
+spring.mail.properties.mail.smtp.starttls.enable = true
+
+#Cross orgin config
+allowed.origin = http://localhost/4200

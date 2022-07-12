@@ -1,0 +1,49 @@
+package com.swm.entity;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "avatar")
+@NoArgsConstructor
+@Getter
+public class AvatarEntity extends BaseEntity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@SequenceGenerator(name = "avatar_sequence", sequenceName = "avatar_sequence", initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "avatar_sequence")
+	private Long Id;
+	
+	@Setter
+	private String url;
+	
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "owner_id", referencedColumnName = "Id")
+	@Setter
+	private UserEntity poster;
+
+	public AvatarEntity(String url, Date createdDate, UserEntity poster) {
+		super();
+		this.url = url;
+		this.createdDate = createdDate;
+		this.poster = poster;
+	}
+	
+}

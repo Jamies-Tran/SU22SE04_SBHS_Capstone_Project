@@ -1,0 +1,9 @@
+package com.swm.service;
+
+import com.swm.entity.RoleEntity;
+
+public interface IRoleService {
+	RoleEntity findRoleByName(String name);
+	
+	RoleEntity createRole(RoleEntity role);
+}

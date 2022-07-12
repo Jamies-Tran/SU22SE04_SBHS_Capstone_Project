@@ -1,0 +1,59 @@
+package com.swm.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "request")
+@NoArgsConstructor
+@Getter
+public class RequestEntity extends BaseEntity {
+
+	@Id
+	@SequenceGenerator(name = "request_sequence", sequenceName = "request_sequence", initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "request_sequence")
+	@Setter
+	private Long Id;
+
+	@Setter
+	private String approvedBy;
+
+	@OneToOne(mappedBy = "landlordRequestType", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	@Setter
+	private LandlordAccountRequestEntity landlordRequest;
+
+	@OneToOne(mappedBy = "updateBookingRequestType", cascade = { CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.REMOVE, CascadeType.PERSIST })
+	@Setter
+	private UpdateBookingRequestEntity updateBookingRequest;
+
+	@OneToOne(mappedBy = "bookingRequestType", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE,
+			CascadeType.PERSIST })
+	@Setter
+	private BookingRequestEntity bookingRequest;
+
+	@OneToOne(mappedBy = "homestayRequestType", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE,
+			CascadeType.PERSIST })
+	@Setter
+	private HomestayPostingRequestEntity homestayRequest;
+	
+	@Column(nullable = false)
+	@Setter
+	private String status;
+	
+	@Column(nullable = false)
+	@Setter
+	private String type;
+}

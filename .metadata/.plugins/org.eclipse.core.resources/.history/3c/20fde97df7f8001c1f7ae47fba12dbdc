@@ -1,0 +1,53 @@
+package com.swm.controller;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.swm.converter.HomestayConverter;
+import com.swm.dto.HomestayDto;
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.entity.HomestayFacilityEntity;
+import com.swm.entity.HomestayImageEntity;
+import com.swm.entity.HomestayLicenseImageEntity;
+import com.swm.serviceImpl.HomestayService;
+
+
+
+@RestController
+@RequestMapping("/api/homestay")
+public class HomestayController {
+	@Autowired
+	private HomestayService homestayService;
+
+	@Autowired
+	private HomestayConverter homestayConvert;
+
+	@PostMapping("/request")
+	@PreAuthorize("hasRole('ROLE_LANDLORD')")
+	public ResponseEntity<?> requestPostingHomestay(@RequestBody HomestayDto homestayDto) {
+		HomestayEntity homestayEntity = homestayConvert.homestayEntityConvert(homestayDto);
+		HomestayLicenseImageEntity homestayLicense = homestayConvert
+				.homestayLicenseEntityConvert(homestayDto.getHomestayLicense());
+		List<HomestayImageEntity> homestayImageList = homestayDto.getHomestayImages().stream()
+				.map(img -> homestayConvert.homestayImageEntityConvert(img)).collect(Collectors.toList());
+		List<HomestayAftercareEntity> homestayServiceList = homestayDto.getHomestayServices().stream()
+				.map(srv -> homestayConvert.homestayAftercareEntityConvert(srv)).collect(Collectors.toList());
+		List<HomestayFacilityEntity> homestayFacilityList = homestayDto.getHomestayFacilities().stream()
+				.map(fct -> homestayConvert.homestayFacilityEntityConvert(fct)).collect(Collectors.toList());
+		HomestayEntity homestayRequested = homestayService.createHomestay(homestayEntity, homestayLicense,
+				homestayImageList, homestayServiceList, homestayFacilityList);
+		HomestayDto homestayResponse = homestayConvert.homestayDtoConvert(homestayRequested);
+		
+		return new ResponseEntity<>(homestayResponse, HttpStatus.CREATED);
+	}
+}

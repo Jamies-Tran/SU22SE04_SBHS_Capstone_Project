@@ -1,0 +1,6 @@
+package com.swm.dto;
+
+public class HomestayLicenseDto {
+	private Long Id;
+	private String url;
+}

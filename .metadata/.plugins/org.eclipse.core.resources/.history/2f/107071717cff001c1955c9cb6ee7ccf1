@@ -1,0 +1,25 @@
+package com.swm.converter;
+
+import org.springframework.stereotype.Component;
+
+import com.swm.dto.MomoOrderProcessDto;
+import com.swm.entity.MomoOrderProcessEntity;
+
+@Component
+public class MomoOrderProcessConverter {
+	public MomoOrderProcessEntity momoOrderProcessToEntity(MomoOrderProcessDto momoOrderProcessDto) {
+		MomoOrderProcessEntity momoOrderProcessEntity = new MomoOrderProcessEntity();
+		momoOrderProcessEntity.setPartnerCode(momoOrderProcessDto.getPartnerCode());
+		momoOrderProcessEntity.setAccessKey(momoOrderProcessDto.getAccessKey());
+		momoOrderProcessEntity.setAmount(momoOrderProcessDto.getAmount());
+		momoOrderProcessEntity.setExtraData(momoOrderProcessDto.getIpnUrl());
+		momoOrderProcessEntity.setOrderId(momoOrderProcessDto.getOrderId());
+		momoOrderProcessEntity.setOrderInfo(momoOrderProcessDto.getOrderInfo());
+		momoOrderProcessEntity.setPartnerCode(momoOrderProcessDto.getPartnerCode());
+		momoOrderProcessEntity.setRedirectUrl(momoOrderProcessDto.getRedirectUrl());
+		momoOrderProcessEntity.setRequestId(momoOrderProcessDto.getRequestId());
+		momoOrderProcessEntity.setRequestType(momoOrderProcessDto.getRequestType());
+		
+		return momoOrderProcessEntity;
+	}
+}

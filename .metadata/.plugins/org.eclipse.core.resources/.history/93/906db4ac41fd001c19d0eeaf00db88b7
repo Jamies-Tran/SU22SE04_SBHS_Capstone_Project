@@ -1,0 +1,32 @@
+package com.swm.serviceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.swm.entity.UserEntity;
+import com.swm.entity.WalletEntity;
+import com.swm.exception.ResourceNotFoundException;
+import com.swm.repository.IWalletRepository;
+import com.swm.service.IUserService;
+import com.swm.service.IWalletService;
+
+public class WalletService implements IWalletService {
+	@Autowired
+	private IWalletRepository walletRepo;
+	
+	@Autowired
+	private IUserService userService;
+
+	
+
+	@Override
+	public WalletEntity addWalletBalance(Long userId, String orderInfo, double amount) {
+		UserEntity userEntity = userService.findUserById(userId);
+		if(userEntity.getLandlord() == null) {
+			throw new ResourceNotFoundException("This is not landlord account");
+		}
+		WalletEntity walletEntity = userEntity.getLandlord().getWallet();
+		walletEntity.setBalance(amount);
+		
+		return null;
+	}
+}

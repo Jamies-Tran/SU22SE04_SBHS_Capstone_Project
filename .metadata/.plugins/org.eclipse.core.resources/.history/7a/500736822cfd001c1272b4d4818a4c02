@@ -1,0 +1,5 @@
+package com.swm.security.config;
+
+public class SHA256Generator {
+
+}

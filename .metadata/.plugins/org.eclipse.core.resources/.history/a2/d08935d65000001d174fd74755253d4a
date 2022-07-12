@@ -1,0 +1,10 @@
+package com.swm.service;
+
+import java.util.Date;
+import java.util.List;
+
+import com.swm.entity.BookingEntity;
+
+public interface IBookingService {
+	BookingEntity createBooking(String passengerName, String homestayName, List<String> serviceName, Date checkIn, Date checkOut);
+}

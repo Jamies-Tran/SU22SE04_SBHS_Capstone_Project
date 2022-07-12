@@ -1,0 +1,10 @@
+package com.swm.service;
+
+import com.swm.entity.MomoOrderProcessEntity;
+import com.swm.entity.WalletEntity;
+
+public interface IWalletService {
+	WalletEntity addWalletBalance(Long userId, MomoOrderProcessEntity momoProcess);
+	
+	
+}

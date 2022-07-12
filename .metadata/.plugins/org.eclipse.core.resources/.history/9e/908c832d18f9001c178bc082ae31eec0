@@ -1,0 +1,7 @@
+package com.swm.service;
+
+import javax.mail.MessagingException;
+
+public interface ISendMailService {
+	void confirmLandlordAccountRequest(String userEmail) throws MessagingException;
+}

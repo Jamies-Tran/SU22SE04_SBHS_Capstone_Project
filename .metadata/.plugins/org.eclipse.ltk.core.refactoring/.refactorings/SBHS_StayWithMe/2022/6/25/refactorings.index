@@ -1,0 +1,6 @@
+1655020601416	Rename type 'Wallet'
+1655279373537	Rename type 'UserOtp'
+1655374366665	Rename type 'IBookingEntity'
+1655386442943	Rename type 'HomestayServiceEntity'
+1655386651143	Rename type 'IPromotionEntity'
+1655387190655	Rename type 'RoleRepository'

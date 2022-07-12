@@ -1,0 +1,50 @@
+package com.swm.serviceImpl;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+
+import com.swm.entity.BookingEntity;
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.entity.PassengerEntity;
+import com.swm.entity.UserEntity;
+import com.swm.repository.IBookingRepository;
+import com.swm.service.IBookingService;
+import com.swm.service.IHomestayAftercareService;
+import com.swm.service.IHomestayService;
+import com.swm.service.IUserService;
+
+public class BookingService implements IBookingService {
+
+	@Autowired
+	private IBookingRepository bookingRepo;
+	
+	@Autowired
+	private IHomestayAftercareService homestayAftercareService;
+	
+	@Autowired
+	@Lazy
+	private IUserService userServcie;
+	
+	@Autowired
+	@Lazy
+	private IHomestayService homestayService;
+	
+	@Override
+	public BookingEntity createBooking(String passengerName, String homestayName, List<String> serviceNameList,
+			Date checkIn, Date checkOut) {
+		BookingEntity bookingEntity = new BookingEntity();
+		UserEntity userEntity = userServcie.findUserByUsername(passengerName);
+		PassengerEntity passengerEntity = userEntity.getPassenger();
+		passengerEntity.setBooking(List.of(bookingEntity));
+		HomestayEntity homestayEntity = homestayService.findHomestayByName(homestayName);
+		homestayEntity.setBooking(List.of(bookingEntity));
+		List<HomestayAftercareEntity> homestayServicesList = serviceName
+		
+		return null;
+	}
+
+}

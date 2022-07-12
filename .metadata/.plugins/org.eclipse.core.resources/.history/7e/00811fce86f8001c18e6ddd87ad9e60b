@@ -1,0 +1,17 @@
+package com.swm.converter;
+
+import org.springframework.stereotype.Component;
+
+import com.swm.dto.HomestayAftercareDto;
+import com.swm.entity.HomestayAftercareEntity;
+
+@Component
+public class HomestayAftercareConverter {
+	public HomestayAftercareEntity homestayAftercareEntityConvert(HomestayAftercareDto homestayAftercareDto) {
+		HomestayAftercareEntity homestayAftercareEntity = new HomestayAftercareEntity();
+		homestayAftercareEntity.setServiceName(homestayAftercareDto.getName());
+		homestayAftercareEntity.setPrice(homestayAftercareDto.getPrice());
+		
+		return homestayAftercareEntity;
+	}
+}

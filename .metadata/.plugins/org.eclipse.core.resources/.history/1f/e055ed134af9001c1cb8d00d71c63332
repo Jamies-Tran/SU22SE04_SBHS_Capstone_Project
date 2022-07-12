@@ -1,0 +1,129 @@
+package com.swm.serviceImpl;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import com.swm.entity.HomestayPostingRequestEntity;
+import com.swm.entity.LandlordAccountRequestEntity;
+import com.swm.entity.RequestEntity;
+import com.swm.enums.RequestStatus;
+import com.swm.enums.RequestType;
+import com.swm.enums.UserStatus;
+import com.swm.exception.ResourceNotFoundException;
+import com.swm.repository.IHomestayPostingRequestRepository;
+import com.swm.repository.ILandlordAccountRequestRepository;
+import com.swm.repository.IUserRequestRepository;
+import com.swm.service.IRequestService;
+import com.swm.service.ISendMailService;
+
+@Service
+public class RequestService implements IRequestService {
+
+	@Autowired
+	private IUserRequestRepository requestRepo;
+
+	@Autowired
+	private ILandlordAccountRequestRepository landlordAccountRequesRepo;
+
+	@Autowired
+	private IHomestayPostingRequestRepository homestayPostingRequestRepo;
+	
+	@Autowired
+	private ISendMailService sendMailService;
+
+	private Date currentDate = new Date();
+
+	@Override
+	public RequestEntity createLandlordAccountRequest(Long requestId) {
+		RequestEntity requestEntity = new RequestEntity();
+		LandlordAccountRequestEntity landlordAccountRequest = landlordAccountRequesRepo.findById(requestId)
+				.orElseThrow(() -> new ResourceNotFoundException(requestId.toString(), "request id not found"));
+		requestEntity.setLandlordRequest(landlordAccountRequest);
+		requestEntity.setCreatedBy(landlordAccountRequest.getCreatedBy());
+		requestEntity.setCreatedDate(landlordAccountRequest.getCreatedDate());
+		requestEntity.setType(RequestType.LANDLORD_CREATING_REQUEST.name());
+		requestEntity.setStatus(RequestStatus.PENDING.name());
+
+		landlordAccountRequest.setLandlordRequestType(requestEntity);
+
+		RequestEntity requestPersisted = requestRepo.save(requestEntity);
+		return requestPersisted;
+	}
+
+	@Override
+	public LandlordAccountRequestEntity findLandlordAccountRequestById(Long requestId) {
+		RequestEntity request = requestRepo.findById(requestId)
+				.orElseThrow(() -> new ResourceNotFoundException(requestId.toString(), "Request id not found"));
+
+		return request.getLandlordRequest();
+	}
+
+	@Override
+	@Transactional
+	public RequestEntity verifyLandlordAccountRequestId(Long requestId, boolean isAccepted) {
+
+		LandlordAccountRequestEntity landlordAccountRequest = this.findLandlordAccountRequestById(requestId);
+		RequestEntity request = landlordAccountRequest.getLandlordRequestType();
+		UserDetails approvedBy = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String landlordName = landlordAccountRequest.getAccountRequesting().getLandlordAccount().getUsername();
+		String adminName = approvedBy.getUsername();
+		if (isAccepted) {
+			request.setApprovedBy(approvedBy.getUsername());
+			request.setModifiedBy(approvedBy.getUsername());
+			request.setModifiedDate(currentDate);
+			request.setStatus(RequestStatus.ACCEPT.name());
+			landlordAccountRequest.getAccountRequesting().getLandlordAccount().setStatus(UserStatus.ACTIVE.name());
+		} else {
+			request.setModifiedBy(approvedBy.getUsername());
+			request.setModifiedDate(currentDate);
+			request.setStatus(RequestStatus.REJECT.name());
+		}
+		
+		try {
+			sendMailService.confirmLandlordAccountRequest(landlordName, adminName, isAccepted);
+		} catch (MessagingException e) {
+		
+			e.printStackTrace();
+		}
+
+		return request;
+	}
+
+	@Override
+	public List<RequestEntity> findAllRequest() {
+		List<RequestEntity> requestList = requestRepo.findAll();
+
+		return requestList;
+	}
+
+	@Override
+	public RequestEntity createHomestayPostingRequest(Long requestId) {
+		HomestayPostingRequestEntity homestayPostingRequest = this.findHomestayPostingRequest(requestId);
+		RequestEntity request = new RequestEntity();
+		request.setCreatedBy(homestayPostingRequest.getCreatedBy());
+		request.setCreatedDate(currentDate);
+		request.setType(RequestType.HOMESTAY_POSTING_REQUEST.name());
+		request.setStatus(RequestStatus.PENDING.name());
+		request.setHomestayPostingRequest(homestayPostingRequest);
+		homestayPostingRequest.setHomestayRequestType(request);
+		
+		return request;
+	}
+
+	@Override
+	public HomestayPostingRequestEntity findHomestayPostingRequest(Long requestId) {
+		HomestayPostingRequestEntity homestayPostingRequest = homestayPostingRequestRepo.findById(requestId)
+				.orElseThrow(() -> new ResourceNotFoundException(requestId.toString(), "Request not found"));
+		
+		return homestayPostingRequest;
+	}
+
+}
