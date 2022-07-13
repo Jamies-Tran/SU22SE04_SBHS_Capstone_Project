@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: LandlordComponent,
     children: [
-      { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },
+
       { path: 'Dashboard', component: DashboardComponent },
       { path: 'RegisterHomestay', component: RegisterHomestayComponent },
     ],

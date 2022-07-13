@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { FormsModule } from '@angular/forms';
 import { LandlordComponent } from './landlord/landlord.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,6 +17,7 @@ import { LandlordComponent } from './landlord/landlord.component';
     RegisterComponent,
     WelcomeComponent,
     LandlordComponent,
+    ForgetPasswordComponent,
 
   ],
   imports: [
