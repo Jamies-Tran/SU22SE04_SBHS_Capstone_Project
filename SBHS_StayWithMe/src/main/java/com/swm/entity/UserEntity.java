@@ -74,6 +74,10 @@ public class UserEntity extends BaseEntity {
 	@Setter
 	private String status;
 	
+	@Column
+	@Setter
+	private Boolean passwordChangable = false;
+	
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "Id"),
 		inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "Id"))
@@ -86,7 +90,7 @@ public class UserEntity extends BaseEntity {
 	@Setter
 	private AvatarEntity avatar;
 	
-	@OneToOne(mappedBy = "otpOwner",cascade = {CascadeType.PERSIST ,CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@OneToOne(mappedBy = "otpOwner",cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@Setter
 	private UserOtpEntity userOtp;
 	

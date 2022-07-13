@@ -14,19 +14,17 @@ import org.springframework.stereotype.Component;
 import com.swm.entity.UserEntity;
 import com.swm.enums.AccountRole;
 import com.swm.enums.UserStatus;
-import com.swm.exception.UsernamePasswordNotCorrectException;
-import com.swm.repository.IUserRepository;
+import com.swm.service.IUserService;
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private IUserRepository userRepo;
+	private IUserService userService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity user = this.userRepo.findUserByUsername(username)
-				.orElseThrow(() -> new UsernamePasswordNotCorrectException("username not correct."));
+		UserEntity user = this.userService.findUserByUserInfo(username);
 		Set<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>();
 		user.getRoles().forEach(r -> {
 			authorities.addAll(AccountRole.valueOf(r.getName()).getAuthorities());

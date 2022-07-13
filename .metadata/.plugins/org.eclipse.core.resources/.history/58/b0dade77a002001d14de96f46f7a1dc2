@@ -1,0 +1,5 @@
+package com.swm.service;
+
+public interface ISendMailService {
+	void sendMail(String landlordName, String message, String subject);
+}

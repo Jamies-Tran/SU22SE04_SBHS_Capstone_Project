@@ -60,7 +60,7 @@ public class HomestayService implements IHomestayService {
 
 	@Override
 	public HomestayEntity deleteHomestayById(Long Id) {
-		UserEntity userEntity = userService.findUserByUsername(authenticationService.getAuthenticatedUser().getUsername());
+		UserEntity userEntity = userService.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
 		
 		HomestayEntity homestayEntity = homestayRepo.findById(Id)
 				.orElseThrow(() -> new ResourceNotFoundException(Id.toString(), "Homestay id not found"));
@@ -103,7 +103,7 @@ public class HomestayService implements IHomestayService {
 			fct.setCreatedBy(accountPoster);
 		});
 		homestay.setFacilities(homestayFacilities);
-		UserEntity userEntity = userService.findUserByUsername(accountPoster);
+		UserEntity userEntity = userService.findUserByUserInfo(accountPoster);
 		LandlordEntity landlordEntity = userEntity.getLandlord();
 		if (landlordEntity.getWallet().getBalance() < 1000) {
 			throw new NotEnoughBalanceException("Your wallet doesn't have enough balance");

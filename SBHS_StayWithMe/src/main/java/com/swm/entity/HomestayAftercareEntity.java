@@ -40,7 +40,7 @@ public class HomestayAftercareEntity extends BaseEntity {
 	private String serviceName;
 	
 	@Setter
-	private long price;
+	private Long price;
 	
 	// homestay_service properties - end
 	

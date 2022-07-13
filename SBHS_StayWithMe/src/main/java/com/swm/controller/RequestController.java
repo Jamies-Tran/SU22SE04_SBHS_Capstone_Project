@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.RequestConverter;
 import com.swm.dto.RequestDto;
-import com.swm.dto.VerifyRequestDto;
+import com.swm.dto.ConfirmRequestDto;
 import com.swm.entity.BaseRequestEntity;
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.LandlordAccountRequestEntity;
@@ -36,8 +36,8 @@ public class RequestController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> getRequestList() {
 		List<HomestayPostingRequestEntity> requestEntityList = requestService.findAllHomestayPostingRequest();
-		List<RequestDto> requestDtoList = requestEntityList.stream().map(r -> requestConvert.homestayPostinRequestDtoConvert(r))
-				.collect(Collectors.toList());
+		List<RequestDto> requestDtoList = requestEntityList.stream()
+				.map(r -> requestConvert.homestayPostinRequestDtoConvert(r)).collect(Collectors.toList());
 
 		return new ResponseEntity<>(requestDtoList, HttpStatus.OK);
 	}
@@ -46,31 +46,31 @@ public class RequestController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> getRequestListByType() {
 		List<LandlordAccountRequestEntity> requestEntityList = requestService.findAllLandlordAccountRequest();
-		List<RequestDto> requestDtoList = requestEntityList.stream().map(r -> requestConvert.landlordAccountRequestDtoConvert(r))
-				.collect(Collectors.toList());
-		
+		List<RequestDto> requestDtoList = requestEntityList.stream()
+				.map(r -> requestConvert.landlordAccountRequestDtoConvert(r)).collect(Collectors.toList());
+
 		return new ResponseEntity<>(requestDtoList, HttpStatus.OK);
 
 	}
 
 	@PatchMapping("/verification/landlord/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> verifyLandlordAccountRequest(@PathVariable("Id") Long Id, @RequestBody VerifyRequestDto verifyRequest) {
-		BaseRequestEntity requestEntity = requestService.verifyLandlordAccountRequestById(Id, verifyRequest.getIsAccepted());
+	public ResponseEntity<?> verifyLandlordAccountRequest(@PathVariable("Id") Long Id, @RequestBody ConfirmRequestDto confirmRequest) {
+		BaseRequestEntity requestEntity = requestService.verifyLandlordAccountRequestById(Id, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
 		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity);
 
 		return new ResponseEntity<>(requestResponse, HttpStatus.ACCEPTED);
 	}
-	
+
 	@PatchMapping("/verification/homestay/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> verifyRequest(@PathVariable("Id") Long Id, @RequestBody VerifyRequestDto verifyRequest) {
-		BaseRequestEntity requestEntity = requestService.verifyHomestayPostinRequest(Id, verifyRequest.getIsAccepted());
+	public ResponseEntity<?> verifyRequest(@PathVariable("Id") Long Id, @RequestBody ConfirmRequestDto confirmRequest) {
+		BaseRequestEntity requestEntity = requestService.verifyHomestayPostinRequest(Id, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
 		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity);
 
 		return new ResponseEntity<>(requestResponse, HttpStatus.ACCEPTED);
 	}
-	
+
 	@GetMapping("/homestay/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> verifyRequest(@PathVariable("Id") Long Id) {

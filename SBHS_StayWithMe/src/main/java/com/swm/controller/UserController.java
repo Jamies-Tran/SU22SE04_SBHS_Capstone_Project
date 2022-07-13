@@ -19,9 +19,11 @@ import com.swm.dto.AuthenticationDto;
 import com.swm.dto.LandlordDto;
 import com.swm.dto.LoginSuccessResponseDto;
 import com.swm.dto.PassengerDto;
+import com.swm.dto.PasswordModificationDto;
 import com.swm.dto.UserDto;
 import com.swm.dto.UserOtpDto;
 import com.swm.entity.UserEntity;
+import com.swm.entity.UserOtpEntity;
 import com.swm.security.token.JwtTokenUtil;
 import com.swm.service.IAuthenticationService;
 import com.swm.service.IUserService;
@@ -38,68 +40,76 @@ public class UserController {
 
 	@Autowired
 	private JwtTokenUtil jwtUtil;
-	
-	
+
 	@Autowired
 	private IAuthenticationService authenticationService;
-
 
 	@PostMapping("/register/passenger")
 	public ResponseEntity<?> createPassengerAccount(@RequestBody PassengerDto userDto) {
 		UserEntity userEntity = userConvert.passengerEntityConvert(userDto);
 		UserEntity userPersisted = userService.createPassengerUser(userEntity);
 		UserDto userResponse = userConvert.userResponseDtoConvert(userPersisted);
-		
+
 		return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
 	}
-	
-	
+
 	@PostMapping("/register/landlord")
 	public ResponseEntity<?> createLandlordAccount(@RequestBody LandlordDto userDto) {
 		UserEntity userEntity = userConvert.landlordEntityConvert(userDto);
 		String citizenIdentificationUrl = userDto.getCitizenIdentificationUrl();
 		UserEntity userPersisted = userService.createLandlordUser(userEntity, citizenIdentificationUrl);
 		UserDto userResponse = userConvert.userResponseDtoConvert(userPersisted);
-		
+
 		return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
 	}
-	
+
 	@PostMapping("/register/admin")
 	public ResponseEntity<?> createAdminAccount(@RequestBody AdminDto adminDto) {
 		UserEntity userEntity = userConvert.AdminEntityConvert(adminDto);
 		UserEntity userPersisted = userService.createAdminUser(userEntity);
 		UserDto userResponse = userConvert.userResponseDtoConvert(userPersisted);
-		
+
 		return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
 	}
-	
-	@PostMapping("/login/web")
+
+	@PostMapping("/login")
 	public ResponseEntity<?> webAccountLogin(@RequestBody AuthenticationDto userLogin) {
-		UserDetails userDetails = authenticationService.loginAuthentication(userLogin.getUsername(), userLogin.getPassword());
-		
-		
+		UserDetails userDetails = authenticationService.loginAuthentication(userLogin.getUsername(),
+				userLogin.getPassword());
+
 		String token = jwtUtil.generateJwtTokenString(userDetails.getUsername());
-		return new ResponseEntity<>(new LoginSuccessResponseDto(userDetails.getUsername(), new Date(), token, userDetails.getAuthorities()), HttpStatus.OK);
-		
+		return new ResponseEntity<>(
+				new LoginSuccessResponseDto(userDetails.getUsername(), new Date(), token, userDetails.getAuthorities()),
+				HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("/otp/{userInfo}")
 	public ResponseEntity<?> createForgetPasswordOtp(@PathVariable("userInfo") String userInfo) {
-		userService.createUserOtpByUserInfo(userInfo);
-		
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		UserOtpEntity userOtpEntity = userService.createUserOtpByUserInfo(userInfo);
+		UserEntity userEntity = userOtpEntity.getOtpOwner();
+		UserDto userResponseDto = userConvert.userResponseDtoConvert(userEntity);
+
+		return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
 	}
-	
-	@PostMapping("/otp/confirm")
+
+	@PostMapping("/otp/confirmation")
 	public ResponseEntity<?> confirmUserOtpForgetPassword(@RequestBody UserOtpDto userOtpDto) {
 		boolean isOtpCorrect = userService.checkUserOtp(userOtpDto.getUserInfo(), userOtpDto.getUserOtp());
-		if(isOtpCorrect) {
+		if (isOtpCorrect) {
 			return new ResponseEntity<>(HttpStatus.ACCEPTED);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
+	@PostMapping("/password/modification")
+	public ResponseEntity<?> changeUserPassword(@RequestBody PasswordModificationDto passwordModificationDto) {
+		UserEntity userEntity = userService.changePassword(passwordModificationDto.getUserInfo(),
+				passwordModificationDto.getNewPassword());
+		UserDto userResponseDto = userConvert.userResponseDtoConvert(userEntity);
+		
+		return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
+	}
+
 }
-
-

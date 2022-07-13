@@ -1,12 +1,12 @@
 package com.swm.serviceImpl;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
-import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -24,6 +24,7 @@ import com.swm.enums.RequestStatus;
 import com.swm.enums.RequestType;
 import com.swm.enums.UserStatus;
 import com.swm.exception.DuplicateResourceException;
+import com.swm.exception.ResourceNotAllowException;
 import com.swm.exception.ResourceNotFoundException;
 import com.swm.repository.IUserOtpRepository;
 import com.swm.repository.IUserRepository;
@@ -37,21 +38,33 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private IUserRepository userRepo;
-	
+
 	@Autowired
 	private IUserOtpRepository userOtpRepo;
-	
+
 	@Autowired
 	private ISendMailService sendMailService;
+	
+	@Autowired
+	@Lazy
+	private PasswordEncoder passwordEncoder;
+	
+	private final String sendOtpToUserSubject = "Change password OTP";
 
 	private Date currentDate = new Date();
 
 	@Override
-	public UserEntity findUserByUsername(String username) {
-		UserEntity user = userRepo.findUserByUsername(username)
-				.orElseThrow(() -> new UsernameNotFoundException("Username not found."));
+	public UserEntity findUserByUserInfo(String userInfo) {
+		UserEntity userEntity;
+		if (userInfo.contains("@")) {
+			userEntity = userRepo.findUserByEmail(userInfo)
+					.orElseThrow(() -> new ResourceNotFoundException(userInfo, "Email not found"));
+		} else {
+			userEntity = userRepo.findUserByUsername(userInfo)
+					.orElseThrow(() -> new ResourceNotFoundException(userInfo, "Username not found"));
+		}
 
-		return user;
+		return userEntity;
 	}
 
 	@Override
@@ -172,63 +185,74 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public UserEntity findUserByEmail(String email) {
-		UserEntity userEntity = userRepo.findUserByEmail(email)
-				.orElseThrow(() -> new ResourceNotFoundException(email, "user not found"));
-		
-		return userEntity;
-	}
-
-
-	@Override
-	public void createUserOtpByUserInfo(String userInfo) {
-		String otpCode = RandomString.make(4);
+	public UserOtpEntity createUserOtpByUserInfo(String userInfo) {		
+		String otpCode = this.generateUserOtp();
+		UserEntity userEntity = this.findUserByUserInfo(userInfo);
 		UserOtpEntity userOtpEntity = new UserOtpEntity();
-		if(userInfo.contains("@")) {
-			UserEntity userEntity = this.findUserByEmail(userInfo);
-			userOtpEntity.setCode(otpCode);
-			userOtpEntity.setCreatedBy(userEntity.getUsername());
-			userOtpEntity.setCreatedDate(currentDate);
-			userOtpEntity.setOtpOwner(userEntity);
-			userEntity.setUserOtp(userOtpEntity);
-			try {
-				sendMailService.sendOtpToUserEmail(userEntity.getUsername());
-			} catch (UnsupportedEncodingException | MessagingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			userOtpRepo.save(userOtpEntity);
-		} else {
-			UserEntity userEntity = this.findUserByUsername(userInfo);
-			userOtpEntity.setCode(otpCode);
-			userOtpEntity.setCreatedBy(userInfo);
-			userOtpEntity.setCreatedDate(currentDate);
-			userOtpEntity.setOtpOwner(userEntity);
-			userEntity.setUserOtp(userOtpEntity);
-			try {
-				sendMailService.sendOtpToUserEmail(userInfo);
-			} catch (UnsupportedEncodingException | MessagingException e) {
-				e.printStackTrace();
-			}
-		}
+		userOtpEntity.setCode(otpCode);
+		userOtpEntity.setCreatedBy(userEntity.getUsername());
+		userOtpEntity.setCreatedDate(currentDate);
+		userOtpEntity.setOtpOwner(userEntity);
+		userEntity.setUserOtp(userOtpEntity);
+		String message = String.format("<p>We happy to send you your otp code: </p><br/>"
+				+ "<h1>%s</h1>", otpCode);
+		sendMailService.sendMail(userEntity.getUsername(), message, this.sendOtpToUserSubject);
+		UserOtpEntity userOtpPersisted = userOtpRepo.save(userOtpEntity);
 		
-		userOtpRepo.save(userOtpEntity);
+		return userOtpPersisted;
+		
 	}
 
+	@Transactional
 	@Override
 	public boolean checkUserOtp(String userInfo, String userOtp) {
-		UserEntity userEntity;
-		if (userInfo.contains("@")) {
-			userEntity = this.findUserByEmail(userInfo);
-		} else {
-			userEntity = this.findUserByUsername(userInfo);
-		}
+		UserEntity userEntity = this.findUserByUserInfo(userInfo);
 		String actualOtp = userEntity.getUserOtp().getCode();
-		if(StringUtils.hasLength(actualOtp) && actualOtp.equals(userOtp)) {
+		if (StringUtils.hasLength(actualOtp) && actualOtp.equals(userOtp)) {
+			UserOtpEntity userOtpEntity = this.findUserOtpByCode(actualOtp);
+			this.deleteUserOtp(userOtpEntity);
+			userEntity.setPasswordChangable(true);
 			return true;
 		}
-		
+
 		return false;
+	}
+
+	@Override
+	public UserOtpEntity findUserOtpByCode(String otp) {
+		UserOtpEntity userOtpEntity = userOtpRepo.findUserOtpByUserCode(otp)
+				.orElseThrow(() -> new ResourceNotFoundException(otp, "Otp not found"));
+
+		return userOtpEntity;
+	}
+
+	@Override
+	public void deleteUserOtp(UserOtpEntity userOtpEntity) {
+		userOtpRepo.delete(userOtpEntity);
+	}
+
+	private String generateUserOtp() {
+		RandomString randomOtp = new RandomString(4);
+		String otp = randomOtp.nextString();
+		while (userOtpRepo.findUserOtpByUserCode(otp).isPresent()) {
+			otp = randomOtp.nextString();
+		}
+
+		return otp;
+	}
+
+	@Transactional
+	@Override
+	public UserEntity changePassword(String userInfo, String newPassword) {
+		UserEntity userEntity = this.findUserByUserInfo(userInfo);
+		if(!userEntity.getPasswordChangable().booleanValue()) {
+			throw new ResourceNotAllowException(userInfo, "User did not enter change password otp.");
+		}
+		String encodeNewPassword = passwordEncoder.encode(newPassword);
+		userEntity.setPassword(encodeNewPassword);
+		userEntity.setPasswordChangable(false);
+		
+		return userEntity;
 	}
 
 }

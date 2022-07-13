@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import com.swm.exception.DuplicateResourceException;
+import com.swm.exception.JavaMailException;
 import com.swm.exception.JwtTokenException;
 import com.swm.exception.NotEnoughBalanceException;
 import com.swm.exception.ParseDateException;
@@ -84,6 +85,13 @@ public class ServerExceptionHandler {
 	public ErrorResponseMessage UsernamePasswordNotCorrectExceptionHandler(UsernamePasswordNotCorrectException exc,
 			WebRequest request) {
 		return new ErrorResponseMessage(HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN.value(),
+				new Date(), exc.getMessage(), request.getDescription(false));
+	}
+	
+	@ExceptionHandler(JavaMailException.class)
+	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
+	public ErrorResponseMessage JavaMailExceptionHandler(JavaMailException exc, WebRequest request) {
+		return new ErrorResponseMessage(HttpStatus.NOT_ACCEPTABLE.getReasonPhrase(), HttpStatus.NOT_ACCEPTABLE.value(),
 				new Date(), exc.getMessage(), request.getDescription(false));
 	}
 

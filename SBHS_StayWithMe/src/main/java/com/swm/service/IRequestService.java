@@ -2,6 +2,8 @@ package com.swm.service;
 
 import java.util.List;
 
+import org.springframework.lang.Nullable;
+
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.LandlordAccountRequestEntity;
 
@@ -11,9 +13,9 @@ public interface IRequestService {
 	
 	HomestayPostingRequestEntity findHomestayPostingRequest(Long requestId);
 	
-	LandlordAccountRequestEntity verifyLandlordAccountRequestById(Long requestId, boolean isAccepted);
+	LandlordAccountRequestEntity verifyLandlordAccountRequestById(Long requestId, boolean isAccepted, @Nullable String rejectMessage);
 	
-	HomestayPostingRequestEntity verifyHomestayPostinRequest(Long requestId, boolean isAccepted);
+	HomestayPostingRequestEntity verifyHomestayPostinRequest(Long requestId, boolean isAccepted, @Nullable String rejectMessage);
 	
 	List<LandlordAccountRequestEntity> findAllLandlordAccountRequest();
 	

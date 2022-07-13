@@ -17,7 +17,7 @@ public class AvatarConverter {
 	
 	public AvatarEntity avatarEntityConverter(AvatarDto avatar) {
 		AvatarEntity avatarEntity = new AvatarEntity();
-		avatarEntity.setPoster(userService.findUserByUsername(avatar.getPoster()));
+		avatarEntity.setPoster(userService.findUserByUserInfo(avatar.getPoster()));
 		
 		return avatarEntity;
 	}

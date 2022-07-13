@@ -1,7 +1,0 @@
-package com.swm.dto;
-
-import java.util.List;
-
-public class HomestayServiceUpdateDto {
-	List<HomestayAftercareDto> homestayNewServiceList;
-}

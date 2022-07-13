@@ -16,6 +16,7 @@ import com.swm.entity.LandlordEntity;
 import com.swm.entity.MomoOrderProcessEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.WalletEntity;
+import com.swm.enums.BookingStatus;
 import com.swm.enums.UserStatus;
 import com.swm.exception.ParseJsonException;
 import com.swm.exception.ResourceNotAllowException;
@@ -69,7 +70,7 @@ public class MoneyService implements IMoneyService {
 		try {
 			if (momoProcess.getOrderInfo().equalsIgnoreCase("landlord_wallet")) {
 				UsernameMapper usernameMapper = objectMapper.readValue(userName, UsernameMapper.class);
-				UserEntity userEntity = userService.findUserByUsername(usernameMapper.getUsername());
+				UserEntity userEntity = userService.findUserByUserInfo(usernameMapper.getUsername());
 				if (!userEntity.getStatus().equalsIgnoreCase(UserStatus.ACTIVE.name())) {
 					throw new ResourceNotAllowException(userName, "account not active");
 				}
@@ -85,6 +86,10 @@ public class MoneyService implements IMoneyService {
 				String bookingIdJsonString = new String(Base64.getDecoder().decode(momoProcess.getExtraData()));
 				BookingMapper homestayMapper = objectMapper.readValue(bookingIdJsonString, BookingMapper.class);
 				BookingEntity bookingEntity = bookingService.findBookingById(homestayMapper.getBookingId());
+				if (!bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_DEPOSIT.name())) {
+					throw new ResourceNotAllowException(bookingEntity.getId().toString(),
+							"Homestay owner hasn't accepted booking yet");
+				}
 				MomoOrderProcessEntity momoPersisted = momoProcessRepo.save(momoProcess);
 				BookingDepositEntity bookingDepositEntity = bookingEntity.getBookingDeposit();
 				Long depositAmount = momoPersisted.getAmount();

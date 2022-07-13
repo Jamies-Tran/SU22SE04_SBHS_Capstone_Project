@@ -1,13 +1,14 @@
 package com.swm.service;
 
 import com.swm.entity.UserEntity;
+import com.swm.entity.UserOtpEntity;
 
 public interface IUserService {
 	UserEntity findUserById(Long Id);
 	
-	UserEntity findUserByUsername(String username);
+	UserEntity findUserByUserInfo(String userInfo);
 	
-	UserEntity findUserByEmail(String email);
+	UserOtpEntity findUserOtpByCode(String otp);
 	
 	UserEntity createPassengerUser(UserEntity userEntity);
 	
@@ -15,8 +16,12 @@ public interface IUserService {
 	
 	UserEntity createAdminUser(UserEntity userEntity);
 	
-	void createUserOtpByUserInfo(String userInfo);
+	UserOtpEntity createUserOtpByUserInfo(String userInfo);
 	
 	boolean checkUserOtp(String userInfo, String userOtp);
+	
+	UserEntity changePassword(String userInfo, String newPassword);
+	
+	void deleteUserOtp(UserOtpEntity useOtpEntity);
 	
 }

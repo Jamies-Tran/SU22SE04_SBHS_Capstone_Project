@@ -1,16 +1,16 @@
 package com.swm.serviceImpl;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
-import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.HomestayPostingRequestEntity;
@@ -33,7 +33,7 @@ public class RequestService implements IRequestService {
 
 	@Autowired
 	private IHomestayPostingRequestRepository homestayPostingRequestRepo;
-	
+
 	@Autowired
 	private IHomestayRepository homestayRepo;
 
@@ -54,9 +54,10 @@ public class RequestService implements IRequestService {
 		return request;
 	}
 
-	@Override
 	@Transactional
-	public LandlordAccountRequestEntity verifyLandlordAccountRequestById(Long requestId, boolean isAccepted) {
+	@Override
+	public LandlordAccountRequestEntity verifyLandlordAccountRequestById(Long requestId, boolean isAccepted,
+			@Nullable String rejectMessage) {
 		String message = "";
 		LandlordAccountRequestEntity request = this.findLandlordAccountRequestById(requestId);
 		UserDetails approvedBy = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -71,13 +72,15 @@ public class RequestService implements IRequestService {
 					+ "<p>Your landlord account request has been approved.</p>"
 					+ "<p>From now on you can post your home stay on Stay With Me platform.</p>" + "<p>Good luck</p>";
 		} else {
+			if(!StringUtils.hasLength(rejectMessage)) {
+				throw new ResourceNotFoundException("Reject message empty");
+			}
 			request.setStatus(RequestStatus.REJECT.name());
-			message = "<h1>Rejected :(</h1>"
-					+ "<p>I'm sorry to inform you that your landlord account request has been denied.</p>"
-					+ "<p>If you have any question please reply this email.</p>";
+			message = String.format("<h1>Rejected :(</h1>"
+					+ "<p>I'm sorry to inform you that your landlord account request has been denied for reason: </p><br/>"
+					+ "<h2>%s</h2>", rejectMessage);
 		}
-		this.SendMailConfirmLandlordRequest(landlordName, adminName, message, this.landlordAccountRequestMailSubject,
-				true);
+		sendMailService.sendMail(landlordName, message, this.landlordAccountRequestMailSubject);
 
 		return request;
 	}
@@ -90,9 +93,10 @@ public class RequestService implements IRequestService {
 		return homestayPostingRequest;
 	}
 
-	@Override
 	@Transactional
-	public HomestayPostingRequestEntity verifyHomestayPostinRequest(Long requestId, boolean isAccepted) {
+	@Override
+	public HomestayPostingRequestEntity verifyHomestayPostinRequest(Long requestId, boolean isAccepted,
+			@Nullable String rejectMessage) {
 		String message = "";
 		HomestayPostingRequestEntity request = homestayPostingRequestRepo.findById(requestId)
 				.orElseThrow(() -> new ResourceNotFoundException(requestId.toString(), "request not found"));
@@ -115,26 +119,18 @@ public class RequestService implements IRequestService {
 					+ " on location " + homestayLocation + "has been posted on our platform.</p>"
 					+ "<p>Ready yourself cause passenger can rent your homestay at any time. Good luck!</p>";
 		} else {
+			if(!StringUtils.hasLength(rejectMessage)) {
+				throw new ResourceNotFoundException("Reject message empty");
+			}
 			request.setStatus(RequestStatus.REJECT.name());
 			request.getRequestHomestay().setStatus(HomestayStatus.HOMESTAY_REQUEST_DENIED.name());
-			message = "<h1>Your homestay posting request has been denied :(</h1>" + "<p>Your homestay " + homestayName
-					+ " on location " + homestayLocation + " has been denied.</p>"
-					+ "<p>Please check your homestay information and try again. Thank you.</p>";
+			message = String.format("<h1>Your homestay posting request has been denied :(</h1>" 
+					+ "<p>Your homestay %s on location %s has been denied for reason: </p><br/>"
+					+ "<p>%s</p>", homestayName, homestayLocation, rejectMessage);
 		}
-		this.SendMailConfirmLandlordRequest(landlordName, adminName, message, this.homestayPostingRequestMailSubject,
-				true);
+		sendMailService.sendMail(landlordName, message, this.homestayPostingRequestMailSubject);
 
 		return request;
-	}
-
-	private void SendMailConfirmLandlordRequest(String landlordName, String adminName, String message, String subject,
-			boolean isHtml) {
-		try {
-			sendMailService.confirmLandlordAccountRequest(landlordName, adminName, message, subject, isHtml);
-		} catch (MessagingException | UnsupportedEncodingException e) {
-
-			e.printStackTrace();
-		}
 	}
 
 	@Override

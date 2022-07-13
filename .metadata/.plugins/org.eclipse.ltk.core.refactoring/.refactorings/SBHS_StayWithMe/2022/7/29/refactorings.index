@@ -20,3 +20,5 @@
 1657527256618	Rename local variable 'user'
 1657531039848	Rename type 'UserDisableException'
 1657628121378	Delete element
+1657678910430	Rename type 'SendMailException'
+1657703090895	Rename type 'VerifyRequestDto'

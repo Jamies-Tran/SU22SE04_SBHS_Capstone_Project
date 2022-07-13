@@ -41,7 +41,7 @@ public class BookingConverter {
 	
 	public BookingEntity bookingToEntity(BookingRequestDto bookingDto) {
 		BookingEntity bookingEntity = new BookingEntity();
-		bookingEntity.setBookingCreator(userService.findUserByUsername(bookingDto.getPassengerName()).getPassenger());
+		bookingEntity.setBookingCreator(userService.findUserByUserInfo(bookingDto.getPassengerName()).getPassenger());
 		bookingEntity.setBookingHomestay(homestayService.findHomestayByName(bookingDto.getHomestayName()));
 		bookingDto.getHomestayServiceDto().forEach(s -> System.err.println(s.getName()));
 		List<HomestayAftercareEntity> homestayServiceList = bookingDto.getHomestayServiceDto().stream()

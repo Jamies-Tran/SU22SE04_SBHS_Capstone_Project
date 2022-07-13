@@ -1,7 +1,0 @@
-package com.swm.service;
-
-import com.swm.entity.HomestayAftercareEntity;
-
-public interface IHomestayAftercareService {
-	HomestayAftercareEntity findHomestayServiceByName(String name);
-}

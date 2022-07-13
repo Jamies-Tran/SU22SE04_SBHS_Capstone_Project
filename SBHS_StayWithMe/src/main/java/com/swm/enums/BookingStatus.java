@@ -2,6 +2,7 @@ package com.swm.enums;
 
 public enum BookingStatus {
 	BOOKING_PENDING,
+	BOOKING_PENDING_DEPOSIT,
 	BOOKING_ACCEPTED,
 	BOOKING_REJECTED,
 	BOOKING_CANCLED,
