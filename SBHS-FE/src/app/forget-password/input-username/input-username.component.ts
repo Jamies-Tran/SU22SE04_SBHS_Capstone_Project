@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { InputUsernameService } from './../../services/input-username.service';
+import { ForgetPasswordService } from '../../services/forget-password.service';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { InputUsernameService } from './../../services/input-username.service';
 export class InputUsernameComponent implements OnInit {
 
   public userName="";
-  constructor(private http: InputUsernameService , private router: Router) { }
+  constructor(private http: ForgetPasswordService , private router: Router) { }
 
   ngOnInit(): void {
   }

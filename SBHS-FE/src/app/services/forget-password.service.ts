@@ -6,7 +6,7 @@ import { catchError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class InputUsernameService {
+export class ForgetPasswordService {
 
   private httpOptions = {
     headers: new HttpHeaders({
