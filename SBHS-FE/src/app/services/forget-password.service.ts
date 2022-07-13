@@ -20,12 +20,10 @@ export class ForgetPasswordService {
 
   // Step 1 Forget Password
   public inputUserName(username : string){
-    var value = {
-      username
-    }
-    const url =`${this.REST_API_SERVER}/api/user/otp/{`+username+`}`;
+
+    const url =`${this.REST_API_SERVER}/api/user/otp/`+username+``;
     return this.HttpClient
-    .post<any>(url,value ,this.httpOptions)
+    .get<any>(url,this.httpOptions)
     .pipe(catchError(this.handleError));
   }
 

@@ -51,10 +51,11 @@
                 <h1 style="text-align:center;">Register</h1>
                 <input style="width:300px ;margin-left: 27%;" type="text" placeholder="Username" [(ngModel)]="username"
                     [ngModelOptions]="{standalone: true}" />
-                <input style="width:300px ;margin-left: 5%;" type="text" placeholder="Address" /><br /><br />
+                <input style="width:300px ;margin-left: 5%;" type="text" placeholder="Address" [(ngModel)]="address"
+                [ngModelOptions]="{standalone: true}" /><br /><br />
                 <input style="width:300px ;margin-left: 27%;" type="text" [(ngModel)]="email" placeholder="Email"
                     [ngModelOptions]="{standalone: true}" />
-                <input style="width:300px ;margin-left: 5%;" type="text" [(ngModel)]="citizenIdentification"
+                <input style="width:300px ;margin-left: 5%;" type="text" [(ngModel)]="citizenIdentificationString"
                     [ngModelOptions]="{standalone: true}" placeholder="ID National" /><br /><br />
                 <input style="width:300px ;margin-left: 27%;" type="password" [(ngModel)]="password"
                     [ngModelOptions]="{standalone: true}" placeholder="Password" />
@@ -63,14 +64,15 @@
                 <input style="width:300px ;margin-left: 27%;" type="password" [(ngModel)]="confirmPassword"
                     [ngModelOptions]="{standalone: true}" placeholder="Confirm password" />
                 <input style="width:300px ;margin-left: 5%;" type="date" [(ngModel)]="dob"
-                    [ngModelOptions]="{standalone: true}" /><br /> <br /> 
-                <select style="width:300px ;margin-left: 27%;" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}">
+                    [ngModelOptions]="{standalone: true}" /><br /> <br />
+                <select style="width:300px ;margin-left: 27%;" [(ngModel)]="gender"
+                    [ngModelOptions]="{standalone: true}">
                     <option>Male</option>
                     <option>Female</option>
                 </select>
                 <label class="image-upload-container btn btn-bwm" style="margin-left: 35%">
                     <span>Upload font and back your ID</span>
-                    <input #imageInput type="file" accept="image/*" [(ngModel)]="citizenIdentificationUrl"
+                    <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="citizenIdentificationUrl"
                         [ngModelOptions]="{standalone: true}">
                 </label>
 

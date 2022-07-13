@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ServerHttpService } from '../services/register.service';
 
 @Component({
@@ -12,19 +13,21 @@ export class RegisterComponent implements OnInit {
   public email = "";
   public phone = "";
   public gender = "Male";
-  public citizenIdentification = "";
+  public citizenIdentificationString = "";
   public citizenIdentificationUrl = "";
   public confirmPassword = "";
-  public dobTemp = "";
-  public dob = this.dobTemp + "";
-  constructor(private http: ServerHttpService) { }
+  public dob =  "";
+  public address = "";
+  public avatarUrl = "male";
+  constructor(private http: ServerHttpService, private router: Router,private route: ActivatedRoute) { }
   ngOnInit(): void {
   }
   public register() {
     console.log(this.dob)
-    this.http.registerLandlord(this.username, this.password, this.email, this.phone, this.dob + "",  this.citizenIdentificationUrl,this.citizenIdentification,).subscribe((data => {
+    console.log(this.citizenIdentificationString)
+    this.http.registerLandlord(this.username,this.password,this.address,this.gender,this.email,this.phone,this.citizenIdentificationString,this.dob +"",this.avatarUrl,this.citizenIdentificationUrl).subscribe((data => {
       alert("register successful!!!");
-
+      this.router.navigate(['/Login'], {relativeTo: this.route});
     }))
   }
 }

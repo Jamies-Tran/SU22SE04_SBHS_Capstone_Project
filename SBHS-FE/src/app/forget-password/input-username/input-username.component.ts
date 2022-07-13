@@ -19,7 +19,9 @@ export class InputUsernameComponent implements OnInit {
   }
 
   public inputUsername(){
+    console.log(this.userName)
     this.http.inputUserName(this.userName).subscribe((data => {console.log(data)}));
+    
   }
 
 }

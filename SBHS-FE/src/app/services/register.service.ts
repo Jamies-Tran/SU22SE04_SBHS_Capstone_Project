@@ -14,24 +14,18 @@ export class ServerHttpService {
       //'Authorization': 'my-auth-token'
     })
   };
-
-
   public model: any = {};
   private REST_API_SERVER = 'http://localhost:8080';
-
   constructor(private httpClient: HttpClient) { }
-
-  public registerLandlord(username: string, password: string, email: string, phone: string, dob:string, citizenIdentificationUrl:string, citizenIdentification:string) {
+  public registerLandlord(username:string, password:string, address:string, gender:string, email:string, phone:string,citizenIdentificationString:string,dob:string,avatarUrl:string,citizenIdentificationUrl:string) {
     var value = {
-      username, password,email,phone,dob, citizenIdentificationUrl,citizenIdentification
+      username, password, address, gender, email, phone, citizenIdentificationString, dob, avatarUrl, citizenIdentificationUrl
     }
     const url = `${this.REST_API_SERVER}/api/user/register/landlord`;
     return this.httpClient
       .post<any>(url, value, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
-
-
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
