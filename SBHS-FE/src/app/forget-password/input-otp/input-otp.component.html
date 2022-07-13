@@ -13,9 +13,9 @@
 
       </div>
       <div class="content-input">
-        <form action="">
+        <form action="ForgetPasswordController" method="post" (ngSubmit)="inputOTP()">
           <div>
-            <input type="text" placeholder="Enter the OTP" />
+            <input type="text" placeholder="Enter the OTP" (ngModel)="otp" />
           </div>
           <div class="bottom-bar"></div>
           <div class="input-btn">

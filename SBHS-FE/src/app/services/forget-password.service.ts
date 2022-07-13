@@ -18,11 +18,36 @@ export class ForgetPasswordService {
   private REST_API_SERVER = 'http://localhost:8080';
   constructor(private HttpClient: HttpClient) { }
 
+  // Step 1 Forget Password
   public inputUserName(username : string){
     var value = {
       username
     }
     const url =`${this.REST_API_SERVER}/api/user/otp/{`+username+`}`;
+    return this.HttpClient
+    .post<any>(url,value ,this.httpOptions)
+    .pipe(catchError(this.handleError));
+  }
+
+  //  Step 2 Forget Pasword
+  public inputOTP(otp : string){
+    var value = {
+      otp
+    }
+    // url api thieu user name
+    const url =`${this.REST_API_SERVER}/api/user/otp/{}`;
+    return this.HttpClient
+    .post<any>(url,value ,this.httpOptions)
+    .pipe(catchError(this.handleError));
+  }
+
+  // Step 3 Forget Password
+  public inputPassword(password : string ){
+    var value = {
+      password
+    }
+    // url api thieu user name
+    const url =`${this.REST_API_SERVER}/api/user/otp/{}`;
     return this.HttpClient
     .post<any>(url,value ,this.httpOptions)
     .pipe(catchError(this.handleError));

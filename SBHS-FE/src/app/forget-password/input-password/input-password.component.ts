@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ForgetPasswordService } from '../../services/forget-password.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-input-password',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputPasswordComponent implements OnInit {
 
-  constructor() { }
+  public password="";
+  public comfirmPassword="";
+  constructor(private http: ForgetPasswordService , private router: Router) { }
 
   ngOnInit(): void {
   }
+
+  public inputPassword(){
+    this.http.inputPassword(this.password).subscribe((data => {console.log(data)}));
+  }
+
 
 }
