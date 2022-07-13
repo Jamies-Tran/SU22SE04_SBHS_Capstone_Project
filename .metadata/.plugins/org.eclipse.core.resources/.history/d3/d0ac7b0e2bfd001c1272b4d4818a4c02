@@ -1,5 +1,0 @@
-package com.swm.service;
-
-public interface IWalletService {
-	
-}

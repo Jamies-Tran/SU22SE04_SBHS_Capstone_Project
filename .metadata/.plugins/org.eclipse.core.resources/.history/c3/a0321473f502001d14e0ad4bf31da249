@@ -142,7 +142,6 @@ public class UserService implements IUserService {
 		userEntity.setLandlord(landlordAccount);
 		userEntity.setCreatedDate(currentDate);
 		userEntity.setStatus(UserStatus.PENDING.name());
-		userEntity.setAvatar(avatarEntity);
 		UserEntity userPersisted = userRepo.save(userEntity);
 
 		return userPersisted;

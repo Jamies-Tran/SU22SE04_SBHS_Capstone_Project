@@ -1,5 +1,0 @@
-package com.swm.service;
-
-public interface IWalletService {
-	void signSHA256(String message, String secretKey);
-}
