@@ -1,39 +1,32 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import { catchError, Observable } from 'rxjs';
+import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-
-export class ServerHttpService {
-  inputUserName(userName: string) {
-    throw new Error('Method not implemented.');
-  }
+export class InputUsernameService {
 
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      //'Authorization': 'my-auth-token'
     })
-  };
+  }
 
-  public model:any = {};
+  public model:any ={};
   private REST_API_SERVER = 'http://localhost:8080';
+  constructor(private HttpClient: HttpClient) { }
 
-  constructor(private httpClient: HttpClient) { }
-
-  public login(username : string, password:string) {
+  public inputUserName(username : string){
     var value = {
-      username,password
+      username
     }
-    const url =`${this.REST_API_SERVER}/api/user/login/web`;
-    return this.httpClient
+    const url =`${this.REST_API_SERVER}/api/user/otp/{`+username+`}`;
+    return this.HttpClient
     .post<any>(url,value ,this.httpOptions)
     .pipe(catchError(this.handleError));
   }
-
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

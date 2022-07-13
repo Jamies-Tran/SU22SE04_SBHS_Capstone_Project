@@ -13,16 +13,20 @@
         <h1>Your Password?</h1>
       </div>
       <div class="content-input">
-        <form action="">
+        <form action="ForgetPasswordController" method="post" (ngSubmit)="inputUsername()" >
           <div>
-            <input type="text" placeholder="Email or Username" />
+            <input
+              type="text"
+              placeholder="Email or Username"
+              (ngModel)="userName"
+            />
           </div>
           <div class="bottom-bar"></div>
           <div class="input-btn">
             <button type="submit" class="btn">GET OTP</button>
           </div>
           <div class="login">
-            <a  href="" class="login-link">Back to signin</a>
+            <a href="" class="login-link">Back to signin</a>
           </div>
         </form>
       </div>

@@ -14,9 +14,13 @@ export class ServerHttpService {
       //'Authorization': 'my-auth-token'
     })
   };
+
+
   public model: any = {};
   private REST_API_SERVER = 'http://localhost:8080';
+
   constructor(private httpClient: HttpClient) { }
+
   public registerLandlord(username: string, password: string, email: string, phone: string, dob:string, citizenIdentificationUrl:string, citizenIdentification:string) {
     var value = {
       username, password,email,phone,dob, citizenIdentificationUrl,citizenIdentification
@@ -26,6 +30,8 @@ export class ServerHttpService {
       .post<any>(url, value, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
+
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

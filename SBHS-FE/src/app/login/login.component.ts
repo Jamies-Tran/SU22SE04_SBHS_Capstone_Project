@@ -9,13 +9,13 @@ import { ServerHttpService } from '../services/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
+
   public userName= "";
   public password = "";
   constructor(private http: ServerHttpService , private router: Router) {
    }
   ngOnInit(): void {
-    
+
   }
   public getProfile(){
     this.http.login(this.userName, this.password).subscribe((data =>{
