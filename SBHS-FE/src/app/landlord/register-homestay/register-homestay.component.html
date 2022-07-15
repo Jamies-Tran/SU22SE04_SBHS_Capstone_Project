@@ -1,38 +1,43 @@
-<h1>Request Add Homestay Details</h1>
 <div class="container">
-    <form class="add">
+  <h1>Request Add Homestay Details</h1>
+  <form>
+    <div class="add">
+      <div class="add-input row">
+        <!-- Col Left  -->
+        <div class="col left">
+          <input type="text" class="fill" placeholder="Homestay's Name" />
+          <div class="line"></div>
+          <input type="text" class="fill" placeholder="Address" />
+          <div class="line"></div>
+          <input type="text" class="fill" placeholder="Check-in time" />
+          <div class="line"></div>
+          <input type="text" disabled class="fill" placeholder="Note" />
+          <div class="line"></div>
+          <textarea class="col-textarea"></textarea>
+        </div>
+        <!-- Col Right -->
+        <div class="col right">
+          <input type="text" class="fill" placeholder="Price (VND)" />
+          <div class="line"></div>
+          <input type="text" class="fill" placeholder="Number of Room" />
+          <div class="line"></div>
+          <input type="text" class="fill" placeholder="Check-out time" />
+          <div class="line"></div>
+          <input type="text" disabled class="fill" placeholder="Description" />
+          <div class="line"></div>
+          <textarea class="col-textarea"></textarea>
+        </div>
+      </div>
+      <div class="upload">
         <div>
-            <input type="text" id="fill" placeholder="Homestay's Name">
-            <input type="text" id="fill" placeholder="Price (VND)">
-            <input disabled id="line">
-            <input disabled id="line"><br />
-            <input type="text" id="fill" placeholder="Address">
-            <input type="text" id="fill" placeholder="Number Of Room">
-            <input disabled id="line">
-            <input disabled id="line"><br />
-            <input disabled type="text" id="fill1" value="Check-in Time:">
-            <input type="time" id="fill1" style="margin-left: 1%;" placeholder="Check-in Time">
-            <input disabled type="text" id="fill1" style="margin-left: 21%;" value="Check-out Time:">
-            <input type="time" id="fill1" style="margin-left: 1%;" placeholder="Check-out Time">
-            <input disabled id="line">
-            <input disabled id="line"><br />
-            <input disabled type="text" id="fill" placeholder="Note">
-            <input disabled type="text" id="fill" placeholder="Description">
-            <input disabled id="line">
-            <input disabled id="line"><br />
-            <textarea style="width: 30%; height: 100px;margin-left: 12%;"></textarea>
-            <textarea style="width: 30%; height: 100px;margin-left: 12%;"></textarea>
+          <span>Upload Homestay's image</span>&nbsp;
+          <input #imageInput type="file" multiple accept="image/*" />
         </div>
-        <div class="upload">
-            <div style="margin-top: 3%; margin-left: 27%;">
-                <span style="margin-top: 10%;">Upload Homestay's image</span>&nbsp;
-                <input #imageInput type="file" multiple accept="image/*">
-            </div>
-        </div>
-        <div style="margin-top: 12%;margin-left: 45%;">
-            <button type="submit">Submit</button> &nbsp;
-            <button type="submit">Cancle</button>
-        </div>
-
-    </form>
+      </div>
+      <div class="add-btn">
+        <button class="btn btn-submit" type="submit">Submit</button> &nbsp;
+        <button class="btn btn-cancel" type="submit">Cancle</button>
+      </div>
+    </div>
+  </form>
 </div>
