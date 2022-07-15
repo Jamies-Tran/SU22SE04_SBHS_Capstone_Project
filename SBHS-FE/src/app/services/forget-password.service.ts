@@ -13,8 +13,6 @@ export class ForgetPasswordService {
       'Content-Type': 'application/json',
     })
   }
-
-  public model:any ={};
   private REST_API_SERVER = 'http://localhost:8080';
   constructor(private HttpClient: HttpClient) { }
 
@@ -45,7 +43,7 @@ export class ForgetPasswordService {
       password
     }
     // url api thieu user name
-    const url =`${this.REST_API_SERVER}/api/user/otp/{}`;
+    const url =`${this.REST_API_SERVER}/api/user/otp/`;
     return this.HttpClient
     .post<any>(url,value ,this.httpOptions)
     .pipe(catchError(this.handleError));

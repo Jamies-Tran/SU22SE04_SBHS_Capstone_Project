@@ -20,9 +20,12 @@ export class InputUsernameComponent implements OnInit {
 
   public inputUsername() {
     console.log(this.userName)
+
     this.http.inputUserName(this.userName).subscribe((data => {
+      
+      this.router.navigate(['/ForgetPassword/Step2'], {relativeTo: this.route});
+      console.log(this.userName)
       console.log(data)
-      this.router.navigate(['/ForgetPassword/Step1'], {relativeTo: this.route});
     }));
 
   }

@@ -8,10 +8,6 @@ import { catchError, Observable } from 'rxjs';
 })
 
 export class ServerHttpService {
-  inputUserName(userName: string) {
-    throw new Error('Method not implemented.');
-  }
-
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
