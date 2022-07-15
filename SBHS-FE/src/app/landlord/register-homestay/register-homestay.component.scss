@@ -1,48 +1,92 @@
+.container {
+  min-height: 89vh;
+  font-family: 'Roboto', sans-serif;
 
-.add {
-    position: absolute;
-width: 97%;
-height: 80%;
-left: 1%;
-top: 148px;
+  .add {
 
-background: rgba(29, 36, 46, 0.08);
-border-radius: 30px;
-}
-#line{
-width: 30%;
-height: 0px;
-left: 333px;
-top: 211px;
-margin-left: 12%;
-border: 1px solid #000000;
-}
-#fill{
-    width: 30%;
-    height: 30px;
+    width: 99%;
+
+
+
+
+    .add-input {
+      background: rgba(29, 36, 46, 0.08);
+      border-radius: 30px;
+      padding-bottom: 3rem;
+      margin: 0 55px;
+
+      .left {}
+
+      .right {}
+
+      .line {
+        width: 84%;
+        height: 1px;
+        border-radius: 1rem;
+        background-color: black;
+        margin-left: 2rem;
+        margin-top: -1px;
+        padding: 0%;
+      }
+
+      .fill {
+        width: 84%;
+        height: 30px;
+        border: none;
+        background: rgba(29, 36, 46, 0);
+        margin-top: 3%;
+        margin-left: 2rem;
+        outline: none;
+        border: none;
+        font-size: large;
+
+      }
+
+      .fill1 {
+        width: 10%;
+        height: 30px;
+        border: none;
+        background: rgba(29, 36, 46, 0);
+        margin-top: 3%;
+        margin-left: 11rem;
+      }
+
+      .col-textarea {
+        width: 84%;
+    height: 100px;
+    margin-left: 6.4%;
+    margin-top: 10px;
     border: none;
-    background: rgba(29, 36, 46, 0);
-    margin-top: 3%;
-    margin-left: 12%;
-}
-#fill1{
-    width: 10%;
-    height: 30px;
-    border: none;
-    background: rgba(29, 36, 46, 0);
-    margin-top: 3%;
-    margin-left: 12%;
-}
-.upload{
-    box-sizing: border-box;
+    outline: none;
+      }
+    }
 
-position: absolute;
-width: 60%;
-height: 89px;
-left: 20%;
-top: 547px;
+    .upload {
+      box-sizing: border-box;
+      width: 80%;
+      height: 89px;
+      background: #D9D9D9;
+      border: 1px dashed #000000;
+      border-radius: 30px;
+      align-items: center;
+      text-align: center;
+      margin-top: 1%;
+      margin-left: 11%;
+padding-top: 2.5%;
 
-background: #D9D9D9;
-border: 1px dashed #000000;
-border-radius: 30px;
+      .upload-file{
+
+      }
+    }
+    .add-btn{
+
+      .btn-submit{
+
+      }
+
+      .btn-cancel{
+
+      }
+    }
+  }
 }

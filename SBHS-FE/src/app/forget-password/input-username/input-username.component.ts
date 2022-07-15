@@ -26,6 +26,10 @@ export class InputUsernameComponent implements OnInit {
       this.router.navigate(['/ForgetPassword/Step2'], {relativeTo: this.route});
       console.log(this.userName)
       console.log(data)
+<<<<<<< HEAD
+=======
+      this.router.navigate(['/ForgetPassword/Step2'], {relativeTo: this.route});
+>>>>>>> a5f207ca3953e07a170f6eb6e953bd2325a08931
     }));
 
   }
