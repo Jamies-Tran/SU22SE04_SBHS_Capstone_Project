@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ForgetPasswordService } from '../../services/forget-password.service';
 
 
@@ -12,16 +12,19 @@ import { ForgetPasswordService } from '../../services/forget-password.service';
 
 export class InputUsernameComponent implements OnInit {
 
-  public userName="";
-  constructor(private http: ForgetPasswordService , private router: Router) { }
+  public userName = "";
+  constructor(private http: ForgetPasswordService, private router: Router,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
 
-  public inputUsername(){
+  public inputUsername() {
     console.log(this.userName)
-    this.http.inputUserName(this.userName).subscribe((data => {console.log(data)}));
-    
+    this.http.inputUserName(this.userName).subscribe((data => {
+      console.log(data)
+      this.router.navigate(['/ForgetPassword/Step1'], {relativeTo: this.route});
+    }));
+
   }
 
 }

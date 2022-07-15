@@ -19,8 +19,11 @@ export class LoginComponent implements OnInit {
   }
   public getProfile(){
     this.http.login(this.userName, this.password).subscribe((data =>{
+      
+      localStorage.setItem('Token',data);
       this.router.navigate(['/Landlord'], {relativeTo: this.route});
-
+      console.log(localStorage.getItem('Token'));
+      console.log(data)
     }))
   }
 }

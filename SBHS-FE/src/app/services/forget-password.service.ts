@@ -33,7 +33,7 @@ export class ForgetPasswordService {
       otp
     }
     // url api thieu user name
-    const url =`${this.REST_API_SERVER}/api/user/otp/{}`;
+    const url =`${this.REST_API_SERVER}/api/user/otp/confirmation`;
     return this.HttpClient
     .post<any>(url,value ,this.httpOptions)
     .pipe(catchError(this.handleError));
