@@ -6,24 +6,24 @@
         alt="Forgot password"
       />
     </div>
-
     <div class="content col">
       <div class="text">
         <h1>Forgot</h1>
         <h1>Your Password?</h1>
       </div>
       <div class="content-input">
-        <form action="ForgetPasswordController" method="post" (ngSubmit)="inputUsername()" >
+        <form (ngSubmit)="inputUsername()" >
           <div>
             <input
               type="text"
               placeholder="Email or Username"
               (ngModel)="userName"
+              
             />
           </div>
           <div class="bottom-bar"></div>
           <div class="input-btn">
-            <button type="submit" class="btn">GET OTP</button>
+            <button type="submit" class="btn" onsubmit="return false">GET OTP</button>
           </div>
           <div class="login">
             <a href="" class="login-link">Back to signin</a>

@@ -51,7 +51,7 @@
 <body>
   <div class="container-fluid father">
     <div style="background-image: none; padding-top: 150px; text-align: center">
-      <form action="LoginController" method="POST" (ngSubmit)="getProfile()">
+      <form (ngSubmit)="getProfile()">
         <h1>Login</h1>
         <input style="width: 300px" type="text" name="txtUsername" placeholder="Username" [(ngModel)]="userName"
           required="Please Enter USername" /><br />
