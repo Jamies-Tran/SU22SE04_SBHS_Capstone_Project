@@ -10,6 +10,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { FormsModule } from '@angular/forms';
 import { LandlordComponent } from './landlord/landlord.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
