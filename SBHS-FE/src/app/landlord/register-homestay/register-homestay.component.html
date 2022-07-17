@@ -247,7 +247,7 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -262,7 +262,7 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -277,7 +277,7 @@
                   </div>
                   <div class="input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -292,7 +292,7 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -318,7 +318,7 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -333,7 +333,7 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -348,7 +348,7 @@
                   </div>
                   <div class="co input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -363,7 +363,7 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -378,26 +378,42 @@
             <button class="btn-back" mat-raised-button matStepperPrevious>Back</button>
             <button class="btn-reset" mat-raised-button type="reset">Reset</button>
             <button class="btn-next" mat-raised-button matStepperNext>Next</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 4 Payment  -->
+    <mat-step [stepControl]="paymentFormGroup">
+      <form [formGroup]="paymentFormGroup" (ngSubmit)="paymentForm()" #formfour="ngForm">
+        <ng-template matStepLabel>Service</ng-template>
+        <h1>Choose payment </h1>
+        <div class="input-content">
+          <div class="add-input ">
+            <mat-radio-group [(ngModel)]="payment">
+              <div>
+                <mat-radio-button value="cash"><i class="fa-regular fa-money-bill-1"></i>&nbsp;Cash</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="atm"><i class="fa-regular fa-credit-card"></i>&nbsp;ATM</mat-radio-button>
+              </div>
+
+            </mat-radio-group>
+            <div class="atm-container">
+
+            </div>
 
 
           </div>
 
+          <div class="add-btn">
+            <button class="btn-back" mat-raised-button matStepperPrevious>Back</button>
+            <button class="btn-reset" mat-raised-button type="reset">Reset</button>
+            <button class="btn-next" mat-raised-button type="submit">Submit</button>
+          </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
       </form>
-
     </mat-step>
-
 
   </mat-stepper>
 </div>

@@ -13,6 +13,8 @@ import {
 })
 export class RegisterHomestayComponent implements OnInit {
   files: File[] = [];
+  payment: 'atm' | 'cash' = 'cash';
+
 
   informationFormGroup = this._formBuilder.group({
     homestayName: ['', Validators.required],
