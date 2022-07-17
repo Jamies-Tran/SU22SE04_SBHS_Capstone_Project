@@ -5,12 +5,9 @@
     <mat-step [stepControl]="informationFormGroup">
       <form [formGroup]="informationFormGroup" (ngSubmit)="informationForm()" #formone="ngForm">
         <ng-template matStepLabel>Basic Information</ng-template>
-
-
-        <h1>Request Add Homestay Details</h1>
+        <h1>Request Add Homestay Information</h1>
         <div class="input-content">
           <div class="add-input row">
-
             <div class="col left">
               <div>
                 <mat-form-field class="fill" appearance="legacy">
@@ -31,7 +28,6 @@
                   <input id="check-in" type="time" matInput required formControlName="checkInTime">
                 </mat-form-field>
               </div>
-
               <div>
                 <mat-form-field class="fill " appearance="outline">
                   <mat-label>Note</mat-label>
@@ -39,7 +35,6 @@
                 </mat-form-field>
               </div>
             </div>
-
             <div class="col right">
               <div>
                 <mat-form-field class="fill" appearance="legacy">
@@ -59,18 +54,14 @@
                   <input id="checkout" type="time" matInput required formControlName="checkOutTime">
                 </mat-form-field>
               </div>
-
               <div>
                 <mat-form-field class="fill " appearance="outline">
                   <mat-label>Description</mat-label>
                   <textarea id="description" matInput formControlName="description"></textarea>
                 </mat-form-field>
               </div>
-
-
             </div>
           </div>
-
           <div class="upload" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
             <ngx-dropzone-label>
               <div>
@@ -78,66 +69,46 @@
                 <header>Drop files here or click to upload *</header>
               </div>
             </ngx-dropzone-label>
-
             <div class="wrapper" *ngFor="let f of files">
               <ngx-dropzone-image-preview class="image-preview" ngProjectAs="ngx-dropzone-preview" [file]="f"
                 [removable]="true" (removed)="onRemove(f)">
-
               </ngx-dropzone-image-preview>
               <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" (removed)="onRemove(f)">{{
                 f.name }}</ngx-dropzone-label>
-
             </div>
           </div>
-
           <div class="add-btn">
             <button class="btn-reset" mat-raised-button type="reset">Reset</button>
             <button class="btn-next" mat-raised-button matStepperNext>Next</button>
-
-
           </div>
         </div>
-
-
-
-
-
-
-
-
       </form>
     </mat-step>
+
 
     <!-- Step 2 Facility -->
     <mat-step [stepControl]="facilityFormGroup">
       <form [formGroup]="facilityFormGroup" (ngSubmit)="facilityForm()" #formtwo="ngForm">
         <ng-template matStepLabel>Facility</ng-template>
-        <h1>Add Facility Details</h1>
+        <h1>Add Facility </h1>
         <div class="input-content">
-
           <div class="add-input ">
             <div class="row">
               <div class="col ">
-
                 <div class="row-fill">
-                  <!-- icon -->
                   <div class=" icon"><i class="fas fa-tv"></i></div>
-                  <!-- text -->
                   <div class=" text">
                     <p>TV</p>
                   </div>
-                  <!-- checkbox -->
                   <div class=" checkbox">
                     <mat-checkbox color="primary"></mat-checkbox>
                   </div>
-                  <!-- input -->
                   <div class=" input">
                     <div class="col-input">
                       <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
                     </div>
                   </div>
                 </div>
-
                 <div class=" row-fill">
                   <div class=" icon"><i class="fa-solid fa-bed"></i></div>
                   <div class="text">
@@ -152,7 +123,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class=" row-fill">
                   <div class="icon"><i class="fa-solid fa-couch"></i></div>
                   <div class=" text">
@@ -167,7 +137,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class=" row-fill">
                   <div class=" icon"><i class="fa-solid fa-fan"></i></div>
                   <div class=" text">
@@ -182,10 +151,7 @@
                     </div>
                   </div>
                 </div>
-
-
               </div>
-
               <div class="col col-right-2">
                 <div class=" row-fill">
                   <div class=" icon"><i class="fa-solid fa-fire-burner"></i></div>
@@ -201,7 +167,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class=" row-fill">
                   <div class=" icon"><i class="fa-solid fa-shower"></i></div>
                   <div class=" text">
@@ -216,7 +181,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class=" row-fill">
                   <div class=" icon"><i class="fa-solid fa-toilet"></i></div>
                   <div class=" text">
@@ -231,11 +195,168 @@
                     </div>
                   </div>
                 </div>
+                <div class=" row-fill">
+                  <div class=" icon"><i class="fa-solid fa-bath"></i></div>
+                  <div class=" text">
+                    <p>Bathtub</p>
+                  </div>
+                  <div class=" checkbox">
+                    <mat-checkbox color="primary"></mat-checkbox>
+                  </div>
+                  <div class=" input">
+                    <div class="col-input">
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="textarea">
+              <mat-form-field class="fill " appearance="outline">
+                <mat-label>...More</mat-label>
+                <textarea id="more" matInput></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="add-btn">
+            <button class="btn-back" mat-raised-button matStepperPrevious>Back</button>
+            <button class="btn-reset" mat-raised-button type="reset">Reset</button>
+            <button class="btn-next" mat-raised-button matStepperNext>Next</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+
+    <!-- Step 3 Service  -->
+    <mat-step [stepControl]="serviceFormGroup">
+      <form [formGroup]="serviceFormGroup" (ngSubmit)="serviceForm()" #formthree="ngForm">
+        <ng-template matStepLabel>Service</ng-template>
+        <h1>Add Service </h1>
+        <div class="input-content">
+          <div class="add-input ">
+            <div class="row">
+              <div class="col ">
+                <div class="row-fill">
+                  <div class=" icon"><i class="fa-solid fa-wifi"></i></div>
+                  <div class=" text">
+                    <p>Wireless internet</p>
+                  </div>
+                  <div class=" checkbox">
+                    <mat-checkbox color="primary"></mat-checkbox>
+                  </div>
+                  <div class=" input">
+                    <div class="col-input">
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                    </div>
+                  </div>
+                </div>
 
                 <div class=" row-fill">
-                  <div class=" icon"><i class="fa-solid fa-tv"></i></div>
+                  <div class=" icon"><i class="fa-solid fa-pizza-slice"></i></div>
+                  <div class="text">
+                    <p>Food Service</p>
+                  </div>
+                  <div class=" checkbox">
+                    <mat-checkbox color="primary"></mat-checkbox>
+                  </div>
+                  <div class=" input">
+                    <div class="col-input">
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class=" row-fill">
+                  <div class="icon"><i class="fa-solid fa-martini-glass-citrus"></i></div>
                   <div class=" text">
-                    <p>TV</p>
+                    <p>Bar Service</p>
+                  </div>
+                  <div class=" checkbox">
+                    <mat-checkbox color="primary"></mat-checkbox>
+                  </div>
+                  <div class="input">
+                    <div class="col-input">
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class=" row-fill">
+                  <div class=" icon"><i class="fa-solid fa-person-swimming"></i></div>
+                  <div class=" text">
+                    <p>Swimming Service</p>
+                  </div>
+                  <div class=" checkbox">
+                    <mat-checkbox color="primary"></mat-checkbox>
+                  </div>
+                  <div class=" input">
+                    <div class="col-input">
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                    </div>
+                  </div>
+                </div>
+                <div class=" row-fill">
+                  <div class=" icon"><i class="fa-solid fa-plus"></i></div>
+                  <div class=" text">
+                    <p>Add Service</p>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+              <div class="col col-right-2">
+                <div class=" row-fill">
+                  <div class=" icon"><i class="fa-solid fa-spa"></i></div>
+                  <div class=" text">
+                    <p>Spa Service</p>
+                  </div>
+                  <div class=" checkbox">
+                    <mat-checkbox color="primary"></mat-checkbox>
+                  </div>
+                  <div class=" input">
+                    <div class="col-input">
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class=" row-fill">
+                  <div class=" icon"><i class="fa-solid fa-fish"></i></div>
+                  <div class=" text">
+                    <p>Fishing Service</p>
+                  </div>
+                  <div class=" checkbox">
+                    <mat-checkbox color="primary"></mat-checkbox>
+                  </div>
+                  <div class=" input">
+                    <div class="col-input">
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class=" row-fill">
+                  <div class=" icon"><i class="fa-solid fa-motorcycle"></i></div>
+                  <div class=" text">
+                    <p>Car Rental Service</p>
+                  </div>
+                  <div class=" checkbox">
+                    <mat-checkbox color="primary"></mat-checkbox>
+                  </div>
+                  <div class="co input">
+                    <div class="col-input">
+                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class=" row-fill">
+                  <div class=" icon"><i class="fa-solid fa-fire"></i></div>
+                  <div class=" text">
+                    <p>Campfire Service</p>
                   </div>
                   <div class=" checkbox">
                     <mat-checkbox color="primary"></mat-checkbox>
@@ -249,12 +370,7 @@
 
               </div>
             </div>
-            <div class="textarea">
-              <mat-form-field class="fill " appearance="outline">
-                <mat-label>...More</mat-label>
-                <textarea id="more" matInput ></textarea>
-              </mat-form-field>
-            </div>
+
 
           </div>
 
