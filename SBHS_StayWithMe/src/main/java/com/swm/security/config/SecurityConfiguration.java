@@ -60,8 +60,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		  		.and()
 		  		.authorizeRequests()
 		  		.antMatchers("/api/user/**", "/api/user/register/*", 
-		  				"/api/user/login/*", "/swagger-ui/*", "/v3/api-docs", "/v3/api-docs/swagger-config", "/error",
-		  				"/favicon.ico", "/momo/redirect", "/role").permitAll()
+		  				"/api/user/login/*", "/swagger-ui/*", "/v3/api-docs", "/v3/api-docs/swagger-config", "/api/payment",
+		  				"/checkin/redirect/**", "/checkin/confirm", "/momo/redirect", "/background/*", "/favicon.ico",  "/error", "/role").permitAll()
 		  		.anyRequest().authenticated();
 	}
 	

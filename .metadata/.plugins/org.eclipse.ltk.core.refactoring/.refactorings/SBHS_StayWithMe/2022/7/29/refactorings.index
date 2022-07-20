@@ -22,3 +22,5 @@
 1657628121378	Delete element
 1657678910430	Rename type 'SendMailException'
 1657703090895	Rename type 'VerifyRequestDto'
+1657847913842	Rename type 'PassengerShieldCancelBooking'
+1657855045302	Rename field 'userServcie'

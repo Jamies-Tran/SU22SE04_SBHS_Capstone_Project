@@ -26,7 +26,7 @@ public class BookingDepositEntity {
 	private Long Id;
 	
 	@Setter
-	private Long depositAmount;
+	private Long depositPaidAmount;
 	
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "booking_id", referencedColumnName = "Id")
@@ -35,6 +35,6 @@ public class BookingDepositEntity {
 	
 	@OneToOne(mappedBy = "bookingDeposit", cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@Setter
-	private MomoOrderProcessEntity momoOrderProcess;
+	private MomoPaymentEntity momoOrderProcess;
 	
 }

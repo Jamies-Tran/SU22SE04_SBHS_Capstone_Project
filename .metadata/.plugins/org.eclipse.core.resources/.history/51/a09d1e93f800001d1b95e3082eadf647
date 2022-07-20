@@ -1,7 +1,0 @@
-package com.swm.service;
-
-import com.swm.entity.BookingEntity;
-
-public interface IBookingService {
-	BookingEntity createBooking(BookingEntity bookingEntity);
-}

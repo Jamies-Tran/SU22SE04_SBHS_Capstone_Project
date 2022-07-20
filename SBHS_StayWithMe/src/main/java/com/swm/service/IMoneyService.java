@@ -1,8 +1,9 @@
 package com.swm.service;
 
-import com.swm.entity.MomoOrderProcessEntity;
+import com.swm.dto.MomoCaptureWalletRequestDto;
 
 public interface IMoneyService {
-	void addWalletBalance(MomoOrderProcessEntity momoProcess);
+	void processPayment(MomoCaptureWalletRequestDto momoRequestPayment);
 	
+	void requestRefund(long amount, String description, String orderId, String requestId, long transId);
 }

@@ -45,7 +45,7 @@ public class WalletEntity extends BaseEntity {
 	@OneToMany(mappedBy = "walletOrder", cascade = { CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@Setter
-	private List<MomoOrderProcessEntity> momoOrderList;
+	private List<MomoPaymentEntity> momoOrderList;
 
 	public WalletEntity(LandlordEntity owner, Date createdDate) {
 		super();

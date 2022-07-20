@@ -1,9 +1,0 @@
-package com.swm.service;
-
-import java.io.UnsupportedEncodingException;
-
-import javax.mail.MessagingException;
-
-public interface ISendMailService {
-	void sendMail(String landlordName, String message, String subject);
-}

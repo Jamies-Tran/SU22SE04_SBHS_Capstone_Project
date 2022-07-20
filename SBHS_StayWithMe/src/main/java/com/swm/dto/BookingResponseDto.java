@@ -15,7 +15,7 @@ public class BookingResponseDto {
 	private Long Id;
 	private String passengerName;
 	private String homestayName;
-	private List<HomestayAftercareDto> homestayServiceDto;
+	private List<HomestayAftercareDto> homestayServiceList;
 	private String checkIn;
 	private String checkOut;
 	private Long totalPrice;

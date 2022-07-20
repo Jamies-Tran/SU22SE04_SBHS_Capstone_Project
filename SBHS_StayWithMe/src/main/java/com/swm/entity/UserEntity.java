@@ -61,7 +61,7 @@ public class UserEntity extends BaseEntity {
 	@Setter
 	private String phone;
 	
-	@Column(unique = true, nullable = true)
+	@Column(unique = true, nullable = false)
 	@Setter
 	private String citizenIdentificationString;
 	

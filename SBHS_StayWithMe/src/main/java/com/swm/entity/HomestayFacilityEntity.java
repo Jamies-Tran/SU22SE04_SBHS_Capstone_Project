@@ -31,7 +31,7 @@ public class HomestayFacilityEntity extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "facility_sequence")
 	private Long Id;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	@Setter
 	private String name;
 	

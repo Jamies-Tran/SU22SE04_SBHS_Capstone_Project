@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MomoCaptureWalletRequestDto {
+	private String accessKey;
 	private String partnerCode;
 	private String requestId;
 	private Long amount;

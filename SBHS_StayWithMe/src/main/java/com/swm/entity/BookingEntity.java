@@ -49,10 +49,19 @@ public class BookingEntity extends BaseEntity {
 	@Column(nullable = false)
 	@Setter
 	private Date checkOut;
+	
+	@Setter
+	private String checkInBy;
+	
+	@Setter
+	private String checkOutBy;
 
 	@Column(nullable = false)
 	@Setter
 	private Long totalPrice;
+	
+	@Setter
+	private Long deposit;
 
 	@Column(nullable = false)
 	@Setter
@@ -89,6 +98,6 @@ public class BookingEntity extends BaseEntity {
 	@OneToOne(mappedBy = "bookingDeposit", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@Setter
-	private BookingDepositEntity bookingDeposit;
+	private BookingDepositEntity bookingPaidDeposit;
 
 }

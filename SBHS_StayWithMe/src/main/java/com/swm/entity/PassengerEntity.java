@@ -1,6 +1,5 @@
 package com.swm.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -49,7 +48,7 @@ public class PassengerEntity extends BaseEntity {
 
 	@OneToMany(mappedBy = "creator", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	@Setter
-	private List<CommentEntity> comment = new ArrayList<CommentEntity>();
+	private List<CommentEntity> commentList;
 
 	@OneToOne(mappedBy = "voucherWalletOwner", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.REMOVE })
@@ -58,7 +57,11 @@ public class PassengerEntity extends BaseEntity {
 
 	@ManyToMany(mappedBy = "regularHomestays", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	@Setter
-	private List<HomestayEntity> royalCustomer = new ArrayList<HomestayEntity>();
+	private List<HomestayEntity> royalBadgeList;
+	
+	@OneToMany(mappedBy = "passengerOwnerOfShield", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@Setter
+	private List<PassengerShieldCancelBookingEntity>  shieldList;
 
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.REMOVE }, fetch = FetchType.EAGER)

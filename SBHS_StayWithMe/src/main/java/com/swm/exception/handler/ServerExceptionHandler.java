@@ -47,7 +47,7 @@ public class ServerExceptionHandler {
 
 	@ExceptionHandler(ResourceNotAllowException.class)
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
-	public ErrorResponseMessage UserDisableExceptionHandler(ResourceNotAllowException exc, WebRequest request) {
+	public ErrorResponseMessage ResourceNotAllowExceptionHandler(ResourceNotAllowException exc, WebRequest request) {
 		return new ErrorResponseMessage(HttpStatus.NOT_ACCEPTABLE.getReasonPhrase(), HttpStatus.NOT_ACCEPTABLE.value(),
 				new Date(), exc.getMessage(), request.getDescription(false));
 	}

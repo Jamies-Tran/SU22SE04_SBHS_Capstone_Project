@@ -17,9 +17,24 @@ import com.swm.dto.ConfirmRequestDto;
 import com.swm.entity.BookingEntity;
 import com.swm.service.IBookingService;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @RestController
 @RequestMapping("/api/booking")
 public class BookingController {
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class CheckIn {
+		private String bookingOtp;
+		private Long bookingId;
+	}
+	
 	@Autowired
 	private IBookingService bookingService;
 	
@@ -45,4 +60,18 @@ public class BookingController {
 		return new ResponseEntity<>(bookingResponseDto, HttpStatus.OK);
 	}
 	
+	@PostMapping("/checkin")
+	@PreAuthorize("hasAuthority('booking:update')")
+	public ResponseEntity<?> checkInHomestay(@RequestBody CheckIn checkIn) {
+		bookingService.verifyBookingCheckIn(checkIn.getBookingId(), checkIn.getBookingOtp());
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@PostMapping("/checkin-confirm")
+	public ResponseEntity<?> confirmCheckInHomestay() {
+
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }

@@ -24,6 +24,7 @@ import com.swm.repository.IHomestayRepository;
 import com.swm.repository.ILandlordAccountRequestRepository;
 import com.swm.service.IRequestService;
 import com.swm.service.ISendMailService;
+import com.swm.util.ApplicationSendMailUtil;
 
 @Service
 public class RequestService implements IRequestService {
@@ -59,30 +60,26 @@ public class RequestService implements IRequestService {
 	public LandlordAccountRequestEntity verifyLandlordAccountRequestById(Long requestId, boolean isAccepted,
 			@Nullable String rejectMessage) {
 		String message = "";
-		LandlordAccountRequestEntity request = this.findLandlordAccountRequestById(requestId);
+		LandlordAccountRequestEntity landlordAccountRequestEntity = this.findLandlordAccountRequestById(requestId);
 		UserDetails approvedBy = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String landlordName = request.getAccountRequesting().getLandlordAccount().getUsername();
+		String landlordName = landlordAccountRequestEntity.getAccountRequesting().getLandlordAccount().getUsername();
 		String adminName = approvedBy.getUsername();
-		request.setVerifiedBy(adminName);
-		request.setModifiedDate(currentDate);
+		landlordAccountRequestEntity.setVerifiedBy(adminName);
+		landlordAccountRequestEntity.setModifiedDate(currentDate);
 		if (isAccepted) {
-			request.setStatus(RequestStatus.ACCEPT.name());
-			request.getAccountRequesting().getLandlordAccount().setStatus(UserStatus.ACTIVE.name());
-			message = "<h1>Welcome " + landlordName + " ^_^</h1>"
-					+ "<p>Your landlord account request has been approved.</p>"
-					+ "<p>From now on you can post your home stay on Stay With Me platform.</p>" + "<p>Good luck</p>";
+			landlordAccountRequestEntity.setStatus(RequestStatus.ACCEPT.name());
+			landlordAccountRequestEntity.getAccountRequesting().getLandlordAccount().setStatus(UserStatus.ACTIVE.name());
+			message = ApplicationSendMailUtil.generateAcceptLandlordRequestMessage(landlordAccountRequestEntity);
 		} else {
 			if(!StringUtils.hasLength(rejectMessage)) {
 				throw new ResourceNotFoundException("Reject message empty");
 			}
-			request.setStatus(RequestStatus.REJECT.name());
-			message = String.format("<h1>Rejected :(</h1>"
-					+ "<p>I'm sorry to inform you that your landlord account request has been denied for reason: </p><br/>"
-					+ "<h2>%s</h2>", rejectMessage);
+			landlordAccountRequestEntity.setStatus(RequestStatus.REJECT.name());
+			message = ApplicationSendMailUtil.generateRejectLandlordRequestMessage(landlordAccountRequestEntity, rejectMessage);
 		}
 		sendMailService.sendMail(landlordName, message, this.landlordAccountRequestMailSubject);
 
-		return request;
+		return landlordAccountRequestEntity;
 	}
 
 	@Override
@@ -98,39 +95,33 @@ public class RequestService implements IRequestService {
 	public HomestayPostingRequestEntity verifyHomestayPostinRequest(Long requestId, boolean isAccepted,
 			@Nullable String rejectMessage) {
 		String message = "";
-		HomestayPostingRequestEntity request = homestayPostingRequestRepo.findById(requestId)
+		HomestayPostingRequestEntity homestayPostingRequestEntity = homestayPostingRequestRepo.findById(requestId)
 				.orElseThrow(() -> new ResourceNotFoundException(requestId.toString(), "request not found"));
-		HomestayEntity homestayEntity = homestayRepo.findHomestayEntiyByRequestId(request)
+		HomestayEntity homestayEntity = homestayRepo.findHomestayEntiyByRequestId(homestayPostingRequestEntity)
 				.orElseThrow(() -> new ResourceNotFoundException(requestId.toString(), "Homestay request not found"));
 		UserDetails approvedBy = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		String adminName = approvedBy.getUsername();
 		String landlordName = homestayEntity.getLandlordOwner().getLandlordAccount().getUsername();
 		Long landlordWalletBalance = homestayEntity.getLandlordOwner().getWallet().getBalance();
-		String homestayName = request.getRequestHomestay().getName();
-		String homestayLocation = request.getRequestHomestay().getLocation();
-		request.setVerifiedBy(adminName);
-		request.setModifiedDate(currentDate);
+		homestayPostingRequestEntity.setVerifiedBy(adminName);
+		homestayPostingRequestEntity.setModifiedDate(currentDate);
 		if (isAccepted) {
-			request.setStatus(RequestStatus.ACCEPT.name());
-			request.getRequestHomestay().setStatus(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+			homestayPostingRequestEntity.setStatus(RequestStatus.ACCEPT.name());
+			homestayPostingRequestEntity.getRequestHomestay().setStatus(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
 			homestayEntity.getLandlordOwner().getWallet().setBalance(landlordWalletBalance - 500);
-			message = "<h1>Your homestay posting request has been accepted ^^</h1>" + "<p>Your homestay " + homestayName
-					+ " on location " + homestayLocation + "has been posted on our platform.</p>"
-					+ "<p>Ready yourself cause passenger can rent your homestay at any time. Good luck!</p>";
+			message = ApplicationSendMailUtil.generateAcceptHomestayRequestMessage(homestayPostingRequestEntity);
 		} else {
 			if(!StringUtils.hasLength(rejectMessage)) {
 				throw new ResourceNotFoundException("Reject message empty");
 			}
-			request.setStatus(RequestStatus.REJECT.name());
-			request.getRequestHomestay().setStatus(HomestayStatus.HOMESTAY_REQUEST_DENIED.name());
-			message = String.format("<h1>Your homestay posting request has been denied :(</h1>" 
-					+ "<p>Your homestay %s on location %s has been denied for reason: </p><br/>"
-					+ "<p>%s</p>", homestayName, homestayLocation, rejectMessage);
+			homestayPostingRequestEntity.setStatus(RequestStatus.REJECT.name());
+			homestayPostingRequestEntity.getRequestHomestay().setStatus(HomestayStatus.HOMESTAY_REQUEST_DENIED.name());
+			message = ApplicationSendMailUtil.generateRejectHomstayRequestMessage(homestayPostingRequestEntity, rejectMessage);
 		}
 		sendMailService.sendMail(landlordName, message, this.homestayPostingRequestMailSubject);
 
-		return request;
+		return homestayPostingRequestEntity;
 	}
 
 	@Override

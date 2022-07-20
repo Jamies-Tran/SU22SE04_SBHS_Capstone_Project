@@ -12,13 +12,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.RoleConverter;
-import com.swm.dto.RoleListDto;
+import com.swm.dto.RoleDto;
 import com.swm.entity.RoleEntity;
 import com.swm.service.IRoleService;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @RestController
 @RequestMapping("/role")
 public class RoleController {
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class RoleListDto {
+		List<RoleDto> roleList;
+	}
+	
 	@Autowired
 	private IRoleService roleService;
 

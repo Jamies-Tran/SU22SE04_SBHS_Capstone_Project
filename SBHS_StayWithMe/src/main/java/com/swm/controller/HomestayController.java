@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.HomestayConverter;
 import com.swm.dto.HomestayAftercareDto;
-import com.swm.dto.HomestayAftercareListDto;
 import com.swm.dto.HomestayDto;
 import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;
@@ -28,9 +27,24 @@ import com.swm.entity.HomestayLicenseImageEntity;
 import com.swm.service.IHomestayAftercareService;
 import com.swm.service.IHomestayService;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @RestController
 @RequestMapping("/api/homestay")
 public class HomestayController {
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class HomestayAftercareListDto {
+		List<HomestayAftercareDto> homestayServiceList;
+	}
+
+	
 	@Autowired
 	private IHomestayService homestayService;
 
@@ -95,7 +109,7 @@ public class HomestayController {
 	@GetMapping("/list/{location}")
 	@PreAuthorize("hasAuthority('homestay:view')")
 	public ResponseEntity<?> findHomestayListContainLocation(@PathVariable("location") String location) {
-		List<HomestayEntity> homestayEntityList = homestayService.findHomestayContainLoction(location);
+		List<HomestayEntity> homestayEntityList = homestayService.findHomestayListByLocation(location);
 		List<HomestayDto> homestayResponseListDto = homestayEntityList.stream()
 				.map(h -> homestayConvert.homestayDtoConvert(h)).collect(Collectors.toList());
 

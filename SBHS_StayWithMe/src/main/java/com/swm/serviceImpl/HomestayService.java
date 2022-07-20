@@ -2,6 +2,7 @@ package com.swm.serviceImpl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class HomestayService implements IHomestayService {
 
 	@Autowired
 	private IUserService userService;
-	
+
 	@Autowired
 	private IAuthenticationService authenticationService;
 
@@ -49,7 +50,7 @@ public class HomestayService implements IHomestayService {
 	}
 
 	@Override
-	public List<HomestayEntity> findLandlordHomestayList() {
+	public List<HomestayEntity> getHomestayList() {
 		List<HomestayEntity> homestayList = homestayRepo.findAll();
 		if (homestayList.isEmpty()) {
 			throw new ResourceNotFoundException("There's no homestay registered on platform");
@@ -60,11 +61,12 @@ public class HomestayService implements IHomestayService {
 
 	@Override
 	public HomestayEntity deleteHomestayById(Long Id) {
-		UserEntity userEntity = userService.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
-		
+		UserEntity userEntity = userService
+				.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
+
 		HomestayEntity homestayEntity = homestayRepo.findById(Id)
 				.orElseThrow(() -> new ResourceNotFoundException(Id.toString(), "Homestay id not found"));
-		if(!userEntity.getLandlord().getHomestayOwned().contains(homestayEntity)) {
+		if (!userEntity.getLandlord().getHomestayOwned().contains(homestayEntity)) {
 			throw new ResourceNotFoundException(homestayEntity.getName(), "You do not owned this homestay");
 		}
 		homestayRepo.delete(homestayEntity);
@@ -73,66 +75,68 @@ public class HomestayService implements IHomestayService {
 	}
 
 	@Override
-	public HomestayEntity createHomestay(HomestayEntity homestay, HomestayLicenseImageEntity homestayLicense,
+	public HomestayEntity createHomestay(HomestayEntity homestayEntity, HomestayLicenseImageEntity homestayLicense,
 			List<HomestayImageEntity> homestayImages, List<HomestayAftercareEntity> homestayServices,
 			List<HomestayFacilityEntity> homestayFacilities) {
 
-		if (homestayRepo.findHomestayByName(homestay.getName()).isPresent()) {
-			throw new DuplicateResourceException(homestay.getName(), "Homestay exist");
+		
+
+		if (homestayRepo.findHomestayByName(homestayEntity.getName()).isPresent()) {
+			throw new DuplicateResourceException(homestayEntity.getName(), "Homestay exist");
 		}
 
 		String accountPoster = authenticationService.getAuthenticatedUser().getUsername();
-		homestay.setCreatedDate(currentDate);
-		homestay.setCreatedBy(accountPoster);
+		homestayEntity.setCreatedDate(currentDate);
+		homestayEntity.setCreatedBy(accountPoster);
 		homestayImages.forEach(img -> {
-			img.setHomestayImage(homestay);
+			img.setHomestayImage(homestayEntity);
 			img.setCreatedDate(currentDate);
 			img.setCreatedBy(accountPoster);
 		});
 
-		homestay.setImageList(homestayImages);
+		homestayEntity.setImageList(homestayImages);
 		homestayServices.forEach(srv -> {
-			srv.setHomestayServiceContainer(homestay);
+			srv.setHomestayServiceContainer(homestayEntity);
 			srv.setCreatedDate(currentDate);
 			srv.setCreatedBy(accountPoster);
 		});
-		homestay.setHomestayService(homestayServices);
+		homestayEntity.setHomestayService(homestayServices);
 		homestayFacilities.forEach(fct -> {
-			fct.setHomestayFacilityContainer(homestay);
+			fct.setHomestayFacilityContainer(homestayEntity);
 			fct.setCreatedDate(currentDate);
 			fct.setCreatedBy(accountPoster);
 		});
-		homestay.setFacilities(homestayFacilities);
+		homestayEntity.setFacilities(homestayFacilities);
 		UserEntity userEntity = userService.findUserByUserInfo(accountPoster);
 		LandlordEntity landlordEntity = userEntity.getLandlord();
 		if (landlordEntity.getWallet().getBalance() < 1000) {
 			throw new NotEnoughBalanceException("Your wallet doesn't have enough balance");
 		}
-		homestay.setLandlordOwner(landlordEntity);
-		landlordEntity.setHomestayOwned(List.of(homestay));
-		homestayLicense.setHomestayLicense(homestay);
+		homestayEntity.setLandlordOwner(landlordEntity);
+		landlordEntity.setHomestayOwned(List.of(homestayEntity));
+		homestayLicense.setHomestayLicense(homestayEntity);
 		homestayLicense.setCreatedBy(accountPoster);
 		homestayLicense.setCreatedDate(currentDate);
-		homestay.setLicenseImage(homestayLicense);
+		homestayEntity.setLicenseImage(homestayLicense);
 		RatingEntity rating = new RatingEntity();
 		rating.setCreatedDate(currentDate);
-		rating.setHomestayPoint(homestay);
-		homestay.setRating(rating);
-		homestay.setStatus(HomestayStatus.HOMESTAY_REQUEST_PENDING.name());
+		rating.setHomestayPoint(homestayEntity);
+		homestayEntity.setRating(rating);
+		homestayEntity.setStatus(HomestayStatus.HOMESTAY_REQUEST_PENDING.name());
 		HomestayPostingRequestEntity homestayPostingRequest = new HomestayPostingRequestEntity();
-		homestayPostingRequest.setCreatedBy(homestay.getLandlordOwner().getLandlordAccount().getUsername());
+		homestayPostingRequest.setCreatedBy(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
 		homestayPostingRequest.setCreatedDate(currentDate);
 		homestayPostingRequest.setRequestType(RequestType.HOMESTAY_POSTING_REQUEST.name());
 		homestayPostingRequest.setStatus(RequestStatus.PENDING.name());
-		homestayPostingRequest.setRequestHomestay(homestay);
-		homestay.setHomestayPostingRequest(homestayPostingRequest);
-		HomestayEntity homestayPersisted = homestayRepo.save(homestay);
+		homestayPostingRequest.setRequestHomestay(homestayEntity);
+		homestayEntity.setHomestayPostingRequest(homestayPostingRequest);
+		HomestayEntity homestayPersisted = homestayRepo.save(homestayEntity);
 
 		return homestayPersisted;
 	}
 
 	@Override
-	public List<HomestayEntity> findHomestayContainLoction(String location) {
+	public List<HomestayEntity> findHomestayListByLocation(String location) {
 		List<HomestayEntity> homestayList = homestayRepo.findHomestayListContainLocation(location);
 		if (homestayList.isEmpty()) {
 			throw new ResourceNotFoundException(location, "There's no homestay at this location");
@@ -141,13 +145,22 @@ public class HomestayService implements IHomestayService {
 		return homestayList;
 	}
 
-
 	@Override
 	public HomestayEntity findHomestayById(Long Id) {
 		HomestayEntity homestayEntity = this.homestayRepo.findById(Id)
 				.orElseThrow(() -> new ResourceNotFoundException(Id.toString(), "Homestay id not found"));
-		
+
 		return homestayEntity;
+	}
+
+	@Override
+	public List<HomestayEntity> findHomestayListByOwnerName(String landlordName) {
+		List<HomestayEntity> homestayEntityList = this.getHomestayList();
+		List<HomestayEntity> ownerHomestayList = homestayEntityList.stream()
+				.filter(homestay -> homestay.getLandlordOwner().getLandlordAccount().getUsername().equals(landlordName))
+				.collect(Collectors.toList());
+
+		return homestayEntityList;
 	}
 
 }

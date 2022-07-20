@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\main\java\com\swm\util\SignatureHashingConfig.java"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -44,10 +45,12 @@
 	</section>
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
+			<item value="com.test"/>
 		</list>
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="HMAC_Alogrithm"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

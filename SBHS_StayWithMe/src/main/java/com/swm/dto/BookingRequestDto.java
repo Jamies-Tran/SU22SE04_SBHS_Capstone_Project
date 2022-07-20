@@ -2,6 +2,8 @@ package com.swm.dto;
 
 import java.util.List;
 
+import org.springframework.lang.Nullable;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,9 +12,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BookingRequestDto {
-	private String passengerName;
 	private String homestayName;
-	private List<HomestayAftercareDto> homestayServiceDto;
+	@Nullable
+	private List<HomestayAftercareDto> homestayServiceList;
 	private String checkIn;
 	private String checkOut;
 }

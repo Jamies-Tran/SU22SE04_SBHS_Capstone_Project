@@ -31,7 +31,7 @@ public class HomestayImageEntity extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "homestay_img_sequence")
 	private Long Id;
 	
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	@Setter
 	private String url;
 	

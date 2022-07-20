@@ -75,6 +75,8 @@ public class UserService implements IUserService {
 			throw new DuplicateResourceException(userEntity.getPhone(), "Phone exist");
 		} else if (userRepo.findUserByEmail(userEntity.getEmail()).isPresent()) {
 			throw new DuplicateResourceException(userEntity.getEmail(), "Email exist");
+		} else if(userRepo.findUserByCitizenIdentificationString(userEntity.getCitizenIdentificationString()).isPresent()) {
+			throw new DuplicateResourceException(userEntity.getCitizenIdentificationString(), "Citizen identification exist");
 		}
 		// create avatar
 		AvatarEntity avatar = userEntity.getAvatar();
@@ -107,6 +109,8 @@ public class UserService implements IUserService {
 			throw new DuplicateResourceException(userEntity.getPhone(), "Phone exist");
 		} else if (userRepo.findUserByEmail(userEntity.getEmail()).isPresent()) {
 			throw new DuplicateResourceException(userEntity.getEmail(), "Email exist");
+		} else if(userRepo.findUserByCitizenIdentificationString(userEntity.getCitizenIdentificationString()).isPresent()) {
+			throw new DuplicateResourceException(userEntity.getCitizenIdentificationString(), "Citizen identification exist");
 		}
 		// create avatar
 		AvatarEntity avatarEntity = userEntity.getAvatar();
@@ -156,6 +160,8 @@ public class UserService implements IUserService {
 			throw new DuplicateResourceException(userEntity.getPhone(), "Phone exist");
 		} else if (userRepo.findUserByEmail(userEntity.getEmail()).isPresent()) {
 			throw new DuplicateResourceException(userEntity.getEmail(), "Email exist");
+		} else if(userRepo.findUserByCitizenIdentificationString(userEntity.getCitizenIdentificationString()).isPresent()) {
+			throw new DuplicateResourceException(userEntity.getCitizenIdentificationString(), "Citizen identification exist");
 		}
 
 		// create avatar

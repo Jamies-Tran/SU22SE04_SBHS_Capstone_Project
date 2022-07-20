@@ -62,6 +62,10 @@ public class HomestayEntity extends BaseEntity {
 	@Column(nullable = false)
 	@Setter
 	private String status;
+	
+	@OneToOne(mappedBy = "homestayShieldForCancel", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@Setter
+	private PassengerShieldCancelBookingEntity shieldForCancelBooking;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id", referencedColumnName = "Id")

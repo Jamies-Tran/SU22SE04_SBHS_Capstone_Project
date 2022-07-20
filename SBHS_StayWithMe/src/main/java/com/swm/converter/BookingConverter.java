@@ -41,12 +41,13 @@ public class BookingConverter {
 	
 	public BookingEntity bookingToEntity(BookingRequestDto bookingDto) {
 		BookingEntity bookingEntity = new BookingEntity();
-		bookingEntity.setBookingCreator(userService.findUserByUserInfo(bookingDto.getPassengerName()).getPassenger());
 		bookingEntity.setBookingHomestay(homestayService.findHomestayByName(bookingDto.getHomestayName()));
-		bookingDto.getHomestayServiceDto().forEach(s -> System.err.println(s.getName()));
-		List<HomestayAftercareEntity> homestayServiceList = bookingDto.getHomestayServiceDto().stream()
-				.map(s -> homestayAftercareService.findHomestayServiceByName(s.getName())).collect(Collectors.toList());
-		bookingEntity.setHomestayServiceBooking(homestayServiceList);
+		if(bookingDto.getHomestayServiceList() != null) {
+			List<HomestayAftercareEntity> homestayServiceList = bookingDto.getHomestayServiceList().stream()
+					.map(s -> homestayAftercareService.findHomestayServiceByName(s.getName())).collect(Collectors.toList());
+			bookingEntity.setHomestayServiceBooking(homestayServiceList);
+		}
+		
 		try {
 			Date checkIn = simpleDateFormat.parse(bookingDto.getCheckIn());
 			bookingEntity.setCheckIn(checkIn);
@@ -68,9 +69,11 @@ public class BookingConverter {
 		bookingDto.setId(bookingEntity.getId());
 		bookingDto.setPassengerName(bookingEntity.getBookingCreator().getPassengerAccount().getUsername());
 		bookingDto.setHomestayName(bookingEntity.getBookingHomestay().getName());
-		List<HomestayAftercareDto> homestayServiceList = bookingEntity.getHomestayServiceBooking().stream()
-				.map(s -> homestayConvert.homestayAftercareDtoConvert(s)).collect(Collectors.toList());
-		bookingDto.setHomestayServiceDto(homestayServiceList);
+		if(bookingEntity.getHomestayServiceBooking() != null) {
+			List<HomestayAftercareDto> homestayServiceList = bookingEntity.getHomestayServiceBooking().stream()
+					.map(s -> homestayConvert.homestayAftercareDtoConvert(s)).collect(Collectors.toList());
+			bookingDto.setHomestayServiceList(homestayServiceList);
+		}
 		bookingDto.setCheckIn(bookingEntity.getCheckIn().toString());
 		bookingDto.setCheckOut(bookingEntity.getCheckOut().toString());
 		bookingDto.setTotalPrice(bookingEntity.getTotalPrice());

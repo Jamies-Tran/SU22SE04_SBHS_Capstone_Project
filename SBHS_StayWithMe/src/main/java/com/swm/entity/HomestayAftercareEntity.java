@@ -35,7 +35,7 @@ public class HomestayAftercareEntity extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_sequence")
 	private Long Id;
 	
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	@Setter
 	private String serviceName;
 	

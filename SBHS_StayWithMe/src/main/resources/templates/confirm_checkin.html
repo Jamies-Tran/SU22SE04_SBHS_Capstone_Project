@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Stay with me</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body style="background-color: #B4AFAF" th:background="@{/background/homestay_background.jpg}">
+	<div style="margin-top:70px; margin-left:100px; margin-right:50px; padding-top:50px; padding-bottom:50px ;background-color:white">
+    	<div>
+		<h1 style="margin:20px;text-align:center">Do you confirm check-in?</h1>
+	</div>
+	<form action="http://localhost:8080/checkin/confirm"
+			th:object="${checkInConfirm}" method="post"  style=" width: 50vw; margin-left : 29vw;padding: 20px">
+			<div style="margin-top:10px; margin-bottom:10px">
+				<input id="accept" type="radio" name="confirm_checkin" th:field="*{confirmCheckIn}" value="Accept" /> <label for="accept" style="font-size:25px">Yes,
+				i confirm</label>
+			</div><br/> 
+			<div style="margin-top:10px; margin-bottom:10px">
+				<input type="hidden" th:field="*{bookingId}"
+				th:value="${checkInConfirm.bookingId}" /> <input id="deny"
+				type="radio" name="confirm_checkin" th:field="*{confirmCheckIn}"
+				value="Deny" /> <label for="deny" style="font-size:25px">No, i don't</label>
+			</div><br/> 
+			
+			<input type="submit" value="Submit"
+				style="background-color: #04AA6D; border: none; color: white; padding: 10px 150px; text-decoration: none; margin: 15px 15px; cursor: pointer;" />
+		</form>
+    </div>
+
+</body>
+
+</html>

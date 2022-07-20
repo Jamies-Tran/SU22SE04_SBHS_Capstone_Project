@@ -10,7 +10,12 @@ public class ResourceNotAllowException extends RuntimeException {
 
 	public ResourceNotAllowException(String resource, String message) {
 		super(String.format("[%s] : %s", resource, message));
-		// TODO Auto-generated constructor stub
+
+	}
+
+	public ResourceNotAllowException(String message) {
+		super(message);
+
 	}
 	
 	
