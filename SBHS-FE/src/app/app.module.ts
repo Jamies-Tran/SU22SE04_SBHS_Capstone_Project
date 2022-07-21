@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { LandlordComponent } from './landlord/landlord.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminComponent } from './admin/admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     WelcomeComponent,
     LandlordComponent,
     ForgetPasswordComponent,
+    AdminComponent,
 
   ],
   imports: [
