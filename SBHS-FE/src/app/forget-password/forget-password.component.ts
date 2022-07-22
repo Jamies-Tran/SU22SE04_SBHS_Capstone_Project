@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ForgetPasswordService } from '../services/forget-password.service';
 
 @Component({
   selector: 'app-forget-password',
@@ -6,10 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./forget-password.component.scss']
 })
 export class ForgetPasswordComponent implements OnInit {
-
-  constructor() { }
+  public username = "";
+  public otp = "";
+  public newPassword = "";
+  constructor(private http: ForgetPasswordService , private router: Router,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
+  public getOtp() {
+    this.http.inputUserName(this.username).subscribe((data => {
 
+    }))
+  }
+  public inputOtp() {
+    this.http.inputOTP(this.username,this.otp).subscribe((data => {
+      
+    }))
+  }
+  public inputPassword() {
+    this.http.inputPassword(this.username, this.newPassword).subscribe((data => {
+      
+    }))
+  }
 }
