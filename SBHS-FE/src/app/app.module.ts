@@ -20,6 +20,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { LandlordComponent } from './landlord/landlord.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { AdminComponent } from './admin/admin.component';
+import { Page1Component } from './page1/page1.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AdminComponent } from './admin/admin.component';
     LandlordComponent,
     ForgetPasswordComponent,
     AdminComponent,
+    Page1Component,
   ],
   imports: [
     BrowserModule,

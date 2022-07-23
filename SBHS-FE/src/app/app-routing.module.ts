@@ -5,6 +5,8 @@ import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LandlordComponent } from './landlord/landlord.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { Page1Component } from './page1/page1.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {path: '', component: WelcomeComponent},
@@ -35,6 +37,18 @@ const routes: Routes = [
     path: 'ForgetPassword',
     loadChildren: () =>
       import('./forget-password/forget-password-routing.module').then((m) => m.ForgetPasswordRoutingModule),
+  },
+  {path: 'Page1', component: Page1Component},
+  {path: 'Admin', component: AdminComponent},
+  {
+    path: 'Admin',
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) => m.AdminModule),
+  },
+  {
+    path: 'Admin',
+    loadChildren: () =>
+      import('./admin/admin-routing.module').then((m) => m.AdminRoutingModule),
   },
 ];
 

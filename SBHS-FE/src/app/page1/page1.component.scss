@@ -1,0 +1,30 @@
+.father{
+  height: 824px;
+  background-image: url(https://phanthietvn.com/wp-content/uploads/2021/11/moonbeam-homestay-mui-ne-5.jpeg);
+  background-size: 100%;
+  background-size: cover;
+}
+footer{
+  color: white;
+}
+
+.wrapper{
+  width: 100vw;
+  height: 100vh;
+
+  .header{
+    height: 10vh;
+    background-color: #14274A;
+  }
+  .body{
+    height: 70vh;
+    max-height: 70vh;
+
+    background-image: url("/assets/image/background.png");
+    background-size: cover;
+  }
+  .footer{
+    height: 20vh;
+    background-color: #14274A;
+  }
+}

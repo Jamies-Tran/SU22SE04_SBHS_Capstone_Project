@@ -1,0 +1,104 @@
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+</head>
+
+<div class="wrapper">
+  <div class="header">
+    <nav class="navbar navbar-expand-sm navbar-dark ">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)">
+          <h3 style="margin-top: -15px; text-align: center;">STAYWITHME</h3><br />
+          <h6 style="margin-top: -48px; text-align: center;">Homestay</h6>
+        </a>
+
+        <div class="collapse navbar-collapse" id="mynavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item" style="margin-top:-12px;">
+              <a class="nav-link active" href="javascript:void(0)">Home</a>
+            </li>
+            <li class="nav-item" style="margin-top:-12px;">
+              <a class="nav-link" href="javascript:void(0)">Homestay</a>
+            </li>
+            <li class="nav-item" style="margin-top:-12px;">
+              <a class="nav-link" href="javascript:void(0)">Policies</a>
+            </li>
+            <li class="nav-item" style="margin-top:-12px;">
+              <a class="nav-link" routerLink="/Landlord">Landlord</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            &nbsp;
+            <button class="btn btn-light" [routerLink]="['/Login']" routerLinkActive="router-Link-Active"
+              type="button">Login</button>
+            &nbsp;
+            <button class="btn btn-light" [routerLink]="['/Register']" routerLinkActive="router-Link-Active"
+              type="button">Register</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="body"></div>
+  <div class="footer"></div>
+</div>
+
+
+
+<body>
+  <div class="container-fluid father" style="padding-left: 100px;">
+    <h1 style="padding-top:120px;">STAYWITHME</h1>
+    <h2>WELCOME TO</h2>
+    <p>Homestay
+      Book your stay and enjoy Luxury
+      redefined at the most affordable rates.
+    </p>
+  </div>
+</body>
+<footer>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="mynavbar">
+        <a class="navbar-brand" href="javascript:void(0)">
+          <h3 style="margin-top: -15px; text-align: center;">STAYWITHME</h3><br />
+          <h6 style="margin-top: -48px; text-align: center;">Homestay</h6>
+          <h6>123 Phan Văn Trị,Gò Vấp, Tp.HCM</h6>
+        </a><br />
+        <ul class="nav flex-column" style="margin-left: 150px;">
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Terms & Conditions</a>
+          </li>
+        </ul>
+        <ul class="nav flex-column" style="margin-left: 150px;">
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa-brands fa-facebook-f"></i>Facebook</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa-brands fa-twitter"></i>Twiter</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa-brands fa-instagram"></i>Instagram</a>
+          </li>
+        </ul>
+        <ul class="nav flex-column" style="margin-left: 150px;">
+          <li class="nav-item">
+            <h4>Subscribe to our newsletter</h4>
+          </li>
+          <li class="nav-item">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Email">
+              <button class="btn btn-primary" type="button">OK</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</footer>
