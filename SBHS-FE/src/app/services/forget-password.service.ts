@@ -26,9 +26,9 @@ export class ForgetPasswordService {
   }
 
   //  Step 2 Forget Pasword
-  public inputOTP(username: string, otp : string){
+  public inputOTP(userInfo: string, userOtp : string){
     var value = {
-      username,otp
+      userInfo,userOtp
     }
     // url api thieu user name
     const url =`${this.REST_API_SERVER}/api/user/otp/confirmation`;
@@ -38,13 +38,13 @@ export class ForgetPasswordService {
   }
 
   // Step 3 Forget Password
-  public inputPassword(username:string, password : string ){
+  public inputPassword(userInfo:string, newPassword : string ){
     var value = {
-      username,
-      password
+      userInfo,
+      newPassword
     }
     // url api thieu user name
-    const url =`${this.REST_API_SERVER}/api/user/otp/`;
+    const url =`${this.REST_API_SERVER}/api/user/password/modification`;
     return this.HttpClient
     .post<any>(url,value ,this.httpOptions)
     .pipe(catchError(this.handleError));

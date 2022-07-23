@@ -16,16 +16,19 @@ export class ForgetPasswordComponent implements OnInit {
   ngOnInit(): void {
   }
   public getOtp() {
+    console.log(this.username)
     this.http.inputUserName(this.username).subscribe((data => {
 
     }))
   }
   public inputOtp() {
+    console.log(this.username)
     this.http.inputOTP(this.username,this.otp).subscribe((data => {
       
     }))
   }
   public inputPassword() {
+    console.log(this.username)
     this.http.inputPassword(this.username, this.newPassword).subscribe((data => {
       
     }))

@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: '', component: WelcomeComponent},
   {path: 'Login', component: LoginComponent},
   {path: 'Register', component: RegisterComponent},
-
+  {path: 'ForgetPassword', component: ForgetPasswordComponent},
   // Landlord routing
   { path: 'Landlord', component: LandlordComponent },
   {
@@ -22,19 +22,6 @@ const routes: Routes = [
     path: 'Landlord',
     loadChildren: () =>
       import('./landlord/landlord-routing.module').then((m) => m.LandlordRoutingModule),
-  },
-
-  // Forget Password routing
-  { path: 'ForgetPassword', component: ForgetPasswordComponent },
-  {
-    path: 'ForgetPassword',
-    loadChildren: () =>
-      import('./forget-password/forget-password.module').then((m) => m.ForgetPasswordModule),
-  },
-  {
-    path: 'ForgetPassword',
-    loadChildren: () =>
-      import('./forget-password/forget-password-routing.module').then((m) => m.ForgetPasswordRoutingModule),
   },
 ];
 
