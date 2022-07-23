@@ -28,7 +28,9 @@ export class RegisterHomestayComponent implements OnInit {
     fileSource: [this.files],
   });
 
-  facilityFormGroup = this._formBuilder.group({});
+  facilityFormGroup = this._formBuilder.group({
+
+  });
 
   serviceFormGroup = this._formBuilder.group({});
 
