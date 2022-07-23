@@ -21,6 +21,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../data/repository/register_repository.dart';
 import '../../ui_kit/colors.dart';
@@ -42,30 +43,39 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final phoneNumberController = TextEditingController();
-  final emailController = TextEditingController();
+  final userNameController = TextEditingController();
   final passwordController = TextEditingController();
-  final repeatPasswordController = TextEditingController();
+  final addressController = TextEditingController();
+  final genderController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final citizenIdentificationStringController = TextEditingController();
   final birthDateController = TextEditingController();
 
-  final ValueNotifier<bool> firstNameNotifier = ValueNotifier(false);
-  final ValueNotifier<bool> lastNameNotifier = ValueNotifier(false);
-  final ValueNotifier<bool> emailNotifier = ValueNotifier(false);
+
+  final ValueNotifier<bool> userNameNotifier = ValueNotifier(false);
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(false);
-  final ValueNotifier<bool> repeatPasswordNotifier = ValueNotifier(false);
+  final ValueNotifier<bool> addressNotifier = ValueNotifier(false);
+  final ValueNotifier<bool> genderNotifier = ValueNotifier(false);
+  final ValueNotifier<bool> emailNotifier = ValueNotifier(false);
+  // final ValueNotifier<bool> repeatPasswordNotifier = ValueNotifier(false);
   final ValueNotifier<bool> phoneNotifier = ValueNotifier(false);
+  final ValueNotifier<bool> citizenIdentificationStringNotifier = ValueNotifier(false);
   final ValueNotifier<bool> birthDateNotifier = ValueNotifier(false);
   final ValueNotifier<bool> checkNotifier = ValueNotifier(false);
   final ValueNotifier<bool> checkErrorNotifier = ValueNotifier(false);
   final ValueNotifier<bool> createAccountNotifier = ValueNotifier(false);
 
-  FocusNode lastNameFocusNode = FocusNode();
-  FocusNode phoneFocusNode = FocusNode();
+  FocusNode userNameFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
-  FocusNode repeatPasswordFocusNode = FocusNode();
+  FocusNode addressFocusNode = FocusNode();
+  FocusNode genderFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
+  FocusNode phoneFocusNode = FocusNode();
+  FocusNode citizenIdentificationStringFocus = FocusNode();
+  FocusNode birthDateFocusNode = FocusNode();
+  // FocusNode repeatPasswordFocusNode = FocusNode();
+
 
   late RegisterService registerService = RegisterService();
   late RegisterRepository registerRepository =
@@ -93,15 +103,19 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     mock();
-    init();
-    passwordNotifier.addListener(() {
-      final text = repeatPasswordController.text;
-      repeatPasswordController.text = '';
-      repeatPasswordController.text = text;
-      final status = isValid();
-      createAccountNotifier.value = status;
-    });
-    repeatPasswordNotifier.addListener(() {
+    // init();
+    // passwordNotifier.addListener(() {
+    //   final text = repeatPasswordController.text;
+    //   repeatPasswordController.text = '';
+    //   repeatPasswordController.text = text;
+    //   final status = isValid();
+    //   createAccountNotifier.value = status;
+    // });
+    // repeatPasswordNotifier.addListener(() {
+    //   final status = isValid();
+    //   createAccountNotifier.value = status;
+    // });
+    userNameNotifier.addListener(() {
       final status = isValid();
       createAccountNotifier.value = status;
     });
@@ -117,13 +131,10 @@ class _RegisterPageState extends State<RegisterPage> {
       final status = isValid();
       createAccountNotifier.value = status;
     });
-    passwordController.addListener(() {
+    passwordNotifier.addListener(() {
       debugPrint(passwordController.text);
-      if (passwordController.text == repeatPasswordController.text) {
-        repeatPasswordNotifier.value = true;
-      } else if (repeatPasswordController.text.isNotEmpty) {
-        repeatPasswordNotifier.value = false;
-      }
+      final status = isValid();
+      createAccountNotifier.value = status;
     });
 
     otpCubit.stream.listen((state) {
@@ -144,10 +155,10 @@ class _RegisterPageState extends State<RegisterPage> {
         );
       } else if (state is OtpStateValidEmail) {
         print("Calling Api Check Phone");
-        otpCubit.checkPhone(phoneNumberController.text);
+        otpCubit.checkPhone(phoneController.text);
       } else if (state is OtpStateValidPhone) {
         print("Send Otp");
-        otpCubit.sendOtp("+84" + phoneNumberController.text.substring(1));
+        otpCubit.sendOtp("+84" + phoneController.text.substring(1));
       } else if (state is OtpStateInValidPhone) {
         Fluttertoast.showToast(msg: "Phone Existed");
         print("Phone Existed");
@@ -222,32 +233,38 @@ class _RegisterPageState extends State<RegisterPage> {
     super.initState();
   }
 
-  Future<void> init() async {
-    await genderCubit.setUpGender();
-  }
+  // Future<void> init() async {
+  //   await genderCubit.setUpGender();
+  // }
 
   void mock() {
-    firstNameController.text = 'a';
-    lastNameController.text = 'a';
-    emailController.text = 'devXXX@gmail.com';
-    phoneNumberController.text = '0382916020';
-    passwordController.text = 'Passlagi123';
-    repeatPasswordController.text = 'Passlagi123';
-    birthDateController.text = "08/10/2000";
-    emailNotifier.value = true;
+    userNameController.text = '';
+    passwordController.text = '';
+    addressController.text = '';
+    emailController.text = '';
+    phoneController.text = '';
+    citizenIdentificationStringController.text = '';
+    birthDateController.text = "";
+
+    // addressNotifier.value = true;
+    userNameNotifier.value = true;
     passwordNotifier.value = true;
-    repeatPasswordNotifier.value = true;
+    emailNotifier.value = true;
     phoneNotifier.value = true;
   }
 
   bool isValid() {
-    return lastNameNotifier.value &&
-        firstNameNotifier.value &&
+    return
+        userNameNotifier.value &&
+        passwordNotifier.value &&
+        addressNotifier.value &&
         emailNotifier.value &&
         phoneNotifier.value &&
-        passwordNotifier.value &&
-        repeatPasswordNotifier.value &&
-        checkNotifier.value;
+        citizenIdentificationStringNotifier.value;
+
+
+
+        // checkNotifier.value;
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -300,28 +317,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ]),
                           ),
                           Air18TextField(
-                            validator: validatorFirstName,
-                            validNotifier: firstNameNotifier,
-                            controller: firstNameController,
-                            labelText: 'First Name',
-                            nextFocusNode: lastNameFocusNode,
-                          ),
-                          const SizedBox(height: 24),
-                          Air18TextField(
-                            validator: validatorLastName,
-                            validNotifier: lastNameNotifier,
-                            controller: lastNameController,
-                            labelText: 'Last Name',
-                            focusNode: lastNameFocusNode,
-                            nextFocusNode: emailFocusNode,
-                          ),
-                          const SizedBox(height: 24),
-                          Air18TextField(
-                            validator: validatorEmail,
-                            validNotifier: emailNotifier,
-                            controller: emailController,
-                            labelText: 'Email Address',
-                            focusNode: emailFocusNode,
+                            validator: validatorUserName,
+                            validNotifier: userNameNotifier,
+                            controller: userNameController,
+                            labelText: 'User Name',
                             nextFocusNode: passwordFocusNode,
                           ),
                           const SizedBox(height: 24),
@@ -332,31 +331,26 @@ class _RegisterPageState extends State<RegisterPage> {
                             labelText: 'Password',
                             textInputAction: TextInputAction.next,
                             focusNode: passwordFocusNode,
-                            nextFocusNode: repeatPasswordFocusNode,
+                            nextFocusNode: addressFocusNode,
                             image: 'assets/images/password.svg',
                           ),
                           const SizedBox(height: 24),
-                          ValueListenableBuilder<bool>(
-                            valueListenable: repeatPasswordNotifier,
-                            builder: (context, value, _) =>
-                                Air18PasswordTextField(
-                              validator: (String? value) {
-                                if (passwordController.text == value &&
-                                    value != null) {
-                                  return null;
-                                } else {
-                                  return 'Password must similar above';
-                                }
-                              },
-                              validNotifier: repeatPasswordNotifier,
-                              controller: repeatPasswordController,
-                              labelText: 'Repeat Password',
-                              textInputAction: TextInputAction.next,
-                              focusNode: repeatPasswordFocusNode,
-                              nextFocusNode: phoneFocusNode,
-                              isRepeat: true,
-                              image: 'assets/images/password.svg',
-                            ),
+                          Air18TextField(
+                            validator: validatorAddress,
+                            validNotifier: addressNotifier,
+                            controller: addressController,
+                            labelText: 'Address',
+                            focusNode: addressFocusNode,
+                            nextFocusNode: emailFocusNode,
+                          ),
+                          const SizedBox(height: 24),
+                          Air18TextField(
+                            validator: validatorEmail,
+                            validNotifier: emailNotifier,
+                            controller: emailController,
+                            labelText: 'Email Address',
+                            focusNode: emailFocusNode,
+                            nextFocusNode: phoneFocusNode,
                           ),
                           const SizedBox(height: 24),
                           Air18PhoneNumberTextField(
@@ -369,11 +363,20 @@ class _RegisterPageState extends State<RegisterPage> {
                                 return 'Phone incorrect';
                               }
                             },
-                            controller: phoneNumberController,
+                            controller: phoneController,
                             labelText: 'Phone',
                             validNotifier: phoneNotifier,
                             focusNode: phoneFocusNode,
                             textInputAction: TextInputAction.done,
+                            nextFocusNode: citizenIdentificationStringFocus,
+                          ),
+                          const SizedBox(height: 24),
+                          Air18TextField(
+                            validator: validatorCitizenIdentificationString,
+                            validNotifier: citizenIdentificationStringNotifier,
+                            controller: citizenIdentificationStringController,
+                            labelText: 'Citizen',
+                            focusNode: citizenIdentificationStringFocus,
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 16, bottom: 2),
@@ -546,12 +549,13 @@ class _RegisterPageState extends State<RegisterPage> {
       //   passwordController.text,
       // ));
       data = {
-        "firstName": firstNameController.text,
-        "lastName": lastNameController.text,
-        "phoneNumber": phoneNumberController.text,
-        "email": emailController.text,
+        "userNamme":userNameController.text,
         "password": passwordController.text,
-        "sex": genderCubit.item,
+        "address": addressController.text,
+        "gender": genderCubit.item,
+        "email": emailController.text,
+        "phone": phoneController.text,
+        "citizen": citizenIdentificationStringController.text,
         "birthday": formatDate(birthDateController.text)
       };
       print(data);

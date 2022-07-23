@@ -104,10 +104,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
     });
   }
 
-  Future<void> setUp() async {
-    await genderCubit.setUpGender();
-    profileCubit.getUserInfo();
-  }
+  // Future<void> setUp() async {
+  //   await genderCubit.setUpGender();
+  //   profileCubit.getUserInfo();
+  // }
 
   @override
   Widget build(BuildContext context) {

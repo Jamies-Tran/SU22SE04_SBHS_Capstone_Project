@@ -208,18 +208,28 @@ String? validatorEmail(String? email) {
       ? null
       : 'Email incorrect';
 }
+String? validatorAddress(String? address){
+  return(address != null && address.isNotEmpty ) == true
+      ? null
+      : 'Address isn\'t empty';
+}
+String? validatorCitizenIdentificationString(String? citizenIdentification){
+  return(citizenIdentification != null && citizenIdentification.isNotEmpty)
+      ? null
+      : 'Citizen isn\'t empty';
 
-String? validatorFirstName(String? name) {
+}
+String? validatorUserName(String? name) {
   return (name != null && name.isNotEmpty) == true
       ? null
-      : 'First Name isn\'t empty';
+      : 'User Name isn\'t empty';
 }
 
-String? validatorLastName(String? name) {
-  return (name != null && name.isNotEmpty) == true
-      ? null
-      : 'Last Name isn\'t empty';
-}
+// String? validatorLastName(String? name) {
+//   return (name != null && name.isNotEmpty) == true
+//       ? null
+//       : 'Last Name isn\'t empty';
+// }
 
 String digitFormat(int? number) {
   if (number == null) return '00';

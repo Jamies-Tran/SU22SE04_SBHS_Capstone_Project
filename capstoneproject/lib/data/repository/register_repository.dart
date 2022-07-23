@@ -35,20 +35,20 @@ class RegisterRepository {
     return c.future;
   }
 
-  Future<GenderResponse> getGender() async{
-    final c = Completer<GenderResponse>();
-    try{
-      final response = await _registerService.getGender();
-      final result = GenderResponse.fromJson(response.data);
-      c.complete(result);
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.connectTimeout) {
-        c.completeError('Connect Timeout');
-      }
-      c.complete(GenderResponse.fromJson(e.response!.data));
-    } catch (ex) {
-      c.completeError(ex.toString());
-    }
-    return c.future;
-  }
+  // Future<GenderResponse> getGender() async{
+  //   final c = Completer<GenderResponse>();
+  //   try{
+  //     final response = await _registerService.getGender();
+  //     final result = GenderResponse.fromJson(response.data);
+  //     c.complete(result);
+  //   } on DioError catch (e) {
+  //     if (e.type == DioErrorType.connectTimeout) {
+  //       c.completeError('Connect Timeout');
+  //     }
+  //     c.complete(GenderResponse.fromJson(e.response!.data));
+  //   } catch (ex) {
+  //     c.completeError(ex.toString());
+  //   }
+  //   return c.future;
+  // }
 }

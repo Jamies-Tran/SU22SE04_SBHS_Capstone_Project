@@ -22,7 +22,7 @@ import 'package:capstoneproject/ui_kit/widget/base_widget/bloc_listener.dart';
 import 'package:capstoneproject/ui_kit/widget/loading_widget/loading_task.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
+// import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 
 class RoomPage extends StatefulWidget {
@@ -142,11 +142,11 @@ class _RoomPageWidgetState extends State<RoomPageWidget> {
           left: 20,
           bottom: MediaQuery.of(context).size.height * .62,
           child: GestureDetector(
-            onTap: () async {
-              initializeLocationAndSave([roomDetail]);
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => MapScreen(room: roomDetail)));
-            },
+            // onTap: () async {
+            //   initializeLocationAndSave([roomDetail]);
+            //   Navigator.of(context).push(MaterialPageRoute(
+            //       builder: (context) => MapScreen(room: roomDetail)));
+            // },
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -200,20 +200,20 @@ class _RoomPageWidgetState extends State<RoomPageWidget> {
     }
 
     // // Get capture the current user location
-    LocationData _locationData = await _location.getLocation();
-    LatLng currentLatLng =
-        LatLng(_locationData.latitude!, _locationData.longitude!);
+    // LocationData _locationData = await _location.getLocation();
+    // LatLng currentLatLng =
+    //     LatLng(_locationData.latitude!, _locationData.longitude!);
+    //
+    // // // Store the user location in sharedPreferences
+    // sharedPreferences.setDouble('latitude', _locationData.latitude!);
+    // sharedPreferences.setDouble('longitude', _locationData.longitude!);
 
-    // // Store the user location in sharedPreferences
-    sharedPreferences.setDouble('latitude', _locationData.latitude!);
-    sharedPreferences.setDouble('longitude', _locationData.longitude!);
-
-    // // Get and store the directions API response in sharedPreferences
-    for (int i = 0; i < rooms.length; i++) {
-      Map modifiedResponse =
-          await getDirectionsAPIResponse(currentLatLng, i, rooms[i]);
-      saveDirectionsAPIResponse(i, json.encode(modifiedResponse));
-    }
+    // Get and store the directions API response in sharedPreferences
+    // for (int i = 0; i < rooms.length; i++) {
+    //   Map modifiedResponse =
+    //       await getDirectionsAPIResponse(currentLatLng, i, rooms[i]);
+    //   saveDirectionsAPIResponse(i, json.encode(modifiedResponse));
+    // }
   }
 }
 

@@ -29,20 +29,20 @@ class SwitchCubit extends Cubit<SwitchState> {
     }
   }
 
-  Future<void> setUpGender() async {
-    try{
-      final response = await registerRepository.getGender();
-      if(response.success==true){
-
-        emit(SwitchState.loaded(
-            response.data!,
-            response.data!.first.id ?? ''));
-
-      }
-    }catch(e){
-      debugPrint(e.toString());
-    }
-  }
+  // Future<void> setUpGender() async {
+  //   try{
+  //     final response = await registerRepository.getGender();
+  //     if(response.success==true){
+  //
+  //       emit(SwitchState.loaded(
+  //           response.data!,
+  //           response.data!.first.id ?? ''));
+  //
+  //     }
+  //   }catch(e){
+  //     debugPrint(e.toString());
+  //   }
+  // }
 
 
   Map<String, String> getMap(List<Gender> list) {

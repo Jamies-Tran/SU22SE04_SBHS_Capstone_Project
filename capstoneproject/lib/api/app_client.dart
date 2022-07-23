@@ -8,9 +8,9 @@ import '../hive/hive_service.dart';
 import '../injection/injection.dart';
 
 class AppClient {
-
+  static const  String baseUrl = "http://localhost:8080/api/";
   static final BaseOptions _options = BaseOptions(
-    baseUrl: "https://airj18.skqist225.xyz/api",
+    baseUrl: baseUrl,
     // connectTimeout: 10000,
     // receiveTimeout: 3000,
     responseType: ResponseType.json,
@@ -27,8 +27,8 @@ class AppClient {
 
 class AppClientCookie {
 
-  static BaseOptions _options = BaseOptions(
-    baseUrl: "https://airj18.skqist225.xyz/api",
+  static final BaseOptions _options = BaseOptions(
+    baseUrl: baseUrl,
     // connectTimeout: 10000,
     // receiveTimeout: 3000,
     responseType: ResponseType.json,

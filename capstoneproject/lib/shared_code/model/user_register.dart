@@ -29,42 +29,42 @@ class Data {
 	bool? status;
 	int? createdDate;
 	int? updatedDate;
-	String? firstName;
-	String? lastName;
-	String? sex;
-	String? birthday;
-	String? email;
+	String? username;
 	String? password;
+	String? address;
+	String? gender;
+	String? email;
+	String? birthday;
+	String? citizenIdentification;
 	Role? role;
 	String? phoneNumber;
 	bool? phoneVerified;
 	String? about;
 	String? cookie;
-	String? fullName;
 	String? avatarPath;
 	String? fullPathAddress;
 	AddressDetails? addressDetails;
 	bool? supremeHost;
 
-	Data({this.id, this.status, this.createdDate, this.updatedDate, this.firstName, this.lastName, this.sex, this.birthday, this.email, this.password, this.role, this.phoneNumber, this.phoneVerified, this.about, this.cookie, this.fullName, this.avatarPath, this.fullPathAddress, this.addressDetails, this.supremeHost});
+	Data({this.id, this.status, this.createdDate, this.updatedDate, this.username, this.gender, this.birthday, this.email, this.password, this.role, this.phoneNumber, this.phoneVerified, this.about, this.cookie, this.avatarPath, this.fullPathAddress, this.addressDetails, this.supremeHost, this.address, this.citizenIdentification});
 
 	Data.fromJson(Map<String, dynamic> json) {
 		id = json['id'];
 		status = json['status'];
 		createdDate = json['createdDate'];
 		updatedDate = json['updatedDate'];
-		firstName = json['firstName'];
-		lastName = json['lastName'];
-		sex = json['sex'];
+		username = json['username'];
+		gender = json['gender'];
 		birthday = json['birthday'];
 		email = json['email'];
 		password = json['password'];
+		address = json['address'];
+		citizenIdentification = json['citizen'];
 		role = json['role'] != null ? Role.fromJson(json['role']) : null;
 		phoneNumber = json['phoneNumber'];
 		phoneVerified = json['phoneVerified'];
 		about = json['about'];
 		cookie = json['cookie'];
-		fullName = json['fullName'];
 		avatarPath = json['avatarPath'];
 		fullPathAddress = json['fullPathAddress'];
 		addressDetails = json['addressDetails'] != null ? AddressDetails.fromJson(json['addressDetails']) : null;
@@ -77,12 +77,13 @@ class Data {
 		data['status'] = status;
 		data['createdDate'] = createdDate;
 		data['updatedDate'] = updatedDate;
-		data['firstName'] = firstName;
-		data['lastName'] = lastName;
-		data['sex'] = sex;
+		data['username'] = username;
+		data['password'] = password;
+		data['address'] = address;
+		data['gender'] = gender;
 		data['birthday'] = birthday;
 		data['email'] = email;
-		data['password'] = password;
+		data['citizen'] = citizenIdentification;
 		if (role != null) {
       data['role'] = role!.toJson();
     }
@@ -90,7 +91,6 @@ class Data {
 		data['phoneVerified'] = phoneVerified;
 		data['about'] = about;
 		data['cookie'] = cookie;
-		data['fullName'] = fullName;
 		data['avatarPath'] = avatarPath;
 		data['fullPathAddress'] = fullPathAddress;
 		if (addressDetails != null) {
