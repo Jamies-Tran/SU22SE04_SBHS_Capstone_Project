@@ -1,5 +1,5 @@
 class PassengerModel {
-  String username;
+  String? username;
   String password;
   String address;
   String gender;
