@@ -22,7 +22,7 @@ class _LoginFormState extends State<LoginForm> {
   
   @override
   void initState() {
-    setup();
+
     super.initState();
   }
   
