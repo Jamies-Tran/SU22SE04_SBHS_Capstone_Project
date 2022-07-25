@@ -31,11 +31,6 @@ const routes: Routes = [
   {
     path: 'ForgetPassword',
     loadChildren: () =>
-      import('./forget-password/forget-password.module').then((m) => m.ForgetPasswordModule),
-  },
-  {
-    path: 'ForgetPassword',
-    loadChildren: () =>
       import('./forget-password/forget-password-routing.module').then((m) => m.ForgetPasswordRoutingModule),
   },
   {path: 'Page1', component: Page1Component},
