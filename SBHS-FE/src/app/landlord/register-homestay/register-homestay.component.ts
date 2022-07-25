@@ -5,6 +5,8 @@ import {
   FormGroup,
   FormControl,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ServerHttpService } from 'src/app/services/register-homestay.service';
 
 @Component({
   selector: 'app-register-homestay',
@@ -17,7 +19,6 @@ export class RegisterHomestayComponent implements OnInit {
   public name = "";
   public location = "";
   public price ="";
-  
   informationFormGroup = this._formBuilder.group({
     homestayName: ['', Validators.required],
     address: ['', Validators.required],
@@ -38,7 +39,7 @@ export class RegisterHomestayComponent implements OnInit {
 
   paymentFormGroup = this._formBuilder.group({});
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, private http: ServerHttpService, private router: Router,private route: ActivatedRoute) {}
 
   ngOnInit(): void {}
 
@@ -63,5 +64,13 @@ export class RegisterHomestayComponent implements OnInit {
   }
   paymentForm() {
     console.log(this.paymentFormGroup.value);
+  }
+  
+  public register() {
+    console.log(this.payment)
+    this.http.registerLandlord(this.name, this.location,this.price,this.payment).subscribe((data => {
+      console.log(data)
+      
+    }))
   }
 }

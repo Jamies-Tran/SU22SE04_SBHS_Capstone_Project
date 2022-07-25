@@ -19,10 +19,13 @@ export class LoginComponent implements OnInit {
   }
   public getProfile(){
     this.http.login(this.userName, this.password).subscribe((data =>{
-      
-      localStorage.setItem('Token',data);
-      this.router.navigate(['/Landlord'], {relativeTo: this.route});
-      console.log(localStorage.getItem('Token'));
+      localStorage.setItem('userToken',data["token"]);
+      // this.router.navigate(['/Landlord'], {relativeTo: this.route});
+      console.log(data["token"])
+      console.log(data["roles"][0]["authority"])
+      if(data["roles"][0]["authority"] === "ROLE_PASSENGER"){
+        this.router.navigate(['/Landlord'], {relativeTo: this.route});
+      }else this.router.navigate(['/Admin'], {relativeTo: this.route});
     }))
   }
 }

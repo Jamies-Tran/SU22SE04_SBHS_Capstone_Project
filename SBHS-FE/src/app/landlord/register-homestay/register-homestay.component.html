@@ -387,7 +387,7 @@
 
     <!-- Step 4 Payment  -->
     <mat-step [stepControl]="paymentFormGroup">
-      <form [formGroup]="paymentFormGroup" (ngSubmit)="paymentForm()" #formfour="ngForm">
+      <form [formGroup]="paymentFormGroup" (ngSubmit)="register()" #formfour="ngForm">
         <ng-template matStepLabel>Service</ng-template>
         <h1>Choose payment </h1>
         <div class="input-content">
@@ -412,6 +412,7 @@
             <button class="btn-back" mat-raised-button matStepperPrevious>Back</button>
             <button class="btn-reset" mat-raised-button type="reset">Reset</button>
             <button class="btn-next" mat-raised-button type="submit">Submit</button>
+            
           </div>
         </div>
       </form>
