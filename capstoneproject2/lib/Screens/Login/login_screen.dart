@@ -1,9 +1,11 @@
+import 'package:capstoneproject2/Screens/Signup/components/socal_sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:capstoneproject2/responsive.dart';
 
 import '../../components/background.dart';
 import 'components/login_form.dart';
 import 'components/login_screen_top_image.dart';
+import 'components/socal_log_in.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -26,6 +28,10 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(
                       width: 450,
                       child: LoginForm(),
+                    ),
+                    SizedBox(
+                      width: 450,
+                      child: SocalSignUp(),
                     ),
                   ],
                 ),
@@ -58,7 +64,9 @@ class MobileLoginScreen extends StatelessWidget {
             ),
             Spacer(),
           ],
+
         ),
+        const SocalSignUp(),
       ],
     );
   }

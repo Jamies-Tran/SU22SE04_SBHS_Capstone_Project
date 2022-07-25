@@ -14,6 +14,7 @@ class SocalIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+
       onTap: press as void Function()?,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -30,6 +31,7 @@ class SocalIcon extends StatelessWidget {
           height: 20,
           width: 20,
         ),
+
       ),
     );
   }
