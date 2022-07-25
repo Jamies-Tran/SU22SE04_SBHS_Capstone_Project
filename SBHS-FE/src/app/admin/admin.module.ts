@@ -11,9 +11,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
 import { RequestComponent } from './request/request.component';
+import { RequestAccountComponent } from './request/request-detail/request-account/request-account.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [RequestComponent],
+  declarations: [RequestComponent, RequestAccountComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -26,6 +28,7 @@ import { RequestComponent } from './request/request.component';
     ReactiveFormsModule,
     MatInputModule,
     MatSortModule,
+    MatButtonModule,
   ],
 })
 export class AdminModule {}
