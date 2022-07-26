@@ -20,7 +20,7 @@ import com.swm.enums.HomestayStatus;
 import com.swm.enums.RequestStatus;
 import com.swm.enums.RequestType;
 import com.swm.exception.DuplicateResourceException;
-import com.swm.exception.NotEnoughBalanceException;
+import com.swm.exception.InvalidBalanceException;
 import com.swm.exception.ResourceNotFoundException;
 import com.swm.repository.IHomestayRepository;
 import com.swm.service.IAuthenticationService;
@@ -110,7 +110,7 @@ public class HomestayService implements IHomestayService {
 		UserEntity userEntity = userService.findUserByUserInfo(accountPoster);
 		LandlordEntity landlordEntity = userEntity.getLandlord();
 		if (landlordEntity.getWallet().getBalance() < 1000) {
-			throw new NotEnoughBalanceException("Your wallet doesn't have enough balance");
+			throw new InvalidBalanceException("Your wallet doesn't have enough balance");
 		}
 		homestayEntity.setLandlordOwner(landlordEntity);
 		landlordEntity.setHomestayOwned(List.of(homestayEntity));
@@ -160,7 +160,7 @@ public class HomestayService implements IHomestayService {
 				.filter(homestay -> homestay.getLandlordOwner().getLandlordAccount().getUsername().equals(landlordName))
 				.collect(Collectors.toList());
 
-		return homestayEntityList;
+		return ownerHomestayList;
 	}
 
 }

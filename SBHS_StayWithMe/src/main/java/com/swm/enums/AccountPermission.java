@@ -10,6 +10,8 @@ public enum AccountPermission {
 	HOMESTAY_VIEW("homestay:view"),
 	HOMESTAY_DELETE("homestay:delete"),
 	HOMESTAY_UPDATE("homestay:update"),
+	WALLET_VIEW("wallet:view"),
+	WALLET_UPDATE("wallet:update"),
 	BOOKING_CREATE("booking:create"),
 	BOOKING_VIEW("booking:view"),
 	BOOKING_UPDATE("booking:update"),

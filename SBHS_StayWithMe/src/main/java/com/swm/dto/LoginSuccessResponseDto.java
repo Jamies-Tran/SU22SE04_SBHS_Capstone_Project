@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginSuccessResponseDto {
-	private String username;
+	private String userInfo;
 	private Date loginDate;
 	private String token;
 	private Collection<? extends GrantedAuthority> roles;

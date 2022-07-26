@@ -17,6 +17,7 @@ public class HomestayDto {
 	private String location;
 	private Long price;
 	private String payment;
+	private String status;
 	private HomestayLicenseDto homestayLicense;
 	private List<HomestayImageDto> homestayImages;
 	private List<HomestayAftercareDto> homestayServices;

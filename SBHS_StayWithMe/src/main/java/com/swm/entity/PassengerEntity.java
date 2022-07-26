@@ -62,6 +62,10 @@ public class PassengerEntity extends BaseEntity {
 	@OneToMany(mappedBy = "passengerOwnerOfShield", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@Setter
 	private List<PassengerShieldCancelBookingEntity>  shieldList;
+	
+	@OneToOne(mappedBy = "owner" ,cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@Setter
+	private PassengerWalletEntity wallet;
 
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.REMOVE }, fetch = FetchType.EAGER)

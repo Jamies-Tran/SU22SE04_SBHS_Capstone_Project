@@ -73,6 +73,7 @@ public class HomestayConverter {
 		homestayDto.setLocation(homestayEntity.getLocation());
 		homestayDto.setPrice(homestayEntity.getPrice());
 		homestayDto.setPayment(homestayEntity.getPayment());
+		homestayDto.setStatus(homestayEntity.getStatus());
 		homestayDto.setHomestayLicense(this.homestayLicenseDtoConvert(homestayEntity.getLicenseImage()));
 		homestayDto.setHomestayImages(homestayImageList);
 		homestayDto.setHomestayServices(homestayServiceList);

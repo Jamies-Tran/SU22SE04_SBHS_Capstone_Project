@@ -2,6 +2,8 @@ package com.swm.controller;
 
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,8 +46,11 @@ public class UserController {
 	@Autowired
 	private IAuthenticationService authenticationService;
 
+	private Logger log = LoggerFactory.getLogger(UserController.class);
+
 	@PostMapping("/register/passenger")
 	public ResponseEntity<?> createPassengerAccount(@RequestBody PassengerDto userDto) {
+		log.info("Passenger information: " + userDto.getUsername());
 		UserEntity userEntity = userConvert.passengerEntityConvert(userDto);
 		UserEntity userPersisted = userService.createPassengerUser(userEntity);
 		UserDto userResponse = userConvert.userResponseDtoConvert(userPersisted);
@@ -74,13 +79,13 @@ public class UserController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> webAccountLogin(@RequestBody AuthenticationDto userLogin) {
-		UserDetails userDetails = authenticationService.loginAuthentication(userLogin.getUsername(),
+		UserDetails userDetails = authenticationService.loginAuthentication(userLogin.getUserInfo(),
 				userLogin.getPassword());
 
 		String token = jwtUtil.generateJwtTokenString(userDetails.getUsername());
-		return new ResponseEntity<>(
-				new LoginSuccessResponseDto(userDetails.getUsername(), new Date(), token, userDetails.getAuthorities()),
-				HttpStatus.OK);
+		LoginSuccessResponseDto loginSuccessResponseDto = new LoginSuccessResponseDto(userDetails.getUsername(),
+				new Date(), token, userDetails.getAuthorities());
+		return new ResponseEntity<>(loginSuccessResponseDto, HttpStatus.OK);
 
 	}
 
@@ -108,8 +113,16 @@ public class UserController {
 		UserEntity userEntity = userService.changePassword(passwordModificationDto.getUserInfo(),
 				passwordModificationDto.getNewPassword());
 		UserDto userResponseDto = userConvert.userResponseDtoConvert(userEntity);
-		
+
 		return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
+	}
+	
+	@GetMapping("/exist/{userInfo}")
+	public ResponseEntity<?> checkGmailExist(@PathVariable("userInfo") String userInfo) {
+		 boolean test = userService.checkUserDuplicate(userInfo);
+		 log.info("Is duplicate?: " + test);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

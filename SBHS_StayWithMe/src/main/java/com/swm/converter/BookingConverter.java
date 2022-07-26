@@ -51,14 +51,10 @@ public class BookingConverter {
 		try {
 			Date checkIn = simpleDateFormat.parse(bookingDto.getCheckIn());
 			bookingEntity.setCheckIn(checkIn);
-		} catch (ParseException e) {
-			throw new ParseDateException(bookingDto.getCheckIn());
-		}
-		try {
 			Date checkOut = simpleDateFormat.parse(bookingDto.getCheckOut());
 			bookingEntity.setCheckOut(checkOut);
 		} catch (ParseException e) {
-			throw new ParseDateException(bookingDto.getCheckOut());
+			throw new ParseDateException(bookingDto.getCheckIn());
 		}
 
 		return bookingEntity;
@@ -79,6 +75,7 @@ public class BookingConverter {
 		bookingDto.setTotalPrice(bookingEntity.getTotalPrice());
 		long deposit = bookingEntity.getTotalPrice() * 50 / 100;
 		bookingDto.setDeposit(deposit);
+		bookingDto.setStatus(bookingEntity.getStatus());
 		
 		return bookingDto;
 	}

@@ -52,47 +52,17 @@ public class ApplicationSendMailUtil {
 		default:
 			throw new ResourceNotFoundException(authorityCheckIn);
 		}
-//		if(whoCheckIn.equalsIgnoreCase(AccountRole.LANDLORD.name())) {
-//			message = "<p>Homestay owner has checked-in for your booking at homestay <span style='font-weight:bold'>"+homestayEntity.getName()+"</span> at "+simpleDateFormat.format(currentDate)+"</p>\r\n"
-//					+ "<p>Your booking information:</p>\r\n"
-//					+ "	<p><span style='font-weight:bold;margin:10px'>Homestay: </span>"+homestayEntity.getName()+"</p>\r\n"
-//					+ "	<p><span style='font-weight:bold;margin:10px'>Check-in: </span>"+simpleDateFormat.format(bookingEntity.getCheckIn())+"</p>\r\n"
-//					+ "	<p><span style='font-weight:bold;margin:10px'>Check-out: </span>"+simpleDateFormat.format(bookingEntity.getCheckOut())+"</p>\r\n"
-//					+ "	<p><span style='font-weight:bold;margin:10px'>Total price: </span>"+bookingEntity.getTotalPrice()+" VND</p>\r\n"
-//					+ "	<p><span style='font-weight:bold;margin:10px'>You have paid booking deposit for: </span>"+bookingEntity.getBookingPaidDeposit().getDepositPaidAmount()+" VND</p>\r\n"
-//					+ "<p>Click on button below to confirm.</p>\r\n"
-//					+ "<form action=\"http://localhost:8080/checkin/redirect\", method=\"get\">\r\n"
-//					+ "	<input type=\"hidden\" name=\"isConfirmed\" value=\"true\"/>\r\n"
-//					+ "	<input type=\"submit\" value=\"Confirm\" 		style=\"background-color:#04AA6D;border:none;color:white;padding:16px 32px;text-decoration: none;margin: 4px 2px;cursor: pointer;\"/>\r\n"
-//					+ "</form>";
-//		} else if(whoCheckIn.equalsIgnoreCase(AccountRole.PASSENGER.name())) {
-//			message = "<p>Another passenger has checked-in for your booking at homestay <span style='font-weight:bold'>"+homestayEntity.getName()+"</span> at "+simpleDateFormat.format(currentDate)+"</p>\r\n"
-//					+ "<p>Your booking information:</p>\r\n"
-//					+ "	<p><span style='font-weight:bold;margin:10px'>Homestay: </span>"+homestayEntity.getName()+"</p>\r\n"
-//					+ "	<p><span style='font-weight:bold;margin:10px'>Check-in: </span>"+simpleDateFormat.format(bookingEntity.getCheckIn())+"</p>\r\n"
-//					+ "	<p><span style='font-weight:bold;margin:10px'>Check-out: </span>"+simpleDateFormat.format(bookingEntity.getCheckOut())+"</p>\r\n"
-//					+ "	<p><span style='font-weight:bold;margin:10px'>Total price: </span>"+bookingEntity.getTotalPrice()+" VND</p>\r\n"
-//					+ "	<p><span style='font-weight:bold;margin:10px'>You have paid booking deposit for: </span>"+bookingEntity.getBookingPaidDeposit().getDepositPaidAmount()+" VND</p>\r\n"
-//					+ "<p>Click on button below to confirm that person is your relative.</p>\r\n"
-//					+ "<form action=\"http://localhost:8080/checkin/redirect\", method=\"get\">\r\n"
-//					+ "	<input type=\"hidden\" name=\"isConfirmed\" value=\"true\"/>\r\n"
-//					+ "	<input type=\"submit\" value=\"Confirm\" 		style=\"background-color:#04AA6D;border:none;color:white;padding:16px 32px;text-decoration: none;margin: 4px 2px;cursor: pointer;\"/>\r\n"
-//					+ "</form>";
-//		} else {
-//			throw new Exception
-//		}
-			
-		
-//		return message;
 	}
 	
 	public static String generateAcceptBookingMessage(BookingEntity bookingEntity) {
 		List<HomestayAftercareEntity> homestayServiceList = bookingEntity.getHomestayServiceBooking();
+		String bookingOtp = bookingEntity.getBookingOtp().getCode();
 		HomestayEntity homestayEntity = bookingEntity.getBookingHomestay();
 		String message;
 		if (homestayServiceList.isEmpty()) {
 			message = "<p>We please to send you your booking information:<p>\r\n"
 					+ "<p><span style='font-weight:bold'>Homestay:</span>" + homestayEntity.getName() + "</p>\r\n"
+					+ "<p><span style='font-weight:bold'>Booking otp:</span>" +bookingOtp + "</p>\r\n"
 					+ "<p><span style='font-weight:bold'>Check-in:</span>"
 					+ simpleDateFormat.format(bookingEntity.getCheckIn()) + "</p>\r\n"
 					+ "<p><span style='font-weight:bold'>Check-out:</span>"
@@ -167,6 +137,8 @@ public class ApplicationSendMailUtil {
 		
 		return message;
 	}
+	
+	
 	
 	
 }

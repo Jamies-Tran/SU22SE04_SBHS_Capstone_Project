@@ -20,8 +20,8 @@ import lombok.Setter;
 @Getter
 public class LandlordAccountRequestEntity extends BaseRequestEntity {
 	@Id
-	@SequenceGenerator(name = "passenger_sequence", sequenceName = "passenger_sequence", initialValue = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "passenger_sequence")
+	@SequenceGenerator(name = "landlord_request_sequence", sequenceName = "landlord_request_sequence", initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "landlord_request_sequence")
 	private Long Id;
 	
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})

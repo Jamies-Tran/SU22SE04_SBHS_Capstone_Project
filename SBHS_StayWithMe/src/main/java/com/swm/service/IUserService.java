@@ -1,10 +1,16 @@
 package com.swm.service;
 
+import com.swm.entity.BaseWalletEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
+import com.swm.enums.WalletType;
 
 public interface IUserService {
+	BaseWalletEntity findSystemWalletByUsername(String userInfo, WalletType walletType);
+	
 	UserEntity findUserById(Long Id);
+	
+	boolean checkUserDuplicate(String userInfo);
 	
 	UserEntity findUserByUserInfo(String userInfo);
 	

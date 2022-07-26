@@ -69,8 +69,8 @@ public class BookingEntity extends BaseEntity {
 
 	// booking properties - end
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
-	@JoinTable(name = "booking_homestay", joinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "Id"), inverseJoinColumns = @JoinColumn(name = "homestay_id", referencedColumnName = "Id"))
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "homestay_Id", referencedColumnName = "Id")
 	@Setter
 	private HomestayEntity bookingHomestay;
 
@@ -84,7 +84,7 @@ public class BookingEntity extends BaseEntity {
 	@Setter
 	private BookingOtpEntity bookingOtp;
 
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	@JoinColumn(name = "request_update", referencedColumnName = "Id")
 	@Setter
 	private UpdateBookingRequestEntity requestUpdateBooking;

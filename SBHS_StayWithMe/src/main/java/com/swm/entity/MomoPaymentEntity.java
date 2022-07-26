@@ -64,9 +64,14 @@ public class MomoPaymentEntity {
 	private String signature;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-	@JoinColumn(name = "wallet_id", referencedColumnName = "Id")
+	@JoinColumn(name = "landlord_wallet", referencedColumnName = "Id")
 	@Setter
-	private WalletEntity walletOrder;
+	private LandlordWalletEntity landlordWallet;
+	
+	@ManyToOne(cascade =  {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "passenger_wallet", referencedColumnName = "Id")
+	@Setter
+	private PassengerWalletEntity passengerWallet;
 	
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "deposit_id", referencedColumnName = "Id")

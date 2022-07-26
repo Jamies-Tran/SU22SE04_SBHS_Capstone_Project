@@ -36,7 +36,7 @@ public class LandlordEntity extends BaseEntity {
 
 	@OneToOne(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	@Setter
-	private WalletEntity wallet;
+	private LandlordWalletEntity wallet;
 
 	@Column(nullable = true)
 	@Setter

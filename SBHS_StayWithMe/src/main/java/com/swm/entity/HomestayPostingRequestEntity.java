@@ -21,8 +21,8 @@ import lombok.Setter;
 @Getter
 public class HomestayPostingRequestEntity extends BaseRequestEntity {
 	@Id
-	@SequenceGenerator(name = "update_booking_sequence", sequenceName = "update_booking_sequence", initialValue = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "update_booking_sequence")
+	@SequenceGenerator(name = "homestay_request_sequence", sequenceName = "homestay_request_sequence", initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "homestay_request_sequence")
 	private Long Id;
 	
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH} , fetch = FetchType.LAZY)

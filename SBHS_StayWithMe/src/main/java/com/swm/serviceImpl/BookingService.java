@@ -1,11 +1,18 @@
 package com.swm.serviceImpl;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.lang.Nullable;
@@ -19,13 +26,16 @@ import com.swm.entity.BookingOtpEntity;
 import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.LandlordEntity;
+import com.swm.entity.LandlordWalletEntity;
 import com.swm.entity.PassengerEntity;
 import com.swm.entity.PassengerShieldCancelBookingEntity;
+import com.swm.entity.PassengerWalletEntity;
 import com.swm.entity.UserEntity;
 import com.swm.enums.AccountRole;
 import com.swm.enums.BookingStatus;
 import com.swm.enums.HomestayStatus;
 import com.swm.exception.DuplicateResourceException;
+import com.swm.exception.InvalidBalanceException;
 import com.swm.exception.ResourceNotAllowException;
 import com.swm.exception.ResourceNotFoundException;
 import com.swm.repository.IBookingRepository;
@@ -64,7 +74,9 @@ public class BookingService implements IBookingService {
 
 	private Date currentDate = new Date();
 
-	//private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private Logger log = LoggerFactory.getLogger(BookingService.class);
+
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Override
 	public BookingEntity createBooking(BookingEntity bookingEntity) {
@@ -93,13 +105,29 @@ public class BookingService implements IBookingService {
 			bookingOtpEntity.setBookingContainer(bookingEntity);
 			bookingOtpEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
 			bookingOtpEntity.setCreatedDate(currentDate);
-			PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = new PassengerShieldCancelBookingEntity();
-			passengerShiedCancelBookingEntity.setPassengerOwnerOfShield(passengerEntity);
-			passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
-			PassengerShieldCancelBookingEntity passengerShieldCancelBookingPersisted = passengerShieldCancelBookingRepository
-					.save(passengerShiedCancelBookingEntity);
-			passengerEntity.setShieldList(List.of(passengerShieldCancelBookingPersisted));
-			homestayEntity.setShieldForCancelBooking(passengerShieldCancelBookingPersisted);
+			//PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = new PassengerShieldCancelBookingEntity();
+			PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = homestayEntity.getShieldForCancelBooking();
+			if(passengerShiedCancelBookingEntity == null) {
+				passengerShiedCancelBookingEntity = new PassengerShieldCancelBookingEntity();
+				passengerShiedCancelBookingEntity.setActiveDate(currentDate);
+				passengerShiedCancelBookingEntity.setPassengerOwnerOfShield(passengerEntity);
+				passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
+				passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
+				homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
+				passengerShiedCancelBookingEntity = passengerShieldCancelBookingRepository.save(passengerShiedCancelBookingEntity);
+				passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
+				homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
+			}
+//			passengerShiedCancelBookingEntity.setActiveDate(currentDate);
+//			passengerShiedCancelBookingEntity.setPassengerOwnerOfShield(passengerEntity);
+//			passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
+//			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
+//			homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
+			
+//			PassengerShieldCancelBookingEntity passengerShieldCancelBookingPersisted = passengerShieldCancelBookingRepository
+//					.save(passengerShiedCancelBookingEntity);
+//			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
+//			homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
 			long totalPrice = this.calculateTotalPrice(bookingEntity.getHomestayServiceBooking(), homestayEntity,
 					bookingEntity.getCheckIn(), bookingEntity.getCheckOut());
 			long depositAmount = totalPrice * 50 / 100;
@@ -155,24 +183,24 @@ public class BookingService implements IBookingService {
 			if (!checkInUserEntity.getUsername().equals(bookingUserEntity.getUsername())) {
 				if (checkInUserEntity.getUsername().equals(homestayOwnerEntity.getUsername())) {
 					// chủ homestay check-in cho khách
-					msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity, bookingEntity,
-							AccountRole.LANDLORD.name());
+					msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity,
+							bookingEntity, AccountRole.LANDLORD.name());
 					bookingEntity.setStatus(BookingStatus.BOOKING_CHECKIN_BY_LANDLORD.name());
 					bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
 					sendMailService.sendMail(bookingUserEntity.getUsername(), msg, "Booking confirm");
 				} else if (!checkInUserEntity.getUsername().equals(bookingUserEntity.getUsername())) {
 					// người quen của passenger người có otp code
-					msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity, bookingEntity,
-							AccountRole.PASSENGER.name());
+					msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity,
+							bookingEntity, AccountRole.PASSENGER.name());
 					bookingEntity.setStatus(BookingStatus.BOOKING_CHECKIN_BY_PASSENGER_RELATIVE.name());
 					bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
 					sendMailService.sendMail(bookingUserEntity.getUsername(), msg, "Booking confirm");
-				} else {
-					// người đặt check-in
-					bookingEntity.setStatus(BookingStatus.BOOKING_CONFIRM_CHECKIN.name());
-					bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
+				} 
+			} else {
+				// người đặt check-in
+				bookingEntity.setStatus(BookingStatus.BOOKING_CONFIRM_CHECKIN.name());
+				bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
 
-				}
 			}
 			return bookingEntity;
 		} else {
@@ -215,15 +243,14 @@ public class BookingService implements IBookingService {
 		for (Entry<Date, Date> bookingEntry : bookingDateKeyValuePair.entrySet()) {
 			System.out.println((bookingEntry.getValue().before(checkOut)));
 			if (bookingEntry.getKey().equals(checkIn) || bookingEntry.getValue().equals(checkOut)) {
-				//ngày check-in, check-out trùng luông lịch của booking khác
+				// ngày check-in, check-out trùng luông lịch của booking khác
 				throw new DuplicateResourceException("Reservation schedule is duplicated");
 			} else if ((bookingEntry.getKey().before(checkIn) && bookingEntry.getValue().after(checkIn))
 					|| (bookingEntry.getKey().before(checkOut) && bookingEntry.getValue().after(checkOut)
 							|| (bookingEntry.getKey().after(checkIn) && bookingEntry.getValue().before(checkOut)))) {
 				// ngày check-in, check-out nằm trong ngày homestay có lịch booking từ trước
 				throw new ResourceNotAllowException("Homestay is on the reservation schedule");
-			} else if (bookingEntry.getKey().after(currentDate) || bookingEntry.getValue().after(currentDate)
-					|| bookingEntry.getValue().after(bookingEntry.getKey())) {
+			} else if (checkIn.before(currentDate) || checkOut.before(currentDate) || checkOut.before(checkIn)) {
 				// check=in, check-out ngày quá khứ, check-out sau ngày check-in
 				throw new ResourceNotAllowException("Invalid booking schedule");
 			}
@@ -277,6 +304,136 @@ public class BookingService implements IBookingService {
 		});
 
 		return bookingDateKeyValuePair;
+	}
+
+	@Override
+	public BookingEntity checkOutRequest(Long bookingId, String paymentMethod) {
+		BookingEntity bookingEntity = this.findBookingById(bookingId);
+		String checkOutUser = authenticationService.getAuthenticatedUser().getUsername();
+		PassengerEntity homestayBookingUser = bookingEntity.getBookingCreator();
+		LandlordEntity homestayOwner = bookingEntity.getBookingHomestay().getLandlordOwner();
+		if (homestayBookingUser.getPassengerAccount().getUsername().equals(checkOutUser)
+				|| homestayOwner.getLandlordAccount().getUsername().equals(checkOutUser)) {
+
+		}
+
+		return null;
+	}
+
+	@Transactional
+	@Override
+	public BookingDepositEntity payForBookingDeposit(Long bookingId, Long amount) {
+		BookingEntity bookingEntity = this.findBookingById(bookingId);
+		BookingDepositEntity bookingDepositEntity = bookingEntity.getBookingPaidDeposit();
+		PassengerEntity passengerEntity = bookingEntity.getBookingCreator();
+		PassengerWalletEntity passengerWalletEntity = passengerEntity.getWallet();
+		if (!bookingEntity.getStatus().equals(BookingStatus.BOOKING_PENDING_DEPOSIT.name())) {
+			throw new ResourceNotAllowException("Landlord haven't confirm booking yet");
+		} else if (amount.longValue() > passengerWalletEntity.getBalance().longValue()) {
+			throw new InvalidBalanceException("Wallet ballance is not enough to make a transaction");
+		} else if (!bookingEntity.getDeposit().equals(amount)) {
+			throw new InvalidBalanceException("The amount must be equal to booking deposit");
+		}
+		Long newPassengerWalletBalance = passengerWalletEntity.getBalance() - amount;
+		passengerWalletEntity.setBalance(newPassengerWalletBalance);
+		bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_CHECKIN.name());
+		bookingDepositEntity.setDepositPaidAmount(amount);
+
+		return bookingDepositEntity;
+	}
+
+	@Transactional
+	@Override
+	public BookingEntity passengerCancelBooking(Long bookingId) {
+		BookingEntity bookingEntity = this.findBookingById(bookingId);
+		PassengerEntity userCancelBooking = bookingEntity.getBookingCreator();
+		LandlordEntity homestayOwner = bookingEntity.getBookingHomestay().getLandlordOwner();
+		PassengerShieldCancelBookingEntity passengerShieldBookingEntity = userCancelBooking.getShieldList().stream()
+				.filter(s -> s.getHomestayShieldForCancel().getId().equals(bookingEntity.getBookingHomestay().getId()))
+				.findAny().orElseThrow(() -> new ResourceNotFoundException("Shield not found"));
+		PassengerWalletEntity passengerWallet = userCancelBooking.getWallet();
+		LandlordWalletEntity landlordWallet = homestayOwner.getWallet();
+		BookingDepositEntity bookingDeposit = bookingEntity.getBookingPaidDeposit();
+		long depositAmount = bookingDeposit.getDepositPaidAmount();
+		long passengerWalletCurrentBalance = passengerWallet.getBalance();
+		long landlordWalletCurrentBalance = landlordWallet.getBalance();
+
+		if (!bookingEntity.getStatus().equals(BookingStatus.BOOKING_PENDING_CHECKIN.name())) {
+			throw new ResourceNotAllowException("Not avalable cancel request");
+		}
+
+		// 24h đầu tiên
+		if (!passengerShieldBookingEntity.getActiveDate().after(currentDate)) {
+			// hủy lần đầu
+			if (passengerShieldBookingEntity.getFirstTimeShieldActive()) {
+				passengerWalletCurrentBalance = passengerWalletCurrentBalance + depositAmount;
+				depositAmount = 0;
+				passengerWallet.setBalance(passengerWalletCurrentBalance);
+				bookingDeposit.setDepositPaidAmount(depositAmount);
+				passengerShieldBookingEntity.setFirstTimeShieldActive(false);
+				// hủy lần hai
+			} else if (passengerShieldBookingEntity.getSencondTimeShieldActive()) {
+				passengerWalletCurrentBalance = passengerWalletCurrentBalance + (depositAmount * 95) / 100;
+				landlordWalletCurrentBalance = landlordWalletCurrentBalance + (depositAmount * 5) / 100;
+				depositAmount = 0;
+				passengerWallet.setBalance(passengerWalletCurrentBalance);
+				landlordWallet.setBalance(landlordWalletCurrentBalance);
+				bookingDeposit.setDepositPaidAmount(depositAmount);
+				passengerShieldBookingEntity.setSencondTimeShieldActive(false);
+				// hủy lần 2 trở lên
+			} else {
+				landlordWalletCurrentBalance = landlordWalletCurrentBalance + depositAmount;
+				depositAmount = 0;
+				landlordWallet.setBalance(landlordWalletCurrentBalance);
+				bookingDeposit.setDepositPaidAmount(depositAmount);
+			}
+			// sau 24h
+		} else {
+			landlordWalletCurrentBalance = landlordWalletCurrentBalance + depositAmount;
+			depositAmount = 0;
+			landlordWallet.setBalance(landlordWalletCurrentBalance);
+			bookingDeposit.setDepositPaidAmount(depositAmount);
+		}
+
+		bookingEntity.setStatus(BookingStatus.BOOKING_REJECTED.name());
+
+		return bookingEntity;
+	}
+
+	@Override
+	public BookingEntity deleteBooking(Long bookingId) {
+		BookingEntity bookingEntity = this.findBookingById(bookingId);
+		if (!bookingEntity.getStatus().equals(BookingStatus.BOOKING_CONFIRM_CHECKOUT.name())
+				&& !bookingEntity.getStatus().equals(BookingStatus.BOOKING_REJECTED.name())) {
+			throw new ResourceNotAllowException("Error when deleting booking");
+		}
+
+		bookingRepo.delete(bookingEntity);
+
+		return bookingEntity;
+	}
+
+	@Override
+	public List<String> getHomestayBookingDate(Long homestayId) {
+		HomestayEntity homestayEntity = homestayService.findHomestayById(homestayId);
+		List<BookingEntity> bookingEntityList = homestayEntity.getBooking();
+		List<String> bookingDateList = new ArrayList<String>();
+		bookingEntityList.stream().filter(b -> b.getStatus().equals(BookingStatus.BOOKING_PENDING_CHECKIN.name()))
+			.collect(Collectors.toList()).forEach(b -> {
+				Date currentDate = b.getCheckIn();
+				bookingDateList.add(simpleDateFormat.format(currentDate));
+				Long differentInDate = this.differentInDay(b.getCheckIn(), b.getCheckOut());
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(currentDate);
+				for (long i = 0; i < differentInDate; i++) {
+					//log.info("Date increase: " + currentDate);
+					cal.add(Calendar.DATE, 1);
+					currentDate = cal.getTime();
+					bookingDateList.add(simpleDateFormat.format(currentDate));
+				}
+			});
+		
+		return bookingDateList;
 	}
 
 }

@@ -12,7 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.swm.exception.DuplicateResourceException;
 import com.swm.exception.JavaMailException;
 import com.swm.exception.JwtTokenException;
-import com.swm.exception.NotEnoughBalanceException;
+import com.swm.exception.InvalidBalanceException;
 import com.swm.exception.ParseDateException;
 import com.swm.exception.ParseJsonException;
 import com.swm.exception.ResourceNotFoundException;
@@ -66,9 +66,9 @@ public class ServerExceptionHandler {
 				new Date(), exc.getMessage(), request.getDescription(false));
 	}
 
-	@ExceptionHandler(NotEnoughBalanceException.class)
+	@ExceptionHandler(InvalidBalanceException.class)
 	@ResponseStatus(value = HttpStatus.PRECONDITION_FAILED)
-	public ErrorResponseMessage NotEnoughBalanceExceptionHandler(NotEnoughBalanceException exc, WebRequest request) {
+	public ErrorResponseMessage NotEnoughBalanceExceptionHandler(InvalidBalanceException exc, WebRequest request) {
 		return new ErrorResponseMessage(HttpStatus.PRECONDITION_FAILED.getReasonPhrase(),
 				HttpStatus.PRECONDITION_FAILED.value(), new Date(), exc.getMessage(), request.getDescription(false));
 	}

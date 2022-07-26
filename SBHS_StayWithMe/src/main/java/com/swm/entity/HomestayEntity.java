@@ -63,7 +63,7 @@ public class HomestayEntity extends BaseEntity {
 	@Setter
 	private String status;
 	
-	@OneToOne(mappedBy = "homestayShieldForCancel", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToOne(mappedBy = "homestayShieldForCancel", cascade = {CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
 	@Setter
 	private PassengerShieldCancelBookingEntity shieldForCancelBooking;
 

@@ -42,8 +42,9 @@ public class RequestConverter {
 		return requestDto;
 	}
 	
-	public RequestDto baseRequestDtoConvert(BaseRequestEntity request) {
+	public RequestDto baseRequestDtoConvert(BaseRequestEntity request, Long requestId) {
 		RequestDto requestDto = new RequestDto();
+		requestDto.setId(requestId);
 		requestDto.setCreatedBy(request.getCreatedBy());
 		requestDto.setCreatedDate(request.getCreatedDate().toString());
 		requestDto.setType(request.getRequestType());

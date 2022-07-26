@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,17 +14,20 @@ import org.springframework.util.StringUtils;
 
 import com.swm.entity.AdminEntity;
 import com.swm.entity.AvatarEntity;
+import com.swm.entity.BaseWalletEntity;
 import com.swm.entity.CitizenIdentificationEntity;
 import com.swm.entity.LandlordAccountRequestEntity;
 import com.swm.entity.LandlordEntity;
 import com.swm.entity.PassengerEntity;
+import com.swm.entity.PassengerWalletEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
 import com.swm.entity.VoucherWalletEntity;
-import com.swm.entity.WalletEntity;
+import com.swm.entity.LandlordWalletEntity;
 import com.swm.enums.RequestStatus;
 import com.swm.enums.RequestType;
 import com.swm.enums.UserStatus;
+import com.swm.enums.WalletType;
 import com.swm.exception.DuplicateResourceException;
 import com.swm.exception.ResourceNotAllowException;
 import com.swm.exception.ResourceNotFoundException;
@@ -52,6 +57,8 @@ public class UserService implements IUserService {
 	private final String sendOtpToUserSubject = "Change password OTP";
 
 	private Date currentDate = new Date();
+	
+	private Logger log = LoggerFactory.getLogger(UserService.class);
 
 	@Override
 	public UserEntity findUserByUserInfo(String userInfo) {
@@ -83,7 +90,6 @@ public class UserService implements IUserService {
 		avatar.setPoster(userEntity);
 		avatar.setCreatedDate(currentDate);
 		avatar.setCreatedBy(userEntity.getUsername());
-		// create passenger account
 		PassengerEntity passengerAccount = new PassengerEntity();
 		passengerAccount.setCreatedDate(currentDate);
 		passengerAccount.setCreatedBy(userEntity.getUsername());
@@ -92,7 +98,12 @@ public class UserService implements IUserService {
 		voucherWallet.setVoucherWalletOwner(passengerAccount);
 		voucherWallet.setCreatedDate(currentDate);
 		voucherWallet.setCreatedBy(userEntity.getUsername());
+		PassengerWalletEntity passengerWalletEntity = new PassengerWalletEntity();
+		passengerWalletEntity.setOwner(passengerAccount);
+		passengerWalletEntity.setCreatedDate(currentDate);
+		passengerAccount.setCreatedBy(userEntity.getUsername());
 		passengerAccount.setVoucherWallet(voucherWallet);
+		passengerAccount.setWallet(passengerWalletEntity);
 		userEntity.setPassenger(passengerAccount);
 		userEntity.setStatus(UserStatus.ACTIVE.name());
 		userEntity.setCreatedDate(currentDate);
@@ -129,7 +140,7 @@ public class UserService implements IUserService {
 		citizenIdentification.setUrl(citizenIdentificationUrl);
 		landlordAccount.setCitizenIdentificationUrl(citizenIdentification);
 		// create landlord's platform wallet
-		WalletEntity wallet = new WalletEntity();
+		LandlordWalletEntity wallet = new LandlordWalletEntity();
 		wallet.setOwner(landlordAccount);
 		wallet.setCreatedDate(currentDate);
 		wallet.setCreatedBy(userEntity.getUsername());
@@ -260,6 +271,44 @@ public class UserService implements IUserService {
 		userEntity.setPasswordChangable(false);
 		
 		return userEntity;
+	}
+
+	@Override
+	public BaseWalletEntity findSystemWalletByUsername(String userInfo, WalletType walletType) {
+		UserEntity userEntity = this.findUserByUserInfo(userInfo);
+		switch(walletType) {
+		case LANDLORD_WALLET:
+			if(userEntity.getLandlord() == null) {
+				throw new ResourceNotAllowException("Invalid landlord wallet request");
+			}
+			LandlordWalletEntity landlordWalletEntity = userEntity.getLandlord().getWallet();
+			return landlordWalletEntity;
+		case PASSENGER_WALLET:
+			if(userEntity.getPassenger() == null) {
+				throw new ResourceNotAllowException("Invalid passenger wallet request");
+			}
+			PassengerWalletEntity passengerWalletEntity = userEntity.getPassenger().getWallet();
+			return passengerWalletEntity;
+		default:
+			throw new ResourceNotFoundException("Unknown wallet type request");
+		
+		}
+	}
+
+	@Override
+	public boolean checkUserDuplicate(String userInfo) {
+		log.info("Is user info emai: " + userInfo.contains("@"));
+		if(userInfo.contains("@")) {
+			if(userRepo.findUserByEmail(userInfo).isPresent()) {
+				throw new DuplicateResourceException("Email exist");
+			}
+		} else {
+			if(userRepo.findUserByUsername(userInfo).isPresent()) {
+				throw new DuplicateResourceException("Email exist");
+			}
+		}
+		
+		return true;
 	}
 
 }

@@ -10,6 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AuthenticationDto {
-	private String username;
+	private String userInfo;
 	private String password;
 }

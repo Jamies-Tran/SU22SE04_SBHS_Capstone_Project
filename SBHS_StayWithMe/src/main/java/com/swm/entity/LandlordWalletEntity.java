@@ -20,34 +20,34 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "wallet")
+@Table(name = "landlord_wallet")
 @NoArgsConstructor
 @Getter
-public class WalletEntity extends BaseEntity {
+public class LandlordWalletEntity extends BaseWalletEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "wallet_sequence", sequenceName = "wallet_sequence", initialValue = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wallet_sequence")
+	@SequenceGenerator(name = "landlord_wallet_sequence", sequenceName = "landlord_wallet_sequence", initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "landlord_wallet_sequence")
 	private Long Id;
 
 	@Setter
 	private Long balance = 0L;
-
+	
 	@OneToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "Id")
 	@Setter
 	private LandlordEntity owner;
 
-	@OneToMany(mappedBy = "walletOrder", cascade = { CascadeType.MERGE, CascadeType.REFRESH,
+	@OneToMany(mappedBy = "landlordWallet", cascade = { CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@Setter
-	private List<MomoPaymentEntity> momoOrderList;
+	private List<MomoPaymentEntity> momoPaymentList;
 
-	public WalletEntity(LandlordEntity owner, Date createdDate) {
+	public LandlordWalletEntity(LandlordEntity owner, Date createdDate) {
 		super();
 		this.owner = owner;
 		this.createdDate = createdDate;

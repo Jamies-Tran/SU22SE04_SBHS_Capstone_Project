@@ -1,5 +1,9 @@
 package com.swm.controller;
 
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,30 +13,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.dto.MomoCaptureWalletRequestDto;
+import com.swm.dto.MomoCaptureWalletResponseDto;
+import com.swm.dto.MomoRefundRequestDto;
 import com.swm.enums.MomoResponseLanguage;
-import com.swm.service.IMoneyService;
+import com.swm.service.IPaymentService;
 import com.swm.util.MomoInfoUtil;
 
 
 
 @RestController
 @RequestMapping("/api/payment")
-public class WalletController {
+public class PaymentController {
 	
 	@Autowired
-	private IMoneyService moneyService;
+	private IPaymentService moneyService;
+	
+	private Logger log = LoggerFactory.getLogger(PaymentController.class);
 	
 	@PostMapping
 	public ResponseEntity<?> paymentRequest(@RequestBody MomoCaptureWalletRequestDto momoCaptureRequestDto) {
-		momoCaptureRequestDto.setAccessKey(MomoInfoUtil.accessKey);
 		momoCaptureRequestDto.setPartnerCode(MomoInfoUtil.partnerCode);
 		momoCaptureRequestDto.setRequestId(MomoInfoUtil.requestId);
 		momoCaptureRequestDto.setOrderId(MomoInfoUtil.orderId);
 		momoCaptureRequestDto.setRedirectUrl(MomoInfoUtil.MOMO_REDIRECT_URL);
 		momoCaptureRequestDto.setIpnUrl(MomoInfoUtil.MOMO_IPN_URL);
 		momoCaptureRequestDto.setRequestType(MomoInfoUtil.requestType);
-		momoCaptureRequestDto.setLang(MomoResponseLanguage.EN.name().toLowerCase());
-		moneyService.processPayment(momoCaptureRequestDto);
+		momoCaptureRequestDto.setLang(MomoResponseLanguage.VI.name().toLowerCase());
+		MomoCaptureWalletResponseDto momoCaptureWalletResponseDto = moneyService.processPayment(momoCaptureRequestDto);
+		
+		return new ResponseEntity<>(momoCaptureWalletResponseDto, HttpStatus.OK);
+	}
+	
+	@PostMapping("/refund")
+	public ResponseEntity<?> refundRequest(@RequestBody MomoRefundRequestDto momoRefundRequestDto) {
+		log.info("Momo transId: " + momoRefundRequestDto.getTransId());
+		momoRefundRequestDto.setPartnerCode(MomoInfoUtil.partnerCode);
+		momoRefundRequestDto.setRequestId(UUID.randomUUID().toString());
+		momoRefundRequestDto.setOrderId(UUID.randomUUID().toString());
+		momoRefundRequestDto.setLang(MomoResponseLanguage.VI.name().toLowerCase());
+		moneyService.requestRefund(momoRefundRequestDto);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

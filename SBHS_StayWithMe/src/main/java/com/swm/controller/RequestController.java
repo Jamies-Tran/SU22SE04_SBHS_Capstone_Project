@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.RequestConverter;
-import com.swm.dto.RequestDto;
 import com.swm.dto.ConfirmRequestDto;
-import com.swm.entity.BaseRequestEntity;
+import com.swm.dto.RequestDto;
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.LandlordAccountRequestEntity;
 import com.swm.service.IRequestService;
@@ -56,8 +55,8 @@ public class RequestController {
 	@PatchMapping("/verification/landlord/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> verifyLandlordAccountRequest(@PathVariable("Id") Long Id, @RequestBody ConfirmRequestDto confirmRequest) {
-		BaseRequestEntity requestEntity = requestService.verifyLandlordAccountRequestById(Id, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
-		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity);
+		LandlordAccountRequestEntity requestEntity = requestService.verifyLandlordAccountRequestById(Id, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
+		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity, requestEntity.getId());
 
 		return new ResponseEntity<>(requestResponse, HttpStatus.ACCEPTED);
 	}
@@ -65,8 +64,8 @@ public class RequestController {
 	@PatchMapping("/verification/homestay/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> verifyRequest(@PathVariable("Id") Long Id, @RequestBody ConfirmRequestDto confirmRequest) {
-		BaseRequestEntity requestEntity = requestService.verifyHomestayPostinRequest(Id, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
-		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity);
+		HomestayPostingRequestEntity requestEntity = requestService.verifyHomestayPostinRequest(Id, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
+		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity, requestEntity.getId());
 
 		return new ResponseEntity<>(requestResponse, HttpStatus.ACCEPTED);
 	}
@@ -75,8 +74,8 @@ public class RequestController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> verifyRequest(@PathVariable("Id") Long Id) {
 		System.out.println("get homestay id: " + Id);
-		BaseRequestEntity requestEntity = requestService.findHomestayPostingRequest(Id);
-		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity);
+		HomestayPostingRequestEntity requestEntity = requestService.findHomestayPostingRequest(Id);
+		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity, requestEntity.getId());
 
 		return new ResponseEntity<>(requestResponse, HttpStatus.ACCEPTED);
 	}

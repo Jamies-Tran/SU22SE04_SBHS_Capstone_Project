@@ -43,7 +43,6 @@ public class UserEntity extends BaseEntity {
 	@Setter
 	private String username;
 	
-	@Column(nullable = false)
 	@Setter
 	private String password;
 	

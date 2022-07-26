@@ -14,7 +14,7 @@ import com.swm.dto.MomoPaymentDto;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.MomoPaymentEntity;
 import com.swm.service.IBookingService;
-import com.swm.service.IMoneyService;
+import com.swm.service.IPaymentService;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class ServerPageController {
 	
 	
 	@Autowired
-	private IMoneyService walletService;
+	private IPaymentService walletService;
 	
 	@Autowired
 	private IBookingService bookingService;
@@ -50,9 +50,9 @@ public class ServerPageController {
 			@RequestParam String signature, Model model) {
 		
 		MomoPaymentDto momoPaymentDto = new MomoPaymentDto(
-				partnerCode, orderId, requestId, amount, orderInfo, orderType, transId, resultCode, message, payType, extraData, signature);
-		MomoPaymentEntity  momoOrderProcessEntity = momoOrderProcessConvert.momoPaymentToEntity(momoPaymentDto);
-		//walletService.processPayment(momoOrderProcessEntity);
+				partnerCode, orderId, requestId, amount, orderInfo.toUpperCase(), orderType, transId, resultCode, message, payType, extraData, signature);
+		MomoPaymentEntity momoOrderProcessEntity = momoOrderProcessConvert.momoPaymentToEntity(momoPaymentDto);
+		walletService.paymentResultHandling(momoOrderProcessEntity);
 
 		return "payment_success";
 	}

@@ -1,5 +1,7 @@
 package com.swm.entity;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +30,13 @@ public class PassengerShieldCancelBookingEntity {
 	private Long Id;
 	
 	@Setter
-	private Boolean shieldActive = true;
+	private Boolean firstTimeShieldActive = true;
+	
+	@Setter
+	private Boolean sencondTimeShieldActive = true;
+	
+	@Setter
+	private Date activeDate;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "passenger_id", referencedColumnName = "Id")

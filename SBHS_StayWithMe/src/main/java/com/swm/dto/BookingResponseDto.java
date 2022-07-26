@@ -19,5 +19,6 @@ public class BookingResponseDto {
 	private String checkIn;
 	private String checkOut;
 	private Long totalPrice;
+	private String status;
 	private Long deposit;
 }
