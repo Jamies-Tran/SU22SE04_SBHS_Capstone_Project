@@ -24,8 +24,8 @@ class LoginScreen extends StatelessWidget {
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    SizedBox(
+                  children: [
+                    const SizedBox(
                       width: 450,
                       child: LoginForm(),
                     ),
@@ -66,7 +66,7 @@ class MobileLoginScreen extends StatelessWidget {
           ],
 
         ),
-        const SocalSignUp(),
+         SocalSignUp(),
       ],
     );
   }

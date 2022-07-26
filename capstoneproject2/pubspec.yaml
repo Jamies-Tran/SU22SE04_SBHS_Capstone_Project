@@ -40,6 +40,7 @@ dependencies:
   cloud_firestore: ^3.4.0
   google_sign_in: ^5.4.0
   firebase_auth: ^3.5.0
+  flutter_spinkit: ^5.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -69,6 +70,9 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/gmail.svg
+    - assets/icons/chat.svg
+    - assets/icons/login.svg
+    - assets/icons/signup.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

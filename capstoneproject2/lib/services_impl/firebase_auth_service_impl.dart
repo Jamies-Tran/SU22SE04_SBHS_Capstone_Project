@@ -16,7 +16,6 @@ class FirebaseAuthServiceImpl extends IFirebaseAuthService {
   Future<dynamic> getGoogleSignInAccount() async {
     final googleUser = await _googleSignIn.signIn();
     final checkEmailExistOnSystem =  await _passengerService.checkEmailExistOnSystem(googleUser?.email);
-    print(googleUser?.email);
     if(checkEmailExistOnSystem is ErrorHandlerModel) {
       return checkEmailExistOnSystem;
     }

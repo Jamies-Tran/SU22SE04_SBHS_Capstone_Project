@@ -15,7 +15,7 @@ class PassengerServiceImpl extends IPassengerService {
   final _firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<dynamic> completeGoogleSignInPassenger(PassengerModel passengerModel, GoogleSignInAccount? googleSignInAccount) async {
+  Future<dynamic> completeGoogleSignUpPassenger(PassengerModel passengerModel, GoogleSignInAccount? googleSignInAccount) async {
     var client = http.Client();
     Uri registerPassengerUri = Uri.parse(_registerPassengerUrl);
     var response = await client.post(
@@ -51,6 +51,25 @@ class PassengerServiceImpl extends IPassengerService {
       final responseBody = json.decode(response.body);
       final errorHandlerModel = ErrorHandlerModel.fromJson(responseBody);
       return errorHandlerModel;
+    }
+  }
+
+  @override
+  Future signUpWithSWMAccount(PassengerModel passengerModel) async {
+    var client = http.Client();
+    final uri = Uri.parse(_registerPassengerUrl);
+    final response = await client.post(
+        uri,
+        headers: {"content-type" : "application/json"},
+        body: json.encode(passengerModel.toJson())
+    );
+    if(response.statusCode == 201) {
+      var responseBody = PassengerModel.fromJson(json.decode(response.body));
+      await _firebaseAuth.createUserWithEmailAndPassword(email: passengerModel.email, password: passengerModel.password);
+      return responseBody;
+    }else {
+      var errorHandler = ErrorHandlerModel.fromJson(json.decode(response.body));
+      return errorHandler;
     }
   }
 
