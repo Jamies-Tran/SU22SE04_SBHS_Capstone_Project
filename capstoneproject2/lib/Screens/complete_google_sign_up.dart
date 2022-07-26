@@ -1,4 +1,5 @@
 import 'package:capstoneproject2/Screens/Welcome/welcome_screen.dart';
+import 'package:capstoneproject2/Screens/signupaddtionalprofile/addtional_profile_screen.dart';
 import 'package:capstoneproject2/model/error_handler_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -33,7 +34,7 @@ class _CompleteGoogleSignUpScreenState extends State<CompleteGoogleSignUpScreen>
           }
         }
 
-        return const WelcomeScreen();
+        return const AdditionalProfileForm();
       },
     );
   }

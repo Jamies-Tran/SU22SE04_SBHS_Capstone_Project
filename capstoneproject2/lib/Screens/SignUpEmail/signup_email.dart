@@ -1,3 +1,4 @@
+import 'package:capstoneproject2/Screens/Signup/components/sign_up_top_image.dart';
 import 'package:capstoneproject2/Screens/Signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:capstoneproject2/constants.dart';
@@ -17,6 +18,9 @@ import 'package:capstoneproject2/Screens/SignUpEmail/components/signup_FromEmail
                   mobile: const MobileSignupEmailScreen(),
                   desktop: Row(
                       children: [
+                        const Expanded(
+                          child: SignUpScreenTopImage(),
+                        ),
               Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -43,6 +47,7 @@ import 'package:capstoneproject2/Screens/SignUpEmail/components/signup_FromEmail
         return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const SignUpScreenTopImage(),
               Row(
                 children: const [
                   Spacer(),

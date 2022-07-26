@@ -1,14 +1,16 @@
+
 import 'package:capstoneproject2/locator/service_locator.dart';
 import 'package:capstoneproject2/model/error_handler_model.dart';
 import 'package:capstoneproject2/model/passenger_model.dart';
 import 'package:capstoneproject2/services/passenger_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/avd.dart';
-
+import 'package:capstoneproject2/components/datePickerDOB.dart';
 import '../../../components/already_have_an_account_acheck.dart';
+import '../../../components/radiobutton.dart';
 import '../../../constants.dart';
 import '../../Login/login_screen.dart';
-
+import 'package:capstoneproject2/components/checkboxbutton.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
@@ -83,24 +85,24 @@ class _SignUpFormState extends State<SignUpForm> {
               hintText: "Address",
               prefixIcon: Padding(
                 padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
+                child: Icon(Icons.streetview),
               ),
             ),
           ),
           const SizedBox(height: defaultPadding / 2),
-          TextFormField(
-            keyboardType: TextInputType.text,
-            textInputAction: TextInputAction.next,
-            cursorColor: kPrimaryColor,
-            onChanged: (value) {
-              gender = value;
-            },
-            decoration: const InputDecoration(
-              hintText: "Gender",
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
-              ),
+          SizedBox(
+            height: 50,
+            child: Row(
+              children: [
+                Icon(Icons.accessibility),
+                Text("Gender"),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 115 ,
+            child: Center(
+              child: const RadioButtonOnlyOne(),
             ),
           ),
           const SizedBox(height: defaultPadding / 2),
@@ -115,7 +117,7 @@ class _SignUpFormState extends State<SignUpForm> {
               hintText: "Email",
               prefixIcon: Padding(
                 padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
+                child: Icon(Icons.email_rounded),
               ),
             ),
           ),
@@ -131,7 +133,9 @@ class _SignUpFormState extends State<SignUpForm> {
               hintText: "Phone",
               prefixIcon: Padding(
                 padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
+                child: Icon(
+                    Icons.phone_android,
+                ),
               ),
             ),
           ),
@@ -147,27 +151,31 @@ class _SignUpFormState extends State<SignUpForm> {
               hintText: "Citizen Identification",
               prefixIcon: Padding(
                 padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
+                child: Icon(Icons.contacts_outlined),
               ),
             ),
           ),
           const SizedBox(height: defaultPadding / 2),
-          TextFormField(
-            keyboardType: TextInputType.datetime,
-            textInputAction: TextInputAction.next,
-            cursorColor: kPrimaryColor,
-            onChanged: (value) {
-              dob = value;
-            },
-            decoration: const InputDecoration(
-              hintText: "Day of birth",
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
-              ),
+          SizedBox(
+            height: 50,
+            child: Row(
+              children: [
+                Icon(Icons.date_range_outlined),
+                Text("Day of birth"),
+              ],
             ),
           ),
+          Center(
+            child: CupertinoDateDOB(),
+          ),
           const SizedBox(height: defaultPadding/2),
+          Row(
+            children: [
+              const CheckBoxButton(),
+              Text("I agree with condition and your terms")
+            ],
+          ),
+
           // Column(
           //     children: [
           //       Row(

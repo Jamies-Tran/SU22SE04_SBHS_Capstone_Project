@@ -99,6 +99,7 @@ class _SignUpFormState extends State<SignUpForm> {
             },
             child: Text("Sign Up".toUpperCase()),
           ),
+
           const SizedBox(height: defaultPadding),
           AlreadyHaveAnAccountCheck(
             login: false,
