@@ -14,7 +14,8 @@
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Homestay's Name</mat-label>
-                  <input id="name" matInput placeholder="StaywithMe Homestay" [(ngModel)]="name"  required formControlName="homestayName">
+                  <input id="name" matInput placeholder="StaywithMe Homestay" [(ngModel)]="name" required
+                    formControlName="homestayName">
                 </mat-form-field>
               </div>
               <div>
@@ -35,6 +36,27 @@
                   <mat-label>Note</mat-label>
                   <textarea id="note" matInput formControlName="note"></textarea>
                 </mat-form-field>
+              </div>
+              <div class="add-img">
+                <div class="img-homestay">
+                  <h1>Image Homestay</h1>
+                  <div class="upload" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
+                    <ngx-dropzone-label>
+                      <div>
+                        <i class="fas fa-cloud-upload-alt icon-upload"></i>
+                        <header>Drop files here or click to upload *</header>
+                      </div>
+                    </ngx-dropzone-label>
+                    <div class="wrapper" *ngFor="let f of files">
+                      <ngx-dropzone-image-preview class="image-preview" ngProjectAs="ngx-dropzone-preview" [file]="f"
+                        [removable]="true" (removed)="onRemove(f)">
+                      </ngx-dropzone-image-preview>
+                      <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files"
+                        (removed)="onRemove(f)">{{
+                        f.name }}</ngx-dropzone-label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col right">
@@ -62,23 +84,32 @@
                   <textarea id="description" matInput formControlName="description"></textarea>
                 </mat-form-field>
               </div>
-            </div>
-          </div>
-          <div class="upload" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
-            <ngx-dropzone-label>
-              <div>
-                <i class="fas fa-cloud-upload-alt icon-upload"></i>
-                <header>Drop files here or click to upload *</header>
+              <div class="add-img">
+                <div class="img-homestayLicense col">
+                  <h1>Image Homestay License</h1>
+                  <div class="upload" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
+                    <ngx-dropzone-label>
+                      <div>
+                        <i class="fas fa-cloud-upload-alt icon-upload"></i>
+                        <header>Drop files here or click to upload *</header>
+                      </div>
+                    </ngx-dropzone-label>
+                    <div class="wrapper" *ngFor="let f of files">
+                      <ngx-dropzone-image-preview class="image-preview" ngProjectAs="ngx-dropzone-preview" [file]="f"
+                        [removable]="true" (removed)="onRemove(f)">
+                      </ngx-dropzone-image-preview>
+                      <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files"
+                        (removed)="onRemove(f)">{{
+                        f.name }}</ngx-dropzone-label>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </ngx-dropzone-label>
-            <div class="wrapper" *ngFor="let f of files">
-              <ngx-dropzone-image-preview class="image-preview" ngProjectAs="ngx-dropzone-preview" [file]="f"
-                [removable]="true" (removed)="onRemove(f)">
-              </ngx-dropzone-image-preview>
-              <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" (removed)="onRemove(f)">{{
-                f.name }}</ngx-dropzone-label>
             </div>
           </div>
+
+
+
           <div class="add-btn">
             <button class="btn-reset" mat-raised-button type="reset">Reset</button>
             <button class="btn-next" mat-raised-button matStepperNext>Next</button>
@@ -97,31 +128,37 @@
           <div class="add-input ">
             <div class="row">
               <div class="col ">
+
+                <!-- ngFor -->
                 <div class="row-fill">
                   <div class=" icon"><i class="fas fa-tv"></i></div>
                   <div class=" text">
                     <p>TV</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <!-- formControlName="{{ }}" -->
+                    <mat-checkbox color="primary" formControlName="tv"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" formControlName="inputTv" class="col-input-amount"
+                        matInput placeholder="Amount" />
                     </div>
                   </div>
                 </div>
+
                 <div class=" row-fill">
                   <div class=" icon"><i class="fa-solid fa-bed"></i></div>
                   <div class="text">
                     <p>Bed</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="bed"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" formControlName="inputBed" class="col-input-amount"
+                        matInput placeholder="Amount" />
                     </div>
                   </div>
                 </div>
@@ -131,11 +168,12 @@
                     <p>Sofa</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="sofa"></mat-checkbox>
                   </div>
                   <div class="input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" formControlName="inputSofa" class="col-input-amount"
+                        matInput placeholder="Amount" />
                     </div>
                   </div>
                 </div>
@@ -145,11 +183,12 @@
                     <p>Fan</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="fan"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" formControlName="inputFan" class="col-input-amount"
+                        matInput placeholder="Amount" />
                     </div>
                   </div>
                 </div>
@@ -161,11 +200,12 @@
                     <p>Cooking stove</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="cookingStove"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" formControlName="inputCookingStove"
+                        class="col-input-amount" matInput placeholder="Amount" />
                     </div>
                   </div>
                 </div>
@@ -175,11 +215,12 @@
                     <p>Shower</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="shower"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" formControlName="inputShower" class="col-input-amount"
+                        matInput placeholder="Amount" />
                     </div>
                   </div>
                 </div>
@@ -189,11 +230,12 @@
                     <p>Toilet</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="toilet"></mat-checkbox>
                   </div>
                   <div class="co input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" formControlName="inputToilet" class="col-input-amount"
+                        matInput placeholder="Amount" />
                     </div>
                   </div>
                 </div>
@@ -203,11 +245,12 @@
                     <p>Bathtub</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="bathtub"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Amount" />
+                      <input id="amount" type="number" min="0" formControlName="inputBathtub" class="col-input-amount"
+                        matInput placeholder="Amount" />
                     </div>
                   </div>
                 </div>
@@ -245,11 +288,12 @@
                     <p>Wireless internet</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="wifi"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
+                      <input id="amount" type="number" min="0" formControlName="wifiPrice" class="col-input-amount"
+                        matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -260,11 +304,12 @@
                     <p>Food Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="food"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
+                      <input id="amount" type="number" min="0" formControlName="foodPrice" class="col-input-amount"
+                        matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -275,11 +320,12 @@
                     <p>Bar Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="bar"></mat-checkbox>
                   </div>
                   <div class="input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
+                      <input id="amount" type="number" formControlName="barPrice" min="0" class="col-input-amount"
+                        matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -290,11 +336,12 @@
                     <p>Swimming Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="swimming"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
+                      <input id="amount" type="number" min="0" formControlName="swimmingPrice" class="col-input-amount"
+                        matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -316,11 +363,12 @@
                     <p>Spa Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="spa"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
+                      <input id="amount" type="number" min="0" formControlName="spaPrice" class="col-input-amount"
+                        matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -331,11 +379,12 @@
                     <p>Fishing Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="fishing"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
+                      <input id="amount" type="number" min="0" formControlName="fishingPrice" class="col-input-amount"
+                        matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -346,11 +395,12 @@
                     <p>Car Rental Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="carRental"></mat-checkbox>
                   </div>
                   <div class="co input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
+                      <input id="amount" type="number" min="0" formControlName="carRentalPrice" class="col-input-amount"
+                        matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -361,11 +411,12 @@
                     <p>Campfire Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="campfire"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" class="col-input-amount" matInput placeholder="Price or None" />
+                      <input id="amount" type="number" min="0" formControlName="campfirePrice" class="col-input-amount"
+                        matInput placeholder="Price or None" />
                     </div>
                   </div>
                 </div>
@@ -388,31 +439,25 @@
     <!-- Step 4 Payment  -->
     <mat-step [stepControl]="paymentFormGroup">
       <form [formGroup]="paymentFormGroup" (ngSubmit)="register()" #formfour="ngForm">
-        <ng-template matStepLabel>Service</ng-template>
-        <h1>Choose payment </h1>
+        <ng-template matStepLabel>Finish</ng-template>
+        <h1>Payment </h1>
         <div class="input-content">
           <div class="add-input ">
-            <mat-radio-group [(ngModel)]="payment">
-              <div>
-                <mat-radio-button value="cash"><i class="fa-regular fa-money-bill-1"></i>&nbsp;Cash</mat-radio-button>
-              </div>
-              <div>
-                <mat-radio-button value="atm"><i class="fa-regular fa-credit-card"></i>&nbsp;ATM</mat-radio-button>
-              </div>
 
-            </mat-radio-group>
-            <div class="atm-container">
-
-            </div>
 
 
           </div>
 
           <div class="add-btn">
             <button class="btn-back" mat-raised-button matStepperPrevious>Back</button>
-            <button class="btn-reset" mat-raised-button type="reset">Reset</button>
             <button class="btn-next" mat-raised-button type="submit">Submit</button>
-            
+            <button class="btn-next" mat-raised-button type="submit"
+            (click)="formone.ngSubmit.emit();
+                    formtwo.ngSubmit.emit();
+                    formthree.ngSubmit.emit();
+                    formfour.ngSubmit.emit();">
+                      Submit
+            </button>
           </div>
         </div>
       </form>

@@ -15,7 +15,7 @@ import { ServerHttpService } from 'src/app/services/register-homestay.service';
 })
 export class RegisterHomestayComponent implements OnInit {
   files: File[] = [];
-  payment: 'atm' | 'cash' = 'cash';
+  payment=  "atm" ;
   public name = "";
   public location = "";
   public price ="";
@@ -32,10 +32,44 @@ export class RegisterHomestayComponent implements OnInit {
   });
 
   facilityFormGroup = this._formBuilder.group({
+    tv: false,
+    inputTv: [''],
+    bed: false,
+    inputBed:[''],
+    sofa:false,
+    inputSofa:[''],
+    fan:false,
+    inputFan:[''],
+    cookingStove:false,
+    inputCookingStove:[''],
+    shower:false,
+    inputShower:[''],
+    toilet:false,
+    inputToilet:[''],
+    bathtub:false,
+    inputBathtub:[''],
 
   });
 
-  serviceFormGroup = this._formBuilder.group({});
+  serviceFormGroup = this._formBuilder.group({
+    wifi:false,
+    wifiPrice:[''],
+    food:false,
+    foodPrice:[''],
+    bar:false,
+    barPrice:[''],
+    swimming:false,
+    swimmingPrice:[''],
+
+    spa:false,
+    spaPrice:[''],
+    fishing:false,
+    fishingPrice:[''],
+    carRental:false,
+    carRentalPrice:[''],
+    campfire:false,
+    campfirePrice:['']
+  });
 
   paymentFormGroup = this._formBuilder.group({});
 
@@ -65,12 +99,12 @@ export class RegisterHomestayComponent implements OnInit {
   paymentForm() {
     console.log(this.paymentFormGroup.value);
   }
-  
+
   public register() {
     console.log(this.payment)
     this.http.registerLandlord(this.name, this.location,this.price,this.payment).subscribe((data => {
       console.log(data)
-      
+
     }))
   }
 }
