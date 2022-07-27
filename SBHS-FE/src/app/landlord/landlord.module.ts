@@ -13,6 +13,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { LandlordRoutingModule } from './landlord-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterHomestayComponent } from './register-homestay/register-homestay.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -20,6 +21,7 @@ import { RegisterHomestayComponent } from './register-homestay/register-homestay
   declarations: [
     DashboardComponent,
     RegisterHomestayComponent,
+    ProfileComponent,
 
   ],
   imports: [
