@@ -33,7 +33,10 @@ export class ForgetPasswordComponent implements OnInit {
     console.log(this.username)
     this.http.inputPassword(this.username, this.newPassword).subscribe((data => {
       
-    }))
+    }),
+    error =>{
+      alert(error)
+    })
   }
 
 }

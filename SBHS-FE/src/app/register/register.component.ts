@@ -28,6 +28,9 @@ export class RegisterComponent implements OnInit {
     this.http.registerLandlord(this.username,this.password,this.address,this.gender,this.email,this.phone,this.citizenIdentificationString,this.dob +"",this.avatarUrl,this.citizenIdentificationUrl).subscribe((data => {
       alert("register successful!!!");
       this.router.navigate(['/Login'], {relativeTo: this.route});
-    }))
+    }),
+    error =>{
+      alert(error)
+    })
   }
 }
