@@ -34,8 +34,6 @@ public class LandlordWalletEntity extends BaseWalletEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "landlord_wallet_sequence")
 	private Long Id;
 
-	@Setter
-	private Long balance = 0L;
 	
 	@OneToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "Id")

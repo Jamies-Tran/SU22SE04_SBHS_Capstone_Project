@@ -2,6 +2,7 @@ package com.swm.serviceImpl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -67,7 +68,8 @@ public class RequestService implements IRequestService {
 		landlordAccountRequestEntity.setModifiedDate(currentDate);
 		if (isAccepted) {
 			landlordAccountRequestEntity.setStatus(RequestStatus.ACCEPT.name());
-			landlordAccountRequestEntity.getAccountRequesting().getLandlordAccount().setStatus(UserStatus.ACTIVE.name());
+			landlordAccountRequestEntity.getAccountRequesting().getLandlordAccount()
+					.setStatus(UserStatus.ACTIVE.name());
 			message = ApplicationSendMailUtil.generateAcceptLandlordRequestMessage(landlordAccountRequestEntity);
 		} else {
 			landlordAccountRequestEntity.setStatus(RequestStatus.REJECT.name());
@@ -104,16 +106,18 @@ public class RequestService implements IRequestService {
 		homestayPostingRequestEntity.setModifiedDate(currentDate);
 		if (isAccepted) {
 			homestayPostingRequestEntity.setStatus(RequestStatus.ACCEPT.name());
-			homestayPostingRequestEntity.getRequestHomestay().setStatus(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+			homestayPostingRequestEntity.getRequestHomestay()
+					.setStatus(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
 			homestayEntity.getLandlordOwner().getWallet().setBalance(landlordWalletBalance - 500);
 			message = ApplicationSendMailUtil.generateAcceptHomestayRequestMessage(homestayPostingRequestEntity);
 		} else {
-			if(!StringUtils.hasLength(rejectMessage)) {
+			if (!StringUtils.hasLength(rejectMessage)) {
 				throw new ResourceNotFoundException("Reject message empty");
 			}
 			homestayPostingRequestEntity.setStatus(RequestStatus.REJECT.name());
 			homestayPostingRequestEntity.getRequestHomestay().setStatus(HomestayStatus.HOMESTAY_REQUEST_DENIED.name());
-			message = ApplicationSendMailUtil.generateRejectHomstayRequestMessage(homestayPostingRequestEntity, rejectMessage);
+			message = ApplicationSendMailUtil.generateRejectHomstayRequestMessage(homestayPostingRequestEntity,
+					rejectMessage);
 		}
 		sendMailService.sendMail(landlordName, message, this.homestayPostingRequestMailSubject);
 
@@ -132,6 +136,14 @@ public class RequestService implements IRequestService {
 		List<HomestayPostingRequestEntity> requestList = homestayPostingRequestRepo.findAll();
 
 		return requestList;
+	}
+
+	@Override
+	public List<LandlordAccountRequestEntity> findAllLandlordAccountPendingRequest() {
+		List<LandlordAccountRequestEntity> landlordPendingRequestList = this.findAllLandlordAccountRequest().stream()
+				.filter(r -> r.getStatus().equalsIgnoreCase(RequestStatus.PENDING.name())).collect(Collectors.toList());
+		
+		return landlordPendingRequestList;
 	}
 
 }

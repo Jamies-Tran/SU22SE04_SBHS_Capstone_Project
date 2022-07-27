@@ -24,11 +24,17 @@ import com.swm.dto.PassengerDto;
 import com.swm.dto.PasswordModificationDto;
 import com.swm.dto.UserDto;
 import com.swm.dto.UserOtpDto;
+import com.swm.entity.BaseWalletEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
 import com.swm.security.token.JwtTokenUtil;
 import com.swm.service.IAuthenticationService;
 import com.swm.service.IUserService;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @RestController
 @RequestMapping("/api/user")
@@ -47,6 +53,16 @@ public class UserController {
 	private IAuthenticationService authenticationService;
 
 	private Logger log = LoggerFactory.getLogger(UserController.class);
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class WalletReponseDto {
+		private Long balance;
+		private String owner;
+		
+	}
 
 	@PostMapping("/register/passenger")
 	public ResponseEntity<?> createPassengerAccount(@RequestBody PassengerDto userDto) {
@@ -131,6 +147,17 @@ public class UserController {
 		UserDto userResponseDto = userConvert.userResponseDtoConvert(userEntity);
 		
 		return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
+	}
+	
+	@GetMapping("/get/wallet/{walletType}/{userInfo}")
+	public ResponseEntity<?> getWalletBalance( @PathVariable("walletType") String walletType ,@PathVariable("userInfo") String userInfo) {
+		BaseWalletEntity baseWalletEntity = userService.findSystemWalletByUsername(userInfo, walletType);
+		WalletReponseDto walletResponseDto = new WalletReponseDto();
+		walletResponseDto.setOwner(baseWalletEntity.getCreatedBy());
+		walletResponseDto.setBalance(baseWalletEntity.getBalance());
+		
+		return new ResponseEntity<>(walletResponseDto, HttpStatus.OK);
+		
 	}
 
 }

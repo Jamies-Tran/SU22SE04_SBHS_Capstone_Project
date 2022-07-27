@@ -18,16 +18,15 @@ import com.swm.entity.BaseWalletEntity;
 import com.swm.entity.CitizenIdentificationEntity;
 import com.swm.entity.LandlordAccountRequestEntity;
 import com.swm.entity.LandlordEntity;
+import com.swm.entity.LandlordWalletEntity;
 import com.swm.entity.PassengerEntity;
 import com.swm.entity.PassengerWalletEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
 import com.swm.entity.VoucherWalletEntity;
-import com.swm.entity.LandlordWalletEntity;
 import com.swm.enums.RequestStatus;
 import com.swm.enums.RequestType;
 import com.swm.enums.UserStatus;
-import com.swm.enums.WalletType;
 import com.swm.exception.DuplicateResourceException;
 import com.swm.exception.ResourceNotAllowException;
 import com.swm.exception.ResourceNotFoundException;
@@ -274,16 +273,16 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public BaseWalletEntity findSystemWalletByUsername(String userInfo, WalletType walletType) {
+	public BaseWalletEntity findSystemWalletByUsername(String userInfo, String walletType) {
 		UserEntity userEntity = this.findUserByUserInfo(userInfo);
-		switch(walletType) {
-		case LANDLORD_WALLET:
+		switch(walletType.toLowerCase()) {
+		case "landlord_wallet":
 			if(userEntity.getLandlord() == null) {
 				throw new ResourceNotAllowException("Invalid landlord wallet request");
 			}
 			LandlordWalletEntity landlordWalletEntity = userEntity.getLandlord().getWallet();
 			return landlordWalletEntity;
-		case PASSENGER_WALLET:
+		case "passenger_wallet":
 			if(userEntity.getPassenger() == null) {
 				throw new ResourceNotAllowException("Invalid passenger wallet request");
 			}

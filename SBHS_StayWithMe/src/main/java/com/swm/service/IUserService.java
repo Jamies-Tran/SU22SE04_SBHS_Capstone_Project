@@ -3,10 +3,9 @@ package com.swm.service;
 import com.swm.entity.BaseWalletEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
-import com.swm.enums.WalletType;
 
 public interface IUserService {
-	BaseWalletEntity findSystemWalletByUsername(String userInfo, WalletType walletType);
+	BaseWalletEntity findSystemWalletByUsername(String userInfo, String walletType);
 	
 	UserEntity findUserById(Long Id);
 	

@@ -32,9 +32,7 @@ public class PassengerWalletEntity extends BaseWalletEntity {
 	@SequenceGenerator(name = "passenger_wallet_sequence", sequenceName = "passenger_wallet_sequence", initialValue = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "passenger_wallet_sequence")
 	private Long Id;
-	
-	@Setter
-	private Long balance = 0L;
+
 	
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "user_id", referencedColumnName = "Id")
