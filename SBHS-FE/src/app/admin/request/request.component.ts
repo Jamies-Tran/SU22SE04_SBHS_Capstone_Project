@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 @Component({
   selector: 'app-request',
@@ -47,6 +48,7 @@ export interface UserData {
   name: string;
   progress: string;
   fruit: string;
+
 }
 
 /** Constants used to fill up our data base. */
@@ -95,5 +97,6 @@ function createNewUser(id: number): UserData {
     name: name,
     progress: Math.round(Math.random() * 100).toString(),
     fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
+
   };
 }
