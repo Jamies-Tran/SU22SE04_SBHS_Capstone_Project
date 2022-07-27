@@ -21,7 +21,7 @@
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Address</mat-label>
-                  <input id="address" type="text" matInput placeholder="123 Quang Trung p.1 Q.1"
+                  <input id="address" type="text" matInput placeholder="123 Quang Trung p.1 Q.1" [(ngModel)]="location"
                     formControlName="address" required>
                 </mat-form-field>
               </div>
@@ -63,7 +63,7 @@
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Price (VND)</mat-label>
-                  <input id="price" type="number" matInput placeholder="1000000" required formControlName="price">
+                  <input id="price" type="number" matInput placeholder="1000000" required formControlName="price" [(ngModel)]="price">
                 </mat-form-field>
               </div>
               <div>
@@ -451,13 +451,6 @@
           <div class="add-btn">
             <button class="btn-back" mat-raised-button matStepperPrevious>Back</button>
             <button class="btn-next" mat-raised-button type="submit">Submit</button>
-            <button class="btn-next" mat-raised-button type="submit"
-            (click)="formone.ngSubmit.emit();
-                    formtwo.ngSubmit.emit();
-                    formthree.ngSubmit.emit();
-                    formfour.ngSubmit.emit();">
-                      Submit
-            </button>
           </div>
         </div>
       </form>
