@@ -44,6 +44,7 @@ dependencies:
   intl: ^0.17.0
   datetime_picker_formfield: ^2.0.0
   flutter_linkify: ^5.0.2
+  shared_preferences: ^2.0.15
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -77,6 +78,8 @@ flutter:
     - assets/icons/login.svg
     - assets/icons/signup.svg
     - assets/icons/mail.svg
+    -  assets/icons/forgotpassword.svg
+    - assets/icons/user.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

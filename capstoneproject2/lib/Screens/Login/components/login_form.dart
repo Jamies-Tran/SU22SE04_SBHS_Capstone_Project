@@ -1,3 +1,4 @@
+import 'package:capstoneproject2/Screens/ForgotPassword/forgot_password_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
@@ -120,6 +121,25 @@ class LoginForm extends StatelessWidget {
               ),
             ),
             const SizedBox(height: defaultPadding),
+            TextButton(
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context){
+                        return ForgotPasswordScreen();
+                      },
+                    ),
+                  );
+                },
+                style: TextButton.styleFrom(primary: kPrimaryLightColor, elevation: 0),
+                child: Text(
+                  "Forgot Password ".toUpperCase(),
+                  style: TextStyle(color: Colors.black),
+                ),
+            ),
+            const SizedBox(height: defaultPadding),
+
             Hero(
               tag: "login_btn",
               child: ElevatedButton(
