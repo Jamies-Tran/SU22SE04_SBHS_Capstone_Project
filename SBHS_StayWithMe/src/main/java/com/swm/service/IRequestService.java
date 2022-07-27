@@ -13,7 +13,7 @@ public interface IRequestService {
 	
 	HomestayPostingRequestEntity findHomestayPostingRequest(Long requestId);
 	
-	LandlordAccountRequestEntity verifyLandlordAccountRequestById(Long requestId, boolean isAccepted, @Nullable String rejectMessage);
+	LandlordAccountRequestEntity verifyLandlordAccountRequestById(Long requestId, boolean isAccepted);
 	
 	HomestayPostingRequestEntity verifyHomestayPostinRequest(Long requestId, boolean isAccepted, @Nullable String rejectMessage);
 	

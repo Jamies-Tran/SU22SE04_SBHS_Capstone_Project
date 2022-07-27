@@ -129,11 +129,10 @@ public class ApplicationSendMailUtil {
 		return message;
 	}
 	
-	public static String generateRejectLandlordRequestMessage(LandlordAccountRequestEntity landlordAccountRequestEntity, String rejectMessage) {
+	public static String generateRejectLandlordRequestMessage(LandlordAccountRequestEntity landlordAccountRequestEntity) {
 		String landlordName = landlordAccountRequestEntity.getAccountRequesting().getLandlordAccount().getUsername();
 		message = "<h1>Rejected</h1>"
-				+ "<p>I'm sorry to inform you that your landlord account "+landlordName+" has been denied for reason: </p><br/>"
-				+ "<h2>"+rejectMessage+"</h2>";
+				+ "<p>I'm sorry to inform you that your landlord account "+landlordName+" has been denied. Please contact our admin for more support.</p><br/>";
 		
 		return message;
 	}

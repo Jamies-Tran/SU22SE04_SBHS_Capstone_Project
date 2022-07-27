@@ -57,8 +57,7 @@ public class RequestService implements IRequestService {
 
 	@Transactional
 	@Override
-	public LandlordAccountRequestEntity verifyLandlordAccountRequestById(Long requestId, boolean isAccepted,
-			@Nullable String rejectMessage) {
+	public LandlordAccountRequestEntity verifyLandlordAccountRequestById(Long requestId, boolean isAccepted) {
 		String message = "";
 		LandlordAccountRequestEntity landlordAccountRequestEntity = this.findLandlordAccountRequestById(requestId);
 		UserDetails approvedBy = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -71,11 +70,8 @@ public class RequestService implements IRequestService {
 			landlordAccountRequestEntity.getAccountRequesting().getLandlordAccount().setStatus(UserStatus.ACTIVE.name());
 			message = ApplicationSendMailUtil.generateAcceptLandlordRequestMessage(landlordAccountRequestEntity);
 		} else {
-			if(!StringUtils.hasLength(rejectMessage)) {
-				throw new ResourceNotFoundException("Reject message empty");
-			}
 			landlordAccountRequestEntity.setStatus(RequestStatus.REJECT.name());
-			message = ApplicationSendMailUtil.generateRejectLandlordRequestMessage(landlordAccountRequestEntity, rejectMessage);
+			message = ApplicationSendMailUtil.generateRejectLandlordRequestMessage(landlordAccountRequestEntity);
 		}
 		sendMailService.sendMail(landlordName, message, this.landlordAccountRequestMailSubject);
 

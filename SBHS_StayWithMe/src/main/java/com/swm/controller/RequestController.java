@@ -55,7 +55,7 @@ public class RequestController {
 	@PatchMapping("/verification/landlord/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> verifyLandlordAccountRequest(@PathVariable("Id") Long Id, @RequestBody ConfirmRequestDto confirmRequest) {
-		LandlordAccountRequestEntity requestEntity = requestService.verifyLandlordAccountRequestById(Id, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
+		LandlordAccountRequestEntity requestEntity = requestService.verifyLandlordAccountRequestById(Id, confirmRequest.getIsAccepted());
 		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity, requestEntity.getId());
 
 		return new ResponseEntity<>(requestResponse, HttpStatus.ACCEPTED);
