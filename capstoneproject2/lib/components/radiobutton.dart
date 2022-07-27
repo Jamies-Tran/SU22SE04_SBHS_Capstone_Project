@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 enum SingingCharacter { Female, Male }
+SingingCharacter? character;
+
 class RadioButtonOnlyOne extends StatefulWidget {
   const RadioButtonOnlyOne({Key? key}) : super(key: key);
 
@@ -9,7 +11,7 @@ class RadioButtonOnlyOne extends StatefulWidget {
 }
 
 class _RadioButtonOnlyOneState extends State<RadioButtonOnlyOne> {
-  SingingCharacter? _character = SingingCharacter.Male;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,10 +20,10 @@ class _RadioButtonOnlyOneState extends State<RadioButtonOnlyOne> {
           title: const Text('Female'),
           leading: Radio<SingingCharacter>(
             value: SingingCharacter.Female,
-            groupValue: _character,
+            groupValue: character,
             onChanged: (SingingCharacter? value) {
               setState(() {
-                _character = value;
+                character = value;
               });
             },
           ),
@@ -30,10 +32,10 @@ class _RadioButtonOnlyOneState extends State<RadioButtonOnlyOne> {
           title: const Text('Male'),
           leading: Radio<SingingCharacter>(
             value: SingingCharacter.Male,
-            groupValue: _character,
+            groupValue: character,
             onChanged: (SingingCharacter? value) {
               setState(() {
-                _character = value;
+                character = value;
               });
             },
           ),

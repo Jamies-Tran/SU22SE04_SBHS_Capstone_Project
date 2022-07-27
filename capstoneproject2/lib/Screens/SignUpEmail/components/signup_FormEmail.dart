@@ -8,8 +8,8 @@ import 'package:capstoneproject2/Screens/Login/login_screen.dart';
 import 'package:capstoneproject2/components/datePickerDOB.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 
-class SignUpEmail extends StatelessWidget {
-  const SignUpEmail({Key? key}) : super(key: key);
+class SignUpEmailForm extends StatelessWidget {
+  const SignUpEmailForm({Key? key}) : super(key: key);
   static const String _title = 'Gender';
   @override
   Widget build(BuildContext context) {

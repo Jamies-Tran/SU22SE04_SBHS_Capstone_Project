@@ -1,18 +1,8 @@
-class Authority {
-  String authority;
-
-  Authority({this.authority = ""});
-
-  factory Authority.fromJson(Map<String, dynamic> json) => Authority(
-    authority: json['authority']
-  );
-}
-
 class AuthenticateModel {
-  String userInfo;
-  String password;
-  String loginDate;
-  String jwtToken;
+  var userInfo;
+  var password;
+  var loginDate;
+  var jwtToken;
   List<dynamic> roles;
 
 

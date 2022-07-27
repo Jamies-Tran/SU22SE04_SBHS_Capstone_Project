@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../model/passenger_model.dart';
@@ -10,4 +11,6 @@ abstract class IPassengerService {
   Future<dynamic> checkEmailExistOnSystem(String? email);
 
   Future<dynamic> signUpWithSWMAccount(PassengerModel passengerModel);
+
+  Future<dynamic> signUpWithGoogleAccount(PassengerModel passengerModel, GoogleSignInAuthentication? googleAuthCredential);
 }

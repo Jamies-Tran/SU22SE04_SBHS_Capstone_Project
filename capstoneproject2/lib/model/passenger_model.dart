@@ -1,13 +1,13 @@
 class PassengerModel {
-  String? username;
-  String password;
-  String address;
-  String gender;
-  String email;
-  String phone;
-  String citizenIdentificationString;
-  String dob;
-  String avatarUrl;
+  var username;
+  var password;
+  var address;
+  var gender;
+  var email;
+  var phone;
+  var citizenIdentificationString;
+  var dob;
+  var avatarUrl;
 
   PassengerModel({
     this.username = "",

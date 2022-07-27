@@ -73,4 +73,29 @@ class PassengerServiceImpl extends IPassengerService {
     }
   }
 
+  @override
+  Future signUpWithGoogleAccount(PassengerModel passengerModel, GoogleSignInAuthentication? googleSignInAuth) async {
+    var client = http.Client();
+    final password = "${googleSignInAuth?.accessToken}-${googleSignInAuth?.idToken}";
+    passengerModel.password = password;
+    final uri = Uri.parse(_registerPassengerUrl);
+    final response = await client.post(
+        uri,
+        headers: {"content-type" : "application/json"},
+        body: json.encode(passengerModel.toJson())
+    );
+    if(response.statusCode == 201) {
+      var responseBody = PassengerModel.fromJson(json.decode(response.body));
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuth?.idToken,
+        accessToken: googleSignInAuth?.accessToken
+      );
+      _firebaseAuth.signInWithCredential(credential);
+      return responseBody;
+    }else {
+      var errorHandler = ErrorHandlerModel.fromJson(json.decode(response.body));
+      return errorHandler;
+    }
+  }
+
 }

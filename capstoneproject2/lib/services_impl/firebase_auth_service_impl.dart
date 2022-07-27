@@ -15,10 +15,6 @@ class FirebaseAuthServiceImpl extends IFirebaseAuthService {
   @override
   Future<dynamic> getGoogleSignInAccount() async {
     final googleUser = await _googleSignIn.signIn();
-    final checkEmailExistOnSystem =  await _passengerService.checkEmailExistOnSystem(googleUser?.email);
-    if(checkEmailExistOnSystem is ErrorHandlerModel) {
-      return checkEmailExistOnSystem;
-    }
 
     return googleUser;
   }
@@ -29,6 +25,16 @@ class FirebaseAuthServiceImpl extends IFirebaseAuthService {
   Future forgetGoogleSignIn() async {
    await _googleSignIn.disconnect();
    await _firebaseAuth.signOut();
+  }
+
+  @override
+  Future confirmBrandNewAccount(GoogleSignInAccount? googleSignInAccount) async {
+    final isAccountExist = await _passengerService.checkEmailExistOnSystem(googleSignInAccount?.email);
+    if(isAccountExist is ErrorHandlerModel) {
+      return isAccountExist;
+    } else {
+      return googleSignInAccount;
+    }
   }
 
 }

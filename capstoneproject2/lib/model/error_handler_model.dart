@@ -1,10 +1,10 @@
 // object để nhận lỗi trả về từ server
 class ErrorHandlerModel {
-  String status;
-  int statusCode;
-  String issuedAt;
-  String message;
-  String description;
+  var status;
+  var statusCode;
+  var issuedAt;
+  var message;
+  var description;
 
   ErrorHandlerModel({
     this.status = "",

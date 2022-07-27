@@ -8,14 +8,16 @@ import 'components/login_screen_top_image.dart';
 import 'components/socal_log_in.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key, this.emailAfterSignUpSuccess}) : super(key: key);
+  String? emailAfterSignUpSuccess;
 
   @override
   Widget build(BuildContext context) {
+    print("email from login screen: ${emailAfterSignUpSuccess}");
     return Background(
       child: SingleChildScrollView(
         child: Responsive(
-          mobile: const MobileLoginScreen(),
+          mobile: MobileLoginScreen(emailAfterSignUpSuccess: emailAfterSignUpSuccess),
           desktop: Row(
             children: [
               const Expanded(
@@ -25,9 +27,9 @@ class LoginScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       width: 450,
-                      child: LoginForm(),
+                      child: LoginForm(emailAfterSignUpSuccess: emailAfterSignUpSuccess),
                     ),
                     SizedBox(
                       width: 450,
@@ -45,9 +47,11 @@ class LoginScreen extends StatelessWidget {
 }
 
 class MobileLoginScreen extends StatelessWidget {
-  const MobileLoginScreen({
+  MobileLoginScreen({
     Key? key,
+    this.emailAfterSignUpSuccess
   }) : super(key: key);
+  String? emailAfterSignUpSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +60,13 @@ class MobileLoginScreen extends StatelessWidget {
       children: <Widget>[
         const LoginScreenTopImage(),
         Row(
-          children: const [
-            Spacer(),
+          children: [
+            const Spacer(),
             Expanded(
               flex: 8,
-              child: LoginForm(),
+              child: LoginForm(emailAfterSignUpSuccess: emailAfterSignUpSuccess),
             ),
-            Spacer(),
+            const Spacer(),
           ],
 
         ),

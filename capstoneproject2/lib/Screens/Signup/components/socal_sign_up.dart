@@ -1,4 +1,4 @@
-import 'package:capstoneproject2/Screens/complete_google_sign_up.dart';
+import 'package:capstoneproject2/navigator_screen/google_sign_up_navigator.dart';
 import 'package:capstoneproject2/locator/service_locator.dart';
 import 'package:capstoneproject2/model/error_handler_model.dart';
 import 'package:capstoneproject2/services/firebase_auth_service.dart';
@@ -28,18 +28,16 @@ class SocalSignUp extends StatelessWidget {
             SocalIcon(
               iconSrc: "assets/icons/gmail.svg",
               press: () async {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => CompleteGoogleSignUpScreen(getGoogleSignInAccount: _firebaseAuth.getGoogleSignInAccount())));
+                GoogleSignInAccount? googleSignInAccount = await _firebaseAuth.getGoogleSignInAccount();
+                if(googleSignInAccount != null) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleSignUpNavigator(googleSignUpFuture: _firebaseAuth.confirmBrandNewAccount(googleSignInAccount))));
+                }
               },
 
             ),
             TextButton(
               onPressed: () async {
-                dynamic getGoogleSignInAccount =  await _firebaseAuth.getGoogleSignInAccount();
-                if(getGoogleSignInAccount is GoogleSignInAccount) {
-                  print(getGoogleSignInAccount.email);
-                } else if(getGoogleSignInAccount is ErrorHandlerModel){
-                  print(getGoogleSignInAccount.message);
-                }
+                await _firebaseAuth.forgetGoogleSignIn();
               },
               child: const Text('Signup with email'),
             ),

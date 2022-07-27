@@ -3,18 +3,20 @@ import 'package:capstoneproject2/Screens/signupaddtionalprofile/components/addti
 import 'package:capstoneproject2/components/background.dart';
 import 'package:capstoneproject2/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../../constants.dart';
 import 'package:capstoneproject2/Screens/signupaddtionalprofile/components/complete_profile_top_image.dart';
 
 class AdditionalProfileForm extends StatelessWidget {
-  const AdditionalProfileForm({Key? key}) : super(key: key);
+  AdditionalProfileForm({Key? key, this.googleSignInAccount}) : super(key: key);
+  GoogleSignInAccount? googleSignInAccount;
 
   @override
   Widget build(BuildContext context) {
     return Background(
       child: SingleChildScrollView(
         child: Responsive(
-          mobile: const MobileAddtionalProfileScreen(),
+          mobile: MobileAddtionalProfileScreen(googleSignInAccount: googleSignInAccount),
           desktop: Row(
             children: [
               const Expanded(
@@ -23,10 +25,10 @@ class AdditionalProfileForm extends StatelessWidget {
               Expanded(
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         SizedBox(
                           width: 450,
-                          child: AddtionalProfileFormSignUp(),
+                          child: AdditionalProfileFormSignUp(googleSignInAccount: googleSignInAccount),
                         ),
                       ]
                   )
@@ -39,7 +41,8 @@ class AdditionalProfileForm extends StatelessWidget {
   }
 }
 class MobileAddtionalProfileScreen extends StatelessWidget {
-  const MobileAddtionalProfileScreen({Key? key}) : super(key: key);
+  MobileAddtionalProfileScreen({Key? key, this.googleSignInAccount}) : super(key: key);
+  GoogleSignInAccount? googleSignInAccount;
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +51,13 @@ class MobileAddtionalProfileScreen extends StatelessWidget {
         children: <Widget>[
           const CompleteProfileScreenTopImage(),
           Row(
-            children: const [
-              Spacer(),
+            children: [
+              const Spacer(),
               Expanded(
                 flex: 8,
-                child: AddtionalProfileFormSignUp(),
+                child: AdditionalProfileFormSignUp(googleSignInAccount: googleSignInAccount),
               ),
-              Spacer(),
+              const Spacer(),
               // Expanded(
               //   flex: 8,
               //   child: SignUpFormEmail(),

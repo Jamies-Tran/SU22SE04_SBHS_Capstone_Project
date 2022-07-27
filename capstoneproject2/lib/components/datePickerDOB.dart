@@ -5,7 +5,9 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 import '../utils.dart';
 
+String dateValue = "";
 class CupertinoDateDOB extends StatelessWidget {
+
   final format = DateFormat("yyyy-MM-dd");
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,9 @@ class CupertinoDateDOB extends StatelessWidget {
               firstDate: DateTime(1900),
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
+        },
+        onChanged: (value) {
+          dateValue = value.toString();
         },
       ),
     ]);

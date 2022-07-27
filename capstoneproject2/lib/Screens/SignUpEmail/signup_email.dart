@@ -5,7 +5,7 @@ import 'package:capstoneproject2/constants.dart';
 import 'package:capstoneproject2/responsive.dart';
 import '../../components/background.dart';
 import 'package:capstoneproject2/components/background.dart';
-import 'package:capstoneproject2/Screens/SignUpEmail/components/signup_FromEmail.dart';
+import 'package:capstoneproject2/Screens/SignUpEmail/components/signup_FormEmail.dart';
 
     class SignUpEmailScreen extends StatelessWidget {
       const SignUpEmailScreen({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ import 'package:capstoneproject2/Screens/SignUpEmail/components/signup_FromEmail
                     children: const [
                     SizedBox(
                       width: 450,
-                      child: SignUpEmail(),
+                      child: SignUpEmailForm(),
                         ),
                       ]
                     )
@@ -53,7 +53,7 @@ import 'package:capstoneproject2/Screens/SignUpEmail/components/signup_FromEmail
                   Spacer(),
                   Expanded(
                     flex: 8,
-                    child: SignUpEmail(),
+                    child: SignUpEmailForm(),
                   ),
                   Spacer(),
                   // Expanded(

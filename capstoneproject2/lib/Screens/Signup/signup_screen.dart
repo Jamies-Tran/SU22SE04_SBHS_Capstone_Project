@@ -24,10 +24,10 @@ class SignUpScreen extends StatelessWidget {
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     SizedBox(
                       width: 450,
-                      child: SignUpForm(),
+                      child: SignUpSWMForm(),
                     ),
                   ],
                 ),
@@ -52,13 +52,13 @@ class MobileSignupScreen extends StatelessWidget {
       children: <Widget>[
         const SignUpScreenTopImage(),
         Row(
-          children: const [
-            Spacer(),
+          children: [
+            const Spacer(),
             Expanded(
               flex: 8,
-              child: SignUpForm(),
+              child: SignUpSWMForm(),
             ),
-            Spacer(),
+            const Spacer(),
             // Expanded(
             //   flex: 8,
             //   child: SignUpFormEmail(),
