@@ -79,3 +79,9 @@
     </div>
   </div>
 </div>
+<div class="post">
+  <div *ngFor="let post of values">
+      <h1> {{ post.createdBy }} </h1>
+      <p> {{ post.createdDate }} </p>
+  </div>
+</div>

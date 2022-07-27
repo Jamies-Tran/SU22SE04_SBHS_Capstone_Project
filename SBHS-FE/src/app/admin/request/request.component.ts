@@ -10,9 +10,9 @@ import { ServerHttpService } from 'src/app/services/verify-landlord.service';
   styleUrls: ['./request.component.scss']
 })
 export class RequestComponent  implements AfterViewInit{
-
+  values : any;
   displayedColumns: string[] = ['id', 'name', 'date', 'type', 'status', 'actions'];
-  dataSource= new MatTableDataSource(ELEMENT_DATA);
+  dataSource= new MatTableDataSource(this.values);
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -38,11 +38,12 @@ export class RequestComponent  implements AfterViewInit{
       this.dataSource.paginator.firstPage();
     }
   }
-  public values = "";
+  
   ngOnInit(): void {
     this.http.getLanlord().subscribe((data =>{
       this.values = data;
       console.log(this.values)
+      console.log(data[0]["createdBy"])
     }),
     error =>{
       alert(error)
