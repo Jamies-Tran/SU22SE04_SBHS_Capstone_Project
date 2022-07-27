@@ -124,5 +124,13 @@ public class UserController {
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@GetMapping("/get/{userInfo}")
+	public ResponseEntity<?> getUserByUserInfo(@PathVariable("userInfo") String userInfo) {
+		UserEntity userEntity = userService.findUserByUserInfo(userInfo);
+		UserDto userResponseDto = userConvert.userResponseDtoConvert(userEntity);
+		
+		return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
+	}
 
 }
