@@ -60,7 +60,6 @@ export class RegisterHomestayComponent implements OnInit {
     barPrice:[''],
     swimming:false,
     swimmingPrice:[''],
-
     spa:false,
     spaPrice:[''],
     fishing:false,
