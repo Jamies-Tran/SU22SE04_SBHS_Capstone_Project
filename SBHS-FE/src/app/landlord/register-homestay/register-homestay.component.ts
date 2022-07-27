@@ -16,9 +16,10 @@ import { ServerHttpService } from 'src/app/services/register-homestay.service';
 export class RegisterHomestayComponent implements OnInit {
   files: File[] = [];
   payment=  "atm" ;
-  public name = "";
-  public location = "";
+  public name = "djtmemay";
+  public location = "djtmemay";
   public price ="";
+
   informationFormGroup = this._formBuilder.group({
     homestayName: ['', Validators.required],
     address: ['', Validators.required],
@@ -76,11 +77,13 @@ export class RegisterHomestayComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // lấy file hình
   onSelect(event: any) {
     console.log(event);
     this.files.push(...event.addedFiles);
   }
 
+  // xóa file hình
   onRemove(event: File) {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
@@ -99,8 +102,17 @@ export class RegisterHomestayComponent implements OnInit {
     console.log(this.paymentFormGroup.value);
   }
 
+
+
   public register() {
-    this.http.registerLandlord(this.name, this.location,this.price,this.payment).subscribe((data => {
+
+// lay value
+    const formInformationFormGroupValue = this.informationFormGroup.controls;
+    let homestayName = formInformationFormGroupValue.homestayName.value!;
+    let address = formInformationFormGroupValue.address.value!;
+
+
+    this.http.registerLandlord(homestayName, address,this.price,this.payment ).subscribe((data => {
       console.log(data)
 
     }))
