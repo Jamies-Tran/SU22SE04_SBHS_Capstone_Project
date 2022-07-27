@@ -101,7 +101,6 @@ export class RegisterHomestayComponent implements OnInit {
   }
 
   public register() {
-    console.log(this.payment)
     this.http.registerLandlord(this.name, this.location,this.price,this.payment).subscribe((data => {
       console.log(data)
 

@@ -1,41 +1,26 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { throwError } from 'rxjs/internal/observable/throwError';
+import { catchError } from 'rxjs/internal/operators/catchError';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ServerHttpService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization' :  'Bearer '+ localStorage.getItem('userToken')
+      //'Authorization': 'my-auth-token'
     })
   };
   public model: any = {};
   private REST_API_SERVER = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) { }
-  public registerLandlord(name:string, location:string, price:any, payment:string) {
-    var homestayLicense  ={
-        "url":"123.png"
-        }
-    
-    
-    var homestayImages =[
-      {"url":"123.png"},
-      {"url":"456.png"}
-    ]
-    var homestayServices: Array<object>  = [];;
-      // hsServices
-    
-    var homestayFacilities : Array<object>  = [];
-    var value = {
-      name,location,price,payment,homestayLicense,homestayImages,homestayServices,homestayFacilities
-    }
-    console.log(value)
-    const url = `${this.REST_API_SERVER}/api/homestay/register`;
+  public getLanlord() {
+    const url = `${this.REST_API_SERVER}/api/request/landlord/all`;
     return this.httpClient
-      .post<any>(url, value, this.httpOptions)
+      .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse) {
@@ -53,4 +38,5 @@ export class ServerHttpService {
     return throwError(
       'Something bad happened; please try again later.');
   };
+
 }

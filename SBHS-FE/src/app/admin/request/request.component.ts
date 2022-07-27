@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { ServerHttpService } from 'src/app/services/verify-landlord.service';
 
 @Component({
   selector: 'app-request',
@@ -16,7 +17,7 @@ export class RequestComponent  implements AfterViewInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
+  constructor(private http: ServerHttpService) {
     // Create 100 users
     const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
@@ -37,7 +38,13 @@ export class RequestComponent  implements AfterViewInit{
       this.dataSource.paginator.firstPage();
     }
   }
-
+  public values = "";
+  ngOnInit(): void {
+    this.http.getLanlord().subscribe((data =>{
+      this.values = data;
+      console.log(this.values)
+    }))
+  }
 
 }
 
@@ -96,4 +103,5 @@ function createNewUser(id: number): UserData {
     progress: Math.round(Math.random() * 100).toString(),
     fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
   };
+  
 }
