@@ -23,6 +23,15 @@ export class ServerHttpService {
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
+  public verifyLandlord(requestId : string, isAccepted:boolean,rejectMessage:string){
+    var value = {
+      isAccepted,rejectMessage
+    }
+    const url =`${this.REST_API_SERVER}/api/request/verification/landlord/`+requestId+``;
+    return this.httpClient
+    .patch<any>(url,value,this.httpOptions)
+    .pipe(catchError(this.handleError));
+  }
   private handleError(error: HttpErrorResponse) {
     // if (error.error instanceof ErrorEvent) {
     //   // A client-side or network error occurred. Handle it accordingly.

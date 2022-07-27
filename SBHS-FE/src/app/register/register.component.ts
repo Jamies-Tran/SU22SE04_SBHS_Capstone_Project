@@ -22,6 +22,16 @@ export class RegisterComponent implements OnInit {
   constructor(private http: ServerHttpService, private router: Router,private route: ActivatedRoute) { }
   ngOnInit(): void {
   }
+  public checkEmail() {
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (!filter.test(this.email)) {
+        alert('Hay nhap dia chi email hop le.\nExample@gmail.com');
+    }
+    else
+    {
+        alert('OK roi day, Email nay hop le.');
+    }
+}
   public register() {
     console.log(this.dob)
     console.log(this.citizenIdentificationString)
