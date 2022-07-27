@@ -19,16 +19,17 @@ export class ServerHttpService {
     var homestayLicense  ={
         "url":"123.png"
         }
-    
-    
+
+
     var homestayImages =[
       {"url":"123.png"},
       {"url":"456.png"}
     ]
     var homestayServices: Array<object>  = [];;
       // hsServices
-    
+
     var homestayFacilities : Array<object>  = [];
+
     var value = {
       name,location,price,payment,homestayLicense,homestayImages,homestayServices,homestayFacilities
     }
