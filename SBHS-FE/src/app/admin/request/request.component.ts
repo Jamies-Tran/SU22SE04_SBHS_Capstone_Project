@@ -57,6 +57,7 @@ export interface UserData {
   name: string;
   progress: string;
   fruit: string;
+
 }
 
 /** Constants used to fill up our data base. */
@@ -105,6 +106,6 @@ function createNewUser(id: number): UserData {
     name: name,
     progress: Math.round(Math.random() * 100).toString(),
     fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
+
   };
-  
 }
