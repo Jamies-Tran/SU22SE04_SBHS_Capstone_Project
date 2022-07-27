@@ -43,7 +43,10 @@ export class RequestComponent  implements AfterViewInit{
     this.http.getLanlord().subscribe((data =>{
       this.values = data;
       console.log(this.values)
-    }))
+    }),
+    error =>{
+      alert(error)
+    })
   }
 
 }

@@ -23,9 +23,12 @@ export class LoginComponent implements OnInit {
       // this.router.navigate(['/Landlord'], {relativeTo: this.route});
       console.log(data["token"])
       console.log(data["roles"][0]["authority"])
-      if(data["roles"][0]["authority"] === "ROLE_PASSENGER"){
-        this.router.navigate(['/Landlord'], {relativeTo: this.route});
-      }else this.router.navigate(['/Admin'], {relativeTo: this.route});
-    }))
+      if(data["roles"][0]["authority"] === "ROLE_LANDLORD"){
+        this.router.navigate(['/Landlord/Dashboard'], {relativeTo: this.route});
+      }else this.router.navigate(['/Admin/Request'], {relativeTo: this.route});
+    }),
+    error =>{
+      alert(error)
+    })
   }
 }
