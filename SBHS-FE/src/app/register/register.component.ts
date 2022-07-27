@@ -27,10 +27,6 @@ export class RegisterComponent implements OnInit {
     if (!filter.test(this.email)) {
         alert('Hay nhap dia chi email hop le.\nExample@gmail.com');
     }
-    else
-    {
-        alert('OK roi day, Email nay hop le.');
-    }
 }
   public register() {
     console.log(this.dob)
