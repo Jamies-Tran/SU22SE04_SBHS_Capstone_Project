@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import {
   FormBuilder,
   Validators,
@@ -15,10 +17,8 @@ import { ServerHttpService } from 'src/app/services/register-homestay.service';
 })
 export class RegisterHomestayComponent implements OnInit {
   files: File[] = [];
+  file!:File;
   payment=  "atm" ;
-  public name = "djtmemay";
-  public location = "djtmemay";
-  public price ="";
 
   informationFormGroup = this._formBuilder.group({
     homestayName: ['', Validators.required],
@@ -29,7 +29,7 @@ export class RegisterHomestayComponent implements OnInit {
     number: ['', Validators.required],
     note: [''],
     description: [''],
-    fileSource: [this.files],
+    fileSource: [this.files.toString],
   });
 
   facilityFormGroup = this._formBuilder.group({
@@ -73,20 +73,43 @@ export class RegisterHomestayComponent implements OnInit {
 
   paymentFormGroup = this._formBuilder.group({});
 
-  constructor(private _formBuilder: FormBuilder, private http: ServerHttpService, private router: Router,private route: ActivatedRoute) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private http: ServerHttpService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private storage: AngularFireStorage ,
+    private db: AngularFirestore) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
+
+
+
 
   // lấy file hình
-  onSelect(event: any) {
-    console.log(event);
-    this.files.push(...event.addedFiles);
+  onSelect(files: any) {
+    console.log('onselect: ', files);
+    // set files
+    this.files.push(...files.addedFiles);
+
+
+    // upload image len firebase
+    //  chuyen code nay sang submit
+    for(this.file of this.files){
+      console.log('file name:',  this.file.name);
+      const path = "homestay/" + this.file.name;
+      this.storage.upload( path ,this.file);
+      console.log('starupload: ', this.storage);
+    }
   }
 
   // xóa file hình
   onRemove(event: File) {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
+    console.log('xoa file:', this.files.indexOf(event));
   }
 
   informationForm() {
@@ -109,10 +132,11 @@ export class RegisterHomestayComponent implements OnInit {
 // lay value
     const formInformationFormGroupValue = this.informationFormGroup.controls;
     let homestayName = formInformationFormGroupValue.homestayName.value!;
+    let price = formInformationFormGroupValue.price.value!;
     let address = formInformationFormGroupValue.address.value!;
 
 
-    this.http.registerLandlord(homestayName, address,this.price,this.payment ).subscribe((data => {
+    this.http.registerLandlord(homestayName, address,price,this.payment ).subscribe((data => {
       console.log(data)
 
     }),
