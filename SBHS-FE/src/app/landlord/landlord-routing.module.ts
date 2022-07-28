@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandlordComponent } from './landlord.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterHomestayComponent } from './register-homestay/register-homestay.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -14,6 +15,7 @@ const routes: Routes = [
 
       { path: 'Dashboard', component: DashboardComponent },
       { path: 'RegisterHomestay', component: RegisterHomestayComponent },
+      { path: 'Profile', component: ProfileComponent },
 
     ],
   },
