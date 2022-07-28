@@ -1,38 +1,26 @@
 // dang fix
+import 'package:capstoneproject2/Screens/HomePage/components/profile_form_page.dart';
+import 'package:capstoneproject2/Screens/HomePage/components/swapper_screen.dart';
+import 'package:capstoneproject2/Screens/HomePage/components/view_homestay_screen.dart';
+import 'package:capstoneproject2/Screens/Profile/screen_profile.dart';
 import 'package:flutter/material.dart';
 
-class BottomNavHomePage extends StatefulWidget {
-  const BottomNavHomePage({Key? key}) : super(key: key);
+class HomePageScreen extends StatefulWidget {
+  const HomePageScreen({Key? key}) : super(key: key);
 
   @override
-  State<BottomNavHomePage> createState() => _BottomNavHomePageState();
+  State<HomePageScreen> createState() => _HomePageScreenState();
 }
 
-class _BottomNavHomePageState extends State<BottomNavHomePage> {
+class _HomePageScreenState extends State<HomePageScreen> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 5);
+  static const TextStyle optionStyle = TextStyle(fontSize: 5);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Voucher',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Booking',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Wishlist',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 4: Profile',
-      style: optionStyle,
-    ),
+    ViewHomestayScreen(),
+
+    ProfileInforScreen(),
+
+    Wrapper(),
   ];
 
   void _onItemTapped(int index) {
@@ -47,9 +35,9 @@ class _BottomNavHomePageState extends State<BottomNavHomePage> {
       // appBar: AppBar(
       //   title: const Text('Stay With Me'),
       // ),
-      // body: Center(
-      //   child: _widgetOptions.elementAt(_selectedIndex),
-      // ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

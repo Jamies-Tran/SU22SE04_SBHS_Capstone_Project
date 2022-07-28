@@ -1,6 +1,9 @@
 import 'package:capstoneproject2/components/datePickerDOB.dart';
 import 'package:capstoneproject2/components/radiobutton.dart';
 import 'package:capstoneproject2/constants.dart';
+import 'package:capstoneproject2/locator/service_locator.dart';
+import 'package:capstoneproject2/services/firebase_auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileInformationForms extends StatefulWidget {
@@ -12,6 +15,7 @@ class ProfileInformationForms extends StatefulWidget {
 
 class _ProfileInformationFormsState extends State<ProfileInformationForms> {
   final myController = TextEditingController();
+  final _authService = locator.get<IFirebaseAuthService>();
   bool enabled = false;
   String? CupertinoDateDOB;
   @override
@@ -161,7 +165,14 @@ class _ProfileInformationFormsState extends State<ProfileInformationForms> {
                onPressed: () {},
                child: Text("Edit profile".toUpperCase()),
              ),
-
+             const SizedBox(height: defaultPadding / 2),
+             ElevatedButton(
+               onPressed: () async {
+                 await _authService.forgetGoogleSignIn();
+                 setState(() {});
+               },
+               child: Text("Log Out".toUpperCase()),
+             ),
            ],
          ),
      );

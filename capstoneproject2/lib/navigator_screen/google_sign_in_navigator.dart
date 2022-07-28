@@ -1,3 +1,4 @@
+import 'package:capstoneproject2/Screens/HomePage/home_page_screen.dart';
 import 'package:capstoneproject2/Screens/Login/login_screen.dart';
 import 'package:capstoneproject2/model/auth_model.dart';
 import 'package:capstoneproject2/model/error_handler_model.dart';
@@ -25,7 +26,7 @@ class _GoogleSignInNavigatorState extends State<GoogleSignInNavigator> {
           } else if(snapshot.hasData) {
             final snapShotData = snapshot.data;
             if(snapShotData is AuthenticateModel) {
-              print("User authenticated");
+              return const HomePageScreen();
             } else if(snapShotData is ErrorHandlerModel) {
               return DialogComponent(message: snapShotData.message);
             }

@@ -1,5 +1,6 @@
 import 'package:capstoneproject2/components/datePickerDOB.dart';
 import 'package:capstoneproject2/locator/service_locator.dart';
+import 'package:capstoneproject2/model/error_handler_model.dart';
 import 'package:capstoneproject2/model/passenger_model.dart';
 import 'package:capstoneproject2/navigator_screen/google_sign_in_navigator.dart';
 import 'package:capstoneproject2/services/auth_service.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../constants.dart';
 import 'package:capstoneproject2/components/radiobutton.dart';
+
+import '../../../navigator_screen/component/dialog_component.dart';
 
 
 class AdditionalProfileFormSignUp extends StatefulWidget {
@@ -166,7 +169,6 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
 
             ElevatedButton(
               onPressed: () async {
-                final _googleCredential = await widget.googleSignInAccount?.authentication;
                 _email = _textEditingMailController.text;
                 _username = _textEditingUsernameController.text;
                 print("email in additional profile: ${_email}");
@@ -183,9 +185,13 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
                   citizenIdentificationString: _citizenIdentification,
                   avatarUrl: widget.googleSignInAccount?.photoUrl
                 );
-                final _confirmLogin = await widget._passengerService.signUpWithGoogleAccount(passengerModel, _googleCredential!);
+                final _confirmLogin = await widget._passengerService.signUpWithGoogleAccount(passengerModel, widget.googleSignInAccount);
                 if(_confirmLogin is PassengerModel) {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleSignInNavigator(googleSignInFuture: widget._authService.loginByGoogleAccount(widget.googleSignInAccount))));
+                } else if(_confirmLogin is ErrorHandlerModel) {
+                  showDialog(context: context, builder: (context) {
+                    return DialogComponent(message: _confirmLogin.message);
+                  },);
                 }
               },
               child: Text("Complete Sign Up".toUpperCase()),

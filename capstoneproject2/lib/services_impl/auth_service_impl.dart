@@ -41,7 +41,7 @@ class AuthenticateServiceImpl extends IAuthenticateService {
   Future loginByGoogleAccount(GoogleSignInAccount? googleSignInAccount) async {
     final client = http.Client();
     final googleSignInAuth = await googleSignInAccount?.authentication;
-    final getPassword = "${googleSignInAuth?.accessToken}-${googleSignInAuth?.idToken}";
+    final getPassword = "${googleSignInAccount?.id}";
     final getUserInfo = googleSignInAccount?.email;
     AuthenticateModel authenticateModel = AuthenticateModel(userInfo: getUserInfo, password: getPassword);
     final uri = Uri.parse(loginUrl);
@@ -58,7 +58,7 @@ class AuthenticateServiceImpl extends IAuthenticateService {
         accessToken: googleSignInAuth?.accessToken,
         idToken: googleSignInAuth?.idToken
       );
-      _fireAuth.signInWithCredential(googleAuth);
+      await _fireAuth.signInWithCredential(googleAuth);
       return authenticateModel;
     } else {
       final responseBody = json.decode(response.body);

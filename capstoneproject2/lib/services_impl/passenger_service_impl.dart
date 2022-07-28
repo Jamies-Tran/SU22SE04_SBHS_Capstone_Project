@@ -74,9 +74,10 @@ class PassengerServiceImpl extends IPassengerService {
   }
 
   @override
-  Future signUpWithGoogleAccount(PassengerModel passengerModel, GoogleSignInAuthentication? googleSignInAuth) async {
+  Future signUpWithGoogleAccount(PassengerModel passengerModel, GoogleSignInAccount? googleSignInAccount) async {
     var client = http.Client();
-    final password = "${googleSignInAuth?.accessToken}-${googleSignInAuth?.idToken}";
+    final password = "${googleSignInAccount?.id}";
+    final googleSignInAuth = await googleSignInAccount?.authentication;
     passengerModel.password = password;
     final uri = Uri.parse(_registerPassengerUrl);
     final response = await client.post(

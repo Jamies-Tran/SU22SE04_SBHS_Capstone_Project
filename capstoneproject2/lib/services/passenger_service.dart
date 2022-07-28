@@ -12,5 +12,5 @@ abstract class IPassengerService {
 
   Future<dynamic> signUpWithSWMAccount(PassengerModel passengerModel);
 
-  Future<dynamic> signUpWithGoogleAccount(PassengerModel passengerModel, GoogleSignInAuthentication? googleAuthCredential);
+  Future<dynamic> signUpWithGoogleAccount(PassengerModel passengerModel, GoogleSignInAccount? googleSignInAccount);
 }
