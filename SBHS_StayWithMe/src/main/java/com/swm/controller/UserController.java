@@ -1,5 +1,6 @@
 package com.swm.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -17,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.UserConverter;
 import com.swm.dto.AdminDto;
-import com.swm.dto.AuthenticationDto;
+import com.swm.dto.AuthenticationRequestDto;
 import com.swm.dto.LandlordDto;
-import com.swm.dto.LoginSuccessResponseDto;
+import com.swm.dto.AuthenticationResponseDto;
 import com.swm.dto.PassengerDto;
 import com.swm.dto.PasswordModificationDto;
 import com.swm.dto.UserDto;
@@ -51,6 +52,8 @@ public class UserController {
 
 	@Autowired
 	private IAuthenticationService authenticationService;
+	
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	private Logger log = LoggerFactory.getLogger(UserController.class);
 	
@@ -94,14 +97,20 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<?> webAccountLogin(@RequestBody AuthenticationDto userLogin) {
+	public ResponseEntity<?> webAccountLogin(@RequestBody AuthenticationRequestDto userLogin) {
 		UserDetails userDetails = authenticationService.loginAuthentication(userLogin.getUserInfo(),
 				userLogin.getPassword());
 
 		String token = jwtUtil.generateJwtTokenString(userDetails.getUsername());
-		LoginSuccessResponseDto loginSuccessResponseDto = new LoginSuccessResponseDto(userDetails.getUsername(),
-				new Date(), token, userDetails.getAuthorities());
-		return new ResponseEntity<>(loginSuccessResponseDto, HttpStatus.OK);
+		UserEntity userEntiy = userService.findUserByUserInfo(userDetails.getUsername());
+		AuthenticationResponseDto authenticationResponseDto = new AuthenticationResponseDto();
+		authenticationResponseDto.setUsername(userEntiy.getUsername());
+		authenticationResponseDto.setEmail(userEntiy.getEmail());
+		authenticationResponseDto.setLoginDate(simpleDateFormat.format(new Date()));
+		authenticationResponseDto.setToken(token);
+		authenticationResponseDto.setRoles(userDetails.getAuthorities());
+		
+		return new ResponseEntity<>(authenticationResponseDto, HttpStatus.OK);
 
 	}
 

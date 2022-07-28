@@ -14,9 +14,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class LoginSuccessResponseDto {
-	private String userInfo;
-	private Date loginDate;
+public class AuthenticationResponseDto {
+	private String username;
+	private String email;
+	private String loginDate;
 	private String token;
 	private Collection<? extends GrantedAuthority> roles;
 }
