@@ -1,0 +1,38 @@
+.container {
+
+    margin: 0%;
+    margin-top: 1%;
+    width: 100%;
+  
+  
+  
+    .header {}
+  
+    .body {
+      margin-top: 1%;
+  
+  
+      .body-container {
+  
+        margin: 1% 2%;
+  
+        .mat-elevation-z8{
+          box-shadow: none !important;
+        }
+        table {
+          width: auto;
+        }
+  
+        .mat-form-field {
+          font-size: 14px;
+          width: 100%;
+        }
+  
+        td, th {
+          width: 10%;
+        }
+  
+      }
+    }
+  }
+  

@@ -1,1 +1,39 @@
-<h1>Request Homestay Table</h1>
+<div class="container-fluid">
+    <div class="header">
+      <h1>Request List</h1>
+    </div>
+    <div class="body">
+      <div class="body-container">
+  
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let post of values">
+              <td>{{post.id}}</td>
+              <td>{{post.createdBy}}</td>
+              <td>{{post.createdDate}}</td>
+              <td>{{post.type}}</td>
+              <td>{{post.status}}</td>
+              <!-- <td>{{post}}</td> -->
+              <td>
+                <button mat-icon-button  color="primary"  ><i class="fa-solid fa-eye"></i></button>
+                  <button mat-icon-button color="accent"  (click)="onItemSelector(post.id);" (click)="accept()" ><i class="fa-solid fa-check"></i></button>
+                  <button mat-icon-button color="warn" (click)="onItemSelector(post.id);" (click)="reject()" ><i class="fa-solid fa-xmark"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+  
