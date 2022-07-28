@@ -1,3 +1,4 @@
+import 'package:capstoneproject2/Screens/Profile/screen_profile.dart';
 import 'package:capstoneproject2/locator/service_locator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
