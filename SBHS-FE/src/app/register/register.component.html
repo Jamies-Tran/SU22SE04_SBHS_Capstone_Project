@@ -76,7 +76,8 @@
                         [ngModelOptions]="{standalone: true}">
                 </label>
 
-                <input style="margin-left: 43%;" type="checkbox" value="I agree polices"> &nbsp;<a href="#"
+                <input style="margin-left: 43%;" type="checkbox" [(ngModel)]="polices"
+                [ngModelOptions]="{standalone: true}" > &nbsp;<a href="#"
                     style="font-size:21px ;">I
                     agree polices</a> <br /> <br />
                 <button class="btn btn-primary" style="margin-left: 43% ;" type="submit"
