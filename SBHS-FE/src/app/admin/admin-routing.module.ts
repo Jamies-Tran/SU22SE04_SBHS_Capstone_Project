@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { RequestComponent } from './request/request.component';
 import { RequestAccountComponent } from './request/request-detail/request-account/request-account.component';
+import { RequestHomestayComponent } from './request-homestay/request-homestay.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
 
       { path: 'Request', component: RequestComponent },
       { path: 'RequestAccount', component: RequestAccountComponent },
+      { path: 'RequestHomestay', component: RequestHomestayComponent },
 
 
     ],

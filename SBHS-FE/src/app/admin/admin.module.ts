@@ -13,9 +13,10 @@ import { MatInputModule } from '@angular/material/input';
 import { RequestComponent } from './request/request.component';
 import { RequestAccountComponent } from './request/request-detail/request-account/request-account.component';
 import { MatButtonModule } from '@angular/material/button';
+import { RequestHomestayComponent } from './request-homestay/request-homestay.component';
 
 @NgModule({
-  declarations: [RequestComponent, RequestAccountComponent],
+  declarations: [RequestComponent, RequestAccountComponent, RequestHomestayComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
