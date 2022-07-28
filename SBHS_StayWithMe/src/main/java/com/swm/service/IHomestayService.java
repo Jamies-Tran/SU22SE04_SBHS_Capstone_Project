@@ -14,9 +14,9 @@ public interface IHomestayService {
 	
 	HomestayEntity findHomestayById(Long Id);
 
-	List<HomestayEntity> getHomestayList();
+	List<HomestayEntity> getHomestayBookingAvailableList();
 	
-	List<HomestayEntity> findHomestayListByLocation(String location);
+	List<HomestayEntity> findHomestayBookingAvailableListByCity(String city);
 	
 	List<HomestayEntity> findHomestayListByOwnerName(String landlordName);
 

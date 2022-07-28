@@ -23,7 +23,8 @@ public class HomestayConverter {
 	public HomestayEntity homestayEntityConvert(HomestayDto homestayDto) {
 		HomestayEntity homestayEntity = new HomestayEntity();
 		homestayEntity.setName(homestayDto.getName());
-		homestayEntity.setLocation(homestayDto.getLocation());
+		homestayEntity.setAddress(homestayDto.getAddress());
+		homestayEntity.setCity(homestayDto.getCity());
 		homestayEntity.setPrice(homestayDto.getPrice());
 		homestayEntity.setPayment(homestayDto.getPayment());
 
@@ -70,7 +71,8 @@ public class HomestayConverter {
 		HomestayDto homestayDto = new HomestayDto();
 		homestayDto.setId(homestayEntity.getId());
 		homestayDto.setName(homestayEntity.getName());
-		homestayDto.setLocation(homestayEntity.getLocation());
+		homestayDto.setAddress(homestayEntity.getAddress());
+		homestayDto.setCity(homestayEntity.getCity());
 		homestayDto.setPrice(homestayEntity.getPrice());
 		homestayDto.setPayment(homestayEntity.getPayment());
 		homestayDto.setStatus(homestayEntity.getStatus());

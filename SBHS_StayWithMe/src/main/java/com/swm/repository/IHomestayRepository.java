@@ -20,7 +20,4 @@ public interface IHomestayRepository extends JpaRepository<HomestayEntity, Long>
 	
 	@Query(value = "select h from HomestayEntity h where h.price between :lowerPrice and :higherPrice")
 	List<HomestayEntity> findHomestayListBetweenPrice(@Param("lowerPrice") double lowerPrice, @Param("higherPrice") double higherPrice);
-	
-	@Query(value = "select h from HomestayEntity h where h.location like %:location%")
-	List<HomestayEntity> findHomestayListContainLocation(@Param("location") String location);
-}
+	}

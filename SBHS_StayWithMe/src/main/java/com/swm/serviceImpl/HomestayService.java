@@ -50,11 +50,10 @@ public class HomestayService implements IHomestayService {
 	}
 
 	@Override
-	public List<HomestayEntity> getHomestayList() {
-		List<HomestayEntity> homestayList = homestayRepo.findAll();
-		if (homestayList.isEmpty()) {
-			throw new ResourceNotFoundException("There's no homestay registered on platform");
-		}
+	public List<HomestayEntity> getHomestayBookingAvailableList() {
+		List<HomestayEntity> homestayList = homestayRepo.findAll().stream()
+				.filter(h -> h.getStatus().equalsIgnoreCase(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name()))
+				.collect(Collectors.toList());
 
 		return homestayList;
 	}
@@ -78,8 +77,6 @@ public class HomestayService implements IHomestayService {
 	public HomestayEntity createHomestay(HomestayEntity homestayEntity, HomestayLicenseImageEntity homestayLicense,
 			List<HomestayImageEntity> homestayImages, List<HomestayAftercareEntity> homestayServices,
 			List<HomestayFacilityEntity> homestayFacilities) {
-
-		
 
 		if (homestayRepo.findHomestayByName(homestayEntity.getName()).isPresent()) {
 			throw new DuplicateResourceException(homestayEntity.getName(), "Homestay exist");
@@ -136,11 +133,9 @@ public class HomestayService implements IHomestayService {
 	}
 
 	@Override
-	public List<HomestayEntity> findHomestayListByLocation(String location) {
-		List<HomestayEntity> homestayList = homestayRepo.findHomestayListContainLocation(location);
-		if (homestayList.isEmpty()) {
-			throw new ResourceNotFoundException(location, "There's no homestay at this location");
-		}
+	public List<HomestayEntity> findHomestayBookingAvailableListByCity(String city) {
+		List<HomestayEntity> homestayList = this.getHomestayBookingAvailableList().stream()
+				.filter(h -> h.getCity().equalsIgnoreCase(city)).collect(Collectors.toList());
 
 		return homestayList;
 	}
@@ -155,7 +150,7 @@ public class HomestayService implements IHomestayService {
 
 	@Override
 	public List<HomestayEntity> findHomestayListByOwnerName(String landlordName) {
-		List<HomestayEntity> homestayEntityList = this.getHomestayList();
+		List<HomestayEntity> homestayEntityList = this.getHomestayBookingAvailableList();
 		List<HomestayEntity> ownerHomestayList = homestayEntityList.stream()
 				.filter(homestay -> homestay.getLandlordOwner().getLandlordAccount().getUsername().equals(landlordName))
 				.collect(Collectors.toList());

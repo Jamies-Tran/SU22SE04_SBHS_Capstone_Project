@@ -28,7 +28,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 public class HomestayEntity extends BaseEntity {
-
 	/**
 	 * 
 	 */
@@ -45,7 +44,11 @@ public class HomestayEntity extends BaseEntity {
 
 	@Column(nullable = false)
 	@Setter
-	private String location;
+	private String address;
+	
+	@Column(nullable = false)
+	@Setter
+	private String city;
 
 	@Column(nullable = false)
 	@Setter

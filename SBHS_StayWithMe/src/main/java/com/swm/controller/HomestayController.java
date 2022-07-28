@@ -109,7 +109,7 @@ public class HomestayController {
 	@GetMapping("/list/{location}")
 	@PreAuthorize("hasAuthority('homestay:view')")
 	public ResponseEntity<?> findHomestayListContainLocation(@PathVariable("location") String location) {
-		List<HomestayEntity> homestayEntityList = homestayService.findHomestayListByLocation(location);
+		List<HomestayEntity> homestayEntityList = homestayService.findHomestayBookingAvailableListByCity(location);
 		List<HomestayDto> homestayResponseListDto = homestayEntityList.stream()
 				.map(h -> homestayConvert.homestayDtoConvert(h)).collect(Collectors.toList());
 

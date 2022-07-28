@@ -104,7 +104,8 @@ public class ApplicationSendMailUtil {
 
 	public static String generateAcceptHomestayRequestMessage(HomestayPostingRequestEntity homestayPostingRequestEntity) {
 		String homestayName = homestayPostingRequestEntity.getRequestHomestay().getName();
-		String homestayLocation = homestayPostingRequestEntity.getRequestHomestay().getLocation();
+		String homestayLocation = homestayPostingRequestEntity.getRequestHomestay().getAddress() +"-"+ homestayPostingRequestEntity.getRequestHomestay().getCity();
+		
 		message = "<h1>Your homestay posting request has been accepted ^^</h1>" + "<p>Your homestay " + homestayName
 				+ " on location " + homestayLocation + "has been posted on our platform.</p>"
 				+ "<p>Ready yourself cause passenger can rent your homestay at any time. Good luck!</p>";
@@ -113,7 +114,7 @@ public class ApplicationSendMailUtil {
 	
 	public static String generateRejectHomstayRequestMessage(HomestayPostingRequestEntity homestayPostingRequestEntity, String rejectMessage) {
 		String homestayName = homestayPostingRequestEntity.getRequestHomestay().getName();
-		String homestayLocation = homestayPostingRequestEntity.getRequestHomestay().getLocation();
+		String homestayLocation = homestayPostingRequestEntity.getRequestHomestay().getAddress() +"-"+ homestayPostingRequestEntity.getRequestHomestay().getCity();
 		message = "<h1>Your homestay posting request has been denied :(</h1>" 
 				+ "<p>Your homestay "+homestayName+" on location "+homestayLocation+" has been denied for reason: </p><br/>"
 				+ "<p>"+rejectMessage+"</p>";
