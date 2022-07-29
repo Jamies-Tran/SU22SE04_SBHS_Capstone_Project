@@ -1,9 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:capstoneproject2/services/model/passenger_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import '../model/passenger_model.dart';
-
-const baseUserUrl = "http://10.0.2.2:8080/api/user";
 
 abstract class IPassengerService {
   Future<dynamic> completeGoogleSignUpPassenger(PassengerModel passengerModel, GoogleSignInAccount? googleSignInAccount);
@@ -13,4 +9,6 @@ abstract class IPassengerService {
   Future<dynamic> signUpWithSWMAccount(PassengerModel passengerModel);
 
   Future<dynamic> signUpWithGoogleAccount(PassengerModel passengerModel, GoogleSignInAccount? googleSignInAccount);
+
+  Future<dynamic> findUserByUsername(String username);
 }

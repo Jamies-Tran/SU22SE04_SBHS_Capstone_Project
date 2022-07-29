@@ -45,6 +45,9 @@ dependencies:
   datetime_picker_formfield: ^2.0.0
   flutter_linkify: ^5.0.2
   shared_preferences: ^2.0.15
+  firebase_storage: ^10.3.4
+  file_picker: ^5.0.0
+  flutter_advanced_avatar: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -73,12 +76,14 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/
+    - assets/images/passenger-default.png
+    - assets/images/sg_example_1.jpg
     - assets/icons/gmail.svg
     - assets/icons/chat.svg
     - assets/icons/login.svg
     - assets/icons/signup.svg
     - assets/icons/mail.svg
-    -  assets/icons/forgotpassword.svg
+    - assets/icons/forgotpassword.svg
     - assets/icons/user.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -91,10 +96,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: fonts/OpenSans-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

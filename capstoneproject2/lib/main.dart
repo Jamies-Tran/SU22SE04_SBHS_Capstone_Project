@@ -1,11 +1,11 @@
 import 'package:capstoneproject2/Screens/Profile/screen_profile.dart';
-import 'package:capstoneproject2/locator/service_locator.dart';
+import 'package:capstoneproject2/screens/home_page/home_page_screen.dart';
+import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:capstoneproject2/Screens/Welcome/welcome_screen.dart';
 import 'package:capstoneproject2/constants.dart';
 
-import 'Screens/HomePage/home_page_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

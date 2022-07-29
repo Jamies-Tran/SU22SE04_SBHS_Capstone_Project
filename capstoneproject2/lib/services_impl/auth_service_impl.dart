@@ -1,18 +1,23 @@
 import 'dart:convert';
 
-import 'package:capstoneproject2/model/auth_model.dart';
-import 'package:capstoneproject2/model/error_handler_model.dart';
+import 'package:capstoneproject2/services/api_url_provider/api_url_provider.dart';
+import 'package:capstoneproject2/services/firebase_service/firebase_clound_firestore_service.dart';
+import 'package:capstoneproject2/services/locator/service_locator.dart';
+import 'package:capstoneproject2/services/model/error_handler_model.dart';
 import 'package:capstoneproject2/services/auth_service.dart';
+import 'package:capstoneproject2/services/model/auth_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
+
+
 class AuthenticateServiceImpl extends IAuthenticateService {
 
-  final loginUrl = "$baseUserUrl/login";
+  final loginUrl = "$USER_API_URL/login";
   
-  final _fireStore = FirebaseFirestore.instance.collection("user");
+  final _fireStore = locator.get<ICloudFirestoreService>();
 
   final _fireAuth = FirebaseAuth.instance;
 
@@ -28,8 +33,9 @@ class AuthenticateServiceImpl extends IAuthenticateService {
     var responseBody = json.decode(response.body);
     if(response.statusCode == 200) {
       var authenticateModel = AuthenticateModel.fromJson(responseBody);
-      _fireStore.add({"email" : authenticateModel.userInfo, "loginDate" : authenticateModel.loginDate, "token" : authenticateModel.jwtToken});
-      _fireAuth.signInWithEmailAndPassword(email: authenticateModel.userInfo, password: authenticateModel.password);
+
+      await _fireStore.createUserSignIn(authenticateModel);
+      await _fireAuth.signInWithEmailAndPassword(email: authenticateModel.email, password: authenticateModel.password);
       return authenticateModel;
     } else {
       var errorHandlerModel = ErrorHandlerModel.fromJson(responseBody);
@@ -43,7 +49,7 @@ class AuthenticateServiceImpl extends IAuthenticateService {
     final googleSignInAuth = await googleSignInAccount?.authentication;
     final getPassword = "${googleSignInAccount?.id}";
     final getUserInfo = googleSignInAccount?.email;
-    AuthenticateModel authenticateModel = AuthenticateModel(userInfo: getUserInfo, password: getPassword);
+    AuthenticateModel authenticateModel = AuthenticateModel(email: getUserInfo, password: getPassword);
     final uri = Uri.parse(loginUrl);
     var response = await client.post(
         uri,
@@ -53,7 +59,9 @@ class AuthenticateServiceImpl extends IAuthenticateService {
     if(response.statusCode == 200) {
       final responseBody = json.decode(response.body);
       final authenticateModel =  AuthenticateModel.fromJson(responseBody);
-      _fireStore.add({"email" : authenticateModel.userInfo, "loginDate" : authenticateModel.loginDate, "token" : authenticateModel.jwtToken});
+      authenticateModel.avatarUrl = googleSignInAccount?.photoUrl;
+      //await _fireStore.createGoogleSignIn(googleSignInAccount, authenticateModel.accessToken);
+      await _fireStore.createUserSignIn(authenticateModel);
       final googleAuth = GoogleAuthProvider.credential(
         accessToken: googleSignInAuth?.accessToken,
         idToken: googleSignInAuth?.idToken
