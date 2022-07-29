@@ -15,16 +15,11 @@ export class ServerHttpService {
   public model: any = {};
   private REST_API_SERVER = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) { }
-  public registerLandlord(name:string, address:string,city:string, price:any, payment:string,homestayServices: Array<any>,homestayFacilities:Array<any>) {
-    var homestayLicense  ={
-        "url":"1234.png"
-        }
+  public registerLandlord(name:string, address:string,city:string, price:any, payment:string,myHomestayLicense: String,homestayImages:Array<any>,homestayServices: Array<any>,homestayFacilities:Array<any>) {
 
-
-    var homestayImages =[
-      {"url":"123.png"},
-      {"url":"456.png"}
-    ]
+    var homestayLicense ={
+      "url":myHomestayLicense
+    }
     var value = {
       name,address,city,price,payment,homestayLicense,homestayImages,homestayServices,homestayFacilities
     }
