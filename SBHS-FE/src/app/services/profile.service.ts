@@ -1,10 +1,12 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { throwError } from 'rxjs/internal/observable/throwError';
+import { catchError } from 'rxjs/internal/operators/catchError';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ServerHttpService {
   private httpOptions = {
     headers: new HttpHeaders({
@@ -14,25 +16,22 @@ export class ServerHttpService {
   };
   public model: any = {};
   private REST_API_SERVER = 'http://localhost:8080';
+
   constructor(private httpClient: HttpClient) { }
-  public registerLandlord(name:string, address:string,city:string, price:any, payment:string,homestayServices: Array<any>,homestayFacilities:Array<any>) {
-    var homestayLicense  ={
-        "url":"1234.png"
-        }
 
-
-    var homestayImages =[
-      {"url":"123.png"},
-      {"url":"456.png"}
-    ]
-    var value = {
-      name,address,city,price,payment,homestayLicense,homestayImages,homestayServices,homestayFacilities
-    }
-    console.log(value)
-    const url = `${this.REST_API_SERVER}/api/homestay/register`;
+  public getProfile() {
+    const url = `${this.REST_API_SERVER}/api/user/get/`+localStorage.getItem("username")+``;
     return this.httpClient
-      .post<any>(url, value, this.httpOptions)
+      .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
+  }
+
+  public getBalance(){
+    
+    const url =`${this.REST_API_SERVER}/api/user/get/wallet/landlord_wallet/`+localStorage.getItem("username")+``;
+    return this.httpClient
+    .get<any>(url,this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse) {
     // if (error.error instanceof ErrorEvent) {
@@ -49,4 +48,5 @@ export class ServerHttpService {
     return throwError(
       error.error["message"]);
   };
+
 }

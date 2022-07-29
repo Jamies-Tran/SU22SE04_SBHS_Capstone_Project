@@ -20,9 +20,7 @@ export class LoginComponent implements OnInit {
   public getProfile(){
     this.http.login(this.userName, this.password).subscribe((data =>{
       localStorage.setItem('userToken',data["token"]);
-      // this.router.navigate(['/Landlord'], {relativeTo: this.route});
-      console.log(data["token"])
-      console.log(data["roles"][0]["authority"])
+      localStorage.setItem('username',data["username"]);
       if(data["roles"][0]["authority"] === "ROLE_LANDLORD"){
         this.router.navigate(['/Landlord/Dashboard'], {relativeTo: this.route});
       }else this.router.navigate(['/Admin/Request'], {relativeTo: this.route});

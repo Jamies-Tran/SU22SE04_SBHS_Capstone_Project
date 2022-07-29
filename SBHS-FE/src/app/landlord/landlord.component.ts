@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LandlordComponent implements OnInit {
 
   constructor(private router: Router,private route: ActivatedRoute) { }
-
+  public username = localStorage.getItem("username")
   ngOnInit(): void {
   }
   public logout(){

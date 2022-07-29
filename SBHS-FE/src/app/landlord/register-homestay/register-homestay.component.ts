@@ -27,7 +27,7 @@ export class RegisterHomestayComponent implements OnInit {
     checkOutTime: ['', Validators.required],
     price: ['', Validators.required],
     number: ['', Validators.required],
-    note: [''],
+    city: [''],
     description: [''],
     fileSource: [this.files.toString],
   });
@@ -134,11 +134,66 @@ export class RegisterHomestayComponent implements OnInit {
     let homestayName = formInformationFormGroupValue.homestayName.value!;
     let price = formInformationFormGroupValue.price.value!;
     let address = formInformationFormGroupValue.address.value!;
-
-
-    this.http.registerLandlord(homestayName, address,price,this.payment ).subscribe((data => {
-      console.log(data)
-
+    let city = formInformationFormGroupValue.city.value!;
+    const facilityFormGroupValue = this.facilityFormGroup.controls;
+    type homestayFacilities= Array<{name: string ,amount: string}>;
+    const myhomestayFacilities:homestayFacilities =[];
+    if(facilityFormGroupValue.tv.value == true){
+      myhomestayFacilities.push({name:"TV",amount:facilityFormGroupValue.inputTv.value+""})
+    }
+    if(facilityFormGroupValue.cookingStove.value == true){
+      myhomestayFacilities.push({name:"cookingStove",amount:facilityFormGroupValue.inputCookingStove.value+""})
+    }
+    if(facilityFormGroupValue.bed.value == true){
+      myhomestayFacilities.push({name:"bed",amount:facilityFormGroupValue.inputBed.value+""})
+    }
+    if(facilityFormGroupValue.shower.value == true){
+      myhomestayFacilities.push({name:"shower",amount:facilityFormGroupValue.inputShower.value+""})
+    }
+    if(facilityFormGroupValue.sofa.value == true){
+      myhomestayFacilities.push({name:"sofa",amount:facilityFormGroupValue.inputSofa.value+""})
+    }
+    if(facilityFormGroupValue.toilet.value == true){
+      myhomestayFacilities.push({name:"toilet",amount:facilityFormGroupValue.inputToilet.value+""})
+    }
+    if(facilityFormGroupValue.fan.value == true){
+      myhomestayFacilities.push({name:"fan",amount:facilityFormGroupValue.inputFan.value+""})
+    }
+    if(facilityFormGroupValue.bathtub.value == true){
+      myhomestayFacilities.push({name:"bathtub",amount:facilityFormGroupValue.inputBathtub.value+""})
+    }
+    console.log(myhomestayFacilities)
+    
+    const serviceFormGroupValue = this.serviceFormGroup.controls;
+    type homestayServices = Array<{name: string ,price: string}>;
+    const myHomestayServices:homestayServices =[];
+    if(serviceFormGroupValue.wifi.value == true){
+      myHomestayServices.push({name:"wifi",price:serviceFormGroupValue.wifiPrice.value+""})
+    }
+    if(serviceFormGroupValue.spa.value == true){
+      myHomestayServices.push({name:"spa",price:serviceFormGroupValue.spaPrice.value+""})
+    }
+    if(serviceFormGroupValue.food.value == true){
+      myHomestayServices.push({name:"food",price:serviceFormGroupValue.foodPrice.value+""})
+    }
+    if(serviceFormGroupValue.fishing.value == true){
+      myHomestayServices.push({name:"fishing",price:serviceFormGroupValue.fishingPrice.value+""})
+    }
+    if(serviceFormGroupValue.bar.value == true){
+      myHomestayServices.push({name:"bar",price:serviceFormGroupValue.barPrice.value+""})
+    }
+    if(serviceFormGroupValue.carRental.value == true){
+      myHomestayServices.push({name:"carRental",price:serviceFormGroupValue.carRentalPrice.value+""})
+    }
+    if(serviceFormGroupValue.swimming.value == true){
+      myHomestayServices.push({name:"swimming",price:serviceFormGroupValue.swimmingPrice.value+""})
+    }
+    if(serviceFormGroupValue.campfire.value == true){
+      myHomestayServices.push({name:"campfire",price:serviceFormGroupValue.campfirePrice.value+""})
+    }
+// api
+    this.http.registerLandlord(homestayName, address,city,price,this.payment,myHomestayServices, myhomestayFacilities).subscribe((data => {
+      alert('Register Success!!!')
     }),
     error =>{
       alert(error)

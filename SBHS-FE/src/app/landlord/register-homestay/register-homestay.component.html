@@ -32,9 +32,9 @@
                 </mat-form-field>
               </div>
               <div>
-                <mat-form-field class="fill " appearance="outline">
-                  <mat-label>Note</mat-label>
-                  <textarea id="note" matInput formControlName="note"></textarea>
+                <mat-form-field class="fill" appearance="legacy">
+                  <mat-label>Number of Room</mat-label>
+                  <input id="number" type="number" matInput placeholder="1" required formControlName="number">
                 </mat-form-field>
               </div>
               <div class="add-img">
@@ -68,8 +68,9 @@
               </div>
               <div>
                 <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>Number of Room</mat-label>
-                  <input id="number" type="number" matInput placeholder="1" required formControlName="number">
+                  <mat-label>City</mat-label>
+                  <input id="name" matInput placeholder="StaywithMe Homestay" formControlName="city" required
+                    formControlName="city">
                 </mat-form-field>
               </div>
               <div>

@@ -22,7 +22,7 @@
             <i class="fa fa-house-chimney-user"></i>
           </div>
           <div class="logo-text">
-            <div class="logo-text-name">Nguyen Quang</div>
+            <div class="logo-text-name">{{username}}</div>
             <div class="logo-text-role">Landlord</div>
           </div>
           <button class="btn-ellipsis">
@@ -31,15 +31,16 @@
         </div>
 
         <div class="row profile-icon">
-          <a class="col-sm-3 btn-profile">
+          <a class="col-sm-3 btn-profile" routerLink="/Landlord/Profile"
+          routerLinkActive="active">
+            <i class="fa fa-user"></i>
+          </a>
+          <!-- <a class="col-sm-3 btn-profile">
             <i class="fa fa-user"></i>
           </a>
           <a class="col-sm-3 btn-profile">
             <i class="fa fa-user"></i>
-          </a>
-          <a class="col-sm-3 btn-profile">
-            <i class="fa fa-user"></i>
-          </a>
+          </a> -->
           <a class="col-sm-3 btn-profile" (click)="logout()">
             <i class="fa fa-sign-out"></i>
           </a>
