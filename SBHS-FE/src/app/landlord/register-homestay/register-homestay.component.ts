@@ -9,6 +9,10 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServerHttpService } from 'src/app/services/register-homestay.service';
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+
 
 
 interface City{
@@ -115,6 +119,7 @@ export class RegisterHomestayComponent implements OnInit {
     for(this.file of this.files){
       console.log('file name:',  this.file.name);
       const path = "homestay/" + this.file.name;
+      const fileRef = this.storage.ref( path );
       this.storage.upload( path ,this.file);
       console.log('starupload: ', this.storage);
     }

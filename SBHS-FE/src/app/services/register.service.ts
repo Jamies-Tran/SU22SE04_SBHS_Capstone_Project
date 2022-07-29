@@ -17,6 +17,7 @@ export class ServerHttpService {
   public model: any = {};
   private REST_API_SERVER = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) { }
+
   public registerLandlord(username:string, password:string, address:string, gender:string, email:string, phone:string,citizenIdentificationString:string,dob:string,avatarUrl:string,citizenIdentificationUrl:string) {
     var value = {
       username, password, address, gender, email, phone, citizenIdentificationString, dob, avatarUrl, citizenIdentificationUrl

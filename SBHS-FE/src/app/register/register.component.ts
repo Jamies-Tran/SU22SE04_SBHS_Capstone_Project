@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   public confirmPassword = "";
   public dob =  "";
   public address = "";
-  public avatarUrl = "male";
+  public avatarUrl = "";
   public flag = false;
   public polices = false;
   constructor(private http: ServerHttpService, private router: Router,private route: ActivatedRoute) { }
@@ -55,6 +55,7 @@ export class RegisterComponent implements OnInit {
     else this.flag = true
 
 }
+
   public register() {
     if(this.flag === true){
       this.http.registerLandlord(this.username,this.password,this.address,this.gender,this.email,this.phone,this.citizenIdentificationString,this.dob +"",this.avatarUrl,this.citizenIdentificationUrl).subscribe((data => {
