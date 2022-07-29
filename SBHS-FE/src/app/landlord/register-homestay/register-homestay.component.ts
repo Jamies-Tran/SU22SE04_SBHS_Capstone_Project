@@ -25,10 +25,14 @@ interface City{
   styleUrls: ['./register-homestay.component.scss'],
 })
 export class RegisterHomestayComponent implements OnInit {
-  files: File[] = [];
+  homestayImageFiles: File[] = [];
+  homestayLicenseFiles: File[] = [];
   file!:File;
   payment=  "atm" ;
   value!: string;
+  public homestayLicense !: string;
+  public homestayImages : string[]=[];
+
 
   cities:City[] = [
     {value:'TP.HCM'},
@@ -48,8 +52,18 @@ export class RegisterHomestayComponent implements OnInit {
     number: ['', Validators.required],
     city: ['', Validators.required],
     description: [''],
-    fileSource: [this.files.toString],
+
+    image: [false, Validators.requiredTrue]
   });
+
+  isActiveValue(){
+    if(this.homestayImageFiles.length>=1 && this.homestayLicenseFiles.length==1){
+
+      this.informationFormGroup.patchValue({image:true});
+    }
+
+  }
+
 
   facilityFormGroup = this._formBuilder.group({
     tv: false,
@@ -108,42 +122,57 @@ export class RegisterHomestayComponent implements OnInit {
 
 
   // lấy file hình
-  onSelect(files: any) {
+  onSelectImageHomestay(files: any) {
     console.log('onselect: ', files);
     // set files
-    this.files.push(...files.addedFiles);
+    this.homestayImageFiles.push(...files.addedFiles);
 
-
-    // upload image len firebase
-    //  chuyen code nay sang submit
-    for(this.file of this.files){
-      console.log('file name:',  this.file.name);
-      const path = "homestay/" + this.file.name;
-      const fileRef = this.storage.ref( path );
-      this.storage.upload( path ,this.file);
-      console.log('starupload: ', this.storage);
-
-
-         // Lay image homstaylicense
-      // Lay image homestayImages
-      // this.homestayLicense = path;
-      // console.log(this.homestayLicense);
-      // this.homestayImages.push(path);
-      // console.log(this.homestayImages);
-    }
   }
 
   // xóa file hình
-  onRemove(event: File) {
+  onRemoveHomestayImage(event: File) {
     console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
-    console.log('xoa file:', this.files.indexOf(event));
+    this.homestayImageFiles.splice(this.homestayImageFiles.indexOf(event), 1);
+    console.log('xoa file:', this.homestayImageFiles);
   }
-  public homestayLicense = "";
-  public homestayImages ="" ;
+
+
+  // lấy file hình
+  onSelectHomestayLicense(files: any) {
+    console.log('onselect: ', files);
+    // set files
+    this.homestayLicenseFiles.push(...files.addedFiles);
+    console.log('file array', this.homestayLicenseFiles);
+    console.log('file lenght' , this.homestayLicenseFiles.length);
+
+    if(this.homestayLicenseFiles.length>1){
+      this.homestayLicenseFiles.splice(this.homestayLicenseFiles.indexOf(files),1);
+      console.log('file lenght slice' , this.homestayLicenseFiles.length);
+      console.log('file array', this.homestayLicenseFiles);
+      console.log('file index', this.homestayLicenseFiles.indexOf(files));
+
+    }
+
+
+
+  }
+
+  // xóa file hình
+  onRemoveHomestayLicense(event: File) {
+    console.log(event);
+    console.log('xoa index:', this.homestayLicenseFiles.indexOf(event));
+    this.homestayLicenseFiles.splice(this.homestayLicenseFiles.indexOf(event), 1);
+    console.log('xoa file:', this.homestayLicenseFiles);
+
+
+  }
+
+
+
   informationForm() {
     console.log(this.informationFormGroup.value);
-    console.log(this.homestayLicense);
+    // console.log("homestay license", this.homestayLicense);
+    console.log("homestay image", this.homestayImages);
   }
   facilityForm() {
     console.log(this.facilityFormGroup.value);
@@ -154,10 +183,35 @@ export class RegisterHomestayComponent implements OnInit {
   paymentForm() {
     console.log(this.paymentFormGroup.value);
   }
-  
+
 
 
   public register() {
+
+    for(this.file of this.homestayImageFiles){
+      console.log('file homestayimage name:',  this.file.name);
+      const path = "homestay/" + this.file.name;
+      const fileRef = this.storage.ref( path );
+      this.storage.upload( path ,this.file);
+      console.log('starupload: ', this.storage);
+
+      this.homestayImages.push(this.file.name);
+      console.log("ten file luu tren database", this.homestayImages);
+
+    }
+
+    // homestayLicenseFiles
+    for(this.file of this.homestayLicenseFiles){
+      console.log('file homestay license name:',  this.file.name);
+      const path = "license/" + this.file.name;
+      const fileRef = this.storage.ref( path );
+      this.storage.upload( path ,this.file);
+      console.log('starupload: ', this.storage);
+
+      this.homestayLicense = this.file.name;
+      console.log("ten file luu tren database", this.homestayLicense);
+
+    }
 
 // lay value
     const formInformationFormGroupValue = this.informationFormGroup.controls;
@@ -238,11 +292,19 @@ export class RegisterHomestayComponent implements OnInit {
     if(serviceFormGroupValue.campfire.value == true){
       myHomestayServices.push({name:"campfire",price:serviceFormGroupValue.campfirePrice.value+""})
     }
+
     type homestayImages = Array<{url: string }>;
-    const myHomestayimages:homestayImages =[{url:this.homestayImages}];
+    const myHomestayimages:homestayImages =[];
+    //  =[{url:this.homestayImages}];
+    for(let i of this.homestayImages ){
+      myHomestayimages.push({url:i.toString()});
+      console.log( "submit: ",i);
+    }
+    type homestayLicenses = {url:string};
+    const myHomestayLicenses:homestayLicenses = {url:this.homestayLicense};
 
 // api
-    this.http.registerLandlord(homestayName, address,city,price,this.payment,this.homestayLicense,myHomestayimages,myHomestayServices, myhomestayFacilities).subscribe((data => {
+    this.http.registerLandlord(homestayName, address,city,price,this.payment,myHomestayLicenses,myHomestayimages,myHomestayServices, myhomestayFacilities).subscribe((data => {
       alert('Register Success!!!')
     }),
     error =>{
