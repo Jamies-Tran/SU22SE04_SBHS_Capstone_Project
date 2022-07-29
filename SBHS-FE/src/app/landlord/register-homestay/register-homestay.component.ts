@@ -131,9 +131,11 @@ export class RegisterHomestayComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
     console.log('xoa file:', this.files.indexOf(event));
   }
-
+  public homestayLicense = "";
+  public homestayImages ="" ;
   informationForm() {
     console.log(this.informationFormGroup.value);
+    console.log(this.homestayLicense);
   }
   facilityForm() {
     console.log(this.facilityFormGroup.value);
@@ -144,7 +146,7 @@ export class RegisterHomestayComponent implements OnInit {
   paymentForm() {
     console.log(this.paymentFormGroup.value);
   }
-
+  
 
 
   public register() {
@@ -228,8 +230,11 @@ export class RegisterHomestayComponent implements OnInit {
     if(serviceFormGroupValue.campfire.value == true){
       myHomestayServices.push({name:"campfire",price:serviceFormGroupValue.campfirePrice.value+""})
     }
+    type homestayImages = Array<{url: string }>;
+    const myHomestayimages:homestayImages =[{url:this.homestayImages}];
+
 // api
-    this.http.registerLandlord(homestayName, address,city,price,this.payment,myHomestayServices, myhomestayFacilities).subscribe((data => {
+    this.http.registerLandlord(homestayName, address,city,price,this.payment,this.homestayLicense,myHomestayimages,myHomestayServices, myhomestayFacilities).subscribe((data => {
       alert('Register Success!!!')
     }),
     error =>{
