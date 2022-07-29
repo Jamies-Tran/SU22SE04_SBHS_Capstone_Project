@@ -56,13 +56,7 @@ export class RegisterHomestayComponent implements OnInit {
     image: [false, Validators.requiredTrue]
   });
 
-  isActiveValue(){
-    if(this.homestayImageFiles.length>=1 && this.homestayLicenseFiles.length==1){
 
-      this.informationFormGroup.patchValue({image:true});
-    }
-
-  }
 
 
   facilityFormGroup = this._formBuilder.group({
@@ -126,6 +120,12 @@ export class RegisterHomestayComponent implements OnInit {
     console.log('onselect: ', files);
     // set files
     this.homestayImageFiles.push(...files.addedFiles);
+    if(this.homestayImageFiles.length>=1 && this.homestayLicenseFiles.length==1){
+
+      this.informationFormGroup.patchValue({image:true});
+    }else{
+      this.informationFormGroup.patchValue({image:false});
+    }
 
   }
 
@@ -134,6 +134,12 @@ export class RegisterHomestayComponent implements OnInit {
     console.log(event);
     this.homestayImageFiles.splice(this.homestayImageFiles.indexOf(event), 1);
     console.log('xoa file:', this.homestayImageFiles);
+    if(this.homestayImageFiles.length>=1 && this.homestayLicenseFiles.length==1){
+
+      this.informationFormGroup.patchValue({image:true});
+    }else{
+      this.informationFormGroup.patchValue({image:false});
+    }
   }
 
 
@@ -152,6 +158,12 @@ export class RegisterHomestayComponent implements OnInit {
       console.log('file index', this.homestayLicenseFiles.indexOf(files));
 
     }
+    if(this.homestayImageFiles.length>=1 && this.homestayLicenseFiles.length==1){
+
+      this.informationFormGroup.patchValue({image:true});
+    }else{
+      this.informationFormGroup.patchValue({image:false});
+    }
 
 
 
@@ -163,7 +175,12 @@ export class RegisterHomestayComponent implements OnInit {
     console.log('xoa index:', this.homestayLicenseFiles.indexOf(event));
     this.homestayLicenseFiles.splice(this.homestayLicenseFiles.indexOf(event), 1);
     console.log('xoa file:', this.homestayLicenseFiles);
+    if(this.homestayImageFiles.length>=1 && this.homestayLicenseFiles.length==1){
 
+      this.informationFormGroup.patchValue({image:true});
+    }else{
+      this.informationFormGroup.patchValue({image:false});
+    }
 
   }
 
@@ -302,6 +319,7 @@ export class RegisterHomestayComponent implements OnInit {
     }
     type homestayLicenses = {url:string};
     const myHomestayLicenses:homestayLicenses = {url:this.homestayLicense};
+    console.log(this.homestayImages);
 
 // api
     this.http.registerLandlord(homestayName, address,city,price,this.payment,myHomestayLicenses,myHomestayimages,myHomestayServices, myhomestayFacilities).subscribe((data => {

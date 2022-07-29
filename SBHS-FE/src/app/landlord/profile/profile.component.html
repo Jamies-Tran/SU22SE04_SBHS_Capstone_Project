@@ -5,7 +5,8 @@
       <div class="row-avatar-infor">
 
         <div class="avatar">
-          <img [src]="avatarUrl" alt="avatar">
+          <div class="div-avatar"><img [src]="avatarUrl" alt="avatar"></div>
+
           <div class="balance">
 
 
@@ -26,101 +27,326 @@
               </section>
             </aside>
             <div class="box-footer">
-              <!-- <button class="btn-add" mat-raised-button><i class="fa-solid fa-arrow-right-to-bracket"></i> Add Balance</button> -->
-              <button class="btn-out" mat-raised-button><i class="fa-solid fa-arrow-right-from-bracket"></i> Cash Out</button>
-              <button class="btn-out" mat-raised-button><i class="fa-solid fa-arrow-right-from-bracket"></i> Cash Out</button>
-              <button class="btn-out" mat-raised-button><i class="fa-solid fa-arrow-right-from-bracket"></i> Cash Out</button>
-              <button class="btn-out" mat-raised-button><i class="fa-solid fa-arrow-right-from-bracket"></i> Cash Out</button>
-              <button class="btn-out" mat-raised-button><i class="fa-solid fa-arrow-right-from-bracket"></i> Cash Out</button>
-              <div class="btn-add" matRipple> <i class="fa-solid fa-arrow-right-from-bracket"></i> Add Balance </div>
-              <div class="btn-add" matRipple> <i class="fa-solid fa-arrow-right-from-bracket"></i> Cash Out </div>
+
+              <div class="btn-add" matRipple
+                (click)="toggle.addBalance = !toggle.addBalance;showDiv.addBalance= !showDiv.addBalance"
+                [ngClass]="{'active' : toggle.addBalance, 'default': !toggle.addBalance}">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Add Balance
+              </div>
+
+              <div class="btn-add" matRipple
+                (click)="toggle.cashOut = !toggle.cashOut;showDiv.cashOut = !showDiv.cashOut"
+                [ngClass]="{'active' : toggle.cashOut, 'default': !toggle.cashOut}"> <i
+                  class="fa-solid fa-arrow-right-from-bracket"></i> Cash Out </div>
+
+              <div class="btn-add" matRipple (click)="toggle.editProfile = !toggle.editProfile;"
+                [ngClass]="{'active' : toggle.editProfile, 'default': !toggle.editProfile}"> <i
+                  class="fa-solid fa-arrow-right-from-bracket"></i> Edit Profile </div>
+
+              <div class="btn-add" matRipple
+                (click)="toggle.changePass = !toggle.changePass;showDiv.changePass =!showDiv.changePass"
+                [ngClass]="{'active' : toggle.changePass, 'default': !toggle.changePass}"> <i
+                  class="fa-solid fa-arrow-right-from-bracket"></i> Change Password
+              </div>
             </div>
           </div>
 
         </div>
 
+
+
+        <!-- Edit Information -->
         <div class="infor">
-          <div class="col-left">
-            <!-- Username -->
-            <div class="fill">
-              <div class="fill-text">
-                <p>Username:</p>
-              </div>
-              <div class="fill-input">
-                <p>{{username}}</p>
-              </div>
-            </div>
-            <!-- Email -->
-            <div class="fill">
-              <div class="fill-text">
-                <p>Email:</p>
-              </div>
-              <div class="fill-input">
-                <p>{{email}}</p>
-              </div>
-            </div>
+          <div class="card-col">
 
-            <!-- Gender  -->
-            <div class="fill">
-              <div class="fill-text">
-                <p>Gender:</p>
-              </div>
-              <div class="fill-input">
-                <p>{{gender}}</p>
-              </div>
+            <div class="car-header">
+              <h1>Profile</h1>
             </div>
-             <!-- Address -->
-             <div class="fill">
-              <div class="fill-text">
-                <p>Address:</p>
-              </div>
-              <div class="fill-input">
-                <p>{{address}}</p>
-              </div>
-            </div>
+            <div class="card-row">
+              <div class="col-left">
+                <!-- Username -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Username:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{username}}</p>
+                  </div>
+                </div>
+                <!-- Email -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Email:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{email}}</p>
+                  </div>
+                </div>
+
+                <!-- Gender  -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Gender:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{gender}}</p>
+                  </div>
+                </div>
+                <!-- Address -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Address:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{address}}</p>
+                  </div>
+                </div>
 
 
+              </div>
+
+              <div class="col-right">
+                <!-- Dob  -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Day of Birth:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{dob}}</p>
+                  </div>
+                </div>
+
+                <!-- ID -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Citizen ID:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{citizenIdentificationString}}</p>
+                  </div>
+                </div>
+                <!-- Phone -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Phone:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{phone}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="col-right">
-            <!-- Dob  -->
-            <div class="fill">
-              <div class="fill-text">
-                <p>Day of Birth:</p>
-              </div>
-              <div class="fill-input">
-                <p>{{dob}}</p>
-              </div>
-            </div>
+          <!-- Add Balance -->
+          <div class="card-col" *ngIf="showDiv.addBalance">
 
-            <!-- ID -->
-            <div class="fill">
-              <div class="fill-text">
-                <p>Citizen ID:</p>
-              </div>
-              <div class="fill-input">
-                <p>{{citizenIdentificationString}}</p>
-              </div>
+            <div class="car-header">
+              <h1>Add Balance</h1>
             </div>
-            <!-- Phone -->
-            <div class="fill">
-              <div class="fill-text">
-                <p>Phone:</p>
+            <div class="card-row-addBalance">
+              <div class="p-header-text">
+                <p>How much balance would you like to add?</p>
               </div>
-              <div class="fill-input">
-                <p>{{phone}}</p>
+              <div class="p-text">
+                <p>Type or select the amount below</p>
               </div>
+              <div class="input-cash">
+                <mat-form-field class="cash-input" appearance="outline">
+                  <mat-label>Cash</mat-label>
+                  <span matPrefix> <i class="fa-solid fa-dollar-sign"></i> &nbsp;</span>
+                  <input type="number" matInput placeholder="1.000">
+                </mat-form-field>
+              </div>
+              <div class="total-cash">
+                <h2>Total: $</h2>
+              </div>
+
+
+
+            </div>
+            <div class="button">
+              <button class="btn-denied" mat-raised-button>Cancel</button>
+              <button class="btn-accept" mat-raised-button>Submit</button>
             </div>
           </div>
 
+          <!-- Cash Out -->
+          <div class="card-col" *ngIf="showDiv.cashOut">
+            <div class="car-header">
+              <h1>Cash Out</h1>
+            </div>
+            <div class="card-row">
+              <div class="col-left">
+                <!-- Username -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Username:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{username}}</p>
+                  </div>
+                </div>
+                <!-- Email -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Email:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{email}}</p>
+                  </div>
+                </div>
+
+                <!-- Gender  -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Gender:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{gender}}</p>
+                  </div>
+                </div>
+                <!-- Address -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Address:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{address}}</p>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="col-right">
+                <!-- Dob  -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Day of Birth:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{dob}}</p>
+                  </div>
+                </div>
+
+                <!-- ID -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Citizen ID:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{citizenIdentificationString}}</p>
+                  </div>
+                </div>
+                <!-- Phone -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Phone:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{phone}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="button">
+              <button class="btn-denied" mat-raised-button>Change Password</button>
+              <button class="btn-accept" mat-raised-button>Edit</button>
+            </div>
+
+          </div>
+          <!-- Change Password -->
+          <div class="card-col" *ngIf="showDiv.changePass">
+
+            <div class="car-header">
+              <h1>Change Password</h1>
+            </div>
+            <div class="card-row">
+              <div class="col-left">
+                <!-- Username -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Username:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{username}}</p>
+                  </div>
+                </div>
+                <!-- Email -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Email:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{email}}</p>
+                  </div>
+                </div>
+
+                <!-- Gender  -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Gender:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{gender}}</p>
+                  </div>
+                </div>
+                <!-- Address -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Address:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{address}}</p>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="col-right">
+                <!-- Dob  -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Day of Birth:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{dob}}</p>
+                  </div>
+                </div>
+
+                <!-- ID -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Citizen ID:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{citizenIdentificationString}}</p>
+                  </div>
+                </div>
+                <!-- Phone -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Phone:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{phone}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="button">
+              <button class="btn-denied" mat-raised-button>Change Password</button>
+              <button class="btn-accept" mat-raised-button>Edit</button>
+            </div>
+          </div>
         </div>
       </div>
 
 
-      <div class="button">
-        <button class="btn-denied" mat-raised-button>Change Password</button>
-        <button class="btn-accept" mat-raised-button>Edit</button>
-      </div>
+
     </div>
   </div>
 

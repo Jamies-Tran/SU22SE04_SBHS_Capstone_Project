@@ -18,6 +18,21 @@ export class ProfileComponent implements OnInit {
   public address = '';
   public avatarUrl = '';
   public balance = '';
+  showDiv = {
+    // profile: true,
+    addBalance: false,
+    changePass: false,
+    cashOut:false,
+    editProfile:false
+  };
+  toggle = {
+    addBalance: false,
+    changePass: false,
+    cashOut:false,
+    editProfile:false
+  };
+
+
   ngOnInit(): void {
     //get profile
     this.http.getProfile().subscribe(async (data) => {
@@ -31,8 +46,9 @@ export class ProfileComponent implements OnInit {
       this.phone = data['phone'];
       this.address = data['address'];
 
-      this.avatarUrl = await this.image.getImage('homestay/' + data['avataUrl']);
-      console.log(this.avatarUrl);
+      this.avatarUrl = await this.image.getImage(
+        'homestay/' + data['avatarUrl']
+      );
       //
       let encoded: string = btoa('{"username":"landlord003"}');
       console.log(encoded);

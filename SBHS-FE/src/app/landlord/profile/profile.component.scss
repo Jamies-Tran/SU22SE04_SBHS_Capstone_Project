@@ -10,27 +10,36 @@
     .body-container {
       // background-color: rgba(29, 36, 46, 0.08);
       // border-radius: 30px;
-      display: flex;
+      // display: flex;
       flex-direction: column;
-      margin-left: 2%;
+      margin-left: 1%;
       padding: 1%;
 
       .row-avatar-infor {
-        display: flex;
+        // display: flex;
 
 
         .avatar {
           background-color: rgba(29, 36, 46, 0.08);
           border-radius: 20px;
           margin-left: 0;
-          min-width: 195px;
+          width: 270px;
           text-align: center;
           padding-top: 1%;
+          float: left;
+          display: flex;
+          flex-direction: column;
 
-          img {
-            width: 140px;
+          .div-avatar {
+            min-width: 140px;
+            min-height: 210px;
 
+            img {
+              width: 140px;
+
+            }
           }
+
 
           .balance {
             margin: 0 5%;
@@ -73,7 +82,7 @@
                 width: 100%;
                 border-radius: 7px;
                 margin: 0;
-                font-size: 15px;
+                font-size: 16px;
                 font-weight: 500;
                 // background-color: rgb(248, 33, 119);
                 background-color: #D9D9D9;
@@ -85,6 +94,11 @@
                 line-height: 36px;
                 text-align: left;
                 padding-left: 20px;
+
+                i {
+                  margin-right: 9px;
+                }
+
 
               }
 
@@ -117,50 +131,93 @@
         }
 
         .infor {
-          background-color: rgba(29, 36, 46, 0.08);
-          border-radius: 20px;
-          margin: 0 1%;
-          width: 100%;
-          padding: 2% 2%;
+          display: flex;
+          flex-direction: column;
 
-          .col-left {
-
-            float: left;
-            width: 50%;
-
-          }
-
-          .col-right {
-
-            float: left;
-            width: 50%;
-          }
-
-          .fill {
-            font-size: 20px;
-            font-weight: 400;
-            margin-left: 5%;
+          .card-col {
+            background-color: rgba(29, 36, 46, 0.08);
+            border-radius: 20px;
+            margin: 0 1.5%;
+            width: 100%;
+            padding: 2% 2%;
             display: flex;
-            margin-bottom: 40px;
+            flex-direction: column;
+            margin-bottom: 1.5%;
 
-            .fill-text {
-              float: left;
-              width: 130px;
-              overflow: hidden;
-              height: 26px;
-              padding-top: 8px;
+            .card-row {
+              display: flex;
+
+              .col-left {
+
+                float: left;
+                width: 50%;
+
+              }
+
+              .col-right {
+
+                float: left;
+                width: 50%;
+              }
+
+              .fill {
+                font-size: 20px;
+                font-weight: 400;
+                margin-left: 5%;
+                display: flex;
+                margin-bottom: 40px;
+
+                .fill-text {
+                  float: left;
+                  width: 130px;
+                  overflow: hidden;
+                  height: 26px;
+                  padding-top: 8px;
+                }
+
+                .fill-input {
+                  float: left;
+                  width: 70%;
+                  border-bottom: 1px solid black;
+                  padding-left: 20px;
+                  height: 25px;
+                  overflow: hidden;
+                }
+              }
             }
 
-            .fill-input {
-              float: left;
-              width: 70%;
-              border-bottom: 1px solid black;
-              padding-left: 20px;
-              height: 25px;
-              overflow: hidden;
+            .card-row-addBalance {
+              display: flex;
+              flex-direction: column;
+              text-align: center;
+
+              .p-header-text {
+                font-size: 22px;
+                font-weight: 500;
+              }
+
+              .p-text {
+                font-size: 17px;
+                margin-top: 10px;
+                margin-bottom: 5px;
+              }
+              .input-cash{
+
+                .cash-input{
+                  width: 45%;
+                  font-size: 16px;
+                  .fa-dollar-sign{
+                    font-size: 21px;
+                  }
+                }
+              }
             }
+
+
+
           }
         }
+
       }
 
 
@@ -195,4 +252,12 @@
       }
     }
   }
+}
+
+.active {
+  background-color: rgb(248, 33, 119) !important;
+}
+
+.default {
+  background-color: #D9D9D9 !important;
 }
