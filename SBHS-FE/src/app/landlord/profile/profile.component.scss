@@ -59,6 +59,7 @@
               text-align: center;
               font-size: 13px;
             }
+
             .box-footer {
               // background: rgb(237 238 239) none repeat scroll 0 0;
               display: inline-block;
@@ -70,12 +71,21 @@
               .btn-add {
                 padding: 0%;
                 width: 100%;
-                border-radius: 1rem;
-                margin: 0 ;
-                font-size: 14px;
+                border-radius: 7px;
+                margin: 0;
+                font-size: 15px;
                 font-weight: 500;
-                background-color: rgb(248, 33, 119);
+                // background-color: rgb(248, 33, 119);
+                background-color: #D9D9D9;
                 margin-bottom: 5px;
+                box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+                cursor: pointer;
+                box-sizing: border-box;
+                position: relative;
+                line-height: 36px;
+                text-align: left;
+                padding-left: 20px;
+
               }
 
               .btn-out {
@@ -83,7 +93,7 @@
                 width: 100%;
                 border-radius: 1rem;
                 background-color: #D9D9D9;
-                margin: 0 ;
+                margin: 0;
                 font-size: 14px;
                 font-weight: 500;
                 margin-bottom: 5px;

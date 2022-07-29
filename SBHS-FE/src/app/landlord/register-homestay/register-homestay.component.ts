@@ -122,6 +122,14 @@ export class RegisterHomestayComponent implements OnInit {
       const fileRef = this.storage.ref( path );
       this.storage.upload( path ,this.file);
       console.log('starupload: ', this.storage);
+
+
+         // Lay image homstaylicense
+      // Lay image homestayImages
+      // this.homestayLicense = path;
+      // console.log(this.homestayLicense);
+      // this.homestayImages.push(path);
+      // console.log(this.homestayImages);
     }
   }
 

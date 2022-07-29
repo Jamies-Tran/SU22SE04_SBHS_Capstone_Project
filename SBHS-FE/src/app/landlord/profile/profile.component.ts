@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
       this.phone = data['phone'];
       this.address = data['address'];
 
-      this.avatarUrl = await this.image.getImage('homestay/' + 'avatar.jpg');
+      this.avatarUrl = await this.image.getImage('homestay/' + data['avataUrl']);
       console.log(this.avatarUrl);
       //
       let encoded: string = btoa('{"username":"landlord003"}');

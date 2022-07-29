@@ -11,6 +11,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import { LandlordRoutingModule } from './landlord-routing.module';
 import {MatSelectModule} from '@angular/material/select';
+import {MatRippleModule} from '@angular/material/core';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterHomestayComponent } from './register-homestay/register-homestay.component';
@@ -44,7 +45,8 @@ import { initializeApp } from 'firebase/app';
     MatRadioModule,
     AngularFireModule,
     AngularFireModule.initializeApp(enviroment.firebaseConfig) ,
-    MatSelectModule
+    MatSelectModule,
+    MatRippleModule
   ]
 })
 export class LandlordModule { }
