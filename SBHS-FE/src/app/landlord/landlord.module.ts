@@ -9,12 +9,14 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
-
 import { LandlordRoutingModule } from './landlord-routing.module';
+import {MatSelectModule} from '@angular/material/select';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterHomestayComponent } from './register-homestay/register-homestay.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AngularFireModule } from '@angular/fire/compat';
+
 import { enviroment } from 'src/enviroment/enviroment';
 import { initializeApp } from 'firebase/app';
 
@@ -42,6 +44,7 @@ import { initializeApp } from 'firebase/app';
     MatRadioModule,
     AngularFireModule,
     AngularFireModule.initializeApp(enviroment.firebaseConfig) ,
+    MatSelectModule
   ]
 })
 export class LandlordModule { }

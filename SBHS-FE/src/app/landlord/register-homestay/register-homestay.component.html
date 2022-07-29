@@ -66,11 +66,19 @@
                   <input id="price" type="number" matInput placeholder="1000000" required formControlName="price" >
                 </mat-form-field>
               </div>
+
+              <!-- city -->
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>City</mat-label>
-                  <input id="name" matInput placeholder="StaywithMe Homestay" formControlName="city" required
-                    formControlName="city">
+                  <!-- <input id="name" matInput
+                    placeholder="StaywithMe Homestay"
+                    formControlName="city" required
+                    formControlName="city"> -->
+
+                    <mat-select  placeholder="TP.HCM" name="city" formControlName="city">
+                        <mat-option *ngFor="let city of cities" [value]="city.value" > {{city.value}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
               </div>
               <div>

@@ -18,7 +18,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { enviroment } from 'src/enviroment/enviroment';
-
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -64,7 +64,8 @@ import { Page1Component } from './page1/page1.component';
     AngularFireModule.initializeApp(enviroment.firebaseConfig) ,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MatSelectModule
 
   ],
   providers: [],
