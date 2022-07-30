@@ -29,14 +29,16 @@
             <div class="box-footer">
 
               <div class="btn-add" matRipple
-                (click)="toggle.addBalance = !toggle.addBalance;showDiv.addBalance= !showDiv.addBalance"
+                (click)="toggle.addBalance = !toggle.addBalance;showDiv.addBalance= !showDiv.addBalance;
+                showDiv.cashOut = false; showDiv.changePass= false;"
                 [ngClass]="{'active' : toggle.addBalance, 'default': !toggle.addBalance}">
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 Add Balance
               </div>
 
               <div class="btn-add" matRipple
-                (click)="toggle.cashOut = !toggle.cashOut;showDiv.cashOut = !showDiv.cashOut"
+                (click)="toggle.cashOut = !toggle.cashOut;showDiv.cashOut = !showDiv.cashOut;
+                showDiv.changePass= false; showDiv.addBalance = false"
                 [ngClass]="{'active' : toggle.cashOut, 'default': !toggle.cashOut}"> <i
                   class="fa-solid fa-arrow-right-from-bracket"></i> Cash Out </div>
 
@@ -45,7 +47,8 @@
                   class="fa-solid fa-arrow-right-from-bracket"></i> Edit Profile </div>
 
               <div class="btn-add" matRipple
-                (click)="toggle.changePass = !toggle.changePass;showDiv.changePass =!showDiv.changePass"
+                (click)="toggle.changePass = !toggle.changePass;showDiv.changePass =!showDiv.changePass;
+                showDiv.addBalance=false;showDiv.cashOut = false;"
                 [ngClass]="{'active' : toggle.changePass, 'default': !toggle.changePass}"> <i
                   class="fa-solid fa-arrow-right-from-bracket"></i> Change Password
               </div>
