@@ -1,3 +1,16 @@
+import 'dart:convert';
+
+class Authority {
+  String authority;
+
+  Authority({this.authority = ""});
+
+  factory Authority.fromJson(Map<String, dynamic> json) => Authority(
+    authority: json["authority"]
+  );
+}
+
+
 class AuthenticateModel {
   var username;
   var email;
@@ -23,7 +36,7 @@ class AuthenticateModel {
     email: json["email"],
     loginDate: json["loginDate"],
     accessToken: json["token"],
-    roles: json["roles"]
+    roles: List<Authority>.from(json["roles"].map((x) => Authority.fromJson(x)))
   );
 
   Map<String, dynamic> toJson() => {

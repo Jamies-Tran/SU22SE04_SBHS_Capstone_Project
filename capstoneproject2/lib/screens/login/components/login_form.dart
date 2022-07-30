@@ -20,7 +20,7 @@ class LoginForm extends StatelessWidget {
             TextFormField(
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
-              cursorColor: kPrimaryColor,
+              cursorColor: Colors.black,
               initialValue: emailAfterSignUpSuccess ?? '',
               onSaved: (email) {},
               decoration: const InputDecoration(
@@ -36,7 +36,7 @@ class LoginForm extends StatelessWidget {
               child: TextFormField(
                 textInputAction: TextInputAction.done,
                 obscureText: true,
-                cursorColor: kPrimaryColor,
+                cursorColor: Colors.black,
                 decoration: const InputDecoration(
                   hintText: "Your password",
                   prefixIcon: Padding(

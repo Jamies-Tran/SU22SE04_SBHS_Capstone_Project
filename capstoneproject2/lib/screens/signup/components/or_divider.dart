@@ -18,7 +18,7 @@ class OrDivider extends StatelessWidget {
             child: Text(
               "OR",
               style: TextStyle(
-                color: kPrimaryColor,
+                color: Colors.black,
                 fontWeight: FontWeight.w600,
               ),
             ),

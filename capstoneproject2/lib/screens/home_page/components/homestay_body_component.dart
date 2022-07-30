@@ -16,7 +16,7 @@ class _HomestayBodyComponentState extends State<HomestayBodyComponent> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: SizedBox(
-        height: 400,
+        height: 470,
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +30,7 @@ class _HomestayBodyComponentState extends State<HomestayBodyComponent> {
             ),
 
             Padding(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(5),
                 child: Row(
                   children: const [
                     Text(
@@ -56,12 +56,12 @@ class _HomestayBodyComponentState extends State<HomestayBodyComponent> {
                 )
             ),
 
-            const Expanded(
-                child: SizedBox(
-                  height: 200,
-                  child: HomestayOfTheYearListView(),
-                )
+            const SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: HomestayOfTheYearListView(),
             )
+
           ],
         ),
       ),

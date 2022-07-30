@@ -36,7 +36,7 @@ class SocialSignUp extends StatelessWidget {
             ),
             TextButton(
               onPressed: () async {
-                await _firebaseAuth.forgetGoogleSignIn();
+
               },
               child: const Text('Signup with email'),
             ),

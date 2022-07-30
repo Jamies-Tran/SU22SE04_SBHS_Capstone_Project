@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               elevation: 0,
-              primary: kPrimaryColor,
+              primary: Colors.purple,
               shape: const StadiumBorder(),
               maximumSize: const Size(double.infinity, 56),
               minimumSize: const Size(double.infinity, 56),
@@ -37,14 +37,15 @@ class MyApp extends StatelessWidget {
           ),
           inputDecorationTheme: const InputDecorationTheme(
             filled: true,
-            fillColor: kPrimaryLightColor,
+            fillColor: Colors.white,
             iconColor: kPrimaryColor,
+
             prefixIconColor: kPrimaryColor,
             contentPadding: EdgeInsets.symmetric(
                 horizontal: defaultPadding, vertical: defaultPadding),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(30)),
-              borderSide: BorderSide.none,
+              borderSide: BorderSide(color: Colors.black54, width: 3.0),
             ),
           )),
       home: const HomePageScreen(),

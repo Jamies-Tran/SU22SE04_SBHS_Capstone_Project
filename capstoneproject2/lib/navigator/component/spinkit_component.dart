@@ -8,9 +8,9 @@ class SpinKitComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: kPrimaryLightColor,
+      color: Colors.white,
       child: const SpinKitThreeInOut(
-        color: Colors.grey,
+        color: kPrimaryColor,
       ),
     );
   }

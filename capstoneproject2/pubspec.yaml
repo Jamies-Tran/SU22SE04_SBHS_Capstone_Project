@@ -48,6 +48,8 @@ dependencies:
   firebase_storage: ^10.3.4
   file_picker: ^5.0.0
   flutter_advanced_avatar: ^1.1.0
+  flutter_rating_stars: ^1.0.3+4
+  flutter_rating_bar: ^4.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

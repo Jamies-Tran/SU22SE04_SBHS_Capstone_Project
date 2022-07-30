@@ -14,13 +14,11 @@ class ViewHomestayScreen extends StatefulWidget {
 class _ViewHomestayScreenState extends State<ViewHomestayScreen> {
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      child: Column(
-        children: const [
-          HomestayTopComponent(),
-          HomestayBodyComponent()
-        ],
-      ),
+    return  Column(
+      children: const [
+        HomestayTopComponent(),
+        HomestayBodyComponent()
+      ],
     );
   }
 }

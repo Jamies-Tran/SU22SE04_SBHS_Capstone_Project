@@ -1,5 +1,6 @@
 import 'package:capstoneproject2/Screens/Profile/screen_profile.dart';
 import 'package:capstoneproject2/constants.dart';
+import 'package:capstoneproject2/screens/home_page/views/booking_screen.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:capstoneproject2/services/model/passenger_model.dart';
 import 'package:capstoneproject2/services/passenger_service.dart';
@@ -24,7 +25,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     ViewHomestayScreen(),
 
-    ProfileInforScreen(),
+    BookingScreen(),
 
     Wrapper(),
   ];
@@ -42,22 +43,26 @@ class _HomePageScreenState extends State<HomePageScreen> {
       // appBar: AppBar(
       //   title: const Text('Stay With Me'),
       // ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: SizedBox(
+        height: 900,
+        width: double.infinity,
+        child: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white70,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.black),
+            icon: Icon(Icons.home, color: kPrimaryColor),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag_rounded, color: Colors.black),
+            icon: Icon(Icons.access_alarm, color: kPrimaryColor),
             label: 'Booking',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_pin_rounded, color: Colors.black),
+            icon: Icon(Icons.person_pin_rounded, color: kPrimaryColor),
             label: 'Profile',
 
 
