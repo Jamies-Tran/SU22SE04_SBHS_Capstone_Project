@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ServerHttpService } from 'src/app/services/profile.service';
 import { ImageService } from '../../services/image.service';
 
@@ -8,7 +9,7 @@ import { ImageService } from '../../services/image.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(private http: ServerHttpService, private image: ImageService) {}
+  constructor(private http: ServerHttpService, private image: ImageService,private router: Router,private route: ActivatedRoute) {}
   public username = '';
   public email = '';
   public phone = '';
@@ -50,15 +51,22 @@ export class ProfileComponent implements OnInit {
         'homestay/' + data['avatarUrl']
       );
       //
-      let encoded: string = btoa('{"username":"landlord003"}');
-      console.log(encoded);
-      let decoded: string = atob('eyJ1c2VybmFtZSI6ImxhbmRsb3JkMDAzIn0=');
-      console.log(decoded);
+      
     });
     //get balance
     this.http.getBalance().subscribe((balance) => {
       this.balance = balance['balance'];
-      console.log(balance);
+    });
+  }
+  public amount = "";
+  public addMoney(){
+    
+    this.http.addMoney(this.amount).subscribe((data) => {
+      console.log(data);
+      location.href = data["payUrl"]
+    },
+    error =>{
+      alert(error)
     });
   }
 }

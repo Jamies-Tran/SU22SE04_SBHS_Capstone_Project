@@ -156,7 +156,7 @@
                 <mat-form-field class="cash-input" appearance="outline">
                   <mat-label>Cash</mat-label>
                   <span matPrefix> <i class="fa-solid fa-dollar-sign"></i> &nbsp;</span>
-                  <input type="number" matInput placeholder="1.000">
+                  <input type="number" matInput placeholder="1.000" [(ngModel)]="amount">
                 </mat-form-field>
               </div>
               <div class="total-cash">
@@ -168,7 +168,7 @@
             </div>
             <div class="button">
               <button class="btn-denied" mat-raised-button>Cancel</button>
-              <button class="btn-accept" mat-raised-button>Submit</button>
+              <button class="btn-accept" mat-raised-button (click)="addMoney()">Submit</button>
             </div>
           </div>
 
