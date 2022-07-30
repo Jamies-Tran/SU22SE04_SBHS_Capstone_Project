@@ -28,7 +28,7 @@ export class ServerHttpService {
 
   public getBalance(){
     
-    const url =`${this.REST_API_SERVER}/api/user/get/wallet/landlord_wallet/`+localStorage.getItem("username")+``;
+    const url =`${this.REST_API_SERVER}/api/user/get/wallet/landlord_wallet`;
     return this.httpClient
     .get<any>(url,this.httpOptions)
     .pipe(catchError(this.handleError));
