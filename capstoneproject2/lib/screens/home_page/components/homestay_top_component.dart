@@ -39,6 +39,7 @@ class HomestayTopComponent extends StatelessWidget {
             ),),
           ),
 
+          // search
           Container(
             margin: const EdgeInsets.only(top: 25, left: 25, right: 25),
             child: Column(

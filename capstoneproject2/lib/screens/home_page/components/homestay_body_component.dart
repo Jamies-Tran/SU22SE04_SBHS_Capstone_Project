@@ -11,6 +11,7 @@ class HomestayBodyComponent extends StatefulWidget {
 }
 
 class _HomestayBodyComponentState extends State<HomestayBodyComponent> {
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -30,7 +31,7 @@ class _HomestayBodyComponentState extends State<HomestayBodyComponent> {
             ),
 
             Padding(
-                padding: const EdgeInsets.all(5),
+                padding: EdgeInsets.all(5),
                 child: Row(
                   children: const [
                     Text(

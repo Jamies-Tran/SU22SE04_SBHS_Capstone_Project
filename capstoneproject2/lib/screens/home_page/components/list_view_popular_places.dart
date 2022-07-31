@@ -1,3 +1,5 @@
+import 'package:capstoneproject2/constants.dart';
+import 'package:capstoneproject2/screens/home_page/views/homestay_city_screen.dart';
 import 'package:flutter/material.dart';
 
 class PopularPlacesListView extends StatelessWidget {
@@ -12,7 +14,8 @@ class PopularPlacesListView extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => HomestayFromCityScreen(location: cityName["hcm"]),));
           },
           child: Column(
             children: [
@@ -41,7 +44,8 @@ class PopularPlacesListView extends StatelessWidget {
 
         GestureDetector(
           onTap: () {
-
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => HomestayFromCityScreen(location: cityName["hn"]),));
           },
           child: Column(
             children: [
@@ -70,7 +74,8 @@ class PopularPlacesListView extends StatelessWidget {
 
         GestureDetector(
           onTap: () {
-
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => HomestayFromCityScreen(location: cityName["dl"]),));
           },
           child: Column(
             children: [
@@ -99,7 +104,8 @@ class PopularPlacesListView extends StatelessWidget {
 
         GestureDetector(
           onTap: () {
-
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => HomestayFromCityScreen(location: cityName["qn"]),));
           },
           child: Column(
             children: [
@@ -113,7 +119,35 @@ class PopularPlacesListView extends StatelessWidget {
                 ),
               ),
               const Center(
-                child: Text("Bao Loc", style: TextStyle(
+                child: Text("Quang Nam", style: TextStyle(
+                    fontSize: 17,
+                    fontFamily: 'OpenSans',
+                    letterSpacing: 1.5,
+                    color: Colors.black87
+                )),
+              )
+            ],
+          ),
+        ),
+
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => HomestayFromCityScreen(location: cityName["dn"]),));
+          },
+          child: Column(
+            children: [
+              Container(
+                height: 75,
+                width: 150,
+                padding: const EdgeInsets.only(right: 10),
+                decoration: const BoxDecoration(
+                    image: DecorationImage(image: AssetImage("assets/images/sg_example_1.jpg"), fit: BoxFit.fitWidth),
+                    shape: BoxShape.circle
+                ),
+              ),
+              const Center(
+                child: Text("Da Nang", style: TextStyle(
                     fontSize: 17,
                     fontFamily: 'OpenSans',
                     letterSpacing: 1.5,
@@ -128,36 +162,8 @@ class PopularPlacesListView extends StatelessWidget {
 
         GestureDetector(
           onTap: () {
-
-          },
-          child: Column(
-            children: [
-              Container(
-                height: 75,
-                width: 150,
-                padding: const EdgeInsets.only(right: 10),
-                decoration: const BoxDecoration(
-                    image: DecorationImage(image: AssetImage("assets/images/sg_example_1.jpg"), fit: BoxFit.fitWidth),
-                    shape: BoxShape.circle
-                ),
-              ),
-              const Center(
-                child: Text("Bao Lam", style: TextStyle(
-                    fontSize: 17,
-                    fontFamily: 'OpenSans',
-                    letterSpacing: 1.5,
-                    color: Colors.black87
-                )),
-              )
-            ],
-          ),
-        ),
-
-
-
-        GestureDetector(
-          onTap: () {
-
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => HomestayFromCityScreen(location: cityName["vt"]),));
           },
           child: Column(
             children: [

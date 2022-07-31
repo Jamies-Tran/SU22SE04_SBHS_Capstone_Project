@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 class HomestayServiceImpl extends IHomestayService {
   final homestayAvailableListUrl = "$HOMESTAY_API_URL/view/available-all";
 
+  final homestayAvailableByLocationListUrl = "$HOMESTAY_API_URL/view";
+
   @override
   Future getAvailableHomestay() async {
     var client = http.Client();
@@ -25,6 +27,21 @@ class HomestayServiceImpl extends IHomestayService {
     } else {
       var responseBody = json.decode(response.body);
       var errorHandlerModel = ErrorHandlerModel.fromJson(responseBody);
+      return errorHandlerModel;
+    }
+  }
+
+  @override
+  Future getAvailableHomestayByLocation(String location) async {
+    var client = http.Client();
+    var url = Uri.parse("$homestayAvailableByLocationListUrl/$location");
+    var response = await client.get(url, headers: {"content-type" : "application/json"});
+    var responseBody = json.decode(response.body);
+    if(response.statusCode == 200) {
+      var homestayModel = List<HomestayModel>.from(responseBody.map((e) => HomestayModel.fromJson(e)));
+      return homestayModel;
+    } else {
+      ErrorHandlerModel errorHandlerModel = ErrorHandlerModel.fromJson(responseBody);
       return errorHandlerModel;
     }
   }

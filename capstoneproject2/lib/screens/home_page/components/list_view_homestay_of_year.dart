@@ -13,19 +13,20 @@ import 'package:intl/intl.dart';
 class HomestayOfTheYearListView extends StatelessWidget {
   const HomestayOfTheYearListView({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     final firebaseStorage = locator.get<IFirebaseCloudStorage>();
     final homestayService = locator.get<IHomestayService>();
     final currencyFormat = NumberFormat("#,##0");
-    return FutureBuilder(
-        future: homestayService.getAvailableHomestay(),
+    return StreamBuilder(
+        stream: Stream.periodic(Duration(seconds: 20)).asyncMap((event) => homestayService.getAvailableHomestay()),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const SpinKitComponent();
           } else if(snapshot.hasData) {
             var snapshotData = snapshot.data;
-            if(snapshotData is List<HomestayModel>) {
+            if(snapshotData is List<HomestayModel> && snapshotData.isNotEmpty) {
               return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
@@ -140,217 +141,22 @@ class HomestayOfTheYearListView extends StatelessWidget {
                         );
                   },
               );
+            } else {
+              return const Padding(
+                  padding: EdgeInsets.all(20),
+                  child:Text("There is nothing here", style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'OpenSans',
+                      letterSpacing: 3.0,
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold
+                  )) ,
+              );
             }
           }
 
-          return HomePageScreen();
+          return const HomePageScreen();
         },
     );
-    // return ListView(
-    //   scrollDirection: Axis.horizontal,
-    //   shrinkWrap: true,
-    //
-    //   children: [
-    //     GestureDetector(
-    //       onTap: () {
-    //
-    //       },
-    //       child: Column(
-    //         children: [
-    //
-    //           FutureBuilder(
-    //               future: firebaseStorage.getImageDownloadUrl("5.png"),
-    //               builder: (context, snapshot) {
-    //                 if(snapshot.connectionState == ConnectionState.waiting) {
-    //                   return SpinKitComponent();
-    //                 } else if(snapshot.hasData) {
-    //                   String data = snapshot.data as String;
-    //                   return Column(
-    //                     crossAxisAlignment: CrossAxisAlignment.start,
-    //                     children: [
-    //                       Container(
-    //                         height: 100,
-    //                         width: 200,
-    //                         padding: const EdgeInsets.only(right: 10),
-    //                         decoration: BoxDecoration(
-    //                           image: DecorationImage(image: NetworkImage(data), fit: BoxFit.fitWidth),
-    //                         ),
-    //
-    //                       ),
-    //                       Container(
-    //                         child: Column(
-    //                           children: const [
-    //                             Text("Homestay 1", style: TextStyle(
-    //                                 fontSize: 13,
-    //                                 fontFamily: 'OpenSans',
-    //                                 letterSpacing: 1.5,
-    //                                 color: Colors.black87,
-    //                                 fontWeight: FontWeight.bold
-    //                             )),
-    //
-    //                           ],
-    //                         ),
-    //                       )
-    //                     ],
-    //                   );
-    //                 }
-    //
-    //                 return Container(
-    //                   height: 100,
-    //                   width: 200,
-    //                   padding: const EdgeInsets.only(right: 10),
-    //                   decoration: const BoxDecoration(
-    //                     image: DecorationImage(image: AssetImage("assets/images/sg_example_1.jpg"), fit: BoxFit.fitWidth),
-    //                   ),
-    //                 );
-    //               },
-    //           ),
-    //
-    //
-    //         ],
-    //       ),
-    //     ),
-    //
-    //     const SizedBox(width: 10),
-    //
-    //     GestureDetector(
-    //       onTap: () {
-    //
-    //       },
-    //       child: Column(
-    //         children: [
-    //           Container(
-    //             height: 100,
-    //             width: 200,
-    //             padding: const EdgeInsets.only(right: 10),
-    //             decoration: const BoxDecoration(
-    //               image: DecorationImage(image: AssetImage("assets/images/sg_example_1.jpg"), fit: BoxFit.fitWidth),
-    //             ),
-    //           ),
-    //           const Center(
-    //             child: Text("Ha Noi", style: TextStyle(
-    //                 fontSize: 17,
-    //                 fontFamily: 'OpenSans',
-    //                 letterSpacing: 1.5,
-    //                 color: Colors.black87
-    //             )),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //
-    //     const SizedBox(width: 10),
-    //
-    //     GestureDetector(
-    //       onTap: () {
-    //
-    //       },
-    //       child: Column(
-    //         children: [
-    //           Container(
-    //             height: 100,
-    //             width: 200,
-    //             padding: const EdgeInsets.only(right: 10),
-    //             decoration: const BoxDecoration(
-    //               image: DecorationImage(image: AssetImage("assets/images/sg_example_1.jpg"), fit: BoxFit.fitWidth),
-    //             ),
-    //           ),
-    //           const Center(
-    //             child: Text("Da Lat", style: TextStyle(
-    //                 fontSize: 17,
-    //                 fontFamily: 'OpenSans',
-    //                 letterSpacing: 1.5,
-    //                 color: Colors.black87
-    //             )),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //
-    //     const SizedBox(width: 10),
-    //
-    //     GestureDetector(
-    //       onTap: () {
-    //
-    //       },
-    //       child: Column(
-    //         children: [
-    //           Container(
-    //             height: 100,
-    //             width: 200,
-    //             padding: const EdgeInsets.only(right: 10),
-    //             decoration: const BoxDecoration(
-    //               image: DecorationImage(image: AssetImage("assets/images/sg_example_1.jpg"), fit: BoxFit.fitWidth),
-    //             ),
-    //           ),
-    //           const Center(
-    //             child: Text("Bao Loc", style: TextStyle(
-    //                 fontSize: 17,
-    //                 fontFamily: 'OpenSans',
-    //                 letterSpacing: 1.5,
-    //                 color: Colors.black87
-    //             )),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //
-    //     const SizedBox(width: 10),
-    //
-    //     GestureDetector(
-    //       onTap: () {
-    //
-    //       },
-    //       child: Column(
-    //         children: [
-    //           Container(
-    //             height: 100,
-    //             width: 200,
-    //             padding: const EdgeInsets.only(right: 10),
-    //             decoration: const BoxDecoration(
-    //               image: DecorationImage(image: AssetImage("assets/images/sg_example_1.jpg"), fit: BoxFit.fitWidth),
-    //             ),
-    //           ),
-    //           const Center(
-    //             child: Text("Bao Lam", style: TextStyle(
-    //                 fontSize: 17,
-    //                 fontFamily: 'OpenSans',
-    //                 letterSpacing: 1.5,
-    //                 color: Colors.black87
-    //             )),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //
-    //     const SizedBox(width: 10),
-    //
-    //     GestureDetector(
-    //       onTap: () {
-    //
-    //       },
-    //       child: Column(
-    //         children: [
-    //           Container(
-    //             height: 100,
-    //             width: 200,
-    //             padding: const EdgeInsets.only(right: 10),
-    //             decoration: const BoxDecoration(
-    //               image: DecorationImage(image: AssetImage("assets/images/sg_example_1.jpg"), fit: BoxFit.fitWidth),
-    //             ),
-    //           ),
-    //           const Center(
-    //             child: Text("Vung Tau", style: TextStyle(
-    //                 fontSize: 17,
-    //                 fontFamily: 'OpenSans',
-    //                 letterSpacing: 1.5,
-    //                 color: Colors.black87
-    //             )),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //   ],
-    // );
   }
 }
