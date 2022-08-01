@@ -158,9 +158,9 @@ public class UserController {
 		return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
 	}
 	
-	@GetMapping("/get/wallet/{walletType}/{userInfo}")
-	public ResponseEntity<?> getWalletBalance( @PathVariable("walletType") String walletType ,@PathVariable("userInfo") String userInfo) {
-		BaseWalletEntity baseWalletEntity = userService.findSystemWalletByUsername(userInfo, walletType);
+	@GetMapping("/get/wallet/{walletType}")
+	public ResponseEntity<?> getWalletBalance( @PathVariable("walletType") String walletType) {
+		BaseWalletEntity baseWalletEntity = userService.findSystemWalletByUsername(walletType);
 		WalletReponseDto walletResponseDto = new WalletReponseDto();
 		walletResponseDto.setOwner(baseWalletEntity.getCreatedBy());
 		walletResponseDto.setBalance(baseWalletEntity.getBalance());

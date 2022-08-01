@@ -80,12 +80,13 @@ public class RequestController {
 		return new ResponseEntity<>(requestResponse, HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/landlord-pending")
+	@GetMapping("/landlord/{status}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> findAllLandlordRequestPending() {
-		List<LandlordAccountRequestEntity> landlordAccountRequesEntitytList = requestService.findAllLandlordAccountPendingRequest();
+	public ResponseEntity<?> findAllLandlordRequestByStatus(@PathVariable("status") String status) {
+		List<LandlordAccountRequestEntity> landlordAccountRequesEntitytList = requestService.findAllLandlordAccountRequestByStatus(status);
 		List<RequestDto> requestResponseDto = landlordAccountRequesEntitytList.stream().map(r -> requestConvert.baseRequestDtoConvert(r, r.getId())).collect(Collectors.toList());
 
+		
 		return new ResponseEntity<>(requestResponseDto, HttpStatus.OK);
 	}
 

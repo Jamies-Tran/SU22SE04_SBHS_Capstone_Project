@@ -44,6 +44,9 @@ public class RatingEntity extends BaseEntity {
 	@Setter
 	private double security = 0.0;
 	
+	@Column(name = "average_point")
+	private double average = (position + security + convenient) / 3;
+	
 	// rating properties - end
 	
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})

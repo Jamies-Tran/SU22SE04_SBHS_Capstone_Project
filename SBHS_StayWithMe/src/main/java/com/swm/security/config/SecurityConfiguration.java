@@ -59,9 +59,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		  		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		  		.and()
 		  		.authorizeRequests()
-		  		.antMatchers("/api/user/**", "/api/user/register/*", 
-		  				"/api/user/login/*", "/swagger-ui/*", "/v3/api-docs", "/v3/api-docs/swagger-config", "/api/payment", "/api/payment/**",
-		  				"/checkin/redirect/**", "/checkin/confirm", "/momo/redirect", "/background/*", "/favicon.ico",  "/error", "/role").permitAll()
+		  		.antMatchers(
+		  				"/api/user/**", "/api/user/register/*", "/api/homestay/permit-all/**", 
+		  				"/api/user/login/*", "/swagger-ui/*", "/v3/api-docs", "/v3/api-docs/swagger-config", 
+		  				"/api/payment", "/api/payment/**",
+		  				"/checkin/redirect/**", "/checkin/confirm", "/momo/redirect", "/background/*", 
+		  				"/favicon.ico",  "/error", "/role").permitAll()
 		  		.anyRequest().authenticated();
 	}
 	

@@ -24,7 +24,10 @@ public interface IHomestayService {
 											List<HomestayImageEntity> homestayImages, 
 											List<HomestayAftercareEntity> homestayServices,
 											List<HomestayFacilityEntity> homestayFacilities);
+	
 
 	HomestayEntity deleteHomestayById(Long Id);
+	
+	Integer numberOfFinishedBookingHomestay(Long homestayId);
 
 }

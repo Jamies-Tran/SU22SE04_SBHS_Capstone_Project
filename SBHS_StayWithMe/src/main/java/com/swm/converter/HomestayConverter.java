@@ -3,11 +3,13 @@ package com.swm.converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.swm.dto.HomestayAftercareDto;
-import com.swm.dto.HomestayDto;
+import com.swm.dto.HomestayShortageInfoDto;
 import com.swm.dto.HomestayFacilityDto;
+import com.swm.dto.HomestayCompleteInfoDto;
 import com.swm.dto.HomestayImageDto;
 import com.swm.dto.HomestayLicenseDto;
 import com.swm.entity.HomestayAftercareEntity;
@@ -15,12 +17,16 @@ import com.swm.entity.HomestayEntity;
 import com.swm.entity.HomestayFacilityEntity;
 import com.swm.entity.HomestayImageEntity;
 import com.swm.entity.HomestayLicenseImageEntity;
+import com.swm.service.IHomestayService;
 
 @Component
 public class HomestayConverter {
+	
+	@Autowired
+	private IHomestayService homestayService;
 
 	/* convert riêng từng cái entity trong homestay dto */
-	public HomestayEntity homestayEntityConvert(HomestayDto homestayDto) {
+	public HomestayEntity homestayEntityConvert(HomestayShortageInfoDto homestayDto) {
 		HomestayEntity homestayEntity = new HomestayEntity();
 		homestayEntity.setName(homestayDto.getName());
 		homestayEntity.setAddress(homestayDto.getAddress());
@@ -61,14 +67,14 @@ public class HomestayConverter {
 		return homestayFacilityEntity;
 	}
 
-	public HomestayDto homestayDtoConvert(HomestayEntity homestayEntity) {
+	public HomestayShortageInfoDto homestayDtoConvert(HomestayEntity homestayEntity) {
 		List<HomestayImageDto> homestayImageList = homestayEntity.getImageList().stream()
 				.map(img -> this.homestayImageDtoConvert(img)).collect(Collectors.toList());
 		List<HomestayAftercareDto> homestayServiceList = homestayEntity.getHomestayService().stream()
 				.map(srv -> this.homestayAftercareDtoConvert(srv)).collect(Collectors.toList());
 		List<HomestayFacilityDto> homestayFacilityList = homestayEntity.getFacilities().stream()
 				.map(fct -> this.homestayFacilityDtoConvert(fct)).collect(Collectors.toList());
-		HomestayDto homestayDto = new HomestayDto();
+		HomestayShortageInfoDto homestayDto = new HomestayShortageInfoDto();
 		homestayDto.setId(homestayEntity.getId());
 		homestayDto.setName(homestayEntity.getName());
 		homestayDto.setAddress(homestayEntity.getAddress());
@@ -80,6 +86,33 @@ public class HomestayConverter {
 		homestayDto.setHomestayImages(homestayImageList);
 		homestayDto.setHomestayServices(homestayServiceList);
 		homestayDto.setHomestayFacilities(homestayFacilityList);
+		
+		return homestayDto;
+	}
+	
+	public HomestayCompleteInfoDto homestayCompleteInfoDtoConvert(HomestayEntity homestayEntity) {
+		List<HomestayImageDto> homestayImageList = homestayEntity.getImageList().stream()
+				.map(img -> this.homestayImageDtoConvert(img)).collect(Collectors.toList());
+		List<HomestayAftercareDto> homestayServiceList = homestayEntity.getHomestayService().stream()
+				.map(srv -> this.homestayAftercareDtoConvert(srv)).collect(Collectors.toList());
+		List<HomestayFacilityDto> homestayFacilityList = homestayEntity.getFacilities().stream()
+				.map(fct -> this.homestayFacilityDtoConvert(fct)).collect(Collectors.toList());
+		HomestayCompleteInfoDto homestayDto = new HomestayCompleteInfoDto();
+		homestayDto.setId(homestayEntity.getId());
+		homestayDto.setName(homestayEntity.getName());
+		homestayDto.setAddress(homestayEntity.getAddress());
+		homestayDto.setCity(homestayEntity.getCity());
+		homestayDto.setPrice(homestayEntity.getPrice());
+		homestayDto.setPayment(homestayEntity.getPayment());
+		homestayDto.setStatus(homestayEntity.getStatus());
+		homestayDto.setConvenientPoint(homestayEntity.getRating().getConvenient());
+		homestayDto.setSecurityPoint(homestayEntity.getRating().getSecurity());
+		homestayDto.setPositionPoint(homestayEntity.getRating().getPosition());
+		homestayDto.setAverage(homestayEntity.getRating().getAverage());
+		homestayDto.setHomestayImages(homestayImageList);
+		homestayDto.setHomestayServices(homestayServiceList);
+		homestayDto.setHomestayFacilities(homestayFacilityList);
+		homestayDto.setNumberOfFinishedBooking(homestayService.numberOfFinishedBookingHomestay(homestayEntity.getId()));
 		
 		return homestayDto;
 	}

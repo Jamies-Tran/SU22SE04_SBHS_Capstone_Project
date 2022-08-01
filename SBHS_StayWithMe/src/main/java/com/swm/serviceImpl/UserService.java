@@ -27,11 +27,13 @@ import com.swm.entity.VoucherWalletEntity;
 import com.swm.enums.RequestStatus;
 import com.swm.enums.RequestType;
 import com.swm.enums.UserStatus;
+import com.swm.enums.WalletType;
 import com.swm.exception.DuplicateResourceException;
 import com.swm.exception.ResourceNotAllowException;
 import com.swm.exception.ResourceNotFoundException;
 import com.swm.repository.IUserOtpRepository;
 import com.swm.repository.IUserRepository;
+import com.swm.service.IAuthenticationService;
 import com.swm.service.ISendMailService;
 import com.swm.service.IUserService;
 
@@ -52,6 +54,10 @@ public class UserService implements IUserService {
 	@Autowired
 	@Lazy
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	@Lazy
+	private IAuthenticationService authenticationService;
 	
 	private final String sendOtpToUserSubject = "Change password OTP";
 
@@ -273,25 +279,24 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public BaseWalletEntity findSystemWalletByUsername(String userInfo, String walletType) {
-		UserEntity userEntity = this.findUserByUserInfo(userInfo);
-		switch(walletType.toLowerCase()) {
-		case "landlord_wallet":
-			if(userEntity.getLandlord() == null) {
-				throw new ResourceNotAllowException("Invalid landlord wallet request");
-			}
-			LandlordWalletEntity landlordWalletEntity = userEntity.getLandlord().getWallet();
-			return landlordWalletEntity;
-		case "passenger_wallet":
-			if(userEntity.getPassenger() == null) {
-				throw new ResourceNotAllowException("Invalid passenger wallet request");
-			}
-			PassengerWalletEntity passengerWalletEntity = userEntity.getPassenger().getWallet();
-			return passengerWalletEntity;
-		default:
-			throw new ResourceNotFoundException("Unknown wallet type request");
+	public BaseWalletEntity findSystemWalletByUsername(String walletType) {
+		String username = authenticationService.getAuthenticatedUser().getUsername();
+		UserEntity userEntity = this.findUserByUserInfo(username);
 		
+		if(WalletType.valueOf(walletType.toUpperCase()).compareTo(WalletType.LANDLORD_WALLET) == 0) {
+			if(userEntity.getLandlord() == null) {
+				throw new ResourceNotAllowException("This account doesn't have lanflord wallet");
+			}
+			return userEntity.getLandlord().getWallet();
+		} else if(WalletType.valueOf(walletType.toUpperCase()).compareTo(WalletType.PASSENGER_WALLET) == 0) {
+			if(userEntity.getLandlord() == null) {
+				throw new ResourceNotAllowException("This account doesn't have passenger wallet");
+			}
+			return userEntity.getLandlord().getWallet();
 		}
+		
+		throw new ResourceNotFoundException("Wallet type not found.");
+		
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public interface IRequestService {
 	
 	HomestayPostingRequestEntity verifyHomestayPostinRequest(Long requestId, boolean isAccepted, @Nullable String rejectMessage);
 	
-	List<LandlordAccountRequestEntity> findAllLandlordAccountPendingRequest();
+	List<LandlordAccountRequestEntity> findAllLandlordAccountRequestByStatus(String status);
 	
 	List<LandlordAccountRequestEntity> findAllLandlordAccountRequest();
 	

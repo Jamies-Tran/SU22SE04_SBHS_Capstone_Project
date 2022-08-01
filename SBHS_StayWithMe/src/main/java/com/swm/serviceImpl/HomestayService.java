@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.swm.entity.BookingEntity;
 import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.HomestayFacilityEntity;
@@ -16,6 +17,7 @@ import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.LandlordEntity;
 import com.swm.entity.RatingEntity;
 import com.swm.entity.UserEntity;
+import com.swm.enums.BookingStatus;
 import com.swm.enums.HomestayStatus;
 import com.swm.enums.RequestStatus;
 import com.swm.enums.RequestType;
@@ -156,6 +158,16 @@ public class HomestayService implements IHomestayService {
 				.collect(Collectors.toList());
 
 		return ownerHomestayList;
+	}
+
+	@Override
+	public Integer numberOfFinishedBookingHomestay(Long homestayId) {
+		HomestayEntity homestayEntity = this.findHomestayById(homestayId);
+		List<BookingEntity> succeedBookingList = homestayEntity.getBooking().stream()
+				.filter(b -> b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_FINISHED.name()))
+				.collect(Collectors.toList());
+		
+		return succeedBookingList.size();
 	}
 
 }

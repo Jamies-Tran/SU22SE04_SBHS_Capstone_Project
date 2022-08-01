@@ -5,7 +5,7 @@ import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
 
 public interface IUserService {
-	BaseWalletEntity findSystemWalletByUsername(String userInfo, String walletType);
+	BaseWalletEntity findSystemWalletByUsername(String wallet_type);
 	
 	UserEntity findUserById(Long Id);
 	
