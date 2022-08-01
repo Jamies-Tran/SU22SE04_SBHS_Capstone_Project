@@ -140,9 +140,11 @@ public class RequestService implements IRequestService {
 
 	@Override
 	public List<LandlordAccountRequestEntity> findAllLandlordAccountRequestByStatus(String status) {
-		List<LandlordAccountRequestEntity> landlordPendingRequestList = this.findAllLandlordAccountRequest().stream()
-				.filter(r -> r.getStatus().equalsIgnoreCase(status.toLowerCase())).collect(Collectors.toList());
-		
+		List<LandlordAccountRequestEntity> landlordPendingRequestList = status.equalsIgnoreCase("all")
+				? this.findAllLandlordAccountRequest()
+				: this.findAllLandlordAccountRequest().stream().filter(r -> r.getStatus().equalsIgnoreCase(status))
+						.collect(Collectors.toList());
+
 		return landlordPendingRequestList;
 	}
 
