@@ -11,33 +11,14 @@ import { ServerHttpService } from 'src/app/services/verify-landlord.service';
 })
 export class RequestComponent  implements OnInit{
   values : data[] = [];
-  
-  // displayedColumns: string[] = ['id', 'createdBy', 'createdDate', 'type', 'status', 'actions'];
-  // dataSource= new MatTableDataSource(this.values);
-
-
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
-  // @ViewChild(MatSort) sort!: MatSort;
-
+  public status ="All";
   constructor(private http: ServerHttpService) {
   }
-
-  // ngAfterViewInit() {
-  //   this.dataSource.paginator = this.paginator;
-  //   this.dataSource.sort = this.sort;
-  // }
-
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
-  
   ngOnInit(): void {
-    this.http.getLanlord().subscribe((data =>{
+    this.getStatusLandlord();
+  }
+  public getStatusLandlord(){
+    this.http.getLanlord(this.status).subscribe((data =>{
       this.values = data;
       console.log(this.values)
       console.log(data[0]["createdBy"])
