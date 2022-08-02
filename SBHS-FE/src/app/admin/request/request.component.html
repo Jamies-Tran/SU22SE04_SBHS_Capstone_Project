@@ -4,7 +4,12 @@
   </div>
   <div class="body">
     <div class="body-container">
-
+      <select [(ngModel)]="status" (click)="getStatusLandlord()">
+        <option>All</option>
+        <option>Pending</option>
+        <option>Accept</option>
+        <option>Reject</option>
+      </select>
       </div>
       <table class="table table-striped">
         <thead>

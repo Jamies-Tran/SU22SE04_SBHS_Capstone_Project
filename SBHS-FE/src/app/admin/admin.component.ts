@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-
+  public username = localStorage.getItem("username");
   constructor(private router: Router,private route: ActivatedRoute) { }
 
   ngOnInit(): void {

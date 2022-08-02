@@ -17,8 +17,9 @@ export class ServerHttpService {
   public model: any = {};
   private REST_API_SERVER = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) { }
-  public getLanlord() {
-    const url = `${this.REST_API_SERVER}/api/request/landlord-pending`;
+
+  public getLanlord(status:string) {
+    const url = `${this.REST_API_SERVER}/api/request/landlord/`+status+``;
     return this.httpClient
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
