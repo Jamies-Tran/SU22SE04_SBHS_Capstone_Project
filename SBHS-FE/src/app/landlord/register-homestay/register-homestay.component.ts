@@ -210,7 +210,7 @@ export class RegisterHomestayComponent implements OnInit {
       const path = "homestay/" + this.file.name;
       const fileRef = this.storage.ref( path );
       this.storage.upload( path ,this.file);
-      console.log('starupload: ', this.storage);
+
 
       this.homestayImages.push(this.file.name);
       console.log("ten file luu tren database", this.homestayImages);
@@ -223,7 +223,7 @@ export class RegisterHomestayComponent implements OnInit {
       const path = "license/" + this.file.name;
       const fileRef = this.storage.ref( path );
       this.storage.upload( path ,this.file);
-      console.log('starupload: ', this.storage);
+
 
       this.homestayLicense = this.file.name;
       console.log("ten file luu tren database", this.homestayLicense);

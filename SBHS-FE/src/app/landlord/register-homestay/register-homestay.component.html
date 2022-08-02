@@ -58,7 +58,7 @@
                         <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="homestayLicense"
                             [ngModelOptions]="{standalone: true}">
                     </label> -->
-                      <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" *ngFor="let f of homestayImageFiles"
+                      <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview"
                         (removed)="onRemoveHomestayImage(f)">{{
                         f.name }}</ngx-dropzone-label>
                     </div>
