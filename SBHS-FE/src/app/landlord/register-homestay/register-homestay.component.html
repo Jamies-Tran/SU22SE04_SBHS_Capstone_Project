@@ -21,8 +21,8 @@
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Address</mat-label>
-                  <input id="address" type="text" matInput placeholder="123 Quang Trung p.1 Q.1" formControlName="address"
-                    formControlName="address" required>
+                  <input id="address" type="text" matInput placeholder="123 Quang Trung p.1 Q.1"
+                     formControlName="address" required>
                 </mat-form-field>
               </div>
               <div>
@@ -50,8 +50,8 @@
                     </ngx-dropzone-label>
                     <div class="wrapper" *ngFor="let f of homestayImageFiles">
                       <ngx-dropzone-image-preview class="image-preview" ngProjectAs="ngx-dropzone-preview" [file]="f"
-                      [removable]="true" (removed)="onRemoveHomestayImage(f)">
-                    </ngx-dropzone-image-preview>
+                        [removable]="true" (removed)="onRemoveHomestayImage(f)">
+                      </ngx-dropzone-image-preview>
 
                       <!-- <label class="image-upload-container btn btn-bwm" style="margin-left: 35%">
                         <span>Upload font and back your ID</span>
@@ -70,7 +70,7 @@
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Price (VND)</mat-label>
-                  <input id="price" type="number" matInput placeholder="1000000" required formControlName="price" >
+                  <input id="price" type="number" matInput placeholder="1000000" required formControlName="price">
                 </mat-form-field>
               </div>
 
@@ -83,9 +83,9 @@
                     formControlName="city" required
                     formControlName="city"> -->
 
-                    <mat-select  placeholder="TP.HCM" name="city" formControlName="city">
-                        <mat-option *ngFor="let city of cities" [value]="city.value" > {{city.value}}</mat-option>
-                    </mat-select>
+                  <mat-select placeholder="TP.HCM" name="city" formControlName="city">
+                    <mat-option *ngFor="let city of cities" [value]="city.value"> {{city.value}}</mat-option>
+                  </mat-select>
                 </mat-form-field>
               </div>
               <div>
@@ -104,7 +104,8 @@
                 <div class="img-homestayLicense col">
                   <h1>Image Homestay License</h1>
 
-                  <div class="upload"  [multiple]="false" ngx-dropzone [accept]="'image/*'" (change)="onSelectHomestayLicense($event)">
+                  <div class="upload" [multiple]="false" ngx-dropzone [accept]="'image/*'"
+                    (change)="onSelectHomestayLicense($event)">
                     <ngx-dropzone-label>
                       <div>
                         <i class="fas fa-cloud-upload-alt icon-upload"></i>
@@ -134,7 +135,7 @@
 
           <div class="add-btn">
             <button class="btn-reset" mat-raised-button type="reset">Reset</button>
-            <button class="btn-next" mat-raised-button matStepperNext >Next</button>
+            <button class="btn-next" mat-raised-button matStepperNext>Next</button>
           </div>
         </div>
       </form>
@@ -177,6 +178,7 @@
                   <div class=" checkbox">
                     <mat-checkbox color="primary" formControlName="bed"></mat-checkbox>
                   </div>
+
                   <div class=" input">
                     <div class="col-input">
                       <input id="amount" type="number" min="0" formControlName="inputBed" class="col-input-amount"
