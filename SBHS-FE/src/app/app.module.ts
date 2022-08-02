@@ -20,6 +20,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { enviroment } from 'src/enviroment/enviroment';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRippleModule} from '@angular/material/core';
+import {MatIconModule} from '@angular/material/icon';
+import {NgxMatFileInputModule} from '@angular-material-components/file-input';
 
 
 import { AppComponent } from './app.component';
@@ -66,7 +68,9 @@ import { Page1Component } from './page1/page1.component';
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     MatSelectModule,
-    MatRippleModule
+    MatRippleModule,
+    MatIconModule,
+    NgxMatFileInputModule
 
   ],
   providers: [],

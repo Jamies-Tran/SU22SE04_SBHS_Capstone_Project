@@ -10,6 +10,7 @@ import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {path: '', component: WelcomeComponent},
+  {path: 'Welcome', component: WelcomeComponent},
   {path: 'Login', component: LoginComponent},
   {path: 'Register', component: RegisterComponent},
 
