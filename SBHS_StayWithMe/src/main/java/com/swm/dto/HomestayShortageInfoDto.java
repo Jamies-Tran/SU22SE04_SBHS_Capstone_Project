@@ -14,9 +14,13 @@ import lombok.Setter;
 public class HomestayShortageInfoDto {
 	private Long Id;
 	private String name;
+	private String description;
 	private String address;
+	private int numberOfRoom;
 	private String city;
 	private Long price;
+	private String checkInTime;
+	private String checkOutTime;
 	private String payment;
 	private String status;
 	private HomestayLicenseDto homestayLicense;

@@ -52,7 +52,6 @@
     <fullyQualifiedTypeName name="lombok.Setter"/>
     <fullyQualifiedTypeName name="java.lang.Comparable"/>
     <fullyQualifiedTypeName name="com.swm.dto.HomestayFullInfoDto"/>
-    <fullyQualifiedTypeName name="com.swm.entity.HomestayEntity"/>
     <fullyQualifiedTypeName name="com.swm.entity.BookingEntity"/>
     <fullyQualifiedTypeName name="com.swm.enums.BookingStatus"/>
     <fullyQualifiedTypeName name="com.swm.service.IHomestayService"/>
@@ -60,4 +59,5 @@
     <fullyQualifiedTypeName name="java.util.Comparator"/>
     <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="com.swm.dto.HomestayCompleteInfoDto"/>
+    <fullyQualifiedTypeName name="com.swm.entity.HomestayEntity"/>
 </qualifiedTypeNameHistroy>

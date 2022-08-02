@@ -14,9 +14,13 @@ import lombok.Setter;
 public class HomestayCompleteInfoDto implements Comparable<HomestayCompleteInfoDto>{
 	private Long Id;
 	private String name;
+	private String description;
 	private String address;
 	private String city;
 	private Long price;
+	private int numberOfRoom;
+	private String checkInTime;
+	private String checkOutTime;
 	private String payment;
 	private String status;
 	private Double convenientPoint;

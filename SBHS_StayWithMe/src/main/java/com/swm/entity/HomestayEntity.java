@@ -41,7 +41,11 @@ public class HomestayEntity extends BaseEntity {
 	@Column(unique = true, nullable = false)
 	@Setter
 	private String name;
-
+	
+	@Setter
+	private String description;
+	
+	
 	@Column(nullable = false)
 	@Setter
 	private String address;
@@ -57,6 +61,15 @@ public class HomestayEntity extends BaseEntity {
 	@Column(nullable = false)
 	@Setter
 	private long price;
+	
+	@Setter
+	private int numberOfRoom;
+	
+	@Setter
+	private String checkInTime;
+
+	@Setter
+	private String checkOutTime;
 
 	@Column(nullable = false)
 	@Setter

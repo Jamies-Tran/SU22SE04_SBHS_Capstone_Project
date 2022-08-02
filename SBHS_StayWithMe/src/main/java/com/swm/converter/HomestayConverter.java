@@ -29,9 +29,13 @@ public class HomestayConverter {
 	public HomestayEntity homestayEntityConvert(HomestayShortageInfoDto homestayDto) {
 		HomestayEntity homestayEntity = new HomestayEntity();
 		homestayEntity.setName(homestayDto.getName());
+		homestayEntity.setDescription(homestayDto.getDescription());
 		homestayEntity.setAddress(homestayDto.getAddress());
 		homestayEntity.setCity(homestayDto.getCity());
 		homestayEntity.setPrice(homestayDto.getPrice());
+		homestayEntity.setNumberOfRoom(homestayDto.getNumberOfRoom());
+		homestayEntity.setCheckInTime(homestayDto.getCheckInTime());
+		homestayEntity.setCheckOutTime(homestayDto.getCheckOutTime());
 		homestayEntity.setPayment(homestayDto.getPayment());
 
 		return homestayEntity;
@@ -77,9 +81,13 @@ public class HomestayConverter {
 		HomestayShortageInfoDto homestayDto = new HomestayShortageInfoDto();
 		homestayDto.setId(homestayEntity.getId());
 		homestayDto.setName(homestayEntity.getName());
+		homestayDto.setDescription(homestayDto.getDescription());
 		homestayDto.setAddress(homestayEntity.getAddress());
 		homestayDto.setCity(homestayEntity.getCity());
 		homestayDto.setPrice(homestayEntity.getPrice());
+		homestayDto.setNumberOfRoom(homestayEntity.getNumberOfRoom());
+		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
+		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
 		homestayDto.setPayment(homestayEntity.getPayment());
 		homestayDto.setStatus(homestayEntity.getStatus());
 		homestayDto.setHomestayLicense(this.homestayLicenseDtoConvert(homestayEntity.getLicenseImage()));
@@ -100,9 +108,13 @@ public class HomestayConverter {
 		HomestayCompleteInfoDto homestayDto = new HomestayCompleteInfoDto();
 		homestayDto.setId(homestayEntity.getId());
 		homestayDto.setName(homestayEntity.getName());
+		homestayDto.setDescription(homestayEntity.getDescription());
 		homestayDto.setAddress(homestayEntity.getAddress());
 		homestayDto.setCity(homestayEntity.getCity());
 		homestayDto.setPrice(homestayEntity.getPrice());
+		homestayDto.setNumberOfRoom(homestayEntity.getNumberOfRoom());
+		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
+		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
 		homestayDto.setPayment(homestayEntity.getPayment());
 		homestayDto.setStatus(homestayEntity.getStatus());
 		homestayDto.setConvenientPoint(homestayEntity.getRating().getConvenient());
