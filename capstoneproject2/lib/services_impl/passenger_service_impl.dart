@@ -48,8 +48,7 @@ class PassengerServiceImpl extends IPassengerService {
   Future checkEmailExistOnSystem(String? email) async {
     final actualCheckUserExistUrl = "$_checkUserExistUrl/$email";
     final uri = Uri.parse(actualCheckUserExistUrl);
-    final response = await http.get(uri, headers: {"content-type" : "application/json"});
-    print("Response status code: ${response.statusCode}");
+    final response = await http.get(uri, headers: {"content-type" : "application/json"}).timeout(const Duration(seconds: 5));
     if(response.statusCode == 200) {
       return true;
     } else {

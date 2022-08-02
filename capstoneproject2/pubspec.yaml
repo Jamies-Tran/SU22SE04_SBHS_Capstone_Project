@@ -79,6 +79,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/passenger-default.png
+    - assets/images/default-image.jpg
     - assets/images/sg_example_1.jpg
     - assets/icons/gmail.svg
     - assets/icons/chat.svg

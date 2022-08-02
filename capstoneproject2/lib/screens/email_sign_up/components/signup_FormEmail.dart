@@ -21,10 +21,10 @@ class SignUpEmailForm extends StatelessWidget {
               textInputAction: TextInputAction.next,
               cursorColor: kPrimaryColor,
               onSaved: (email) {},
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Email",
                 prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
+                  padding: EdgeInsets.all(defaultPadding),
                   child: Icon(Icons.person),
                 ),
               ),
@@ -36,10 +36,10 @@ class SignUpEmailForm extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 obscureText: true,
                 cursorColor: kPrimaryColor,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Your password",
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.all(defaultPadding),
+                    padding: EdgeInsets.all(defaultPadding),
                     child: Icon(Icons.lock),
                   ),
                 ),
@@ -50,28 +50,28 @@ class SignUpEmailForm extends StatelessWidget {
               textInputAction: TextInputAction.next,
               cursorColor: kPrimaryColor,
               onSaved: (email) {},
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Address",
                 prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
+                  padding: EdgeInsets.all(defaultPadding),
                   child: Icon(Icons.streetview),
                 ),
               ),
             ),
             const SizedBox(height: defaultPadding / 2),
             Row(
-              children: [
+              children: const [
                 Icon(Icons.accessibility),
                 Text("Gender"),
               ],
             ),
-            Center(
+            const Center(
               child: RadioButtonOnlyOne(),
             ),
             SizedBox(
               height: 50,
               child: Row(
-                children: [
+                children: const [
                   Icon(Icons.date_range_outlined),
                   Text("Day of birth"),
                 ],

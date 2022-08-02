@@ -25,12 +25,12 @@ class CloudFireStoreServiceImpl extends ICloudFirestoreService {
       "loginDate" : authenticateModel.loginDate,
       "accessToken" : authenticateModel.accessToken,
       "photoUrl" : authenticateModel.avatarUrl ?? "/assets/images/passenger-default.png"
-    });
+    }).timeout(const Duration(seconds: 5));
   }
 
   @override
   Future findUserFireStore(String username) async {
-    final result = await _systemUserCollection.where("username", isEqualTo: username).get();
+    final result = await _systemUserCollection.where("username", isEqualTo: username).get().timeout(const Duration(seconds: 5));
     if(result.docs.isNotEmpty) {
       AuthenticateModel authenticateModel = AuthenticateModel(
           username: result.docs[0].data()["username"],

@@ -29,13 +29,13 @@ class AuthenticateServiceImpl extends IAuthenticateService {
         uri,
         headers: {"content-type" : "application/json"},
         body: json.encode(authenticateModel.toJson())
-    );
+    ).timeout(const Duration(seconds: 5));
     var responseBody = json.decode(response.body);
     if(response.statusCode == 200) {
       var authenticateModel = AuthenticateModel.fromJson(responseBody);
 
-      await _fireStore.createUserSignIn(authenticateModel);
-      await _fireAuth.signInWithEmailAndPassword(email: authenticateModel.email, password: authenticateModel.password);
+      await _fireStore.createUserSignIn(authenticateModel).timeout(const Duration(seconds: 5));
+      await _fireAuth.signInWithEmailAndPassword(email: authenticateModel.email, password: authenticateModel.password).timeout(const Duration(seconds: 5));
       return authenticateModel;
     } else {
       var errorHandlerModel = ErrorHandlerModel.fromJson(responseBody);
@@ -55,7 +55,7 @@ class AuthenticateServiceImpl extends IAuthenticateService {
         uri,
         headers: {"content-type" : "application/json"},
         body: json.encode(authenticateModel.toJson())
-    );
+    ).timeout(const Duration(seconds: 5));
     if(response.statusCode == 200) {
       final responseBody = json.decode(response.body);
       final authenticateModel =  AuthenticateModel.fromJson(responseBody);
@@ -66,7 +66,7 @@ class AuthenticateServiceImpl extends IAuthenticateService {
         accessToken: googleSignInAuth?.accessToken,
         idToken: googleSignInAuth?.idToken
       );
-      await _fireAuth.signInWithCredential(googleAuth);
+      await _fireAuth.signInWithCredential(googleAuth).timeout(const Duration(seconds: 5));
       return authenticateModel;
     } else {
       final responseBody = json.decode(response.body);

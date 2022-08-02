@@ -1,7 +1,7 @@
 import 'package:capstoneproject2/Screens/Login/login_screen.dart';
 import 'package:capstoneproject2/Screens/Signup/components/signup_formSWM.dart';
-import 'package:capstoneproject2/navigator/component/dialog_component.dart';
-import 'package:capstoneproject2/navigator/component/spinkit_component.dart';
+import 'package:capstoneproject2/components/dialog_component.dart';
+import 'package:capstoneproject2/components/spinkit_component.dart';
 import 'package:capstoneproject2/services/model/error_handler_model.dart';
 import 'package:capstoneproject2/services/model/passenger_model.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class _SwmSignUpNavigatorState extends State<SwmSignUpNavigator> {
               print("Email get from snapshot: ${snapShotData.email}");
               return LoginScreen(emailAfterSignUpSuccess: snapShotData.email);
             } else if(snapShotData is ErrorHandlerModel) {
-              return DialogComponent(message: snapShotData.message);
+              return DialogComponent(message: snapShotData.message, eventHandler: () => Navigator.pop(context),);
             }
           }
 

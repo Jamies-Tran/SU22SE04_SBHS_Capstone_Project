@@ -45,9 +45,13 @@ class HomestayFacilityModel {
 class HomestayModel {
   var id;
   var name;
+  var description;
   var address;
+  var numberOfRoom;
   var city;
   var price;
+  var checkInTime;
+  var checkOutTime;
   var convenientPoint;
   var securityPoint;
   var positionPoint;
@@ -59,10 +63,14 @@ class HomestayModel {
 
   HomestayModel({
     this.id, 
-    this.name, 
+    this.name,
+    this.description,
     this.address, 
     this.city, 
     this.price,
+    this.numberOfRoom,
+    this.checkInTime,
+    this.checkOutTime,
     this.convenientPoint,
     this.securityPoint,
     this.positionPoint,
@@ -76,7 +84,11 @@ class HomestayModel {
   factory HomestayModel.fromJson(Map<String, dynamic> json) => HomestayModel(
     id: json["id"],
     name: json["name"],
+    description: json["description"],
     price: json["price"],
+    numberOfRoom: json["numberOfRoom"],
+    checkInTime: json["checkInTime"],
+    checkOutTime: json["checkOutTime"],
     address: json["address"],
     city: json["city"],
     convenientPoint: json["convenientPoint"],

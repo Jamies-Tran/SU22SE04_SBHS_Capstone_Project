@@ -1,7 +1,10 @@
 import 'package:capstoneproject2/constants.dart';
-import 'package:capstoneproject2/navigator/component/spinkit_component.dart';
+import 'package:capstoneproject2/components/dialog_component.dart';
+import 'package:capstoneproject2/components/spinkit_component.dart';
 import 'package:capstoneproject2/screens/home_page/components/rating_component.dart';
 import 'package:capstoneproject2/screens/home_page/home_page_screen.dart';
+import 'package:capstoneproject2/screens/home_page/views/view_homestay_screen.dart';
+import 'package:capstoneproject2/screens/homestay_detail/view_homestay_detail.dart';
 import 'package:capstoneproject2/services/firebase_service/firebase_cloud_storage_service.dart';
 import 'package:capstoneproject2/services/homestay_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
@@ -20,7 +23,7 @@ class HomestayOfTheYearListView extends StatelessWidget {
     final homestayService = locator.get<IHomestayService>();
     final currencyFormat = NumberFormat("#,##0");
     return StreamBuilder(
-        stream: Stream.periodic(Duration(seconds: 20)).asyncMap((event) => homestayService.getAvailableHomestay()),
+        stream: Stream.periodic(const Duration(seconds: 20)).asyncMap((event) => homestayService.getAvailableHomestay()),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const SpinKitComponent();
@@ -34,8 +37,7 @@ class HomestayOfTheYearListView extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                           onTap: () {
-                            print(snapshotData[index].name);
-                            print(snapshotData[index].averagePoint);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => HomestayDetailsScreen(homestayName: snapshotData[index].name)));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,6 +155,8 @@ class HomestayOfTheYearListView extends StatelessWidget {
                   )) ,
               );
             }
+          } else if(snapshot.hasError) {
+            return DialogComponent(message: "Connection time out", eventHandler: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePageScreen(),)),);
           }
 
           return const HomePageScreen();

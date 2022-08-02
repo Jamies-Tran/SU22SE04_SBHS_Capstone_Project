@@ -1,5 +1,5 @@
 import 'package:capstoneproject2/components/datePickerDOB.dart';
-import 'package:capstoneproject2/navigator/component/dialog_component.dart';
+import 'package:capstoneproject2/components/dialog_component.dart';
 import 'package:capstoneproject2/navigator/google_sign_in_navigator.dart';
 import 'package:capstoneproject2/services/auth_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';

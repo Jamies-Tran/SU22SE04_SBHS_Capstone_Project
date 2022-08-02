@@ -1,5 +1,5 @@
-import 'package:capstoneproject2/navigator/component/dialog_component.dart';
-import 'package:capstoneproject2/navigator/component/spinkit_component.dart';
+import 'package:capstoneproject2/components/dialog_component.dart';
+import 'package:capstoneproject2/components/spinkit_component.dart';
 import 'package:capstoneproject2/screens/home_page/home_page_screen.dart';
 import 'package:capstoneproject2/services/firebase_service/firebase_auth_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
@@ -40,7 +40,7 @@ class _GoogleSignUpNavigatorState extends State<GoogleSignUpNavigator> {
             }
           } else if(snapShotData is ErrorHandlerModel) {
             _authService.forgetGoogleSignIn();
-            return DialogComponent(message: snapShotData.message);
+            return DialogComponent(message: snapShotData.message,eventHandler: () => Navigator.pop(context));
           }
         }
 

@@ -17,7 +17,7 @@ class FirebaseAuthServiceImpl extends IFirebaseAuthenticateService {
 
   @override
   Future<dynamic> getGoogleSignInAccount() async {
-    final googleUser = await _googleSignIn.signIn();
+    final googleUser = await _googleSignIn.signIn().timeout(const Duration(seconds: 5));
 
     return googleUser;
   }
