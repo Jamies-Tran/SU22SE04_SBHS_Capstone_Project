@@ -22,7 +22,7 @@
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Address</mat-label>
                   <input id="address" type="text" matInput placeholder="123 Quang Trung p.1 Q.1"
-                     formControlName="address" required>
+                    formControlName="address" required>
                 </mat-form-field>
               </div>
               <div>
@@ -57,9 +57,8 @@
                         <span>Upload font and back your ID</span>
                         <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="homestayLicense"
                             [ngModelOptions]="{standalone: true}">
-                    </label> -->
-                      <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview"
-                        (removed)="onRemoveHomestayImage(f)">{{
+                      </label> -->
+                      <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" (removed)="onRemoveHomestayImage(f)">{{
                         f.name }}</ngx-dropzone-label>
                     </div>
                   </div>

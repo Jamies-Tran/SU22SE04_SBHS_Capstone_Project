@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { RequestComponent } from './request/request.component';
 import { RequestAccountComponent } from './request/request-detail/request-account/request-account.component';
 import { RequestHomestayComponent } from './request-homestay/request-homestay.component';
+import { RequestHomestayDetailComponent } from './request-homestay/request-homestay-detail/request-homestay-detail.component';
 
 const routes: Routes = [
   {
@@ -12,8 +13,15 @@ const routes: Routes = [
     children: [
 
       { path: 'Request', component: RequestComponent },
-      { path: 'RequestAccount', component: RequestAccountComponent },
-      { path: 'RequestHomestay', component: RequestHomestayComponent },
+      { path: 'Request', children: [
+        { path: 'RequestAccount', component: RequestAccountComponent }
+      ] },
+
+
+      { path: 'RequestHomestay', component: RequestHomestayComponent},
+      { path: 'RequestHomestay',  children:[
+        { path: 'RequestHomestayDetail', component: RequestHomestayDetailComponent}
+      ] },
 
 
     ],

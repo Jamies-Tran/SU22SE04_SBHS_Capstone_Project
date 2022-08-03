@@ -14,9 +14,11 @@ import { RequestComponent } from './request/request.component';
 import { RequestAccountComponent } from './request/request-detail/request-account/request-account.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RequestHomestayComponent } from './request-homestay/request-homestay.component';
+import { RequestHomestayDetailComponent } from './request-homestay/request-homestay-detail/request-homestay-detail.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
-  declarations: [RequestComponent, RequestAccountComponent, RequestHomestayComponent],
+  declarations: [RequestComponent, RequestAccountComponent, RequestHomestayComponent, RequestHomestayDetailComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -30,6 +32,7 @@ import { RequestHomestayComponent } from './request-homestay/request-homestay.co
     MatInputModule,
     MatSortModule,
     MatButtonModule,
+    MatStepperModule,
   ],
 })
 export class AdminModule {}
