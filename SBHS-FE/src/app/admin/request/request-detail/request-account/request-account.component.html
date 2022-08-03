@@ -6,7 +6,7 @@
     <div class="body-container">
       <div class="row-avatar-infor">
         <div class="avatar">
-          <img src="/assets/image/avatar.jpg" alt="avatar">
+          <img src="{{avatarUrl}}" alt="avatar">
         </div>
         <div class="infor">
           <div class="col-left">
@@ -16,7 +16,7 @@
                 <p>Username:</p>
               </div>
               <div class="fill-input">
-                <p>Quang</p>
+                <p>{{username}}</p>
               </div>
             </div>
             <!-- Email -->
@@ -25,17 +25,16 @@
                 <p>Email:</p>
               </div>
               <div class="fill-input">
-                <p>Quangnp1712@gmail.com</p>
+                <p>{{email}}</p>
               </div>
             </div>
-
             <!-- Gender  -->
             <div class="fill">
               <div class="fill-text">
                 <p>Gender:</p>
               </div>
               <div class="fill-input">
-                <p>Male</p>
+                <p>{{gender}}</p>
               </div>
             </div>
 
@@ -46,7 +45,7 @@
                 <p>Day of Birth:</p>
               </div>
               <div class="fill-input">
-                <p>Quang</p>
+                <p>{{dob}}</p>
               </div>
             </div>
           </div>
@@ -58,7 +57,7 @@
                 <p>Address:</p>
               </div>
               <div class="fill-input">
-                <p>123 Pham Van Dong p.1 Q.GV</p>
+                <p>{{address}}</p>
               </div>
             </div>
             <!-- ID -->
@@ -67,7 +66,7 @@
                 <p>Citizen ID:</p>
               </div>
               <div class="fill-input">
-                <p>123456789JQK</p>
+                <p>{{citizenIdentificationString}}</p>
               </div>
             </div>
             <!-- Phone -->
@@ -76,7 +75,7 @@
                 <p>Phone:</p>
               </div>
               <div class="fill-input">
-                <p>0900000000</p>
+                <p>{{phone}}</p>
               </div>
             </div>
           </div>
@@ -99,8 +98,8 @@
         </div>
       </div>
       <div class="button">
-        <button class="btn-denied"  mat-raised-button >Denied</button>
-        <button class="btn-accept"  mat-raised-button >Accept</button>
+        <button class="btn-accept"  mat-raised-button (click)="accept()">Accept</button>
+        <button class="btn-denied"  mat-raised-button (click)="reject()">Denied</button>
       </div>
     </div>
   </div>

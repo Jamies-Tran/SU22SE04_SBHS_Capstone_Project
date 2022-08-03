@@ -20,19 +20,20 @@ export class RequestComponent  implements OnInit{
   public getStatusLandlord(){
     this.http.getLanlord(this.status).subscribe((data =>{
       this.values = data;
-      console.log(this.values)
-      console.log(data[0]["createdBy"])
     }),
     error =>{
       alert(error)
     })
   }
   public Id = 0;
+  public createBy =""
   public isAccept = true;
   public isReject = false;
   public rejectMessage = "";
-  public onItemSelector(value :number) {
-        this.Id=value;
+  public onItemSelector(id: number, createdBy: string) {
+        this.Id=id;
+        localStorage.setItem("id", id+"")
+        localStorage.setItem("createdBy", createdBy);
     }
   public accept(){
     this.http.verifyLandlord(this.Id +"",this.isAccept,this.rejectMessage).subscribe((data =>{

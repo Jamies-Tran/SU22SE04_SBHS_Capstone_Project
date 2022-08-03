@@ -236,6 +236,10 @@ export class RegisterHomestayComponent implements OnInit {
     let price = formInformationFormGroupValue.price.value!;
     let address = formInformationFormGroupValue.address.value!;
     let city = formInformationFormGroupValue.city.value!;
+    let checkInTime = formInformationFormGroupValue.checkInTime.value!;
+    let checkOutTIme = formInformationFormGroupValue.checkOutTime.value!;
+    let numberOfRoom = formInformationFormGroupValue.number.value!;
+    let description = formInformationFormGroupValue.description.value!;
     const facilityFormGroupValue = this.facilityFormGroup.controls;
     type homestayFacilities= Array<{name: string ,amount: string}>;
     const myhomestayFacilities:homestayFacilities =[];
@@ -322,7 +326,7 @@ export class RegisterHomestayComponent implements OnInit {
     console.log(this.homestayImages);
 
 // api
-    this.http.registerLandlord(homestayName, address,city,price,this.payment,myHomestayLicenses,myHomestayimages,myHomestayServices, myhomestayFacilities).subscribe((data => {
+    this.http.registerLandlord(homestayName, description,address,city,price,numberOfRoom,checkInTime,checkOutTIme,this.payment,myHomestayLicenses,myHomestayimages,myHomestayServices, myhomestayFacilities).subscribe((data => {
       alert('Register Success!!!')
     }),
     error =>{
