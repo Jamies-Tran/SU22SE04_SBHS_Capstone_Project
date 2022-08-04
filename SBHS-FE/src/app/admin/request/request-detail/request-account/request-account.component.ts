@@ -10,6 +10,7 @@ import { ServerHttpService } from 'src/app/services/verify-landlord.service';
   styleUrls: ['./request-account.component.scss'],
 })
 export class RequestAccountComponent implements OnInit {
+  registerError: string = "";
   constructor(private http: ServerHttpService,  private router: Router,private route: ActivatedRoute) {}
   public username = '';
   public email = '';
@@ -53,7 +54,9 @@ export class RequestAccountComponent implements OnInit {
       }
     }),
     error =>{
-      alert(error)
+      if(error["status"] == 500){
+        this.registerError = "please check your information again!"
+      }else this.registerError = error["message"]
     })
 }
 }

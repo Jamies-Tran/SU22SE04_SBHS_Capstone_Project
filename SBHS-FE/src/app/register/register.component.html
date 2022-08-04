@@ -31,7 +31,7 @@
 
       <div class="register-container">
         <form action="RegisterController" method="POST" (ngSubmit)="register()">
-
+          <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div>
           <div class="register-header">
             Register
           </div>
@@ -42,18 +42,19 @@
                 <mat-form-field appearance="outline">
                   <mat-label>Username</mat-label>
                   <input matInput type="text" placeholder="Username" [(ngModel)]="username"
-                    [ngModelOptions]="{standalone: true}" class="input-username">
+                    [ngModelOptions]="{standalone: true}" class="input-username" required>
                   <mat-icon matPrefix><i class="fa-solid fa-user"></i></mat-icon>
 
                 </mat-form-field>
               </div>
 
               <!-- email -->
+              <div *ngIf="validMail === false" style="color: red; padding-right: 150px;">Wrong Email Format</div>
               <div class="register-text">
                 <mat-form-field appearance="outline">
                   <mat-label>Email</mat-label>
                   <input type="mail" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" matInput
-                    placeholder="Email@mail.com">
+                    placeholder="Email@mail.com" required>
                   <mat-icon matPrefix><i class="fa-regular fa-envelope"></i></mat-icon>
 
                 </mat-form-field>
@@ -64,18 +65,19 @@
                 <mat-form-field appearance="outline">
                   <mat-label>Password</mat-label>
                   <input matInput type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"
-                    placeholder="Password">
+                    placeholder="Password" required>
                   <mat-icon matPrefix><i class="fa-solid fa-key"></i></mat-icon>
 
                 </mat-form-field>
 
               </div>
               <!-- Confirm password -->
+              <div *ngIf="matchPassword === false" style="color: red; padding-right: 150px;">Password not match</div>
               <div class="register-text">
                 <mat-form-field appearance="outline">
                   <mat-label>Confirm Password</mat-label>
-                  <input matInput placeholder="Confirm Password" [(ngModel)]="confirmPassword"
-                    [ngModelOptions]="{standalone: true}">
+                  <input type="password" matInput placeholder="Confirm Password" [(ngModel)]="confirmPassword"
+                    [ngModelOptions]="{standalone: true}" required>
                   <mat-icon matPrefix><i class="fa-solid fa-key"></i></mat-icon>
 
                 </mat-form-field>
@@ -86,7 +88,7 @@
                 <mat-form-field appearance="outline">
                   <mat-label>Gender</mat-label>
                   <mat-icon matPrefix><i class="fa-solid fa-mars-and-venus"></i></mat-icon>
-                  <mat-select placeholder="Gender" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}">
+                  <mat-select placeholder="Gender" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" >
                     <mat-option value="Male">Male </mat-option>
                     <mat-option value="Female">Female </mat-option>
                   </mat-select>
@@ -100,9 +102,8 @@
                 <mat-form-field appearance="outline">
                   <mat-label>Address</mat-label>
                   <input matInput [(ngModel)]="address" [ngModelOptions]="{standalone: true}"
-                    placeholder="123 Pham Van Dong, Thu Duc" class="input-username">
+                    placeholder="123 Pham Van Dong, Thu Duc" class="input-username" required>
                   <mat-icon matPrefix><i class="fa-solid fa-map-location-dot"></i></mat-icon>
-
                 </mat-form-field>
               </div>
 
@@ -111,7 +112,7 @@
                 <mat-form-field appearance="outline">
                   <mat-label>ID National</mat-label>
                   <input matInput placeholder="123456789" [(ngModel)]="citizenIdentificationString"
-                    [ngModelOptions]="{standalone: true}">
+                    [ngModelOptions]="{standalone: true}" required>
                   <mat-icon matPrefix><i class="fa-regular fa-address-card"></i></mat-icon>
 
                 </mat-form-field>
@@ -121,7 +122,7 @@
               <div class="register-text">
                 <mat-form-field appearance="outline">
                   <mat-label>Phone Number</mat-label>
-                  <input matInput placeholder="09123456789" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}">
+                  <input matInput placeholder="09123456789" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" required>
                   <mat-icon matPrefix><i class="fa-solid fa-phone"></i></mat-icon>
 
                 </mat-form-field>
@@ -132,7 +133,7 @@
                 <mat-form-field appearance="outline">
                   <mat-label>Day of Birth</mat-label>
                   <input matInput type="date" placeholder="01/01/2000" onfocus="(this.type='date')" id="date"
-                    [(ngModel)]="dob" [ngModelOptions]="{standalone: true}">
+                    [(ngModel)]="dob" [ngModelOptions]="{standalone: true}" required>
                   <mat-icon matPrefix><i class="fa-solid fa-calendar-days"></i></mat-icon>
 
                 </mat-form-field>
@@ -145,19 +146,23 @@
 
           </div>
           <div class="uploadimage">
-            <p>Upload font and back your Citizen ID</p>
-            <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="citizenIdentificationUrl"
-              [ngModelOptions]="{standalone: true}">
+            <p>Upload font your Citizen ID</p>
+            <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="citizenIdentificationUrlFront"
+              [ngModelOptions]="{standalone: true}" required>
           </div>
-
+          <div class="uploadimage">
+            <p>Upload back your Citizen ID</p>
+            <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="citizenIdentificationUrlBack"
+              [ngModelOptions]="{standalone: true}" required>
+          </div>
+          <div *ngIf="validPolice === false" style="color: red; ">Read Polices and tick a box</div>
           <div class="rember-me">
             <section>
-              <mat-checkbox [(ngModel)]="polices" [ngModelOptions]="{standalone: true}" color="primary"> I agree <a
+              <mat-checkbox name="checkbox" [(ngModel)]="polices" [ngModelOptions]="{standalone: true}" color="primary" required> I agree <a
                   routerLink="/Policies">policies</a> </mat-checkbox>
             </section>
           </div>
-          <button type="submit" mat-button class="btn-register" name="btnRegister"
-            (click)="checkEmail()">Register</button>
+          <button type="submit" mat-button class="btn-register" name="btnRegister">Register</button>
           <div class="register">
             Already have an account?
             <a routerLink="/Landlord/Dashboard" routerLinkActive="active">Log in</a>

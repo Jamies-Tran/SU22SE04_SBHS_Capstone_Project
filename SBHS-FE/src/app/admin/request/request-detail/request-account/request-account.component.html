@@ -3,6 +3,7 @@
     <h1>Request Register Landlord Acccount</h1>
   </div>
   <div class="body">
+    <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div>
     <div class="body-container">
       <div class="row-avatar-infor">
         <div class="avatar">
