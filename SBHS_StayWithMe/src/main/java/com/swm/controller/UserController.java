@@ -74,8 +74,10 @@ public class UserController {
 	public static class LandlordResponseDto {
 		private Long id;
 		private String username;
+		private String avatarUrl;
 		private String address;
 		private String gender;
+		private String dob;
 		private String email;
 		private String phone;
 		private String citizenIdentificationString;
@@ -100,10 +102,18 @@ public class UserController {
 		String citizenIdentificationUrlBack = userDto.getCitizenIdentificationUrlBack();
 		UserEntity userPersisted = userService.createLandlordUser(userEntity, citizenIdentificationUrlFront,
 				citizenIdentificationUrlBack);
-		LandlordResponseDto landlordResponseDto = new LandlordResponseDto(userPersisted.getId(),
-				userPersisted.getUsername(), userPersisted.getAddress(), userPersisted.getGender(),
-				userPersisted.getEmail(), userPersisted.getPhone(), userPersisted.getCitizenIdentificationString(),
-				citizenIdentificationUrlFront, citizenIdentificationUrlBack);
+		LandlordResponseDto landlordResponseDto = new LandlordResponseDto();
+		landlordResponseDto.setAddress(userPersisted.getAddress());
+		landlordResponseDto.setCitizenIdentificationString(userPersisted.getCitizenIdentificationString());
+		landlordResponseDto.setCitizenIdentificationUrlBack(userDto.getCitizenIdentificationUrlBack());
+		landlordResponseDto.setCitizenIdentificationUrlFront(userDto.getCitizenIdentificationUrlFront());
+		landlordResponseDto.setEmail(userPersisted.getEmail());
+		landlordResponseDto.setGender(userPersisted.getGender());
+		landlordResponseDto.setId(userPersisted.getId());
+		landlordResponseDto.setPhone(userPersisted.getPhone());
+		landlordResponseDto.setUsername(userPersisted.getUsername());
+		landlordResponseDto.setAvatarUrl(userPersisted.getAvatar().getUrl());
+		landlordResponseDto.setDob(simpleDateFormat.format(userPersisted.getDob()));
 
 		return new ResponseEntity<>(landlordResponseDto, HttpStatus.CREATED);
 	}
@@ -189,6 +199,9 @@ public class UserController {
 			landlordResponseDto.setId(userEntity.getId());
 			landlordResponseDto.setPhone(userEntity.getPhone());
 			landlordResponseDto.setUsername(userEntity.getUsername());
+			landlordResponseDto.setAvatarUrl(userEntity.getAvatar().getUrl());
+			landlordResponseDto.setDob(simpleDateFormat.format(userEntity.getDob()));
+			
 			
 			return new ResponseEntity<>(landlordResponseDto, HttpStatus.OK);
 		}
