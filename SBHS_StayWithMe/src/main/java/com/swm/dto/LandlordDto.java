@@ -10,6 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LandlordDto extends UserDto {	
-	private String citizenIdentificationUrl;
-
+	private String citizenIdentificationUrlFront;
+	private String citizenIdentificationUrlBack;
 }

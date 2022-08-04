@@ -52,11 +52,11 @@ public class UserController {
 
 	@Autowired
 	private IAuthenticationService authenticationService;
-	
+
 	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	private Logger log = LoggerFactory.getLogger(UserController.class);
-	
+
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Getter
@@ -64,7 +64,23 @@ public class UserController {
 	public static class WalletReponseDto {
 		private Long balance;
 		private String owner;
-		
+
+	}
+
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class LandlordResponseDto {
+		private Long id;
+		private String username;
+		private String address;
+		private String gender;
+		private String email;
+		private String phone;
+		private String citizenIdentificationString;
+		private String citizenIdentificationUrlFront;
+		private String citizenIdentificationUrlBack;
 	}
 
 	@PostMapping("/register/passenger")
@@ -80,11 +96,16 @@ public class UserController {
 	@PostMapping("/register/landlord")
 	public ResponseEntity<?> createLandlordAccount(@RequestBody LandlordDto userDto) {
 		UserEntity userEntity = userConvert.landlordEntityConvert(userDto);
-		String citizenIdentificationUrl = userDto.getCitizenIdentificationUrl();
-		UserEntity userPersisted = userService.createLandlordUser(userEntity, citizenIdentificationUrl);
-		UserDto userResponse = userConvert.userResponseDtoConvert(userPersisted);
+		String citizenIdentificationUrlFront = userDto.getCitizenIdentificationUrlFront();
+		String citizenIdentificationUrlBack = userDto.getCitizenIdentificationUrlBack();
+		UserEntity userPersisted = userService.createLandlordUser(userEntity, citizenIdentificationUrlFront,
+				citizenIdentificationUrlBack);
+		LandlordResponseDto landlordResponseDto = new LandlordResponseDto(userPersisted.getId(),
+				userPersisted.getUsername(), userPersisted.getAddress(), userPersisted.getGender(),
+				userPersisted.getEmail(), userPersisted.getPhone(), userPersisted.getCitizenIdentificationString(),
+				citizenIdentificationUrlFront, citizenIdentificationUrlBack);
 
-		return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+		return new ResponseEntity<>(landlordResponseDto, HttpStatus.CREATED);
 	}
 
 	@PostMapping("/register/admin")
@@ -109,7 +130,7 @@ public class UserController {
 		authenticationResponseDto.setLoginDate(simpleDateFormat.format(new Date()));
 		authenticationResponseDto.setToken(token);
 		authenticationResponseDto.setRoles(userDetails.getAuthorities());
-		
+
 		return new ResponseEntity<>(authenticationResponseDto, HttpStatus.OK);
 
 	}
@@ -141,32 +162,49 @@ public class UserController {
 
 		return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/exist/{userInfo}")
 	public ResponseEntity<?> checkGmailExist(@PathVariable("userInfo") String userInfo) {
-		 boolean test = userService.checkUserDuplicate(userInfo);
-		 log.info("Is duplicate?: " + test);
-		
+		boolean test = userService.checkUserDuplicate(userInfo);
+		log.info("Is duplicate?: " + test);
+
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/get/{userInfo}")
 	public ResponseEntity<?> getUserByUserInfo(@PathVariable("userInfo") String userInfo) {
 		UserEntity userEntity = userService.findUserByUserInfo(userInfo);
-		UserDto userResponseDto = userConvert.userResponseDtoConvert(userEntity);
+		if(userEntity.getLandlord() == null) {
+			UserDto userResponseDto = userConvert.userResponseDtoConvert(userEntity);
+			
+			return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
+		} else {
+			LandlordResponseDto landlordResponseDto = new LandlordResponseDto();
+			landlordResponseDto.setAddress(userEntity.getAddress());
+			landlordResponseDto.setCitizenIdentificationString(userEntity.getCitizenIdentificationString());
+			landlordResponseDto.setCitizenIdentificationUrlBack(userEntity.getLandlord().getCitizenIdentificationUrl().get(1).getUrl());
+			landlordResponseDto.setCitizenIdentificationUrlFront(userEntity.getLandlord().getCitizenIdentificationUrl().get(0).getUrl());
+			landlordResponseDto.setEmail(userEntity.getEmail());
+			landlordResponseDto.setGender(userEntity.getGender());
+			landlordResponseDto.setId(userEntity.getId());
+			landlordResponseDto.setPhone(userEntity.getPhone());
+			landlordResponseDto.setUsername(userEntity.getUsername());
+			
+			return new ResponseEntity<>(landlordResponseDto, HttpStatus.OK);
+		}
+
 		
-		return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/get/wallet/{walletType}")
-	public ResponseEntity<?> getWalletBalance( @PathVariable("walletType") String walletType) {
+	public ResponseEntity<?> getWalletBalance(@PathVariable("walletType") String walletType) {
 		BaseWalletEntity baseWalletEntity = userService.findSystemWalletByUsername(walletType);
 		WalletReponseDto walletResponseDto = new WalletReponseDto();
 		walletResponseDto.setOwner(baseWalletEntity.getCreatedBy());
 		walletResponseDto.setBalance(baseWalletEntity.getBalance());
-		
+
 		return new ResponseEntity<>(walletResponseDto, HttpStatus.OK);
-		
+
 	}
 
 }

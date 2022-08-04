@@ -15,6 +15,7 @@ public class HomestayShortageInfoDto {
 	private Long Id;
 	private String name;
 	private String description;
+	private String owner;
 	private String address;
 	private int numberOfRoom;
 	private String city;

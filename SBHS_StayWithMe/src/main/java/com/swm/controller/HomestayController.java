@@ -111,7 +111,7 @@ public class HomestayController {
 	public ResponseEntity<?> findHomestayListContainLocation(@PathVariable("location") String location) {
 		List<HomestayEntity> homestayEntityList = homestayService.findHomestayBookingAvailableListByCity(location);
 		List<HomestayCompleteInfoDto> homestayResponseListDto = homestayEntityList.stream()
-				.map(h -> homestayConvert.homestayCompleteInfoDtoConvert(h)).sorted().collect(Collectors.toList());
+				.map(h -> homestayConvert.homestayCompleteInfoDtoConvert(h)).sorted(Collections.reverseOrder()).collect(Collectors.toList());
 
 		return new ResponseEntity<>(homestayResponseListDto, HttpStatus.OK);
 	}
@@ -124,6 +124,7 @@ public class HomestayController {
 
 		return new ResponseEntity<>(homestayResponseListDto, HttpStatus.OK);
 	}
+	
 
 	@PatchMapping("/service/{homestayName}/{serviceId}")
 	@PreAuthorize("hasAuthority('homestay:update')")

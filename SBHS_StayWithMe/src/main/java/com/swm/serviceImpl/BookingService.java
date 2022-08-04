@@ -105,16 +105,19 @@ public class BookingService implements IBookingService {
 			bookingOtpEntity.setBookingContainer(bookingEntity);
 			bookingOtpEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
 			bookingOtpEntity.setCreatedDate(currentDate);
-			//PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = new PassengerShieldCancelBookingEntity();
-			PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = homestayEntity.getShieldForCancelBooking();
-			if(passengerShiedCancelBookingEntity == null) {
+			// PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = new
+			// PassengerShieldCancelBookingEntity();
+			PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = homestayEntity
+					.getShieldForCancelBooking();
+			if (passengerShiedCancelBookingEntity == null) {
 				passengerShiedCancelBookingEntity = new PassengerShieldCancelBookingEntity();
 				passengerShiedCancelBookingEntity.setActiveDate(currentDate);
 				passengerShiedCancelBookingEntity.setPassengerOwnerOfShield(passengerEntity);
 				passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
 				passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
 				homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
-				passengerShiedCancelBookingEntity = passengerShieldCancelBookingRepository.save(passengerShiedCancelBookingEntity);
+				passengerShiedCancelBookingEntity = passengerShieldCancelBookingRepository
+						.save(passengerShiedCancelBookingEntity);
 				passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
 				homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
 			}
@@ -123,7 +126,7 @@ public class BookingService implements IBookingService {
 //			passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
 //			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
 //			homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
-			
+
 //			PassengerShieldCancelBookingEntity passengerShieldCancelBookingPersisted = passengerShieldCancelBookingRepository
 //					.save(passengerShiedCancelBookingEntity);
 //			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
@@ -159,8 +162,11 @@ public class BookingService implements IBookingService {
 	}
 
 	@Override
-	public List<BookingEntity> getBookingList() {
-		List<BookingEntity> bookingEntityList = bookingRepo.findAll();
+	public List<BookingEntity> getHomestayBookingList(String homestayName) {
+		List<BookingEntity> bookingEntityList = bookingRepo.findAll().stream()
+				.filter(b -> b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_CHECKIN.name())
+						&& b.getBookingHomestay().getName().equals(homestayName))
+				.collect(Collectors.toList());
 
 		return bookingEntityList;
 	}
@@ -195,7 +201,7 @@ public class BookingService implements IBookingService {
 					bookingEntity.setStatus(BookingStatus.BOOKING_CHECKIN_BY_PASSENGER_RELATIVE.name());
 					bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
 					sendMailService.sendMail(bookingUserEntity.getUsername(), msg, "Booking confirm");
-				} 
+				}
 			} else {
 				// người đặt check-in
 				bookingEntity.setStatus(BookingStatus.BOOKING_CONFIRM_CHECKIN.name());
@@ -419,20 +425,20 @@ public class BookingService implements IBookingService {
 		List<BookingEntity> bookingEntityList = homestayEntity.getBooking();
 		List<String> bookingDateList = new ArrayList<String>();
 		bookingEntityList.stream().filter(b -> b.getStatus().equals(BookingStatus.BOOKING_PENDING_CHECKIN.name()))
-			.collect(Collectors.toList()).forEach(b -> {
-				Date currentDate = b.getCheckIn();
-				bookingDateList.add(simpleDateFormat.format(currentDate));
-				Long differentInDate = this.differentInDay(b.getCheckIn(), b.getCheckOut());
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(currentDate);
-				for (long i = 0; i < differentInDate; i++) {
-					//log.info("Date increase: " + currentDate);
-					cal.add(Calendar.DATE, 1);
-					currentDate = cal.getTime();
+				.collect(Collectors.toList()).forEach(b -> {
+					Date currentDate = b.getCheckIn();
 					bookingDateList.add(simpleDateFormat.format(currentDate));
-				}
-			});
-		
+					Long differentInDate = this.differentInDay(b.getCheckIn(), b.getCheckOut());
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(currentDate);
+					for (long i = 0; i < differentInDate; i++) {
+						// log.info("Date increase: " + currentDate);
+						cal.add(Calendar.DATE, 1);
+						currentDate = cal.getTime();
+						bookingDateList.add(simpleDateFormat.format(currentDate));
+					}
+				});
+
 		return bookingDateList;
 	}
 

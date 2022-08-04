@@ -17,7 +17,7 @@ public interface IUserService {
 	
 	UserEntity createPassengerUser(UserEntity userEntity);
 	
-	UserEntity createLandlordUser(UserEntity userEntity, String CitizenIdentificationUrl);
+	UserEntity createLandlordUser(UserEntity userEntity, String citizenIdentificationUrlFront, String citizenIdentificationUrlBack);
 	
 	UserEntity createAdminUser(UserEntity userEntity);
 	

@@ -14,7 +14,6 @@
     <fullyQualifiedTypeName name="com.swm.entity.LandlordWalletEntity"/>
     <fullyQualifiedTypeName name="com.swm.entity.BookingDepositEntity"/>
     <fullyQualifiedTypeName name="com.swm.serviceImpl.BookingService"/>
-    <fullyQualifiedTypeName name="com.swm.dto.BookingResponseDto"/>
     <fullyQualifiedTypeName name="com.swm.entity.PassengerEntity"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
@@ -25,10 +24,7 @@
     <fullyQualifiedTypeName name="com.swm.entity.PassengerShieldCancelBookingEntity"/>
     <fullyQualifiedTypeName name="org.slf4j.Logger"/>
     <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
-    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseBody"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
     <fullyQualifiedTypeName name="com.swm.controller.UserController.WalletReponseDto"/>
     <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="com.swm.enums.RequestStatus"/>
@@ -37,7 +33,6 @@
     <fullyQualifiedTypeName name="com.swm.dto.RequestDto"/>
     <fullyQualifiedTypeName name="javax.persistence.Column"/>
     <fullyQualifiedTypeName name="com.swm.enums.HomestayStatus"/>
-    <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
     <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
     <fullyQualifiedTypeName name="com.swm.service.IAuthenticationService"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Lazy"/>
@@ -53,11 +48,16 @@
     <fullyQualifiedTypeName name="java.lang.Comparable"/>
     <fullyQualifiedTypeName name="com.swm.dto.HomestayFullInfoDto"/>
     <fullyQualifiedTypeName name="com.swm.entity.BookingEntity"/>
-    <fullyQualifiedTypeName name="com.swm.enums.BookingStatus"/>
     <fullyQualifiedTypeName name="com.swm.service.IHomestayService"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="java.util.Comparator"/>
-    <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="com.swm.dto.HomestayCompleteInfoDto"/>
     <fullyQualifiedTypeName name="com.swm.entity.HomestayEntity"/>
+    <fullyQualifiedTypeName name="java.util.Collections"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+    <fullyQualifiedTypeName name="com.swm.dto.BookingResponseDto"/>
+    <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+    <fullyQualifiedTypeName name="com.swm.enums.BookingStatus"/>
 </qualifiedTypeNameHistroy>

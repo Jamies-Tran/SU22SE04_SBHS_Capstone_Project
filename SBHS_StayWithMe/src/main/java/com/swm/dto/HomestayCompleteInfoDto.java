@@ -15,6 +15,7 @@ public class HomestayCompleteInfoDto implements Comparable<HomestayCompleteInfoD
 	private Long Id;
 	private String name;
 	private String description;
+	private String owner;
 	private String address;
 	private String city;
 	private Long price;

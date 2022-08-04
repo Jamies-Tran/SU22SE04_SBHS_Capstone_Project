@@ -1,6 +1,7 @@
 package com.swm.serviceImpl;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -118,7 +119,7 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public UserEntity createLandlordUser(UserEntity userEntity, String citizenIdentificationUrl) {
+	public UserEntity createLandlordUser(UserEntity userEntity, String citizenIdentificationUrlFront, String citizenIdentificationUrlBack) {
 		if (userRepo.findUserByUsername(userEntity.getUsername()).isPresent()) {
 			throw new DuplicateResourceException(userEntity.getUsername(), "User exist");
 		} else if (userRepo.findUserByPhone(userEntity.getPhone()).isPresent()) {
@@ -138,12 +139,17 @@ public class UserService implements IUserService {
 		landlordAccount.setCreatedDate(currentDate);
 		landlordAccount.setCreatedBy(userEntity.getUsername());
 		// create landlord's citizen identification image url (cccd)
-		CitizenIdentificationEntity citizenIdentification = new CitizenIdentificationEntity();
-		citizenIdentification.setOwner(landlordAccount);
-		citizenIdentification.setCreatedDate(currentDate);
-		citizenIdentification.setCreatedBy(userEntity.getUsername());
-		citizenIdentification.setUrl(citizenIdentificationUrl);
-		landlordAccount.setCitizenIdentificationUrl(citizenIdentification);
+		CitizenIdentificationEntity citizenIdentificationFront = new CitizenIdentificationEntity();
+		citizenIdentificationFront.setOwner(landlordAccount);
+		citizenIdentificationFront.setCreatedDate(currentDate);
+		citizenIdentificationFront.setCreatedBy(userEntity.getUsername());
+		citizenIdentificationFront.setUrl(citizenIdentificationUrlFront);
+		CitizenIdentificationEntity citizenIdentificationBack = new CitizenIdentificationEntity();
+		citizenIdentificationBack.setOwner(landlordAccount);
+		citizenIdentificationBack.setCreatedDate(currentDate);
+		citizenIdentificationBack.setCreatedBy(userEntity.getUsername());
+		citizenIdentificationBack.setUrl(citizenIdentificationUrlBack);
+		landlordAccount.setCitizenIdentificationUrl(List.of(citizenIdentificationFront, citizenIdentificationBack));
 		// create landlord's platform wallet
 		LandlordWalletEntity wallet = new LandlordWalletEntity();
 		wallet.setOwner(landlordAccount);

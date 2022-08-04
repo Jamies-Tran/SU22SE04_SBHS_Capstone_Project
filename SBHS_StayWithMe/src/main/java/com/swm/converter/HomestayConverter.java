@@ -81,7 +81,8 @@ public class HomestayConverter {
 		HomestayShortageInfoDto homestayDto = new HomestayShortageInfoDto();
 		homestayDto.setId(homestayEntity.getId());
 		homestayDto.setName(homestayEntity.getName());
-		homestayDto.setDescription(homestayDto.getDescription());
+		homestayDto.setDescription(homestayEntity.getDescription());
+		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
 		homestayDto.setAddress(homestayEntity.getAddress());
 		homestayDto.setCity(homestayEntity.getCity());
 		homestayDto.setPrice(homestayEntity.getPrice());
@@ -109,6 +110,7 @@ public class HomestayConverter {
 		homestayDto.setId(homestayEntity.getId());
 		homestayDto.setName(homestayEntity.getName());
 		homestayDto.setDescription(homestayEntity.getDescription());
+		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
 		homestayDto.setAddress(homestayEntity.getAddress());
 		homestayDto.setCity(homestayEntity.getCity());
 		homestayDto.setPrice(homestayEntity.getPrice());

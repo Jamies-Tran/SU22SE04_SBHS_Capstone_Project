@@ -14,7 +14,7 @@ public interface IBookingService {
 	
 	BookingEntity findBookingById(Long Id);
 	
-	List<BookingEntity> getBookingList();
+	List<BookingEntity> getHomestayBookingList(String homestayName);
 	
 	List<String> getHomestayBookingDate(Long bookingId);
 	
