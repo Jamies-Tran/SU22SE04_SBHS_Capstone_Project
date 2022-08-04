@@ -99,6 +99,7 @@ export class RegisterHomestayComponent implements OnInit {
   });
 
   paymentFormGroup = this._formBuilder.group({});
+  registerError: string ="";
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -330,7 +331,9 @@ export class RegisterHomestayComponent implements OnInit {
       alert('Register Success!!!')
     }),
     error =>{
-      alert(error)
+      if(error["status"] == 500){
+        this.registerError = "please check your information again!"
+      }else this.registerError = error["message"]
     })
   }
 }

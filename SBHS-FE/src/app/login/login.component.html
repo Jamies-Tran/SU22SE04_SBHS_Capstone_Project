@@ -29,13 +29,11 @@
 
     <div class="body-login">
       <div class="login-container">
+        <div *ngIf="registerSuccess == true"><h3 style="color: blue;">Register Successfull!!!</h3></div>
         <form (ngSubmit)="getProfile()">
-
-
           <div class="login-header">
             Welcome
           </div>
-
           <div class="login-text">
             <mat-form-field appearance="outline">
               <mat-label>Username</mat-label>
@@ -45,8 +43,6 @@
 
             </mat-form-field>
           </div>
-
-
           <div class="login-text">
             <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
@@ -68,7 +64,7 @@
           </div>
           <div class="register">
             Don't have an account?
-            <a routerLink="/Landlord/Dashboard" routerLinkActive="active">Sign up</a>
+            <a routerLink="/Register" routerLinkActive="active">Sign up</a>
           </div>
         </form>
       </div>

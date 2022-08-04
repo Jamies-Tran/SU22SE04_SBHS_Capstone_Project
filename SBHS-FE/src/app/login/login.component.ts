@@ -9,15 +9,21 @@ import { ServerHttpService } from '../services/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
+  registerError : any;
   public userName= "";
   public password = "";
+  public registerSuccessTmp = localStorage.getItem("registerSuccess");
+  registerSuccess :boolean = false;
   constructor(private http: ServerHttpService , private router: Router,private route: ActivatedRoute) {
    }
   ngOnInit(): void {
-    
+    if(this.registerSuccessTmp == "true"){
+      this.registerSuccess = true
+      localStorage.setItem("registerSuccess","false");
+    }
   }
   public getProfile(){
+    console.log(localStorage.getItem("registerSuccess"))
     this.http.login(this.userName, this.password).subscribe((data =>{
       localStorage.setItem('userToken',data["token"]);
       localStorage.setItem('username',data["username"]);
@@ -26,7 +32,9 @@ export class LoginComponent implements OnInit {
       }else this.router.navigate(['/Admin/Request'], {relativeTo: this.route});
     }),
     error =>{
-      alert(error)
+      if(error["status"] == 500){
+        this.registerError = "please check your information again!"
+      }else this.registerError = error["message"]
     })
   }
 }

@@ -8,62 +8,69 @@ import { ServerHttpService } from '../services/register.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  registerError : any;
   public username = "";
   public password = "";
   public email = "";
   public phone = "";
   public gender = "Male";
   public citizenIdentificationString = "";
-  public citizenIdentificationUrl = "";
+  public citizenIdentificationUrlFront = "";
+  public citizenIdentificationUrlBack = "";
   public confirmPassword = "";
   public dob =  "";
   public address = "";
   public avatarUrl = "";
   public flag = false;
   public polices = false;
+  filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  validMail : boolean = true;
+  validPolice : boolean = true;
+  matchPassword : boolean = true;
+  public valid(){
+    this.validPolice = this.polices
+    this.validMail = this.filter.test(this.email)
+    if(this.username == ""){
+      return
+    }else if(this.address == ""){
+      return
+    }else if(this.dob == ""){
+      return
+    }else if(this.citizenIdentificationString == ""){
+      return
+    }else if(this.phone == ""){
+      return
+    }else if(this.citizenIdentificationUrlFront == ""){
+      return
+    }else if(this.citizenIdentificationUrlBack == ""){
+      return
+    }else if(this.address == ""){
+      return
+    }else if(this.password != this.confirmPassword){
+      this.matchPassword = false
+      return
+    }else if(this.validPolice == false){
+      return
+    }else if(this.validMail == false){
+      return
+    }else return true;
+  }
   constructor(private http: ServerHttpService, private router: Router,private route: ActivatedRoute) { }
   ngOnInit(): void {
   }
-  public checkEmail() {
-    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if(this.username ===""){
-      alert('Please enter username!!!')
-      return
-    }
-    else if (!filter.test(this.email)) {
-        alert('wrong mail.\nExample@gmail.com');
-        return
-    }else if(this.address === ""){
-      alert('Please enter Address!!!')
-      return
-    }else if(this.citizenIdentificationString === ""){
-      alert('Please enter ID National!!!')
-      return
-    }else if(this.password === ""){
-      alert('Please enter Password!!!')
-      return
-    }else if(this.password != this.confirmPassword){
-      alert('Wrong confirm password!!!')
-      return
-    }else if(this.phone === ""){
-      alert('Please enter phone number!!!')
-      return
-    }else if(this.polices === false){
-      alert('Please read polices and tick a box!!!')
-      return
-    }
-    else this.flag = true
-
-}
 
   public register() {
-    if(this.flag === true){
-      this.http.registerLandlord(this.username,this.password,this.address,this.gender,this.email,this.phone,this.citizenIdentificationString,this.dob +"",this.avatarUrl,this.citizenIdentificationUrl).subscribe((data => {
-      alert("register successful!!!");
+    if(this.valid() == true){
+      this.http.registerLandlord(this.username,this.password,this.address,this.gender,this.email,this.phone,
+        this.citizenIdentificationString,this.dob +"",this.avatarUrl,this.citizenIdentificationUrlFront, this.citizenIdentificationUrlBack).subscribe((data => {
+      localStorage.setItem("registerSuccess","true");
       this.router.navigate(['/Login'], {relativeTo: this.route});
     }),
     error =>{
-      alert(error)
+      if(error["status"] == 500){
+        this.registerError = "please check your phone number!"
+      }else this.registerError = error["message"]
     })}
   }
 }
+

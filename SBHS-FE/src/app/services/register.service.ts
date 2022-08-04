@@ -18,9 +18,9 @@ export class ServerHttpService {
   private REST_API_SERVER = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) { }
 
-  public registerLandlord(username:string, password:string, address:string, gender:string, email:string, phone:string,citizenIdentificationString:string,dob:string,avatarUrl:string,citizenIdentificationUrl:string) {
+  public registerLandlord(username:string, password:string, address:string, gender:string, email:string, phone:string,citizenIdentificationString:string,dob:string,avatarUrl:string,citizenIdentificationUrlFront:string, citizenIdentificationUrlBack : string) {
     var value = {
-      username, password, address, gender, email, phone, citizenIdentificationString, dob, avatarUrl, citizenIdentificationUrl
+      username, password, address, gender, email, phone, citizenIdentificationString, dob, avatarUrl, citizenIdentificationUrlFront, citizenIdentificationUrlBack
     }
     const url = `${this.REST_API_SERVER}/api/user/register/landlord`;
     return this.httpClient
@@ -40,7 +40,7 @@ export class ServerHttpService {
     // }
     // // return an observable with a user-facing error message
     return throwError(
-      error.error["message"]);
+      error.error);
   };
 
 }

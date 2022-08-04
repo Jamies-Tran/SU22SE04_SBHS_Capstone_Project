@@ -12,6 +12,7 @@ import { ServerHttpService } from 'src/app/services/verify-landlord.service';
 export class RequestComponent  implements OnInit{
   values : data[] = [];
   public status ="All";
+  registerError: string = "";
   constructor(private http: ServerHttpService) {
   }
   ngOnInit(): void {
@@ -54,7 +55,9 @@ export class RequestComponent  implements OnInit{
       }
     }),
     error =>{
-      alert(error)
+      if(error["status"] == 500){
+        this.registerError = "please check your information again!"
+      }else this.registerError = error["message"]
     })
   }
 
