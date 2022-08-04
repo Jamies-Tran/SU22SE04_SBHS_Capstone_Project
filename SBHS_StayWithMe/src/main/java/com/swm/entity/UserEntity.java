@@ -56,7 +56,7 @@ public class UserEntity extends BaseEntity {
 	@Setter
 	private String email;
 	
-	@Column(unique = true, nullable = false, length = 10)
+	@Column(unique = true, nullable = false)
 	@Setter
 	private String phone;
 	

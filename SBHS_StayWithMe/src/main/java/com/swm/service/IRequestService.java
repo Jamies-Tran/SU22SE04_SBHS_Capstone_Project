@@ -21,5 +21,5 @@ public interface IRequestService {
 	
 	List<LandlordAccountRequestEntity> findAllLandlordAccountRequest();
 	
-	List<HomestayPostingRequestEntity> findAllHomestayPostingRequest();
+	List<HomestayPostingRequestEntity> findAllHomestayPostingRequestByStatus(String status);
 }

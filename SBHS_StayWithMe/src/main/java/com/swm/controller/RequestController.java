@@ -31,10 +31,10 @@ public class RequestController {
 	@Autowired
 	private RequestConverter requestConvert;
 
-	@GetMapping("/homestay/all")
+	@GetMapping("/homestay/list/{status}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> getRequestList() {
-		List<HomestayPostingRequestEntity> requestEntityList = requestService.findAllHomestayPostingRequest();
+	public ResponseEntity<?> getRequestList(@PathVariable("status") String status) {
+		List<HomestayPostingRequestEntity> requestEntityList = requestService.findAllHomestayPostingRequestByStatus(status);
 		List<RequestDto> requestDtoList = requestEntityList.stream()
 				.map(r -> requestConvert.homestayPostinRequestDtoConvert(r)).collect(Collectors.toList());
 

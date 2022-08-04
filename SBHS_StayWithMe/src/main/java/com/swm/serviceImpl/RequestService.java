@@ -132,8 +132,10 @@ public class RequestService implements IRequestService {
 	}
 
 	@Override
-	public List<HomestayPostingRequestEntity> findAllHomestayPostingRequest() {
-		List<HomestayPostingRequestEntity> requestList = homestayPostingRequestRepo.findAll();
+	public List<HomestayPostingRequestEntity> findAllHomestayPostingRequestByStatus(String status) {
+		List<HomestayPostingRequestEntity> requestList = status.equalsIgnoreCase("all") 
+				? homestayPostingRequestRepo.findAll() 
+				: homestayPostingRequestRepo.findAll().stream().filter(r -> r.getStatus().equalsIgnoreCase(status)).collect(Collectors.toList());
 
 		return requestList;
 	}

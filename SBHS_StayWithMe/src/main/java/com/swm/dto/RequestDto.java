@@ -12,6 +12,7 @@ import lombok.Setter;
 public class RequestDto {
 	private Long Id;
 	private String createdBy;
+	private String createdByEmail;
 	private String createdDate;
 	private String type;
 	private String status;

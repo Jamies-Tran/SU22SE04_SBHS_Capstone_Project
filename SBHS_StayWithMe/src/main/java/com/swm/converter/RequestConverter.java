@@ -15,6 +15,7 @@ public class RequestConverter {
 		RequestDto requestDto = new RequestDto();
 		requestDto.setId(request.getId());
 		requestDto.setCreatedBy(request.getCreatedBy());
+		requestDto.setCreatedByEmail(request.getAccountRequesting().getLandlordAccount().getEmail());
 		requestDto.setCreatedDate(request.getCreatedDate().toString());
 		requestDto.setType(request.getRequestType());
 		requestDto.setStatus(request.getStatus());
