@@ -40,7 +40,7 @@ export class RequestComponent  implements OnInit{
       if(data !=null){
         location.reload();
       }
-      
+
       console.log(data)
     }),
     error =>{
@@ -58,6 +58,21 @@ export class RequestComponent  implements OnInit{
     })
   }
 
+  title ='pagination';
+  page: number=1;
+  count:number=0;
+  tableSize: number = 1;
+  tableSizes: any = [1,2,15,20];
+
+  onTableDataChange(event: any){
+    this.page = event;
+    this.values;
+  }
+  onTableSizeChange(event: any): void{
+    this.tableSize = event.target.value;
+    this.page=1;
+    this.values;
+  }
 }
 
 

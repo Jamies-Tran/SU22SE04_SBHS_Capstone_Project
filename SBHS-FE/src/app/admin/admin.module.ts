@@ -9,6 +9,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { AdminRoutingModule } from './admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { RequestComponent } from './request/request.component';
 import { RequestAccountComponent } from './request/request-detail/request-account/request-account.component';
@@ -33,6 +34,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatSortModule,
     MatButtonModule,
     MatStepperModule,
+    NgxPaginationModule
   ],
 })
 export class AdminModule {}

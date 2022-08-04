@@ -459,12 +459,55 @@
       </form>
     </mat-step>
 
-    <!-- Step 4 Payment  -->
+    <!-- Step 4 Summary  -->
     <mat-step [stepControl]="paymentFormGroup">
       <form [formGroup]="paymentFormGroup" (ngSubmit)="register()" #formfour="ngForm">
         <ng-template matStepLabel>Finish</ng-template>
-        <h1>Payment </h1>
+        <h1>Summary </h1>
+
         <div class="input-content">
+          <div class="add-input row">
+            <div class="col left">
+              <div>
+                <mat-form-field class="fill" appearance="legacy">
+                  <mat-label>Homestay's Name</mat-label>
+                  <input id="name" matInput placeholder="StaywithMe Homestay"  required
+                    >
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="fill" appearance="legacy">
+                  <mat-label>Address</mat-label>
+                  <input id="address" type="text" matInput placeholder="123 Quang Trung p.1 Q.1"
+                    formControlName="address" required>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="fill" appearance="legacy">
+                  <mat-label>Check-in time</mat-label>
+                  <input id="check-in" type="time" matInput required >
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="fill" appearance="legacy">
+                  <mat-label>Number of Room</mat-label>
+                  <input id="number" type="number" matInput placeholder="1" required >
+                </mat-form-field>
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+
+          <div class="add-btn">
+            <button class="btn-back" mat-raised-button matStepperPrevious>Back</button>
+            <button class="btn-next" mat-raised-button type="submit">Submit</button>
+          </div>
+        </div>
+        <!-- <div class="input-content">
           <div class="add-input ">
 
 
@@ -475,7 +518,7 @@
             <button class="btn-back" mat-raised-button matStepperPrevious>Back</button>
             <button class="btn-next" mat-raised-button type="submit">Submit</button>
           </div>
-        </div>
+        </div> -->
       </form>
     </mat-step>
 

@@ -4,6 +4,7 @@ import { LandlordComponent } from './landlord.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterHomestayComponent } from './register-homestay/register-homestay.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BookingComponent } from './booking/booking.component';
 
 
 
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'Dashboard', component: DashboardComponent },
       { path: 'RegisterHomestay', component: RegisterHomestayComponent },
       { path: 'Profile', component: ProfileComponent },
+      { path: 'Booking', component: BookingComponent },
 
     ],
   },

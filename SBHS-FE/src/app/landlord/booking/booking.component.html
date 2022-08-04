@@ -1,0 +1,71 @@
+
+<div class="container-fluid">
+  <div class="header">
+    <h1>Request List</h1>
+  </div>
+  <div class="body">
+    <!-- <div class="body-container">
+      <select [(ngModel)]="status" (click)="getStatusLandlord()">
+        <option>All</option>
+        <option>Pending</option>
+        <option>Accept</option>
+        <option>Reject</option>
+      </select>
+    </div> -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Arrive</th>
+          <th>Depart</th>
+          <th>Homestay</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- No.1 -->
+        <tr >
+          <td>Nguyen Phuong Quang</td>
+          <td>09123456789</td>
+          <td>quangnp1712@gmail.com</td>
+          <td>01/01/2022</td>
+          <td>02/02/2022</td>
+          <td>Homestay Name</td>
+          <!-- action -->
+          <td>
+            <button mat-icon-button color="primary"
+             ><i class="fa-solid fa-eye"></i></button>
+            <button mat-icon-button color="accent" ><i class="fa-solid fa-check"></i></button>
+            <button mat-icon-button color="warn" ><i class="fa-solid fa-xmark"></i></button>
+          </td>
+        </tr>
+
+
+        <!-- No.2 -->
+        <tr >
+          <td>Nguyen Phuong Quang</td>
+          <td>09123456789</td>
+          <td>quangnp1712@gmail.com</td>
+          <td>01/01/2022</td>
+          <td>02/02/2022</td>
+          <td>Homestay Name</td>
+          <!-- action -->
+          <td>
+            <button mat-icon-button color="primary"
+             ><i class="fa-solid fa-eye"></i></button>
+            <button mat-icon-button color="accent" ><i class="fa-solid fa-check"></i></button>
+            <button mat-icon-button color="warn" ><i class="fa-solid fa-xmark"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+

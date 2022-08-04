@@ -12,7 +12,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { LandlordRoutingModule } from './landlord-routing.module';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRippleModule} from '@angular/material/core';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterHomestayComponent } from './register-homestay/register-homestay.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -20,6 +20,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 
 import { enviroment } from 'src/enviroment/enviroment';
 import { initializeApp } from 'firebase/app';
+import { BookingComponent } from './booking/booking.component';
 
 
 
@@ -28,6 +29,7 @@ import { initializeApp } from 'firebase/app';
     DashboardComponent,
     RegisterHomestayComponent,
     ProfileComponent,
+    BookingComponent,
 
   ],
   imports: [
@@ -46,7 +48,8 @@ import { initializeApp } from 'firebase/app';
     AngularFireModule,
     AngularFireModule.initializeApp(enviroment.firebaseConfig) ,
     MatSelectModule,
-    MatRippleModule
+    MatRippleModule,
+    MatPaginatorModule
   ]
 })
 export class LandlordModule { }
