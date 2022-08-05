@@ -23,7 +23,7 @@ export class ServerHttpService {
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
-  public verifyLandlord(requestId : string, isAccepted:boolean,rejectMessage:string){
+  public verifyHomestay(requestId : string, isAccepted:boolean,rejectMessage:string){
     var value = {
       isAccepted,rejectMessage
     }
@@ -31,6 +31,12 @@ export class ServerHttpService {
     return this.httpClient
     .patch<any>(url,value,this.httpOptions)
     .pipe(catchError(this.handleError));
+  }
+  public getRequestHomestayDetail(){
+    const url = `${this.REST_API_SERVER}/api/request/homestay/`+localStorage.getItem("id")+``;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse) {
     return throwError(

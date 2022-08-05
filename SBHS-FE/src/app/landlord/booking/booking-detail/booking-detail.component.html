@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="card">
+  <!-- <div class="card">
     <h1>Passenger Information</h1>
     <div class="landlord">
       <div class="avatar">
@@ -9,37 +9,37 @@
       </div>
       <div class="infor">
         <div class="infor-row">
-          <div class="infor-col">
+          <div class="infor-col"> -->
             <!-- Full name -->
-            <div class="fill">
+            <!-- <div class="fill">
               <div class="fill-text">
                 <p>Name:</p>
               </div>
               <div class="fill-input">
                 <p>Nguyen Phuong Quansd Quaasdasdasdng Quanasdasdg</p>
               </div>
-            </div>
+            </div> -->
             <!-- email -->
-            <div class="fill">
+            <!-- <div class="fill">
               <div class="fill-text">
                 <p>Email:</p>
               </div>
               <div class="fill-input">
                 <p>quang@gmail.com</p>
               </div>
-            </div>
+            </div> -->
             <!-- Day of birth -->
-            <div class="fill">
+            <!-- <div class="fill">
               <div class="fill-text">
                 <p>Day of Birth:</p>
               </div>
               <div class="fill-input">
                 <p>01/01/1999</p>
               </div>
-            </div>
+            </div> -->
 
             <!-- Address -->
-            <div class="fill">
+            <!-- <div class="fill">
               <div class="fill-text">
                 <p>Address:</p>
               </div>
@@ -49,27 +49,27 @@
             </div>
 
           </div>
-          <div class="infor-col">
+          <div class="infor-col"> -->
             <!-- Role -->
-            <div class="fill">
+            <!-- <div class="fill">
               <div class="fill-text">
                 <p>Role:</p>
               </div>
               <div class="fill-input">
                 <p>Passenger</p>
               </div>
-            </div>
+            </div> -->
             <!-- Gender -->
-            <div class="fill">
+            <!-- <div class="fill">
               <div class="fill-text">
                 <p>Gender:</p>
               </div>
               <div class="fill-input">
                 <p>Male</p>
               </div>
-            </div>
+            </div> -->
             <!-- Phone -->
-            <div class="fill">
+            <!-- <div class="fill">
               <div class="fill-text">
                 <p>Phone:</p>
               </div>
@@ -78,15 +78,15 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
 
-
+<!-- 
       </div>
 
-    </div>
+    </div> -->
 
-  </div>
+  <!-- </div> -->
   <div class="card">
     <h1>Booking Information</h1>
     <div class="card-image">
@@ -112,7 +112,7 @@
                   <p>Name:</p>
                 </div>
                 <div class="fill-input">
-                  <p>Nguyen Phuong Quang Homestay</p>
+                  <p>{{values["homestayName"]}}</p>
                 </div>
               </div>
               <!-- Price -->
@@ -217,30 +217,12 @@
               </div>
 
               <!-- Service 1 -->
-              <div class="fill">
+              <div class="fill" *ngFor="let item of homestayServiceList">
                 <div class="fill-text">
-                  <p>No.1 Service</p>
+                  <p>{{item.name}}</p>
                 </div>
                 <div class="fill-input">
-                  <p> price: $1</p>
-                </div>
-              </div>
-              <!-- Service 2 -->
-              <div class="fill">
-                <div class="fill-text">
-                  <p>No.2 Service</p>
-                </div>
-                <div class="fill-input">
-                  <p> price: $2</p>
-                </div>
-              </div>
-              <!-- Service 3 -->
-              <div class="fill">
-                <div class="fill-text">
-                  <p>No.3 Service</p>
-                </div>
-                <div class="fill-input">
-                  <p> price: $3</p>
+                  <p> {{item.price}}</p>
                 </div>
               </div>
               <div class="fill day-night">
@@ -257,41 +239,41 @@
 
             <div class="infor-col">
               <!-- Facility -->
-              <div class="fill ">
+              <!-- <div class="fill ">
                 <div class="fill-text">
                   <h2>Facility</h2>
                 </div>
                 <div class="fill-input">
                   <p> </p>
                 </div>
-              </div>
+              </div> -->
               <!-- No1 -->
-              <div class="fill ">
+              <!-- <div class="fill ">
                 <div class="fill-text">
                   <p>No.1 Facility</p>
                 </div>
                 <div class="fill-input">
                   <p>amount: 1 </p>
                 </div>
-              </div>
+              </div> -->
               <!-- No1 -->
-              <div class="fill ">
+              <!-- <div class="fill ">
                 <div class="fill-text">
                   <p>No.1 Facility</p>
                 </div>
                 <div class="fill-input">
                   <p>amount: 1 </p>
                 </div>
-              </div>
+              </div> -->
               <!-- No1 -->
-              <div class="fill ">
+              <!-- <div class="fill ">
                 <div class="fill-text">
                   <p>No.1 Facility</p>
                 </div>
                 <div class="fill-input">
                   <p>amount: 1 </p>
                 </div>
-              </div>
+              </div> -->
 
 
             </div>
@@ -309,7 +291,7 @@
             <div class="infor-col">
               <div class="fill ">
                 <div class="fill-text money">
-                  <p>$200.000</p>
+                  <p>{{values["totalPrice"]}}</p>
                 </div>
               </div>
             </div>

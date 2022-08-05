@@ -31,7 +31,7 @@
               <td>{{post.status}}</td>
               <!-- <td>{{post}}</td> -->
               <td>
-                <button mat-icon-button  color="primary"  ><i class="fa-solid fa-eye"></i></button>
+                <button mat-icon-button  color="primary" (click)="onItemSelector(post.id);" routerLink="/Admin/RequestHomestay/RequestHomestayDetail" routerLinkActive="active" ><i class="fa-solid fa-eye"></i></button>
                   <button mat-icon-button color="accent"  (click)="onItemSelector(post.id);" (click)="accept()" ><i class="fa-solid fa-check"></i></button>
                   <button mat-icon-button color="warn" (click)="onItemSelector(post.id);" (click)="reject()" ><i class="fa-solid fa-xmark"></i></button>
               </td>

@@ -11,7 +11,7 @@
                 <p>Landlord Name:</p>
               </div>
               <div class="fill-input">
-                <p>Nguyen Phuong Quang </p>
+                <p>{{createdBy}}</p>
               </div>
             </div>
             <!-- Homestay name -->
@@ -20,7 +20,7 @@
                 <p>Homestay Name:</p>
               </div>
               <div class="fill-input">
-                <p>Nguyen Phuong Quang Homestay</p>
+                <p>{{homestayName}}</p>
               </div>
             </div>
             <!-- Price -->
@@ -29,7 +29,7 @@
                 <p>Price:</p>
               </div>
               <div class="fill-input price">
-                <p>1000</p>
+                <p>{{price}}</p>
               </div>
             </div>
             <!-- Check-in time -->
@@ -38,7 +38,7 @@
                 <p>Check-in time:</p>
               </div>
               <div class="fill-input">
-                <p>01:01 AM</p>
+                <p>{{checkInTime}}</p>
               </div>
             </div>
             <!-- Address -->
@@ -47,7 +47,7 @@
                 <p>Address:</p>
               </div>
               <div class="fill-input-address">
-                <p>123 Pham Van Dong q. Thu duc 123 Pham Van Dong q. Thu duc</p>
+                <p>{{address}}</p>
               </div>
             </div>
           </div>
@@ -58,7 +58,7 @@
                 <p>Email:</p>
               </div>
               <div class="fill-input">
-                <p>quang@gmail.com</p>
+                <p>{{createdByEmail}}</p>
               </div>
             </div>
             <!-- Number of room -->
@@ -67,7 +67,7 @@
                 <p>Number of room:</p>
               </div>
               <div class="fill-input">
-                <p>1</p>
+                <p>{{numberOfRoom}}</p>
               </div>
             </div>
             <!-- Gender -->
@@ -76,7 +76,7 @@
                 <p>City:</p>
               </div>
               <div class="fill-input">
-                <p>TP.HCM</p>
+                <p>{{city}}</p>
               </div>
             </div>
             <!-- Check-out time -->
@@ -85,7 +85,7 @@
                 <p>Check-out time:</p>
               </div>
               <div class="fill-input">
-                <p>01:01 AM</p>
+                <p>{{CheckOutTime}}</p>
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@
               <p>Description:</p>
             </div>
             <div class="fill-input-address">
-              <textarea readonly>123 Pham Van Dong q. Thu duc 123 Pham Van Dong q. Thu duc</textarea>
+              <textarea readonly>{{description}}</textarea>
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@
     <h1 class="header">Image License</h1>
     <div class="image">
       <div class="image-file">
-        <img src="/assets/image/1.jpg">
+        <img src="{{imageLicenseUrl}}">
       </div>
 
 
@@ -120,31 +120,9 @@
   <div class="card card-image">
     <h1 class="header">Image Homstay</h1>
     <div class="image">
-      <div class="image-file">
-        <img src="/assets/image/1.jpg">
+      <div class="image-file" *ngFor="let item of homestayImagesList">
+        <img src="{{item.url}}">
       </div>
-      <div class="image-file">
-        <img src="/assets/image/2.jpg">
-      </div>
-      <div class="image-file">
-        <img src="/assets/image/3.jpg">
-      </div>
-      <div class="image-file">
-        <img src="/assets/image/4.jpg">
-      </div>
-      <div class="image-file">
-        <img src="/assets/image/4.jpg">
-      </div>
-      <div class="image-file">
-        <img src="/assets/image/4.jpg">
-      </div>
-      <div class="image-file">
-        <img src="/assets/image/4.jpg">
-      </div>
-      <div class="image-file">
-        <img src="/assets/image/4.jpg">
-      </div>
-
     </div>
   </div>
 
@@ -157,54 +135,28 @@
         <div class="infor-col">
 
           <!-- number 1 -->
-          <div class="fill">
+          <div class="fill" *ngFor="let item of homestayFacilityList">
             <!-- NO -->
-            <div class="fill-text">
+            <!-- <div class="fill-text">
               <p>NO.</p>
               <p class="number">1</p>
-            </div>
+            </div> -->
             <!-- Name -->
             <div class="fill-text">
               <p>Name:</p>
             </div>
             <div class="fill-input">
-              <p>Nguyen Phuong Quang Homestay</p>
+              <p>{{item.name}}</p>
             </div>
-            <div class="fill-text">
+            <!-- <div class="fill-text">
               <p>Icon.</p>
               <p class="number">1</p>
-            </div>
+            </div> -->
             <div class="fill-text">
-              <p>Amount.</p>
-              <p class="number">1</p>
+              <p>Amount: </p>
+              <p class="number">{{item.amount}}</p>
             </div>
           </div>
-
-          <!-- number 2 -->
-          <div class="fill">
-            <!-- NO -->
-            <div class="fill-text">
-              <p>NO.</p>
-              <p class="number">1</p>
-            </div>
-            <!-- Name -->
-            <div class="fill-text">
-              <p>Name:</p>
-            </div>
-            <div class="fill-input">
-              <p>Nguyen Phuong Quang Homestay</p>
-            </div>
-            <div class="fill-text">
-              <p>Icon.</p>
-              <p class="number">1</p>
-            </div>
-            <div class="fill-text">
-              <p>Amount.</p>
-              <p class="number">1</p>
-            </div>
-          </div>
-
-
         </div>
       </div>
     </div>
@@ -220,60 +172,33 @@
         <div class="infor-col">
 
           <!-- number 1 -->
-          <div class="fill">
+          <div class="fill" *ngFor="let item of homestayAftercareList">
             <!-- NO -->
-            <div class="fill-text">
+            <!-- <div class="fill-text">
               <p>NO.</p>
               <p class="number">1</p>
-            </div>
+            </div> -->
             <!-- Name -->
             <div class="fill-text">
               <p>Name:</p>
             </div>
             <div class="fill-input">
-              <p>Nguyen Phuong Quang Homestay</p>
+              <p>{{item.name}}</p>
             </div>
-            <div class="fill-text">
+            <!-- <div class="fill-text">
               <p>Icon.</p>
               <p class="number">1</p>
-            </div>
+            </div> -->
             <div class="fill-text">
-              <p>Price.</p>
-              <p class="number">1</p>
+              <p>Price: {{item.price}} VND</p>
             </div>
           </div>
-
-          <!-- number 2 -->
-          <div class="fill">
-            <!-- NO -->
-            <div class="fill-text">
-              <p>NO.</p>
-              <p class="number">1</p>
-            </div>
-            <!-- Name -->
-            <div class="fill-text">
-              <p>Name:</p>
-            </div>
-            <div class="fill-input">
-              <p>Nguyen Phuong Quang Homestay</p>
-            </div>
-            <div class="fill-text">
-              <p>Icon.</p>
-              <p class="number">1</p>
-            </div>
-            <div class="fill-text">
-              <p>Price.</p>
-              <p class="number">1</p>
-            </div>
-          </div>
-
-
         </div>
       </div>
     </div>
   </div>
   <div class="button">
-    <button class="btn-denied" mat-raised-button>Denied</button>
-    <button class="btn-accept" mat-raised-button>Accept</button>
+    <button class="btn-accept" mat-raised-button (click)="accept()">Accept</button>
+    <button class="btn-denied" mat-raised-button (click)="reject()">Denied</button>
   </div>
 </div>

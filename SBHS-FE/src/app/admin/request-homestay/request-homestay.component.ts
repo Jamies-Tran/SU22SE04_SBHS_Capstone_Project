@@ -28,9 +28,10 @@ export class RequestHomestayComponent implements OnInit {
   public rejectMessage = "";
   public onItemSelector(value :number) {
         this.Id=value;
+        localStorage.setItem("id",value+"")
     }
   public accept(){
-    this.http.verifyLandlord(this.Id +"",this.isAccept,this.rejectMessage).subscribe((data =>{
+    this.http.verifyHomestay(this.Id +"",this.isAccept,this.rejectMessage).subscribe((data =>{
       if(data !=null){
         location.reload();
       }
@@ -42,7 +43,8 @@ export class RequestHomestayComponent implements OnInit {
     })
   }
   public reject(){
-    this.http.verifyLandlord(this.Id +"",this.isReject,this.rejectMessage).subscribe((data =>{
+    this.rejectMessage = "not enough condition"
+    this.http.verifyHomestay(this.Id +"",this.isReject,this.rejectMessage).subscribe((data =>{
       if(data !=null){
         location.reload();
       }

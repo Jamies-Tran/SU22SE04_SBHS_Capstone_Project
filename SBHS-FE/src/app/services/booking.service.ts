@@ -38,6 +38,12 @@ export class ServerHttpService {
     .patch<any>(url,value,this.httpOptions)
     .pipe(catchError(this.handleError));
   }
+  public getBookingDetail() {
+    const url = `${this.REST_API_SERVER}/api/booking/permit-all/get/`+localStorage.getItem("id")+``;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
   private handleError(error: HttpErrorResponse) {
     return throwError(
       error.error["message"]);
