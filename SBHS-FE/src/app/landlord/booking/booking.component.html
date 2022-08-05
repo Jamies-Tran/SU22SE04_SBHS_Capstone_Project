@@ -6,11 +6,9 @@
     <!-- <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div> -->
     <div class="body-container">
       <div>
-        <select [(ngModel)]="status">
-        <option>All</option>
-        <option>Pending</option>
-        <option>Accept</option>
-        <option>Reject</option>
+        <select [(ngModel)]="name" *ngFor="let item of valueName" >
+        <option *ngIf="valueName.lenght <= 1">All</option>
+        <option>{{item.name}}</option>
       </select>
       </div>
       <div>
@@ -42,12 +40,12 @@
           totalItems: count
         };
         let i = index">
-          <td>{{post.name}}</td>
+          <!-- <td>{{post.name}}</td>
           <td>{{post.mobile}}</td>
           <td>{{post.email}}</td>
           <td>{{post.arrive}}</td>
           <td>{{post.depart}}</td>
-          <td>{{post.homestay}}</td>
+          <td>{{post.homestay}}</td> -->
 
           <td>
 
