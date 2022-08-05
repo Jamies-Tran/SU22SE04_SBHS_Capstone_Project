@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterHomestayComponent } from './register-homestay/register-homestay.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BookingComponent } from './booking/booking.component';
+import { BookingDetailComponent } from './booking/booking-detail/booking-detail.component';
 
 
 
@@ -18,6 +19,9 @@ const routes: Routes = [
       { path: 'RegisterHomestay', component: RegisterHomestayComponent },
       { path: 'Profile', component: ProfileComponent },
       { path: 'Booking', component: BookingComponent },
+      { path: 'Booking', children:[
+        { path: 'BookingDetail', component: BookingDetailComponent },
+      ] },
 
     ],
   },

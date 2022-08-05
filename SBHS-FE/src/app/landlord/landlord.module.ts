@@ -24,6 +24,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { enviroment } from 'src/enviroment/enviroment';
 import { initializeApp } from 'firebase/app';
 import { BookingComponent } from './booking/booking.component';
+import { BookingDetailComponent } from './booking/booking-detail/booking-detail.component';
 
 
 
@@ -33,6 +34,7 @@ import { BookingComponent } from './booking/booking.component';
     RegisterHomestayComponent,
     ProfileComponent,
     BookingComponent,
+    BookingDetailComponent,
 
   ],
   imports: [
