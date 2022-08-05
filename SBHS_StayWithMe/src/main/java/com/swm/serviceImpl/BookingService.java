@@ -204,6 +204,8 @@ public class BookingService implements IBookingService {
 			throw new ResourceNotFoundException(bookingOtp, "Booking otp not correct");
 		}
 	}
+	
+	
 
 	@Transactional
 	@Override
@@ -293,15 +295,15 @@ public class BookingService implements IBookingService {
 	/*
 	 * Key là checkin, value là checkout
 	 */
-	private Map<Date, Date> getBookingDateKeyValuePair(HomestayEntity homestayEntity) {
-		Map<Date, Date> bookingDateKeyValuePair = new HashMap<Date, Date>();
-		List<BookingEntity> bookingEntityList = homestayEntity.getBooking();
-		bookingEntityList.forEach(b -> {
-			bookingDateKeyValuePair.put(b.getCheckIn(), b.getCheckOut());
-		});
-
-		return bookingDateKeyValuePair;
-	}
+//	private Map<Date, Date> getBookingDateKeyValuePair(HomestayEntity homestayEntity) {
+//		Map<Date, Date> bookingDateKeyValuePair = new HashMap<Date, Date>();
+//		List<BookingEntity> bookingEntityList = homestayEntity.getBooking();
+//		bookingEntityList.forEach(b -> {
+//			bookingDateKeyValuePair.put(b.getCheckIn(), b.getCheckOut());
+//		});
+//
+//		return bookingDateKeyValuePair;
+//	}
 
 	@Override
 	public BookingEntity checkOutRequest(Long bookingId, String paymentMethod) {

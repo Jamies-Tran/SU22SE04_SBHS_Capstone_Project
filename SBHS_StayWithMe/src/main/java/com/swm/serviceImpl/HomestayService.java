@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.swm.entity.BookingEntity;
@@ -151,10 +152,11 @@ public class HomestayService implements IHomestayService {
 	}
 
 	@Override
-	public List<HomestayEntity> findHomestayListByOwnerName(String landlordName) {
+	public List<HomestayEntity> findHomestayListByOwnerName() {
+		UserDetails userDetails = authenticationService.getAuthenticatedUser();
 		List<HomestayEntity> homestayEntityList = this.getHomestayBookingAvailableList();
 		List<HomestayEntity> ownerHomestayList = homestayEntityList.stream()
-				.filter(homestay -> homestay.getLandlordOwner().getLandlordAccount().getUsername().equals(landlordName))
+				.filter(homestay -> homestay.getLandlordOwner().getLandlordAccount().getUsername().equals(userDetails.getUsername()))
 				.collect(Collectors.toList());
 
 		return ownerHomestayList;

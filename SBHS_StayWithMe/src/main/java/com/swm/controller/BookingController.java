@@ -150,13 +150,6 @@ public class BookingController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-//	@GetMapping("/date-list/{bookingId}")
-//	@PreAuthorize("hasAuthority('booking:view')")
-//	public ResponseEntity<?> getBookingDateList(@PathVariable("bookingId") Long bookingId) {
-//		List<String> bookingDateList = bookingService.getHomestayBookingDate(bookingId);
-//
-//		return new ResponseEntity<>(bookingDateList, HttpStatus.OK);
-//	}
 
 	@GetMapping("/permit-all/booking-list/{homestayName}")
 	public ResponseEntity<?> getAllHomestayBooking(@PathVariable("homestayName") String homestayName) {
@@ -175,5 +168,13 @@ public class BookingController {
 				.map(b -> bookingConvert.bookingToDto(b)).collect(Collectors.toList());
 		
 		return new ResponseEntity<>(bookingResponseList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/permit-all/get/{bookingId}")
+	public ResponseEntity<?> getBookingById(@PathVariable("bookingId") Long Id) {
+		BookingEntity bookingEntity = bookingService.findBookingById(Id);
+		BookingResponseDto bookingResponseDto = bookingConvert.bookingToDto(bookingEntity);
+		
+		return new ResponseEntity<>(bookingResponseDto, HttpStatus.OK);
 	}
 }

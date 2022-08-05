@@ -18,7 +18,7 @@ public interface IHomestayService {
 	
 	List<HomestayEntity> findHomestayBookingAvailableListByCity(String city);
 	
-	List<HomestayEntity> findHomestayListByOwnerName(String landlordName);
+	List<HomestayEntity> findHomestayListByOwnerName();
 
 	HomestayEntity createHomestay(HomestayEntity homestay, HomestayLicenseImageEntity homestayLicense,
 											List<HomestayImageEntity> homestayImages, 

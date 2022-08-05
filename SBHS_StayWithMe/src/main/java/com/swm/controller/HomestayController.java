@@ -116,6 +116,15 @@ public class HomestayController {
 		return new ResponseEntity<>(homestayResponseListDto, HttpStatus.OK);
 	}
 	
+	@GetMapping("/permit-all/owner-list")
+	public ResponseEntity<?> getOwnerHomestayList() {
+		List<HomestayEntity> homestayEntityList = homestayService.findHomestayListByOwnerName();
+		List<HomestayCompleteInfoDto> homestayResponseListDto = homestayEntityList.stream()
+				.map(h -> homestayConvert.homestayCompleteInfoDtoConvert(h)).sorted(Collections.reverseOrder()).collect(Collectors.toList());
+
+		return new ResponseEntity<>(homestayResponseListDto, HttpStatus.OK);
+	}
+	
 	@GetMapping("/permit-all/available-list")
 	public ResponseEntity<?> getAvailableHomestayList() {
 		List<HomestayEntity> homestayEntityList = homestayService.getHomestayBookingAvailableList();
