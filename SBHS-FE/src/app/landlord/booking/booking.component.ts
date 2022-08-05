@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { ServerHttpService } from 'src/app/services/booking.service';
 
 @Component({
   selector: 'app-booking',
@@ -18,13 +19,19 @@ export class BookingComponent implements OnInit {
   tableSizes: any= [5,10,15,20];
   values : data[] = [];
 
-  public status ="All";
-
-  constructor() { }
+  public name ="All";
+  valueName:any;
+  constructor(private http: ServerHttpService) { }
 
   ngOnInit(): void {
+    this.http.getHomestayName().subscribe((data =>{
+      this.valueName = data;
+    }),
+    error => {
+      alert(error)
+    })
   }
-
+  
   onTableDataChange(event: any){
     this.page = event;
     this.values;
@@ -36,11 +43,13 @@ export class BookingComponent implements OnInit {
   }
 }
 export interface data{
-  name: string;
-  mobile: string;
-  email: string;
-  arrive: string;
-  depart: string;
-  homestay:string;
-
+  passengerName:string,
+  homestayName:string,
+  homestayServiceList:Array<object>,
+  checkIn:string,
+  checkOut:string,
+  totalPrice:string,
+  status:string,
+  deposite:string,
+  id:string
 }

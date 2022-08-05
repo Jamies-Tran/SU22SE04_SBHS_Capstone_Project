@@ -8,20 +8,15 @@ import { ServerHttpService } from 'src/app/services/verify-homestay.service';
 })
 export class RequestHomestayComponent implements OnInit {
   values : data[] = [];
-  
-  // displayedColumns: string[] = ['id', 'createdBy', 'createdDate', 'type', 'status', 'actions'];
-  // dataSource= new MatTableDataSource(this.values);
-
-
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
-  // @ViewChild(MatSort) sort!: MatSort;
-
+  public status ="All";
   constructor(private http: ServerHttpService) {
   } 
   ngOnInit(): void {
-    this.http.getLanlord().subscribe((data =>{
+   this.getStatusHomestay(); 
+  }
+  public getStatusHomestay(){
+    this.http.getRequestHomestay(this.status).subscribe((data =>{
       this.values = data;
-      console.log(this.values)
     }),
     error =>{
       alert(error)

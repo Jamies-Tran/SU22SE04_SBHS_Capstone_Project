@@ -64,8 +64,8 @@ export class RequestComponent  implements OnInit{
   title ='pagination';
   page: number=1;
   count:number=0;
-  tableSize: number = 1;
-  tableSizes: any = [1,2,15,20];
+  tableSize: number = 15;
+  tableSizes: any = [15,20];
 
   onTableDataChange(event: any){
     this.page = event;

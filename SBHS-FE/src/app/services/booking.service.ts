@@ -17,8 +17,14 @@ export class ServerHttpService {
   public model: any = {};
   private REST_API_SERVER = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) { }
-  public getRequestHomestay(status: string) {
-    const url = `${this.REST_API_SERVER}/api/request/homestay/list/`+status+``;
+  public getHomestayName(){
+    const url = `${this.REST_API_SERVER}/api/homestay/permit-all/owner-list`;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+  public getListHomestay(name: string) {
+    const url = `${this.REST_API_SERVER}/api/booking/permit-all/booking-list/`+name+``;
     return this.httpClient
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
