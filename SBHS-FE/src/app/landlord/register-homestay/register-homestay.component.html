@@ -12,6 +12,7 @@
         <div class="input-content">
           <div class="add-input row">
             <div class="col left">
+              <!-- name -->
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Homestay's Name</mat-label>
@@ -19,6 +20,7 @@
                     formControlName="homestayName">
                 </mat-form-field>
               </div>
+              <!-- address -->
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Address</mat-label>
@@ -26,12 +28,14 @@
                     formControlName="address" required>
                 </mat-form-field>
               </div>
+              <!-- check in -->
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Check-in time</mat-label>
                   <input id="check-in" type="time" matInput required formControlName="checkInTime">
                 </mat-form-field>
               </div>
+
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Number of Room</mat-label>
@@ -469,32 +473,7 @@
         <div class="input-content">
           <div class="add-input row">
             <div class="col left">
-              <div>
-                <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>Homestay's Name</mat-label>
-                  <input id="name" matInput placeholder="StaywithMe Homestay"  required
-                    >
-                </mat-form-field>
-              </div>
-              <div>
-                <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>Address</mat-label>
-                  <input id="address" type="text" matInput placeholder="123 Quang Trung p.1 Q.1"
-                    formControlName="address" required>
-                </mat-form-field>
-              </div>
-              <div>
-                <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>Check-in time</mat-label>
-                  <input id="check-in" type="time" matInput required >
-                </mat-form-field>
-              </div>
-              <div>
-                <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>Number of Room</mat-label>
-                  <input id="number" type="number" matInput placeholder="1" required >
-                </mat-form-field>
-              </div>
+
 
 
             </div>
