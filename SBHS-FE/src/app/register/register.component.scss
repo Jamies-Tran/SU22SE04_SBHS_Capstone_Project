@@ -122,7 +122,9 @@
           .register-col {
 
             .register-text {
-
+              .blank{
+                height: 77.88px;
+              }
               .mat-form-field {
                 width: 75%;
 
@@ -141,6 +143,8 @@
 
         .uploadimage{
           font-size: 20px;
+    text-align: left;
+    margin-left: 13%;
         }
 
         .btn-register {
@@ -157,12 +161,17 @@
         .rember-me {
           text-align: left;
           margin-left: 13%;
+          margin-top: 2%;
           a{
             font-size: 18px ;
 
           }
         }
-
+.polici{
+  color: red;
+  margin-left: 13%;
+  text-align: left;
+}
 
 
         .register {

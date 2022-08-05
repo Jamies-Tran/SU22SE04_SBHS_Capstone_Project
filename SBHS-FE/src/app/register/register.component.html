@@ -31,7 +31,9 @@
 
       <div class="register-container">
         <form action="RegisterController" method="POST" (ngSubmit)="register()">
-          <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div>
+          <div *ngIf="registerError != null">
+            <h1 style="color: red;">{{registerError}}</h1>
+          </div>
           <div class="register-header">
             Register
           </div>
@@ -88,13 +90,14 @@
                 <mat-form-field appearance="outline">
                   <mat-label>Gender</mat-label>
                   <mat-icon matPrefix><i class="fa-solid fa-mars-and-venus"></i></mat-icon>
-                  <mat-select placeholder="Gender" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" >
+                  <mat-select placeholder="Gender" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}">
                     <mat-option value="Male">Male </mat-option>
                     <mat-option value="Female">Female </mat-option>
                   </mat-select>
                 </mat-form-field>
 
               </div>
+
             </div>
             <!-- address -->
             <div class="register-col col">
@@ -122,7 +125,8 @@
               <div class="register-text">
                 <mat-form-field appearance="outline">
                   <mat-label>Phone Number</mat-label>
-                  <input matInput placeholder="09123456789" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" required>
+                  <input matInput placeholder="09123456789" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}"
+                    required>
                   <mat-icon matPrefix><i class="fa-solid fa-phone"></i></mat-icon>
 
                 </mat-form-field>
@@ -139,28 +143,50 @@
                 </mat-form-field>
 
               </div>
+              <!-- Day of birth -->
+              <div class="register-text">
+                <div class="blank"></div>
+
+              </div>
+
 
 
             </div>
 
 
           </div>
-          <div class="uploadimage">
-            <p>Upload font your Citizen ID</p>
-            <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="citizenIdentificationUrlFront"
-              [ngModelOptions]="{standalone: true}" required>
+          <div class="register-row row">
+            <div class="register-col col">
+              <div class="register-text">
+
+
+                <div class="uploadimage">
+                  <p>Upload font your Citizen ID</p>
+                  <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="citizenIdentificationUrlFront"
+                    [ngModelOptions]="{standalone: true}" required>
+                </div>
+              </div>
+            </div>
+            <div class="register-col col">
+              <div class="register-text">
+                <div class="uploadimage">
+                  <p>Upload back your Citizen ID</p>
+                  <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="citizenIdentificationUrlBack"
+                    [ngModelOptions]="{standalone: true}" required>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="uploadimage">
-            <p>Upload back your Citizen ID</p>
-            <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="citizenIdentificationUrlBack"
-              [ngModelOptions]="{standalone: true}" required>
-          </div>
-          <div *ngIf="validPolice === false" style="color: red; ">Read Polices and tick a box</div>
+
+
+
           <div class="rember-me">
+
             <section>
-              <mat-checkbox name="checkbox" [(ngModel)]="polices" [ngModelOptions]="{standalone: true}" color="primary" required> I agree <a
-                  routerLink="/Policies">policies</a> </mat-checkbox>
+              <mat-checkbox name="checkbox" [(ngModel)]="polices" [ngModelOptions]="{standalone: true}" color="primary"
+                required> I agree <a routerLink="/Policies">policies</a> </mat-checkbox>
             </section>
+            <div class="err-polici" *ngIf="validPolice === false" style="color: red; ">Read Polices and tick a box</div>
           </div>
           <button type="submit" mat-button class="btn-register" name="btnRegister">Register</button>
           <div class="register">
