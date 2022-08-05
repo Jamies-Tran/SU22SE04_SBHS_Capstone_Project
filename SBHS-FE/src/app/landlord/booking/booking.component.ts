@@ -28,9 +28,13 @@ export class BookingComponent implements OnInit {
   registerError: string ="";
   constructor(private http: ServerHttpService) { }
 
+ 
   ngOnInit(): void {
     this.getRequestBookingByName();
     this.getHomestayName()
+    this.http.getBookingDetail().subscribe((data=>{
+
+    }))
   }
 
   public getHomestayName(){

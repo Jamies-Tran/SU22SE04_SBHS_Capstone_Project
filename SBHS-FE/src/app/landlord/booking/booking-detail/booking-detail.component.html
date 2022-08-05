@@ -1,4 +1,5 @@
 <div class="wrapper">
+  <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div>
   <!-- <div class="card">
     <h1>Passenger Information</h1>
     <div class="landlord">
@@ -109,28 +110,36 @@
               <!-- Full name -->
               <div class="fill">
                 <div class="fill-text">
+                  <p>Booker:</p>
+                </div>
+                <div class="fill-input">
+                  <p>{{passengerName}}</p>
+                </div>
+              </div>
+              <div class="fill">
+                <div class="fill-text">
                   <p>Name:</p>
                 </div>
                 <div class="fill-input">
-                  <p>{{values["homestayName"]}}</p>
+                  <p>{{homestayName}}</p>
                 </div>
               </div>
               <!-- Price -->
-              <div class="fill">
+              <!-- <div class="fill">
                 <div class="fill-text">
                   <p>Price:</p>
                 </div>
                 <div class="fill-input price">
-                  <p>1000</p>
+                  <p>{{price}}</p>
                 </div>
-              </div>
+              </div> -->
               <!-- Check-in time -->
               <div class="fill">
                 <div class="fill-text">
-                  <p>Check-in time:</p>
+                  <p>Check-in: </p>
                 </div>
                 <div class="fill-input">
-                  <p>01/01/1999</p>
+                  <p>{{checkIn}}</p>
                 </div>
               </div>
               <!-- Address -->
@@ -139,7 +148,7 @@
                   <p>Address:</p>
                 </div>
                 <div class="fill-input-address">
-                  <p>123 Pham Van Dong q. Thu duc 123 Pham Van Dong q. Thu duc</p>
+                  <p>{{homestayLocation}}</p>
                 </div>
               </div>
             </div>
@@ -150,7 +159,7 @@
                   <p>Number of room:</p>
                 </div>
                 <div class="fill-input">
-                  <p>Landlord</p>
+                  <p>3</p>
                 </div>
               </div>
               <!-- Gender -->
@@ -159,16 +168,16 @@
                   <p>City:</p>
                 </div>
                 <div class="fill-input">
-                  <p>Male</p>
+                  <p>{{homestayCity}}</p>
                 </div>
               </div>
               <!-- Check-out time -->
               <div class="fill">
                 <div class="fill-text">
-                  <p>Check-out time:</p>
+                  <p>Check-out: </p>
                 </div>
                 <div class="fill-input">
-                  <p>09123456789</p>
+                  <p>{{checkOut}}</p>
                 </div>
               </div>
               <!-- blank-->
@@ -189,17 +198,17 @@
             <div class="infor-col">
               <div class="fill ">
                 <div class="fill-text">
-                  <p>1 Rooms, 2 Day, 3 Night</p>
+                  <p>1 Homestay</p>
                 </div>
               </div>
             </div>
-            <div class="infor-col">
+            <!-- <div class="infor-col">
               <div class="fill ">
                 <div class="fill-text money">
                   <p>$100.000</p>
                 </div>
               </div>
-            </div>
+            </div> -->
 
           </div>
           <hr>
@@ -225,14 +234,14 @@
                   <p> {{item.price}}</p>
                 </div>
               </div>
-              <div class="fill day-night">
+              <!-- <div class="fill day-night">
                 <div class="fill-text">
                   <p>Service</p>
                 </div>
                 <div class="fill-text money">
                   <p>$100.000</p>
                 </div>
-              </div>
+              </div> -->
             </div>
 
 
@@ -291,7 +300,7 @@
             <div class="infor-col">
               <div class="fill ">
                 <div class="fill-text money">
-                  <p>{{values["totalPrice"]}}</p>
+                  <p>{{totalPrice}}</p>
                 </div>
               </div>
             </div>
@@ -305,7 +314,8 @@
     </div>
   </div>
   <div class="button">
-    <button class="btn-denied" mat-raised-button>Denied</button>
-    <button class="btn-accept" mat-raised-button>Accept</button>
+    <button class="btn-accept" mat-raised-button (click)="accept()">Accept</button>
+    <button class="btn-denied" mat-raised-button (click)="reject()">Denied</button>
+    
   </div>
 </div>
