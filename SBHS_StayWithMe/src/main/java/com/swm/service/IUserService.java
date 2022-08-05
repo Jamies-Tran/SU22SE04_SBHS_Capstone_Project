@@ -1,6 +1,9 @@
 package com.swm.service;
 
+import java.util.List;
+
 import com.swm.entity.BaseWalletEntity;
+import com.swm.entity.BookingEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
 
@@ -28,5 +31,7 @@ public interface IUserService {
 	UserEntity changePassword(String userInfo, String newPassword);
 	
 	void deleteUserOtp(UserOtpEntity useOtpEntity);
+	
+	
 	
 }

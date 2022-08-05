@@ -163,7 +163,17 @@ public class BookingController {
 		List<BookingEntity> homestayBookingEntityList = bookingService.getHomestayBookingList(homestayName);
 		List<BookingResponseDto> homestayBookingResponseList = homestayBookingEntityList.stream()
 				.map(b -> bookingConvert.bookingToDto(b)).collect(Collectors.toList());
-		
+
 		return new ResponseEntity<>(homestayBookingResponseList, HttpStatus.OK);
+	}
+
+	@GetMapping("/booking-list/{username}")
+	@PreAuthorize("hasRole('ROLE_PASSENGER')")
+	public ResponseEntity<?> getUserBookingList(@PathVariable("username") String username) {
+		List<BookingEntity> bookingEntityList = bookingService.getUserBookingList(username);
+		List<BookingResponseDto> bookingResponseList = bookingEntityList.stream()
+				.map(b -> bookingConvert.bookingToDto(b)).collect(Collectors.toList());
+		
+		return new ResponseEntity<>(bookingResponseList, HttpStatus.OK);
 	}
 }

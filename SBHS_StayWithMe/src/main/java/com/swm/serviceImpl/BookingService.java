@@ -88,69 +88,60 @@ public class BookingService implements IBookingService {
 		if (!homestayEntity.getStatus().equalsIgnoreCase(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name())) {
 			throw new ResourceNotAllowException(homestayEntity.getName(), "Homestay not active");
 		}
-		boolean isHomestayScheduleAvailable = this.isBookingDateValid(homestayEntity, bookingEntity.getCheckIn(),
-				bookingEntity.getCheckOut());
-		if (isHomestayScheduleAvailable) {
-			homestayEntity.setBooking(List.of(bookingEntity));
-			if (bookingEntity.getHomestayServiceBooking() != null) {
-				bookingEntity.getHomestayServiceBooking().forEach(s -> {
-					s.setBookingService(List.of(bookingEntity));
-				});
-			}
-			BookingDepositEntity bookingDepositEntity = new BookingDepositEntity();
-			bookingDepositEntity.setBookingDeposit(bookingEntity);
-			BookingOtpEntity bookingOtpEntity = new BookingOtpEntity();
-			String randomBookingOtp = RandomString.make(6);
-			bookingOtpEntity.setCode(randomBookingOtp);
-			bookingOtpEntity.setBookingContainer(bookingEntity);
-			bookingOtpEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
-			bookingOtpEntity.setCreatedDate(currentDate);
-			// PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = new
-			// PassengerShieldCancelBookingEntity();
-			PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = homestayEntity
-					.getShieldForCancelBooking();
-			if (passengerShiedCancelBookingEntity == null) {
-				passengerShiedCancelBookingEntity = new PassengerShieldCancelBookingEntity();
-				passengerShiedCancelBookingEntity.setActiveDate(currentDate);
-				passengerShiedCancelBookingEntity.setPassengerOwnerOfShield(passengerEntity);
-				passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
-				passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
-				homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
-				passengerShiedCancelBookingEntity = passengerShieldCancelBookingRepository
-						.save(passengerShiedCancelBookingEntity);
-				passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
-				homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
-			}
-//			passengerShiedCancelBookingEntity.setActiveDate(currentDate);
-//			passengerShiedCancelBookingEntity.setPassengerOwnerOfShield(passengerEntity);
-//			passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
-//			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
-//			homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
-
-//			PassengerShieldCancelBookingEntity passengerShieldCancelBookingPersisted = passengerShieldCancelBookingRepository
-//					.save(passengerShiedCancelBookingEntity);
-//			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
-//			homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
-			long totalPrice = this.calculateTotalPrice(bookingEntity.getHomestayServiceBooking(), homestayEntity,
-					bookingEntity.getCheckIn(), bookingEntity.getCheckOut());
-			long depositAmount = totalPrice * 50 / 100;
-			bookingEntity.setBookingCreator(passengerEntity);
-			bookingEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
-			bookingEntity.setCreatedDate(currentDate);
-			bookingEntity.setCheckIn(bookingEntity.getCheckIn());
-			bookingEntity.setCheckOut(bookingEntity.getCheckOut());
-			bookingEntity.setTotalPrice(totalPrice);
-			bookingEntity.setDeposit(depositAmount);
-			bookingEntity.setStatus(BookingStatus.BOOKING_PENDING.name());
-			bookingEntity.setBookingPaidDeposit(bookingDepositEntity);
-			bookingEntity.setBookingOtp(bookingOtpEntity);
-
-			BookingEntity bookingPersisted = bookingRepo.save(bookingEntity);
-
-			return bookingPersisted;
+//		boolean isHomestayScheduleAvailable = this.isBookingDateValid(homestayEntity, bookingEntity.getCheckIn(),
+//				bookingEntity.getCheckOut());
+		homestayEntity.setBooking(List.of(bookingEntity));
+		if (bookingEntity.getHomestayServiceBooking() != null) {
+			bookingEntity.getHomestayServiceBooking().forEach(s -> {
+				s.setBookingService(List.of(bookingEntity));
+			});
 		}
+		BookingDepositEntity bookingDepositEntity = new BookingDepositEntity();
+		bookingDepositEntity.setBookingDeposit(bookingEntity);
+		BookingOtpEntity bookingOtpEntity = new BookingOtpEntity();
+		String randomBookingOtp = RandomString.make(6);
+		bookingOtpEntity.setCode(randomBookingOtp);
+		bookingOtpEntity.setBookingContainer(bookingEntity);
+		bookingOtpEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
+		bookingOtpEntity.setCreatedDate(currentDate);
+		// PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = new
+		// PassengerShieldCancelBookingEntity();
+		PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = homestayEntity
+				.getShieldForCancelBooking();
+		if (passengerShiedCancelBookingEntity == null) {
+			passengerShiedCancelBookingEntity = new PassengerShieldCancelBookingEntity();
+			passengerShiedCancelBookingEntity.setActiveDate(currentDate);
+			passengerShiedCancelBookingEntity.setPassengerOwnerOfShield(passengerEntity);
+			passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
+			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
+			homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
+			passengerShiedCancelBookingEntity = passengerShieldCancelBookingRepository
+					.save(passengerShiedCancelBookingEntity);
+			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
+			homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
+		}
+//		passengerShiedCancelBookingEntity.setActiveDate(currentDate);
+//		passengerShiedCancelBookingEntity.setPassengerOwnerOfShield(passengerEntity);
+//		passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
+//		passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
+//		homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
 
-		return null;
+//		PassengerShieldCancelBookingEntity passengerShieldCancelBookingPersisted = passengerShieldCancelBookingRepository
+//				.save(passengerShiedCancelBookingEntity);
+//		passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
+//		homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
+		bookingEntity.setBookingCreator(passengerEntity);
+		bookingEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
+		bookingEntity.setCreatedDate(currentDate);
+		bookingEntity.setCheckIn(bookingEntity.getCheckIn());
+		bookingEntity.setCheckOut(bookingEntity.getCheckOut());
+		bookingEntity.setStatus(BookingStatus.BOOKING_PENDING.name());
+		bookingEntity.setBookingPaidDeposit(bookingDepositEntity);
+		bookingEntity.setBookingOtp(bookingOtpEntity);
+
+		BookingEntity bookingPersisted = bookingRepo.save(bookingEntity);
+
+		return bookingPersisted;
 	}
 
 	@Override
@@ -243,26 +234,26 @@ public class BookingService implements IBookingService {
 		return bookingEntity;
 	}
 
-	@Override
-	public boolean isBookingDateValid(HomestayEntity homestayEntity, Date checkIn, Date checkOut) {
-		Map<Date, Date> bookingDateKeyValuePair = this.getBookingDateKeyValuePair(homestayEntity);
-		for (Entry<Date, Date> bookingEntry : bookingDateKeyValuePair.entrySet()) {
-			System.out.println((bookingEntry.getValue().before(checkOut)));
-			if (bookingEntry.getKey().equals(checkIn) || bookingEntry.getValue().equals(checkOut)) {
-				// ngày check-in, check-out trùng luông lịch của booking khác
-				throw new DuplicateResourceException("Reservation schedule is duplicated");
-			} else if ((bookingEntry.getKey().before(checkIn) && bookingEntry.getValue().after(checkIn))
-					|| (bookingEntry.getKey().before(checkOut) && bookingEntry.getValue().after(checkOut)
-							|| (bookingEntry.getKey().after(checkIn) && bookingEntry.getValue().before(checkOut)))) {
-				// ngày check-in, check-out nằm trong ngày homestay có lịch booking từ trước
-				throw new ResourceNotAllowException("Homestay is on the reservation schedule");
-			} else if (checkIn.before(currentDate) || checkOut.before(currentDate) || checkOut.before(checkIn)) {
-				// check=in, check-out ngày quá khứ, check-out sau ngày check-in
-				throw new ResourceNotAllowException("Invalid booking schedule");
-			}
-		}
-		return true;
-	}
+//	@Override
+//	public boolean isBookingDateValid(HomestayEntity homestayEntity, Date checkIn, Date checkOut) {
+//		Map<Date, Date> bookingDateKeyValuePair = this.getBookingDateKeyValuePair(homestayEntity);
+//		for (Entry<Date, Date> bookingEntry : bookingDateKeyValuePair.entrySet()) {
+//			System.out.println((bookingEntry.getValue().before(checkOut)));
+//			if (bookingEntry.getKey().equals(checkIn) || bookingEntry.getValue().equals(checkOut)) {
+//				// ngày check-in, check-out trùng luông lịch của booking khác
+//				throw new DuplicateResourceException("Reservation schedule is duplicated");
+//			} else if ((bookingEntry.getKey().before(checkIn) && bookingEntry.getValue().after(checkIn))
+//					|| (bookingEntry.getKey().before(checkOut) && bookingEntry.getValue().after(checkOut)
+//							|| (bookingEntry.getKey().after(checkIn) && bookingEntry.getValue().before(checkOut)))) {
+//				// ngày check-in, check-out nằm trong ngày homestay có lịch booking từ trước
+//				throw new ResourceNotAllowException("Homestay is on the reservation schedule");
+//			} else if (checkIn.before(currentDate) || checkOut.before(currentDate) || checkOut.before(checkIn)) {
+//				// check=in, check-out ngày quá khứ, check-out sau ngày check-in
+//				throw new ResourceNotAllowException("Invalid booking schedule");
+//			}
+//		}
+//		return true;
+//	}
 
 	@Transactional
 	@Override
@@ -283,21 +274,21 @@ public class BookingService implements IBookingService {
 		return difference_in_day;
 	}
 
-	private Long calculateTotalPrice(@Nullable List<HomestayAftercareEntity> homestayServiceList,
-			HomestayEntity homestayBooking, Date checkIn, Date checkOut) {
-		long totalPrice = 0;
-		if (homestayServiceList != null) {
-			for (int i = 0; i < homestayServiceList.size(); i++) {
-				totalPrice = totalPrice + homestayServiceList.get(i).getPrice();
-			}
-		}
-
-		Long numberOfBookingDate = this.differentInDay(checkIn, checkOut);
-		long totalBookingDatePrice = homestayBooking.getPrice() * numberOfBookingDate;
-		totalPrice = totalPrice + totalBookingDatePrice;
-
-		return totalPrice;
-	}
+//	private Long calculateTotalPrice(@Nullable List<HomestayAftercareEntity> homestayServiceList,
+//			HomestayEntity homestayBooking, Date checkIn, Date checkOut) {
+//		long totalPrice = 0;
+//		if (homestayServiceList != null) {
+//			for (int i = 0; i < homestayServiceList.size(); i++) {
+//				totalPrice = totalPrice + homestayServiceList.get(i).getPrice();
+//			}
+//		}
+//
+//		Long numberOfBookingDate = this.differentInDay(checkIn, checkOut) == 0 ? 1 : this.differentInDay(checkIn, checkOut);
+//		long totalBookingDatePrice = homestayBooking.getPrice() * numberOfBookingDate;
+//		totalPrice = totalPrice + totalBookingDatePrice;
+//
+//		return totalPrice;
+//	}
 
 	/*
 	 * Key là checkin, value là checkout
@@ -440,6 +431,18 @@ public class BookingService implements IBookingService {
 				});
 
 		return bookingDateList;
+	}
+
+	@Override
+	public List<BookingEntity> getUserBookingList(String username) {
+		List<BookingEntity> bookingEntityList = bookingRepo.findAll().stream()
+				.filter(b -> b.getBookingCreator().getPassengerAccount().getUsername().equals(username))
+				.collect(Collectors.toList());
+		if(bookingEntityList.isEmpty()) {
+			throw new ResourceNotFoundException("There is no booking yet");
+		}
+		
+		return bookingEntityList;
 	}
 
 }

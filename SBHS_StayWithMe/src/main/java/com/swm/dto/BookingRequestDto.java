@@ -15,6 +15,8 @@ public class BookingRequestDto {
 	private String homestayName;
 	@Nullable
 	private List<HomestayAftercareDto> homestayServiceList;
+	private Long totalPrice;
+	private Long deposit;
 	private String checkIn;
 	private String checkOut;
 }

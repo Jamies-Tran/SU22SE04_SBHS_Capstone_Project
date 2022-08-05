@@ -16,6 +16,8 @@ public interface IBookingService {
 	
 	List<BookingEntity> getHomestayBookingList(String homestayName);
 	
+	List<BookingEntity> getUserBookingList(String username);
+	
 	List<String> getHomestayBookingDate(Long bookingId);
 	
 	BookingEntity confirmBooking(Long BookingId, boolean isAccepted, @Nullable String rejectMessage);
@@ -30,7 +32,7 @@ public interface IBookingService {
 	
 	void confirmCheckIn(Long bookingId, boolean isAccepted);
 	
-	boolean isBookingDateValid(HomestayEntity homestayEntity ,Date checkIn, Date checkOut);
+//	boolean isBookingDateValid(HomestayEntity homestayEntity ,Date checkIn, Date checkOut);
 	
 	BookingEntity deleteBooking(Long bookingId);
 

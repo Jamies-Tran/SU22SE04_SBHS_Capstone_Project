@@ -107,6 +107,7 @@ public class UserService implements IUserService {
 		PassengerWalletEntity passengerWalletEntity = new PassengerWalletEntity();
 		passengerWalletEntity.setOwner(passengerAccount);
 		passengerWalletEntity.setCreatedDate(currentDate);
+		passengerWalletEntity.setCreatedBy(userEntity.getUsername());
 		passengerAccount.setCreatedBy(userEntity.getUsername());
 		passengerAccount.setVoucherWallet(voucherWallet);
 		passengerAccount.setWallet(passengerWalletEntity);
@@ -295,10 +296,10 @@ public class UserService implements IUserService {
 			}
 			return userEntity.getLandlord().getWallet();
 		} else if(WalletType.valueOf(walletType.toUpperCase()).compareTo(WalletType.PASSENGER_WALLET) == 0) {
-			if(userEntity.getLandlord() == null) {
+			if(userEntity.getPassenger() == null) {
 				throw new ResourceNotAllowException("This account doesn't have passenger wallet");
 			}
-			return userEntity.getLandlord().getWallet();
+			return userEntity.getPassenger().getWallet();
 		}
 		
 		throw new ResourceNotFoundException("Wallet type not found.");

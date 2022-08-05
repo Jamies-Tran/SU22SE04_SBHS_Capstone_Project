@@ -42,6 +42,8 @@ public class BookingConverter {
 	public BookingEntity bookingToEntity(BookingRequestDto bookingDto) {
 		BookingEntity bookingEntity = new BookingEntity();
 		bookingEntity.setBookingHomestay(homestayService.findHomestayByName(bookingDto.getHomestayName()));
+		bookingEntity.setTotalPrice(bookingDto.getTotalPrice());
+		bookingEntity.setDeposit(bookingDto.getDeposit());
 		if(bookingDto.getHomestayServiceList() != null) {
 			List<HomestayAftercareEntity> homestayServiceList = bookingDto.getHomestayServiceList().stream()
 					.map(s -> homestayAftercareService.findHomestayServiceByName(s.getName())).collect(Collectors.toList());
