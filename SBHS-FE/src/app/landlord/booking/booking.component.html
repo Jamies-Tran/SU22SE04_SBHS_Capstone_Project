@@ -12,8 +12,8 @@
           <option>All</option>
           <option *ngFor="let item of valueName">{{item.name}}</option>
         </select>
-      </div>
-      <div>
+      </div> 
+      <div style="margin-left: 6%;">
         choose item in page:
         <select (change)="onTableSizeChange($event)">
           <option *ngFor="let size of tableSizes">
@@ -44,8 +44,8 @@
         };
         let i = index">
           <td>{{post.passengerName}}</td>
-          <td></td>
-          <td></td>
+          <td>{{post.passengerPhone}}</td>
+          <td>{{post.passengerEmail}}</td>
           <td>{{post.checkIn}}</td>
           <td>{{post.checkOut}}</td>
           <td>{{post.homestayName}}</td>

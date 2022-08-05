@@ -17,7 +17,7 @@ export class BookingComponent implements OnInit {
   count: number=0;
   tableSize: number =5;
   tableSizes: any= [5,10,15,20];
-  values : data[] = [];
+  values : any;
 
   public name ="All";
   valueName:any;
@@ -32,9 +32,6 @@ export class BookingComponent implements OnInit {
   ngOnInit(): void {
     this.getRequestBookingByName();
     this.getHomestayName()
-    this.http.getBookingDetail().subscribe((data=>{
-
-    }))
   }
 
   public getHomestayName(){
@@ -54,7 +51,7 @@ export class BookingComponent implements OnInit {
 
   public getRequestBookingByName(){
     this.http.getListHomestay(this.name).subscribe((data =>{
-      this.valueName = data
+      this.values = data
       console.log(data)
     }),
     error =>{
@@ -99,14 +96,4 @@ export class BookingComponent implements OnInit {
     this.values;
   }
 }
-export interface data{
-  passengerName:string,
-  homestayName:string,
-  homestayServiceList:Array<object>,
-  checkIn:string,
-  checkOut:string,
-  totalPrice:string,
-  status:string,
-  deposite:string,
-  id:number
-}
+

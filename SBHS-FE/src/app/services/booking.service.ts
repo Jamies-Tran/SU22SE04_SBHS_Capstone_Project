@@ -24,7 +24,7 @@ export class ServerHttpService {
       .pipe(catchError(this.handleError));
   }
   public getListHomestay(name: string) {
-    const url = `${this.REST_API_SERVER}/api/booking/permit-all/booking-list/`+name+``;
+    const url = `${this.REST_API_SERVER}/api/booking/permit-all/booking-list/`+name+`?status=all`;
     return this.httpClient
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
