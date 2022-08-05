@@ -65,7 +65,7 @@ export class RequestComponent  implements OnInit{
   page: number=1;
   count:number=0;
   tableSize: number = 15;
-  tableSizes: any = [15,20];
+  tableSizes: any = [5,10,15,20];
 
   onTableDataChange(event: any){
     this.page = event;

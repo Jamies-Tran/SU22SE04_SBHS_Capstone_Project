@@ -21,17 +21,70 @@ export class BookingComponent implements OnInit {
 
   public name ="All";
   valueName:any;
+  public Id = 0;
+  public isAccept = true;
+  public isReject = false;
+  public rejectMessage = "Homestay đang bảo trì";
+  registerError: string ="";
   constructor(private http: ServerHttpService) { }
 
   ngOnInit(): void {
+    this.getRequestBookingByName();
+    this.getHomestayName()
+  }
+
+  public getHomestayName(){
     this.http.getHomestayName().subscribe((data =>{
       this.valueName = data;
     }),
     error => {
-      alert(error)
+      if(error["status"] == 500){
+        this.registerError = "please check your information again!"
+      }else this.registerError = error["message"]
     })
   }
-  
+  public onItemSelector(id: number) {
+    this.Id=id;
+    localStorage.setItem("id", id+"");
+}
+
+  public getRequestBookingByName(){
+    this.http.getListHomestay(this.name).subscribe((data =>{
+      this.valueName = data
+      console.log(data)
+    }),
+    error =>{
+      if(error["status"] == 500){
+        this.registerError = "please check your information again!"
+      }else this.registerError = error["message"]
+    })
+  }
+  public accept(){
+    this.http.confirmHomestay(this.Id +"",this.isAccept,this.rejectMessage).subscribe((data =>{
+      if(data !=null){
+        location.reload();
+      }
+      console.log(data)
+    }),
+    error =>{
+      if(error["status"] == 500){
+        this.registerError = "please check your information again!"
+      }else this.registerError = error["message"]
+    })
+  }
+  public reject(){
+    this.http.confirmHomestay(this.Id +"",this.isReject,this.rejectMessage).subscribe((data =>{
+      if(data !=null){
+        location.reload();
+      }
+    }),
+    error =>{
+      if(error["status"] == 500){
+        this.registerError = "please check your information again!"
+      }else this.registerError = error["message"]
+    })
+  }
+
   onTableDataChange(event: any){
     this.page = event;
     this.values;
@@ -51,5 +104,5 @@ export interface data{
   totalPrice:string,
   status:string,
   deposite:string,
-  id:string
+  id:number
 }

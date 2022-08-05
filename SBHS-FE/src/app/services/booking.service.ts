@@ -29,11 +29,11 @@ export class ServerHttpService {
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
-  public verifyLandlord(requestId : string, isAccepted:boolean,rejectMessage:string){
+  public confirmHomestay(requestId : string, isAccepted:boolean,rejectMessage:string){
     var value = {
       isAccepted,rejectMessage
     }
-    const url =`${this.REST_API_SERVER}/api/request/verification/homestay/`+requestId+``;
+    const url =`${this.REST_API_SERVER}/api/booking/confirm/`+requestId+``;
     return this.httpClient
     .patch<any>(url,value,this.httpOptions)
     .pipe(catchError(this.handleError));

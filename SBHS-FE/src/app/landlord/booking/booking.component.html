@@ -3,21 +3,24 @@
     <h1>Request Booking List</h1>
   </div>
   <div class="body">
-    <!-- <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div> -->
+    <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div>
     <div class="body-container">
-      <div>
-        <select [(ngModel)]="name" *ngFor="let item of valueName" >
-        <option *ngIf="valueName.lenght <= 1">All</option>
-        <option>{{item.name}}</option>
-      </select>
+      <div style="width: 10%;">
+        
+        <select [(ngModel)]="name" (ngModelChange)="getRequestBookingByName()" (ngModelChange)="getHomestayName()">
+          <option hidden>All</option>
+          <option>All</option>
+          <option *ngFor="let item of valueName">{{item.name}}</option>
+        </select>
       </div>
       <div>
-      <select (change)="onTableSizeChange($event)">
-        <option *ngFor="let size of tableSizes">
-          {{size}}
-        </option>
-      </select>
-    </div>
+        choose item in page:
+        <select (change)="onTableSizeChange($event)">
+          <option *ngFor="let size of tableSizes">
+            {{size}}
+          </option>
+        </select>
+      </div>
     </div>
 
 
@@ -40,22 +43,19 @@
           totalItems: count
         };
         let i = index">
-          <!-- <td>{{post.name}}</td>
-          <td>{{post.mobile}}</td>
-          <td>{{post.email}}</td>
-          <td>{{post.arrive}}</td>
-          <td>{{post.depart}}</td>
-          <td>{{post.homestay}}</td> -->
-
+          <td>{{post.passengerName}}</td>
+          <td></td>
+          <td></td>
+          <td>{{post.checkIn}}</td>
+          <td>{{post.checkOut}}</td>
+          <td>{{post.homestayName}}</td>
           <td>
-
-            <!-- <button mat-icon-button color="primary" (click)="onItemSelector(post.id, post.createdBy);"
+            <button mat-icon-button color="primary" (click)="onItemSelector(post.id);"
               routerLink="/Admin/Request/RequestAccount" routerLinkActive="active"><i class="fa-solid fa-eye"></i></button>
-            <button mat-icon-button color="accent" (click)="onItemSelector(post.id, post.createdBy);"
+            <button mat-icon-button color="accent" (click)="onItemSelector(post.id);"
               (click)="accept()"><i class="fa-solid fa-check"></i></button>
-            <button mat-icon-button color="warn" (click)="onItemSelector(post.id, post.createdBy);"
-              (click)="reject()"><i class="fa-solid fa-xmark"></i></button> -->
-
+            <button mat-icon-button color="warn" (click)="onItemSelector(post.id);"
+              (click)="reject()"><i class="fa-solid fa-xmark"></i></button>
           </td>
         </tr>
       </tbody>
