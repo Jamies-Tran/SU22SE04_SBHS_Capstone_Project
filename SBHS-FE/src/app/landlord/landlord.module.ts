@@ -17,6 +17,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterHomestayComponent } from './register-homestay/register-homestay.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AngularFireModule } from '@angular/fire/compat';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { enviroment } from 'src/enviroment/enviroment';
 import { initializeApp } from 'firebase/app';
@@ -49,7 +52,10 @@ import { BookingComponent } from './booking/booking.component';
     AngularFireModule.initializeApp(enviroment.firebaseConfig) ,
     MatSelectModule,
     MatRippleModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    NgxPaginationModule
   ]
 })
 export class LandlordModule { }

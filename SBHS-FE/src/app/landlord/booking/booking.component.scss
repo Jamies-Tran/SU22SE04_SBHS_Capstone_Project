@@ -1,4 +1,4 @@
-.container {
+.container-fluid {
 
   margin: 0%;
   margin-top: 1%;
@@ -15,12 +15,14 @@
     .body-container {
 
       margin: 1% 2%;
+      display: flex;
+
 
       .mat-elevation-z8{
         box-shadow: none !important;
       }
       table {
-        width: 100%;
+        width: auto;
       }
 
       .mat-form-field {
@@ -29,7 +31,7 @@
       }
 
       td, th {
-        width: 16.5%;
+        width: 10%;
       }
 
     }

@@ -1,18 +1,29 @@
-
 <div class="container-fluid">
   <div class="header">
-    <h1>Request List</h1>
+    <h1>Request Booking List</h1>
   </div>
   <div class="body">
-    <!-- <div class="body-container">
-      <select [(ngModel)]="status" (click)="getStatusLandlord()">
+    <!-- <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div> -->
+    <div class="body-container">
+      <div>
+        <select [(ngModel)]="status">
         <option>All</option>
         <option>Pending</option>
         <option>Accept</option>
         <option>Reject</option>
       </select>
-    </div> -->
-    <table class="table table-striped">
+      </div>
+      <div>
+      <select (change)="onTableSizeChange($event)">
+        <option *ngFor="let size of tableSizes">
+          {{size}}
+        </option>
+      </select>
+    </div>
+    </div>
+
+
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
           <th>Name</th>
@@ -25,47 +36,35 @@
         </tr>
       </thead>
       <tbody>
+        <tr *ngFor="let post of values | paginate:{
+          itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems: count
+        };
+        let i = index">
+          <td>{{post.name}}</td>
+          <td>{{post.mobile}}</td>
+          <td>{{post.email}}</td>
+          <td>{{post.arrive}}</td>
+          <td>{{post.depart}}</td>
+          <td>{{post.homestay}}</td>
 
-        <!-- No.1 -->
-        <tr >
-          <td>Nguyen Phuong Quang</td>
-          <td>09123456789</td>
-          <td>quangnp1712@gmail.com</td>
-          <td>01/01/2022</td>
-          <td>02/02/2022</td>
-          <td>Homestay Name</td>
-          <!-- action -->
           <td>
-            <button mat-icon-button color="primary"
-             ><i class="fa-solid fa-eye"></i></button>
-            <button mat-icon-button color="accent" ><i class="fa-solid fa-check"></i></button>
-            <button mat-icon-button color="warn" ><i class="fa-solid fa-xmark"></i></button>
-          </td>
-        </tr>
 
+            <!-- <button mat-icon-button color="primary" (click)="onItemSelector(post.id, post.createdBy);"
+              routerLink="/Admin/Request/RequestAccount" routerLinkActive="active"><i class="fa-solid fa-eye"></i></button>
+            <button mat-icon-button color="accent" (click)="onItemSelector(post.id, post.createdBy);"
+              (click)="accept()"><i class="fa-solid fa-check"></i></button>
+            <button mat-icon-button color="warn" (click)="onItemSelector(post.id, post.createdBy);"
+              (click)="reject()"><i class="fa-solid fa-xmark"></i></button> -->
 
-        <!-- No.2 -->
-        <tr >
-          <td>Nguyen Phuong Quang</td>
-          <td>09123456789</td>
-          <td>quangnp1712@gmail.com</td>
-          <td>01/01/2022</td>
-          <td>02/02/2022</td>
-          <td>Homestay Name</td>
-          <!-- action -->
-          <td>
-            <button mat-icon-button color="primary"
-             ><i class="fa-solid fa-eye"></i></button>
-            <button mat-icon-button color="accent" ><i class="fa-solid fa-check"></i></button>
-            <button mat-icon-button color="warn" ><i class="fa-solid fa-xmark"></i></button>
           </td>
         </tr>
       </tbody>
     </table>
+    <div>
+      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+    </div>
   </div>
 </div>
-
-
-
-
-

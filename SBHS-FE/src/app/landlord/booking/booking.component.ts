@@ -16,9 +16,31 @@ export class BookingComponent implements OnInit {
   count: number=0;
   tableSize: number =5;
   tableSizes: any= [5,10,15,20];
+  values : data[] = [];
+
+  public status ="All";
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  onTableDataChange(event: any){
+    this.page = event;
+    this.values;
+  }
+  onTableSizeChange(event: any): void{
+    this.tableSize = event.target.value;
+    this.page=1;
+    this.values;
+  }
+}
+export interface data{
+  name: string;
+  mobile: string;
+  email: string;
+  arrive: string;
+  depart: string;
+  homestay:string;
 
 }
