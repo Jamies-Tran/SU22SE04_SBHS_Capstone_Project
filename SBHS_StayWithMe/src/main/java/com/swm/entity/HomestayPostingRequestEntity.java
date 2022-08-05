@@ -25,6 +25,7 @@ public class HomestayPostingRequestEntity extends BaseRequestEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "homestay_request_sequence")
 	private Long Id;
 	
+	
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH} , fetch = FetchType.LAZY)
 	@JoinColumn(name = "homestay_id", referencedColumnName = "Id")
 	@Setter

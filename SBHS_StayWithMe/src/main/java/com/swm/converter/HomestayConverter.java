@@ -139,7 +139,7 @@ public class HomestayConverter {
 		return homestayLicenseDto;
 	}
 
-	private HomestayImageDto homestayImageDtoConvert(HomestayImageEntity homestayImageEntity) {
+	public HomestayImageDto homestayImageDtoConvert(HomestayImageEntity homestayImageEntity) {
 		HomestayImageDto homestayImageDto = new HomestayImageDto();
 		homestayImageDto.setId(homestayImageEntity.getId());
 		homestayImageDto.setUrl(homestayImageEntity.getUrl());
@@ -156,7 +156,7 @@ public class HomestayConverter {
 		return homestayAftercareDto;
 	}
 
-	private HomestayFacilityDto homestayFacilityDtoConvert(HomestayFacilityEntity homestayFacilityEntity) {
+	public HomestayFacilityDto homestayFacilityDtoConvert(HomestayFacilityEntity homestayFacilityEntity) {
 		HomestayFacilityDto homestayFacilityDto = new HomestayFacilityDto();
 		homestayFacilityDto.setId(homestayFacilityEntity.getId());
 		homestayFacilityDto.setName(homestayFacilityEntity.getName());

@@ -73,11 +73,10 @@ public class RequestController {
 	@GetMapping("/homestay/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> verifyRequest(@PathVariable("Id") Long Id) {
-		System.out.println("get homestay id: " + Id);
 		HomestayPostingRequestEntity requestEntity = requestService.findHomestayPostingRequest(Id);
-		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity, requestEntity.getId());
+		RequestDto requestResponse = requestConvert.homestayPostinRequestDtoConvert(requestEntity);
 
-		return new ResponseEntity<>(requestResponse, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(requestResponse, HttpStatus.OK);
 	}
 	
 	@GetMapping("/landlord/{status}")

@@ -14,7 +14,12 @@ import lombok.Setter;
 public class BookingResponseDto {
 	private Long Id;
 	private String passengerName;
+	private String passengerPhone;
+	private String passengerEmail;
 	private String homestayName;
+	private String homestayLocation;
+	private String homestayCity;
+	private String homestayOwner;
 	private List<HomestayAftercareDto> homestayServiceList;
 	private String checkIn;
 	private String checkOut;

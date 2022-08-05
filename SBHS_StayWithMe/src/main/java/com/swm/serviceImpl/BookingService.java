@@ -4,11 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -23,7 +19,6 @@ import org.springframework.util.StringUtils;
 import com.swm.entity.BookingDepositEntity;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.BookingOtpEntity;
-import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.LandlordEntity;
 import com.swm.entity.LandlordWalletEntity;
@@ -34,7 +29,6 @@ import com.swm.entity.UserEntity;
 import com.swm.enums.AccountRole;
 import com.swm.enums.BookingStatus;
 import com.swm.enums.HomestayStatus;
-import com.swm.exception.DuplicateResourceException;
 import com.swm.exception.InvalidBalanceException;
 import com.swm.exception.ResourceNotAllowException;
 import com.swm.exception.ResourceNotFoundException;
@@ -153,9 +147,9 @@ public class BookingService implements IBookingService {
 	}
 
 	@Override
-	public List<BookingEntity> getHomestayBookingList(String homestayName) {
-		List<BookingEntity> bookingEntityList = bookingRepo.findAll().stream()
-				.filter(b -> b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_CHECKIN.name())
+	public List<BookingEntity> getHomestayBookingList(String homestayName, String status) {
+		List<BookingEntity> bookingEntityList = status.equals("all") ? bookingRepo.findAll() : bookingRepo.findAll().stream()
+				.filter(b -> b.getStatus().equalsIgnoreCase(status)
 						&& b.getBookingHomestay().getName().equals(homestayName))
 				.collect(Collectors.toList());
 
@@ -236,26 +230,6 @@ public class BookingService implements IBookingService {
 		return bookingEntity;
 	}
 
-//	@Override
-//	public boolean isBookingDateValid(HomestayEntity homestayEntity, Date checkIn, Date checkOut) {
-//		Map<Date, Date> bookingDateKeyValuePair = this.getBookingDateKeyValuePair(homestayEntity);
-//		for (Entry<Date, Date> bookingEntry : bookingDateKeyValuePair.entrySet()) {
-//			System.out.println((bookingEntry.getValue().before(checkOut)));
-//			if (bookingEntry.getKey().equals(checkIn) || bookingEntry.getValue().equals(checkOut)) {
-//				// ngày check-in, check-out trùng luông lịch của booking khác
-//				throw new DuplicateResourceException("Reservation schedule is duplicated");
-//			} else if ((bookingEntry.getKey().before(checkIn) && bookingEntry.getValue().after(checkIn))
-//					|| (bookingEntry.getKey().before(checkOut) && bookingEntry.getValue().after(checkOut)
-//							|| (bookingEntry.getKey().after(checkIn) && bookingEntry.getValue().before(checkOut)))) {
-//				// ngày check-in, check-out nằm trong ngày homestay có lịch booking từ trước
-//				throw new ResourceNotAllowException("Homestay is on the reservation schedule");
-//			} else if (checkIn.before(currentDate) || checkOut.before(currentDate) || checkOut.before(checkIn)) {
-//				// check=in, check-out ngày quá khứ, check-out sau ngày check-in
-//				throw new ResourceNotAllowException("Invalid booking schedule");
-//			}
-//		}
-//		return true;
-//	}
 
 	@Transactional
 	@Override
@@ -276,34 +250,7 @@ public class BookingService implements IBookingService {
 		return difference_in_day;
 	}
 
-//	private Long calculateTotalPrice(@Nullable List<HomestayAftercareEntity> homestayServiceList,
-//			HomestayEntity homestayBooking, Date checkIn, Date checkOut) {
-//		long totalPrice = 0;
-//		if (homestayServiceList != null) {
-//			for (int i = 0; i < homestayServiceList.size(); i++) {
-//				totalPrice = totalPrice + homestayServiceList.get(i).getPrice();
-//			}
-//		}
-//
-//		Long numberOfBookingDate = this.differentInDay(checkIn, checkOut) == 0 ? 1 : this.differentInDay(checkIn, checkOut);
-//		long totalBookingDatePrice = homestayBooking.getPrice() * numberOfBookingDate;
-//		totalPrice = totalPrice + totalBookingDatePrice;
-//
-//		return totalPrice;
-//	}
 
-	/*
-	 * Key là checkin, value là checkout
-	 */
-//	private Map<Date, Date> getBookingDateKeyValuePair(HomestayEntity homestayEntity) {
-//		Map<Date, Date> bookingDateKeyValuePair = new HashMap<Date, Date>();
-//		List<BookingEntity> bookingEntityList = homestayEntity.getBooking();
-//		bookingEntityList.forEach(b -> {
-//			bookingDateKeyValuePair.put(b.getCheckIn(), b.getCheckOut());
-//		});
-//
-//		return bookingDateKeyValuePair;
-//	}
 
 	@Override
 	public BookingEntity checkOutRequest(Long bookingId, String paymentMethod) {
@@ -436,9 +383,9 @@ public class BookingService implements IBookingService {
 	}
 
 	@Override
-	public List<BookingEntity> getUserBookingList(String username) {
-		List<BookingEntity> bookingEntityList = bookingRepo.findAll().stream()
-				.filter(b -> b.getBookingCreator().getPassengerAccount().getUsername().equals(username))
+	public List<BookingEntity> getUserBookingList(String username, String status) {
+		List<BookingEntity> bookingEntityList = status.equals("all") ? bookingRepo.findAll() : bookingRepo.findAll().stream()
+				.filter(b -> b.getBookingCreator().getPassengerAccount().getUsername().equals(username) && b.getStatus().equalsIgnoreCase(status))
 				.collect(Collectors.toList());
 		if(bookingEntityList.isEmpty()) {
 			throw new ResourceNotFoundException("There is no booking yet");

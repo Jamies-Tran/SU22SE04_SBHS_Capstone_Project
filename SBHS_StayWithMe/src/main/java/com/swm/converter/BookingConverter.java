@@ -66,7 +66,12 @@ public class BookingConverter {
 		BookingResponseDto bookingDto = new BookingResponseDto();
 		bookingDto.setId(bookingEntity.getId());
 		bookingDto.setPassengerName(bookingEntity.getBookingCreator().getPassengerAccount().getUsername());
+		bookingDto.setPassengerPhone(bookingEntity.getBookingCreator().getPassengerAccount().getPhone());
+		bookingDto.setPassengerEmail(bookingEntity.getBookingCreator().getPassengerAccount().getEmail());
 		bookingDto.setHomestayName(bookingEntity.getBookingHomestay().getName());
+		bookingDto.setHomestayLocation(bookingEntity.getBookingHomestay().getAddress());
+		bookingDto.setHomestayCity(bookingEntity.getBookingHomestay().getCity());
+		bookingDto.setHomestayOwner(bookingEntity.getBookingHomestay().getLandlordOwner().getLandlordAccount().getUsername());
 		if(bookingEntity.getHomestayServiceBooking() != null) {
 			List<HomestayAftercareDto> homestayServiceList = bookingEntity.getHomestayServiceBooking().stream()
 					.map(s -> homestayConvert.homestayAftercareDtoConvert(s)).collect(Collectors.toList());

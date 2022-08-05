@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.BookingConverter;
@@ -152,8 +153,8 @@ public class BookingController {
 
 
 	@GetMapping("/permit-all/booking-list/{homestayName}")
-	public ResponseEntity<?> getAllHomestayBooking(@PathVariable("homestayName") String homestayName) {
-		List<BookingEntity> homestayBookingEntityList = bookingService.getHomestayBookingList(homestayName);
+	public ResponseEntity<?> getAllHomestayBooking(@PathVariable("homestayName") String homestayName, @RequestParam String status) {
+		List<BookingEntity> homestayBookingEntityList = bookingService.getHomestayBookingList(homestayName, status);
 		List<BookingResponseDto> homestayBookingResponseList = homestayBookingEntityList.stream()
 				.map(b -> bookingConvert.bookingToDto(b)).collect(Collectors.toList());
 
@@ -162,8 +163,8 @@ public class BookingController {
 
 	@GetMapping("/booking-list/{username}")
 	@PreAuthorize("hasRole('ROLE_PASSENGER')")
-	public ResponseEntity<?> getUserBookingList(@PathVariable("username") String username) {
-		List<BookingEntity> bookingEntityList = bookingService.getUserBookingList(username);
+	public ResponseEntity<?> getUserBookingList(@PathVariable("username") String username, @RequestParam String status) {
+		List<BookingEntity> bookingEntityList = bookingService.getUserBookingList(username, status);
 		List<BookingResponseDto> bookingResponseList = bookingEntityList.stream()
 				.map(b -> bookingConvert.bookingToDto(b)).collect(Collectors.toList());
 		
