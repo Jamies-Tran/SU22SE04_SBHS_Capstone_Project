@@ -4,3 +4,4 @@
 # npm i tslib
 # ng add @angular/material --> Custom --> Yes --> Include and enable animations
 # npm i @angular-material-components/file-input
+# npm i ngx-pagination
