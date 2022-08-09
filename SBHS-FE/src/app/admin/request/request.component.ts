@@ -45,7 +45,9 @@ export class RequestComponent  implements OnInit{
       console.log(data)
     }),
     error =>{
-      alert(error)
+      if(error["status"] == 500){
+        this.registerError = "please check your information again!"
+      }else this.registerError = error
     })
   }
   public reject(){
@@ -57,7 +59,7 @@ export class RequestComponent  implements OnInit{
     error =>{
       if(error["status"] == 500){
         this.registerError = "please check your information again!"
-      }else this.registerError = error["message"]
+      }else this.registerError = error
     })
   }
 

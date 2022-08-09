@@ -57,7 +57,7 @@ export class BookingComponent implements OnInit {
     error =>{
       if(error["status"] == 500){
         this.registerError = "please check your information again!"
-      }else this.registerError = error["message"]
+      }else this.registerError = error
     })
   }
   public accept(){
@@ -70,7 +70,7 @@ export class BookingComponent implements OnInit {
     error =>{
       if(error["status"] == 500){
         this.registerError = "please check your information again!"
-      }else this.registerError = error["message"]
+      }else this.registerError = error
     })
   }
   public reject(){
@@ -82,7 +82,20 @@ export class BookingComponent implements OnInit {
     error =>{
       if(error["status"] == 500){
         this.registerError = "please check your information again!"
-      }else this.registerError = error["message"]
+      }else this.registerError = error
+    })
+  }
+
+  public checkIn(){
+    this.http.checkIn(this.Id +"").subscribe((data =>{
+      if(data !=null){
+        location.reload();
+      }
+    }),
+    error =>{
+      if(error["status"] == 500){
+        this.registerError = "please check your information again!"
+      }else this.registerError = error
     })
   }
 

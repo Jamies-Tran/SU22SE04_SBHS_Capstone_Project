@@ -333,7 +333,7 @@ export class RegisterHomestayComponent implements OnInit {
     error =>{
       if(error["status"] == 500){
         this.registerError = "please check your information again!"
-      }else this.registerError = error["message"]
+      }else this.registerError = error
     })
   }
 }

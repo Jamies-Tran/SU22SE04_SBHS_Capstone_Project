@@ -1,6 +1,7 @@
 <div class="container">
+  <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div>
   <mat-stepper linear #stepper>
-    <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div>
+    
     <!-- Step 1 Information -->
     <mat-step [stepControl]="informationFormGroup">
 
