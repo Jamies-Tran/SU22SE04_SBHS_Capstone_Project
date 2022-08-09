@@ -20,6 +20,8 @@ export class RequestAccountComponent implements OnInit {
   public dob = '';
   public address = '';
   public avatarUrl = '';
+  public citizenIdentificationUrlFront= "";
+  public citizenIdentificationUrlBack ="";
   ngOnInit(): void {
     this.http.getLandlordDetail().subscribe((data =>{
       this.username = data['username'];
@@ -30,6 +32,8 @@ export class RequestAccountComponent implements OnInit {
       this.phone = data['phone'];
       this.address = data['address'];
       this.avatarUrl = data['avataUrl']
+      this.citizenIdentificationUrlFront = data['citizenIdentificationUrlFront']
+      this.citizenIdentificationUrlBack = data['citizenIdentificationUrlBack']
     }))
   }
   public isAccept = true;
