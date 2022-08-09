@@ -46,12 +46,16 @@ export class ProfileComponent implements OnInit {
       this.gender = data['gender'];
       this.phone = data['phone'];
       this.address = data['address'];
+      if(data['avatarUrl']){
+        this.avatarUrl = await this.image.getImage(
+          'avatar/' + data['avatarUrl']
+        );
+      }else{
+        this.avatarUrl = await this.image.getImage('landlord/avatar/default.png');
+      }
 
-      this.avatarUrl = await this.image.getImage(
-        'homestay/' + data['avatarUrl']
-      );
       //
-      
+
     });
     //get balance
     this.http.getBalance().subscribe((balance) => {
@@ -60,7 +64,7 @@ export class ProfileComponent implements OnInit {
   }
   public amount = "";
   public addMoney(){
-    
+
     this.http.addMoney(this.amount).subscribe((data) => {
       console.log(data);
       location.href = data["payUrl"]

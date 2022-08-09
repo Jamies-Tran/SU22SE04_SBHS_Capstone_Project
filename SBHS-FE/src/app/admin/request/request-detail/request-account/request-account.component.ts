@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseError, initializeApp } from 'firebase/app';
 import { FirebaseApp } from 'firebase/app';
 import { ServerHttpService } from 'src/app/services/verify-landlord.service';
+import { ImageService } from '../../../../services/image.service';
 
 @Component({
   selector: 'app-request-account',
@@ -11,7 +12,7 @@ import { ServerHttpService } from 'src/app/services/verify-landlord.service';
 })
 export class RequestAccountComponent implements OnInit {
   registerError: string = "";
-  constructor(private http: ServerHttpService,  private router: Router,private route: ActivatedRoute) {}
+  constructor(private http: ServerHttpService,private image: ImageService,  private router: Router,private route: ActivatedRoute) {}
   public username = '';
   public email = '';
   public phone = '';
@@ -20,10 +21,10 @@ export class RequestAccountComponent implements OnInit {
   public dob = '';
   public address = '';
   public avatarUrl = '';
-  public citizenIdentificationUrlFront= "";
+  public citizenIdentificationUrlFont= "";
   public citizenIdentificationUrlBack ="";
   ngOnInit(): void {
-    this.http.getLandlordDetail().subscribe((data =>{
+    this.http.getLandlordDetail().subscribe(async (data) =>{
       this.username = data['username'];
       this.dob = data['dob'];
       this.email = data['email'];
@@ -31,10 +32,22 @@ export class RequestAccountComponent implements OnInit {
       this.gender = data['gender'];
       this.phone = data['phone'];
       this.address = data['address'];
-      this.avatarUrl = data['avataUrl']
-      this.citizenIdentificationUrlFront = data['citizenIdentificationUrlFront']
-      this.citizenIdentificationUrlBack = data['citizenIdentificationUrlBack']
-    }))
+      console.log('avatar' ,data['avataUrl'] );
+      if(data['avataUrl'] ){
+        this.avatarUrl = await this.image.getImage('landlord/avatar/' + data['avataUrl']);
+      }else{
+        this.avatarUrl = await this.image.getImage('landlord/avatar/default.png');
+      }
+
+      this.citizenIdentificationUrlFont = await this.image.getImage('landlord/citizenIdentification/' + data['citizenIdentificationUrlFront']);
+      this.citizenIdentificationUrlBack = await this.image.getImage('landlord/citizenIdentification/' + data['citizenIdentificationUrlBack']);
+
+      console.log(this.citizenIdentificationUrlBack);
+      console.log(this.citizenIdentificationUrlFont);
+      console.log(this.avatarUrl);
+      console.log(data['citizenIdentificationUrlFront']);
+      console.log(data['citizenIdentificationUrlBack']);
+    })
   }
   public isAccept = true;
   public isReject = false;
@@ -44,7 +57,7 @@ export class RequestAccountComponent implements OnInit {
       if(data !=null){
         this.router.navigate(['/Admin/Request'], {relativeTo: this.route});
       }
-      
+
       console.log(data)
     }),
     error =>{

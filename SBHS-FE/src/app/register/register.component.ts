@@ -115,7 +115,7 @@ export class RegisterComponent implements OnInit {
       console.log(event.target.files[0].name);
       this.citizenIdentificationUrlFront = event.target.files[0].name;
       console.log('image string', this.citizenIdentificationUrlFront);
-      this.fileFont = event;
+      this.fileFont = event.target.files[0];
       console.log('file' , this.fileFont);
     }
   }
@@ -125,7 +125,7 @@ export class RegisterComponent implements OnInit {
       console.log(event.target.files[0].name);
       this.citizenIdentificationUrlBack = event.target.files[0].name;
       console.log('image string', this.citizenIdentificationUrlBack);
-      this.fileBack = event;
+      this.fileBack = event.target.files[0];
     }
   }
 }
