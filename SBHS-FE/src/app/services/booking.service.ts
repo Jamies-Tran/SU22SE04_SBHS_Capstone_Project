@@ -44,10 +44,13 @@ export class ServerHttpService {
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
-  public checkIn(id:string){
+  public checkIn(bookingId:string){
     const url = `${this.REST_API_SERVER}/api/booking/checkin`;
+    var value ={
+      bookingId
+    }
     return this.httpClient
-      .post<any>(url, id,this.httpOptions)
+      .post<any>(url, value,this.httpOptions)
       .pipe(catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse) {
