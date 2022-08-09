@@ -158,12 +158,12 @@
           <div class="register-row row">
             <div class="register-col col">
               <div class="register-text">
-
+                <!-- File Image -->
 
                 <div class="uploadimage">
                   <p>Upload font your Citizen ID</p>
-                  <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="citizenIdentificationUrlFront"
-                    [ngModelOptions]="{standalone: true}" required>
+                  <input #imageInput type="file" multiple accept="image/*"
+                     required (change)="onSelectImageFont($event)">
                 </div>
               </div>
             </div>
@@ -171,8 +171,7 @@
               <div class="register-text">
                 <div class="uploadimage">
                   <p>Upload back your Citizen ID</p>
-                  <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="citizenIdentificationUrlBack"
-                    [ngModelOptions]="{standalone: true}" required>
+                  <input #imageInput type="file" multiple accept="image/*" (change)="onSelectImageBack($event)" required>
                 </div>
               </div>
             </div>
