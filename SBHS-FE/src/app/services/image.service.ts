@@ -8,13 +8,10 @@ export class ImageService {
 
   storage = getStorage();
 
-
   pathReference : StorageReference | undefined;
   constructor(private firebase: AngularFireDatabase) { }
 
    async getImage(pathName:any) {
     return await getDownloadURL(ref(this.storage,pathName));
   }
-
-
 }

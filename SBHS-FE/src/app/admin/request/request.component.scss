@@ -1,24 +1,18 @@
-.container {
-
+.container-fluid {
   margin: 0%;
   margin-top: 1%;
   width: 100%;
 
-
-
-  .header {}
-
   .body {
     margin-top: 1%;
 
-
     .body-container {
+      margin: 1% 1%;
 
-      margin: 1% 2%;
-
-      .mat-elevation-z8{
+      .mat-elevation-z8 {
         box-shadow: none !important;
       }
+
       table {
         width: auto;
       }
@@ -28,10 +22,19 @@
         width: 100%;
       }
 
-      td, th {
+      td,
+      th {
         width: 10%;
       }
+    }
+  }
 
+  .table {
+    tbody {
+      tr {
+        height: 57px;
+        line-height: 40px;
+      }
     }
   }
 }

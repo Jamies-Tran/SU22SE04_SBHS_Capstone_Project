@@ -11,9 +11,9 @@ export class RequestHomestayComponent implements OnInit {
   public status ="All";
   registerError: string ="";
   constructor(private http: ServerHttpService) {
-  } 
+  }
   ngOnInit(): void {
-   this.getStatusHomestay(); 
+   this.getStatusHomestay();
   }
   public getStatusHomestay(){
     this.http.getRequestHomestay(this.status).subscribe((data =>{
@@ -36,7 +36,7 @@ export class RequestHomestayComponent implements OnInit {
       if(data !=null){
         location.reload();
       }
-      
+
       console.log(data)
     }),
     error =>{
@@ -56,7 +56,21 @@ export class RequestHomestayComponent implements OnInit {
       }else this.registerError = error
     })
   }
+  title ='pagination';
+  page: number=1;
+  count:number=0;
+  tableSize: number = 15;
+  tableSizes: any = [5,10,15,20];
 
+  onTableDataChange(event: any){
+    this.page = event;
+    this.values;
+  }
+  onTableSizeChange(event: any): void{
+    this.tableSize = event.target.value;
+    this.page=1;
+    this.values;
+  }
 }
 
 

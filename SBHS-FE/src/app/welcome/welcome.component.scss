@@ -152,7 +152,8 @@
         align-items: flex-start;
         align-content: flex-start;
         font-family: Helvetica, Arial, sans-serif;
-        padding: 2.7% 1.8%;;
+        padding: 2.7% 1.8%;
+        ;
 
         .list-homestay {
           font-size: 36px;
@@ -172,7 +173,9 @@
           line-height: 42px;
           margin-top: 15px;
         }
-        .swm-homestay, .on{
+
+        .swm-homestay,
+        .on {
           margin-top: 10px;
           text-align: center;
           width: 100%;
@@ -182,7 +185,8 @@
           font-size: 20px;
           height: 44px;
           line-height: 22px;
-          margin-top: 30px;
+          margin-left: 8px;
+          margin-top: 50px;
         }
 
         .btn-register {
