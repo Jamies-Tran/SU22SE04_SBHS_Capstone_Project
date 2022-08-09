@@ -7,7 +7,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 100vh;
+    min-height: 98vh;
     overflow: auto;
 
     .header {
@@ -92,9 +92,48 @@
 
     .body-register {
       display: flex;
-      justify-content: center;
-      margin-top: 2%;
-      margin-bottom: 5%;
+
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .content-body {
+        display: flex;
+        flex-direction: column;
+        padding-left: 4vw;
+        padding-top: 50px;
+
+
+        .welcome {
+          font-family: "Montserrat";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 36px;
+          height: 36px;
+          line-height: 36px;
+
+        }
+
+        .body-swm {
+          font-family: 'Adobe Garamond Pro';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 80px;
+          letter-spacing: 0.07em;
+          height: 120px;
+          line-height: 120px;
+        }
+
+        .body-homestay {
+          font-family: 'Adobe Garamond Pro';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 33px;
+          height: 33px;
+          line-height: 33px;
+
+          letter-spacing: 0.3em;
+        }
+      }
 
       a {
         text-decoration: none;
@@ -102,13 +141,72 @@
       }
 
       .register-container {
-        width: 60vw;
-        // height: 478px;
         background-color: #E0B973;
         border-radius: 1rem;
-        text-align: center;
-        padding-bottom: 5%;
-        height: 100vh;
+        height: 420px;
+        max-height: 430px;
+        margin: 50px 55px 0 55px;
+        max-width: 453px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        align-content: flex-start;
+        font-family: Helvetica, Arial, sans-serif;
+        padding: 2.7% 1.8%;;
+
+        .list-homestay {
+          font-size: 36px;
+          font-weight: 700;
+          height: 36px;
+          line-height: 36px;
+          text-align: center;
+          width: 100%;
+        }
+
+        .swm-homestay {
+          font-size: 42px;
+          text-align: center;
+          font-weight: 800;
+          color: #ff5e00;
+          height: 42px;
+          line-height: 42px;
+          margin-top: 15px;
+        }
+        .swm-homestay, .on{
+          margin-top: 10px;
+          text-align: center;
+          width: 100%;
+        }
+
+        .content-homestay {
+          font-size: 20px;
+          height: 44px;
+          line-height: 22px;
+          margin-top: 30px;
+        }
+
+        .btn-register {
+          background-color: #f9af24;
+          border-radius: 13px;
+          cursor: pointer;
+          text-align: center;
+          width: 100%;
+          font-size: 22px;
+          font-weight: 600;
+          height: 55px;
+          line-height: 55px;
+          margin-top: 20px;
+        }
+
+        .login {
+          text-align: center;
+          width: 100%;
+          margin-top: 20px;
+          font-size: 15px;
+          height: 16px;
+          line-height: 16px;
+
+        }
 
 
       }
@@ -134,31 +232,32 @@
     border-radius: 8px;
   }
 
+  .rorate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .trigle {
+      margin-top: -3vw;
+      border-color: transparent transparent #14274A transparent;
+      border-style: solid;
+      border-width: 0px 3vw 3vw 3vw;
+      height: 0px;
+      width: 0px;
+    }
+
+
+  }
 
   .footer {
 
     background-color: #14274A;
     display: flex;
     flex-direction: column;
-    margin-top: 5%;
 
 
-    .rorate {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .trigle {
-        margin-top: -3vw;
-        border-color: transparent transparent #14274A transparent;
-        border-style: solid;
-        border-width: 0px 3vw 3vw 3vw;
-        height: 0px;
-        width: 0px;
-      }
 
 
-    }
 
     .contact {
       width: 100%;
@@ -249,5 +348,8 @@
 
   }
 
+  .body {
+    height: 50vh;
+  }
 
 }
