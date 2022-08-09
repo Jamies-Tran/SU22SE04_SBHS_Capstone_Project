@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerHttpService } from 'src/app/services/verify-homestay.service';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-request-homestay-detail',
@@ -21,16 +22,17 @@ export class RequestHomestayDetailComponent implements OnInit {
   address :string =""
   description :string =""
   imageLicenseUrl :string =""
-  homestayImagesList : any
+  homestayImagesList : string[] = []
   homestayFacilityList: any
   homestayAftercareList: any
   public isAccept = true;
   public isReject = false;
   public rejectMessage = "";
-  constructor(private http: ServerHttpService) { }
+  imageUrl:string =""
+  constructor(private http: ServerHttpService,private image: ImageService) { }
 
   ngOnInit(): void {
-    this.http.getRequestHomestayDetail().subscribe((data =>{
+    this.http.getRequestHomestayDetail().subscribe(async (data) =>{
       this.createdBy = data["createdBy"]
       this.homestayName = data["homestayName"]
       this.createdByEmail = data["createdByEmail"]
@@ -41,12 +43,21 @@ export class RequestHomestayDetailComponent implements OnInit {
       this.CheckOutTime = data["checkOutTime"]
       this.address = data["address"]
       this.description = data["description"]
-      this.imageLicenseUrl = data["imageLicense"]
-      this.homestayImagesList = data["homestayImagesList"]
+
+      this.imageLicenseUrl = await this.image.getImage ( 'license/' + data["imageLicenseUrl"])
+
+      for(let i of data["homestayImagesList"]){
+        this.imageUrl = await this.image.getImage('homestay/' + i.url);
+        console.log('image name:' , i.url);
+        console.log('image url' , this.imageUrl);
+        this.homestayImagesList.push(this.imageUrl);
+      }
+      // this.homestayImagesList = data["homestayImagesList"]
+
       this.homestayAftercareList = data["homestayAftercareList"]
       this.homestayFacilityList= data["homestayFacilityList"]
       console.log(data)
-    }))
+    })
   }
 
 
@@ -55,7 +66,7 @@ export class RequestHomestayDetailComponent implements OnInit {
       if(data !=null){
         location.reload();
       }
-      
+
       console.log(data)
     }),
     error =>{

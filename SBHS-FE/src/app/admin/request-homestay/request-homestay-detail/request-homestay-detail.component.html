@@ -111,7 +111,7 @@
     <h1 class="header">Image License</h1>
     <div class="image">
       <div class="image-file">
-        <img src="{{imageLicenseUrl}}">
+        <img [src]="imageLicenseUrl">
       </div>
 
 
@@ -121,7 +121,7 @@
     <h1 class="header">Image Homstay</h1>
     <div class="image">
       <div class="image-file" *ngFor="let item of homestayImagesList">
-        <img src="{{item.url}}">
+        <img [src]="item">
       </div>
     </div>
   </div>
