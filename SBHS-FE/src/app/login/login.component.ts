@@ -9,7 +9,7 @@ import { ServerHttpService } from '../services/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  registerError : any;
+  registerError : string ="";
   public userName= "";
   public password = "";
   public registerSuccessTmp = localStorage.getItem("registerSuccess");
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     error =>{
       if(error["status"] == 500){
         this.registerError = "please check your information again!"
-      }else this.registerError = error["message"]
+      }else this.registerError = error
     })
   }
 }

@@ -5,3 +5,4 @@
 # ng add @angular/material --> Custom --> Yes --> Include and enable animations
 # npm i @angular-material-components/file-input
 # npm i ngx-pagination
+# npm install @syncfusion/ej2-angular-richtexteditor --save
