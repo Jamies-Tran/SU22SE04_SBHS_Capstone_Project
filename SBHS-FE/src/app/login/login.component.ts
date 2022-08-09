@@ -6,35 +6,46 @@ import { ServerHttpService } from '../services/login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  registerError : string ="";
-  public userName= "";
-  public password = "";
-  public registerSuccessTmp = localStorage.getItem("registerSuccess");
-  registerSuccess :boolean = false;
-  constructor(private http: ServerHttpService , private router: Router,private route: ActivatedRoute) {
-   }
+  registerError: string = '';
+  public userName = '';
+  public password = '';
+  public registerSuccessTmp = localStorage.getItem('registerSuccess');
+  registerSuccess: boolean = false;
+  constructor(
+    private http: ServerHttpService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
   ngOnInit(): void {
-    if(this.registerSuccessTmp == "true"){
-      this.registerSuccess = true
-      localStorage.setItem("registerSuccess","false");
+    if (this.registerSuccessTmp == 'true') {
+      this.registerSuccess = true;
+      localStorage.setItem('registerSuccess', 'false');
     }
   }
-  public getProfile(){
-    console.log(localStorage.getItem("registerSuccess"))
-    this.http.login(this.userName, this.password).subscribe((data =>{
-      localStorage.setItem('userToken',data["token"]);
-      localStorage.setItem('username',data["username"]);
-      if(data["roles"][0]["authority"] === "ROLE_LANDLORD"){
-        this.router.navigate(['/Landlord/Dashboard'], {relativeTo: this.route});
-      }else this.router.navigate(['/Admin/Request'], {relativeTo: this.route});
-    }),
-    error =>{
-      if(error["status"] == 500){
-        this.registerError = "please check your information again!"
-      }else this.registerError = error
-    })
+  public getProfile() {
+    console.log(localStorage.getItem('registerSuccess'));
+    this.http.login(this.userName, this.password).subscribe(
+      (data) => {
+        localStorage.setItem('userToken', data['token']);
+        localStorage.setItem('username', data['username']);
+        if (data['roles'][0]['authority'] === 'ROLE_LANDLORD') {
+          this.router.navigate(['/Landlord/Dashboard'], {
+            relativeTo: this.route,
+          });
+        } else
+          this.router.navigate(['/Admin/Request'], { relativeTo: this.route });
+      },
+      (error) => {
+        if (error['status'] == 500) {
+          this.registerError = 'please check your information again!';
+        } else {
+          this.registerError = error;
+          console.log(error);
+        }
+      }
+    );
   }
 }
