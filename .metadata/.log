@@ -42,3 +42,2449 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 09:23:00.251
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 09:23:00.269
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 09:23:29.907
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 09:23:29.960
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 09:23:39.590
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 09:23:39.596
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:20:26.858
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:20:26.866
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:20:44.326
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:20:44.333
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:20:52.856
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:20:52.862
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:22:36.493
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:22:36.520
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:23:36.779
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:23:36.785
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:23:40.774
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:23:40.781
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:23:56.665
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:23:56.670
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:24:07.153
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 10:24:07.161
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+!SESSION 2022-08-11 11:09:33.561 -----------------------------------------------
+eclipse.buildId=4.20.0.I20210611-1600
+java.version=11.0.11
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.oomph.p2.core 2 0 2022-08-11 11:09:41.145
+!MESSAGE Failed to register the thread safe credentials providers: org.eclipse.core.internal.runtime.AdapterManager.getFactories()Ljava/util/Map;
+
+!ENTRY org.eclipse.jface 2 0 2022-08-11 11:12:22.635
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-08-11 11:12:22.635
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6b6cf3c1,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@702e21c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator 2 0 2022-08-11 11:12:35.997
+!MESSAGE Can't find Navigator Content Descriptor with id: org.eclipse.jst.servlet.ui.EnhancedJavaRendering
+
+!ENTRY org.eclipse.ui.navigator 2 0 2022-08-11 11:12:36.013
+!MESSAGE Can't find Navigator Content Descriptor with id: org.eclipse.jst.servlet.ui.EnhancedJavaRendering
+
+!ENTRY org.eclipse.egit.ui 2 0 2022-08-11 11:12:36.225
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\84981'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:13:18.371
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:13:18.414
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:13:41.372
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:13:41.407
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:14:28.037
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:14:28.048
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:15:08.449
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:15:08.455
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:15:11.692
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:15:11.697
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:15:56.703
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 11:15:56.709
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+!SESSION 2022-08-11 15:23:40.810 -----------------------------------------------
+eclipse.buildId=4.20.0.I20210611-1600
+java.version=11.0.11
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.oomph.p2.core 2 0 2022-08-11 15:23:59.295
+!MESSAGE Failed to register the thread safe credentials providers: org.eclipse.core.internal.runtime.AdapterManager.getFactories()Ljava/util/Map;
+
+!ENTRY org.eclipse.jface 2 0 2022-08-11 15:25:00.068
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-08-11 15:25:00.068
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4bc49d70,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@73543048,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator 2 0 2022-08-11 15:25:19.795
+!MESSAGE Can't find Navigator Content Descriptor with id: org.eclipse.jst.servlet.ui.EnhancedJavaRendering
+
+!ENTRY org.eclipse.ui.navigator 2 0 2022-08-11 15:25:19.819
+!MESSAGE Can't find Navigator Content Descriptor with id: org.eclipse.jst.servlet.ui.EnhancedJavaRendering
+
+!ENTRY org.eclipse.egit.ui 2 0 2022-08-11 15:25:19.939
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\84981'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:26:56.637
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:26:56.725
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:27:37.166
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:27:37.180
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:27:39.917
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:27:39.924
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:27:53.416
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:27:53.422
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:27:55.036
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:27:55.043
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:29:02.532
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:29:02.539
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:31:16.952
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:31:16.959
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:31:36.817
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:31:36.826
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:31:39.014
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:31:39.020
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:32:02.825
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:32:02.833
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:32:06.257
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:32:06.263
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:33:06.121
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:33:06.128
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:33:41.251
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:33:41.256
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:34:09.412
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:34:09.418
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:36:48.605
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:36:48.614
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:36:57.118
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:36:57.128
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:38:25.875
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:38:25.882
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:38:36.068
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:38:36.074
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:40:46.065
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:40:46.071
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:41:59.045
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:41:59.050
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:42:46.282
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:42:46.287
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:43:28.027
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:43:28.034
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:44:07.355
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:44:07.361
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:44:48.088
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:44:48.094
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:45:07.100
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:45:07.106
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:46:04.281
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:46:04.287
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:46:12.853
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:46:12.857
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:46:57.605
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:46:57.611
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-08-11 15:48:06.842
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package com.swm.converter;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.swm.dto.HomestayAftercareDto;
+import com.swm.dto.HomestayDto;
+import com.swm.dto.HomestayFacilityDto;
+import com.swm.dto.HomestayImageDto;
+import com.swm.dto.HomestayLicenseDto;
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayCommonFacilityEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.entity.HomestayImageEntity;
+import com.swm.entity.HomestayLicenseImageEntity;
+import com.swm.service.IHomestayService;
+
+@Component
+public class HomestayConverter {
+	
+	@Autowired
+	private IHomestayService homestayService;
+
+	/* convert riêng từng cái entity trong homestay dto */
+	public HomestayEntity homestayEntityConvert(HomestayDto homestayDto) {
+		HomestayEntity homestayEntity = new HomestayEntity();
+		homestayEntity.setName(homestayDto.getName());
+		homestayEntity.setDescription(homestayDto.getDescription());
+		homestayEntity.setAddress(homestayDto.getAddress());
+		homestayEntity.setCity(homestayDto.getCity());
+		homestayEntity.setPriceList(homestayDto.getHomestayFacilities());
+		homestayEntity.setNumberOfRoom(homestayDto.getNumberOfRoom());
+		homestayEntity.setCheckInTime(homestayDto.getCheckInTime());
+		homestayEntity.setCheckOutTime(homestayDto.getCheckOutTime());
+		homestayEntity.setPayment(homestayDto.getPayment());
+
+		return homestayEntity;
+	}
+
+	public HomestayAftercareEntity homestayAftercareEntityConvert(HomestayAftercareDto homestayAftercareDto) {
+		HomestayAftercareEntity homestayAftercareEntity = new HomestayAftercareEntity();
+		homestayAftercareEntity.setServiceName(homestayAftercareDto.getName());
+		homestayAftercareEntity.setPrice(homestayAftercareDto.getPrice());
+
+		return homestayAftercareEntity;
+	}
+
+	public HomestayLicenseImageEntity homestayLicenseEntityConvert(HomestayLicenseDto homestayLicenseDto) {
+		HomestayLicenseImageEntity homestayLicenseEntity = new HomestayLicenseImageEntity();
+		homestayLicenseEntity.setUrl(homestayLicenseDto.getUrl());
+
+		return homestayLicenseEntity;
+	}
+
+	public HomestayImageEntity homestayImageEntityConvert(HomestayImageDto homestayImageDto) {
+		HomestayImageEntity homestayImageEntity = new HomestayImageEntity();
+		homestayImageEntity.setUrl(homestayImageDto.getUrl());
+
+		return homestayImageEntity;
+	}
+
+	public HomestayCommonFacilityEntity homestayFacilityEntityConvert(HomestayFacilityDto homestayFacilityDto) {
+		HomestayCommonFacilityEntity homestayFacilityEntity = new HomestayCommonFacilityEntity();
+		homestayFacilityEntity.setName(homestayFacilityDto.getName());
+		homestayFacilityEntity.setAmount(homestayFacilityDto.getAmount());
+
+		return homestayFacilityEntity;
+	}
+	
+	public HomestayDto homestayCompleteInfoDtoConvert(HomestayEntity homestayEntity) {
+		List<HomestayImageDto> homestayImageList = homestayEntity.getImageList().stream()
+				.map(img -> this.homestayImageDtoConvert(img)).collect(Collectors.toList());
+		List<HomestayAftercareDto> homestayServiceList = homestayEntity.getHomestayService().stream()
+				.map(srv -> this.homestayAftercareDtoConvert(srv)).collect(Collectors.toList());
+		List<HomestayFacilityDto> homestayFacilityList = homestayEntity.getCommonFacilities().stream()
+				.map(fct -> this.homestayFacilityDtoConvert(fct)).collect(Collectors.toList());
+		HomestayLicenseDto homestayLicenseImageDto = homestayLicenseDtoConvert(homestayEntity.getLicenseImage());
+		HomestayDto homestayDto = new HomestayDto();
+		homestayDto.setId(homestayEntity.getId());
+		homestayDto.setName(homestayEntity.getName());
+		homestayDto.setDescription(homestayEntity.getDescription());
+		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
+		homestayDto.setAddress(homestayEntity.getAddress());
+		homestayDto.setCity(homestayEntity.getCity());
+		homestayDto.setPrice(homestayEntity.getPrice());
+		homestayDto.setNumberOfRoom(homestayEntity.getNumberOfRoom());
+		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
+		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
+		homestayDto.setPayment(homestayEntity.getPayment());
+		homestayDto.setStatus(homestayEntity.getStatus());
+		homestayDto.setConvenientPoint(homestayEntity.getRating().getConvenient());
+		homestayDto.setSecurityPoint(homestayEntity.getRating().getSecurity());
+		homestayDto.setPositionPoint(homestayEntity.getRating().getPosition());
+		homestayDto.setAverage(homestayEntity.getRating().getAverage());
+		homestayDto.setHomestayLicenseDto(homestayLicenseImageDto);
+		homestayDto.setHomestayImages(homestayImageList);
+		homestayDto.setHomestayServices(homestayServiceList);
+		homestayDto.setHomestayFacilities(homestayFacilityList);
+		homestayDto.setNumberOfFinishedBooking(homestayService.numberOfFinishedBookingHomestay(homestayEntity.getId()));
+		
+		return homestayDto;
+	}
+
+	private HomestayLicenseDto homestayLicenseDtoConvert(HomestayLicenseImageEntity homestayLicenseEntity) {
+		HomestayLicenseDto homestayLicenseDto = new HomestayLicenseDto();
+		homestayLicenseDto.setId(homestayLicenseEntity.getId());
+		homestayLicenseDto.setUrl(homestayLicenseEntity.getUrl());
+
+		return homestayLicenseDto;
+	}
+
+	public HomestayImageDto homestayImageDtoConvert(HomestayImageEntity homestayImageEntity) {
+		HomestayImageDto homestayImageDto = new HomestayImageDto();
+		homestayImageDto.setId(homestayImageEntity.getId());
+		homestayImageDto.setUrl(homestayImageEntity.getUrl());
+
+		return homestayImageDto;
+	}
+	
+	private HomestayPriceListDto homestayPriceListDtoConvert()
+
+	public HomestayAftercareDto homestayAftercareDtoConvert(HomestayAftercareEntity homestayAftercareEntity) {
+		HomestayAftercareDto homestayAftercareDto = new HomestayAftercareDto();
+		homestayAftercareDto.setId(homestayAftercareEntity.getId());
+		homestayAftercareDto.setName(homestayAftercareEntity.getServiceName());
+		homestayAftercareDto.setPrice(homestayAftercareEntity.getPrice());
+
+		return homestayAftercareDto;
+	}
+
+	public HomestayFacilityDto homestayFacilityDtoConvert(HomestayCommonFacilityEntity homestayFacilityEntity) {
+		HomestayFacilityDto homestayFacilityDto = new HomestayFacilityDto();
+		homestayFacilityDto.setId(homestayFacilityEntity.getId());
+		homestayFacilityDto.setName(homestayFacilityEntity.getName());
+		homestayFacilityDto.setAmount(homestayFacilityEntity.getAmount());
+
+		return homestayFacilityDto;
+	}
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5750 and length is -64.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-08-11 15:48:06.846
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5750 and length is -64.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-08-11 15:48:06.847
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5750 and length is -64.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-08-11 15:48:10.399
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package com.swm.converter;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.swm.dto.HomestayAftercareDto;
+import com.swm.dto.HomestayDto;
+import com.swm.dto.HomestayFacilityDto;
+import com.swm.dto.HomestayImageDto;
+import com.swm.dto.HomestayLicenseDto;
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayCommonFacilityEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.entity.HomestayImageEntity;
+import com.swm.entity.HomestayLicenseImageEntity;
+import com.swm.service.IHomestayService;
+
+@Component
+public class HomestayConverter {
+	
+	@Autowired
+	private IHomestayService homestayService;
+
+	/* convert riêng từng cái entity trong homestay dto */
+	public HomestayEntity homestayEntityConvert(HomestayDto homestayDto) {
+		HomestayEntity homestayEntity = new HomestayEntity();
+		homestayEntity.setName(homestayDto.getName());
+		homestayEntity.setDescription(homestayDto.getDescription());
+		homestayEntity.setAddress(homestayDto.getAddress());
+		homestayEntity.setCity(homestayDto.getCity());
+		homestayEntity.setPriceList(homestayDto.getHomestayFacilities());
+		homestayEntity.setNumberOfRoom(homestayDto.getNumberOfRoom());
+		homestayEntity.setCheckInTime(homestayDto.getCheckInTime());
+		homestayEntity.setCheckOutTime(homestayDto.getCheckOutTime());
+		homestayEntity.setPayment(homestayDto.getPayment());
+
+		return homestayEntity;
+	}
+
+	public HomestayAftercareEntity homestayAftercareEntityConvert(HomestayAftercareDto homestayAftercareDto) {
+		HomestayAftercareEntity homestayAftercareEntity = new HomestayAftercareEntity();
+		homestayAftercareEntity.setServiceName(homestayAftercareDto.getName());
+		homestayAftercareEntity.setPrice(homestayAftercareDto.getPrice());
+
+		return homestayAftercareEntity;
+	}
+
+	public HomestayLicenseImageEntity homestayLicenseEntityConvert(HomestayLicenseDto homestayLicenseDto) {
+		HomestayLicenseImageEntity homestayLicenseEntity = new HomestayLicenseImageEntity();
+		homestayLicenseEntity.setUrl(homestayLicenseDto.getUrl());
+
+		return homestayLicenseEntity;
+	}
+
+	public HomestayImageEntity homestayImageEntityConvert(HomestayImageDto homestayImageDto) {
+		HomestayImageEntity homestayImageEntity = new HomestayImageEntity();
+		homestayImageEntity.setUrl(homestayImageDto.getUrl());
+
+		return homestayImageEntity;
+	}
+
+	public HomestayCommonFacilityEntity homestayFacilityEntityConvert(HomestayFacilityDto homestayFacilityDto) {
+		HomestayCommonFacilityEntity homestayFacilityEntity = new HomestayCommonFacilityEntity();
+		homestayFacilityEntity.setName(homestayFacilityDto.getName());
+		homestayFacilityEntity.setAmount(homestayFacilityDto.getAmount());
+
+		return homestayFacilityEntity;
+	}
+	
+	public HomestayDto homestayCompleteInfoDtoConvert(HomestayEntity homestayEntity) {
+		List<HomestayImageDto> homestayImageList = homestayEntity.getImageList().stream()
+				.map(img -> this.homestayImageDtoConvert(img)).collect(Collectors.toList());
+		List<HomestayAftercareDto> homestayServiceList = homestayEntity.getHomestayService().stream()
+				.map(srv -> this.homestayAftercareDtoConvert(srv)).collect(Collectors.toList());
+		List<HomestayFacilityDto> homestayFacilityList = homestayEntity.getCommonFacilities().stream()
+				.map(fct -> this.homestayFacilityDtoConvert(fct)).collect(Collectors.toList());
+		HomestayLicenseDto homestayLicenseImageDto = homestayLicenseDtoConvert(homestayEntity.getLicenseImage());
+		HomestayDto homestayDto = new HomestayDto();
+		homestayDto.setId(homestayEntity.getId());
+		homestayDto.setName(homestayEntity.getName());
+		homestayDto.setDescription(homestayEntity.getDescription());
+		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
+		homestayDto.setAddress(homestayEntity.getAddress());
+		homestayDto.setCity(homestayEntity.getCity());
+		homestayDto.setPrice(homestayEntity.getPrice());
+		homestayDto.setNumberOfRoom(homestayEntity.getNumberOfRoom());
+		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
+		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
+		homestayDto.setPayment(homestayEntity.getPayment());
+		homestayDto.setStatus(homestayEntity.getStatus());
+		homestayDto.setConvenientPoint(homestayEntity.getRating().getConvenient());
+		homestayDto.setSecurityPoint(homestayEntity.getRating().getSecurity());
+		homestayDto.setPositionPoint(homestayEntity.getRating().getPosition());
+		homestayDto.setAverage(homestayEntity.getRating().getAverage());
+		homestayDto.setHomestayLicenseDto(homestayLicenseImageDto);
+		homestayDto.setHomestayImages(homestayImageList);
+		homestayDto.setHomestayServices(homestayServiceList);
+		homestayDto.setHomestayFacilities(homestayFacilityList);
+		homestayDto.setNumberOfFinishedBooking(homestayService.numberOfFinishedBookingHomestay(homestayEntity.getId()));
+		
+		return homestayDto;
+	}
+
+	private HomestayLicenseDto homestayLicenseDtoConvert(HomestayLicenseImageEntity homestayLicenseEntity) {
+		HomestayLicenseDto homestayLicenseDto = new HomestayLicenseDto();
+		homestayLicenseDto.setId(homestayLicenseEntity.getId());
+		homestayLicenseDto.setUrl(homestayLicenseEntity.getUrl());
+
+		return homestayLicenseDto;
+	}
+
+	public HomestayImageDto homestayImageDtoConvert(HomestayImageEntity homestayImageEntity) {
+		HomestayImageDto homestayImageDto = new HomestayImageDto();
+		homestayImageDto.setId(homestayImageEntity.getId());
+		homestayImageDto.setUrl(homestayImageEntity.getUrl());
+
+		return homestayImageDto;
+	}
+	
+	private HomestayPriceListDto homestayPriceListDtoConvert(Homestay)
+
+	public HomestayAftercareDto homestayAftercareDtoConvert(HomestayAftercareEntity homestayAftercareEntity) {
+		HomestayAftercareDto homestayAftercareDto = new HomestayAftercareDto();
+		homestayAftercareDto.setId(homestayAftercareEntity.getId());
+		homestayAftercareDto.setName(homestayAftercareEntity.getServiceName());
+		homestayAftercareDto.setPrice(homestayAftercareEntity.getPrice());
+
+		return homestayAftercareDto;
+	}
+
+	public HomestayFacilityDto homestayFacilityDtoConvert(HomestayCommonFacilityEntity homestayFacilityEntity) {
+		HomestayFacilityDto homestayFacilityDto = new HomestayFacilityDto();
+		homestayFacilityDto.setId(homestayFacilityEntity.getId());
+		homestayFacilityDto.setName(homestayFacilityEntity.getName());
+		homestayFacilityDto.setAmount(homestayFacilityEntity.getAmount());
+
+		return homestayFacilityDto;
+	}
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5749 and length is -63.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-08-11 15:48:10.400
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5749 and length is -63.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-08-11 15:48:10.401
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5749 and length is -63.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-08-11 15:48:12.948
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package com.swm.converter;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.swm.dto.HomestayAftercareDto;
+import com.swm.dto.HomestayDto;
+import com.swm.dto.HomestayFacilityDto;
+import com.swm.dto.HomestayImageDto;
+import com.swm.dto.HomestayLicenseDto;
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayCommonFacilityEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.entity.HomestayImageEntity;
+import com.swm.entity.HomestayLicenseImageEntity;
+import com.swm.service.IHomestayService;
+
+@Component
+public class HomestayConverter {
+	
+	@Autowired
+	private IHomestayService homestayService;
+
+	/* convert riêng từng cái entity trong homestay dto */
+	public HomestayEntity homestayEntityConvert(HomestayDto homestayDto) {
+		HomestayEntity homestayEntity = new HomestayEntity();
+		homestayEntity.setName(homestayDto.getName());
+		homestayEntity.setDescription(homestayDto.getDescription());
+		homestayEntity.setAddress(homestayDto.getAddress());
+		homestayEntity.setCity(homestayDto.getCity());
+		homestayEntity.setPriceList(homestayDto.getHomestayFacilities());
+		homestayEntity.setNumberOfRoom(homestayDto.getNumberOfRoom());
+		homestayEntity.setCheckInTime(homestayDto.getCheckInTime());
+		homestayEntity.setCheckOutTime(homestayDto.getCheckOutTime());
+		homestayEntity.setPayment(homestayDto.getPayment());
+
+		return homestayEntity;
+	}
+
+	public HomestayAftercareEntity homestayAftercareEntityConvert(HomestayAftercareDto homestayAftercareDto) {
+		HomestayAftercareEntity homestayAftercareEntity = new HomestayAftercareEntity();
+		homestayAftercareEntity.setServiceName(homestayAftercareDto.getName());
+		homestayAftercareEntity.setPrice(homestayAftercareDto.getPrice());
+
+		return homestayAftercareEntity;
+	}
+
+	public HomestayLicenseImageEntity homestayLicenseEntityConvert(HomestayLicenseDto homestayLicenseDto) {
+		HomestayLicenseImageEntity homestayLicenseEntity = new HomestayLicenseImageEntity();
+		homestayLicenseEntity.setUrl(homestayLicenseDto.getUrl());
+
+		return homestayLicenseEntity;
+	}
+
+	public HomestayImageEntity homestayImageEntityConvert(HomestayImageDto homestayImageDto) {
+		HomestayImageEntity homestayImageEntity = new HomestayImageEntity();
+		homestayImageEntity.setUrl(homestayImageDto.getUrl());
+
+		return homestayImageEntity;
+	}
+
+	public HomestayCommonFacilityEntity homestayFacilityEntityConvert(HomestayFacilityDto homestayFacilityDto) {
+		HomestayCommonFacilityEntity homestayFacilityEntity = new HomestayCommonFacilityEntity();
+		homestayFacilityEntity.setName(homestayFacilityDto.getName());
+		homestayFacilityEntity.setAmount(homestayFacilityDto.getAmount());
+
+		return homestayFacilityEntity;
+	}
+	
+	public HomestayDto homestayCompleteInfoDtoConvert(HomestayEntity homestayEntity) {
+		List<HomestayImageDto> homestayImageList = homestayEntity.getImageList().stream()
+				.map(img -> this.homestayImageDtoConvert(img)).collect(Collectors.toList());
+		List<HomestayAftercareDto> homestayServiceList = homestayEntity.getHomestayService().stream()
+				.map(srv -> this.homestayAftercareDtoConvert(srv)).collect(Collectors.toList());
+		List<HomestayFacilityDto> homestayFacilityList = homestayEntity.getCommonFacilities().stream()
+				.map(fct -> this.homestayFacilityDtoConvert(fct)).collect(Collectors.toList());
+		HomestayLicenseDto homestayLicenseImageDto = homestayLicenseDtoConvert(homestayEntity.getLicenseImage());
+		HomestayDto homestayDto = new HomestayDto();
+		homestayDto.setId(homestayEntity.getId());
+		homestayDto.setName(homestayEntity.getName());
+		homestayDto.setDescription(homestayEntity.getDescription());
+		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
+		homestayDto.setAddress(homestayEntity.getAddress());
+		homestayDto.setCity(homestayEntity.getCity());
+		homestayDto.setPrice(homestayEntity.getPrice());
+		homestayDto.setNumberOfRoom(homestayEntity.getNumberOfRoom());
+		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
+		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
+		homestayDto.setPayment(homestayEntity.getPayment());
+		homestayDto.setStatus(homestayEntity.getStatus());
+		homestayDto.setConvenientPoint(homestayEntity.getRating().getConvenient());
+		homestayDto.setSecurityPoint(homestayEntity.getRating().getSecurity());
+		homestayDto.setPositionPoint(homestayEntity.getRating().getPosition());
+		homestayDto.setAverage(homestayEntity.getRating().getAverage());
+		homestayDto.setHomestayLicenseDto(homestayLicenseImageDto);
+		homestayDto.setHomestayImages(homestayImageList);
+		homestayDto.setHomestayServices(homestayServiceList);
+		homestayDto.setHomestayFacilities(homestayFacilityList);
+		homestayDto.setNumberOfFinishedBooking(homestayService.numberOfFinishedBookingHomestay(homestayEntity.getId()));
+		
+		return homestayDto;
+	}
+
+	private HomestayLicenseDto homestayLicenseDtoConvert(HomestayLicenseImageEntity homestayLicenseEntity) {
+		HomestayLicenseDto homestayLicenseDto = new HomestayLicenseDto();
+		homestayLicenseDto.setId(homestayLicenseEntity.getId());
+		homestayLicenseDto.setUrl(homestayLicenseEntity.getUrl());
+
+		return homestayLicenseDto;
+	}
+
+	public HomestayImageDto homestayImageDtoConvert(HomestayImageEntity homestayImageEntity) {
+		HomestayImageDto homestayImageDto = new HomestayImageDto();
+		homestayImageDto.setId(homestayImageEntity.getId());
+		homestayImageDto.setUrl(homestayImageEntity.getUrl());
+
+		return homestayImageDto;
+	}
+	
+	private HomestayPriceListDto homestayPriceListDtoConvert(HomestayPri)
+
+	public HomestayAftercareDto homestayAftercareDtoConvert(HomestayAftercareEntity homestayAftercareEntity) {
+		HomestayAftercareDto homestayAftercareDto = new HomestayAftercareDto();
+		homestayAftercareDto.setId(homestayAftercareEntity.getId());
+		homestayAftercareDto.setName(homestayAftercareEntity.getServiceName());
+		homestayAftercareDto.setPrice(homestayAftercareEntity.getPrice());
+
+		return homestayAftercareDto;
+	}
+
+	public HomestayFacilityDto homestayFacilityDtoConvert(HomestayCommonFacilityEntity homestayFacilityEntity) {
+		HomestayFacilityDto homestayFacilityDto = new HomestayFacilityDto();
+		homestayFacilityDto.setId(homestayFacilityEntity.getId());
+		homestayFacilityDto.setName(homestayFacilityEntity.getName());
+		homestayFacilityDto.setAmount(homestayFacilityEntity.getAmount());
+
+		return homestayFacilityDto;
+	}
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5749 and length is -63.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-08-11 15:48:12.950
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5749 and length is -63.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-08-11 15:48:12.950
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5749 and length is -63.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-08-11 15:48:23.501
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package com.swm.converter;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.swm.dto.HomestayAftercareDto;
+import com.swm.dto.HomestayDto;
+import com.swm.dto.HomestayFacilityDto;
+import com.swm.dto.HomestayImageDto;
+import com.swm.dto.HomestayLicenseDto;
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayCommonFacilityEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.entity.HomestayImageEntity;
+import com.swm.entity.HomestayLicenseImageEntity;
+import com.swm.entity.HomestayPriceListEntity;
+import com.swm.service.IHomestayService;
+
+@Component
+public class HomestayConverter {
+	
+	@Autowired
+	private IHomestayService homestayService;
+
+	/* convert riêng từng cái entity trong homestay dto */
+	public HomestayEntity homestayEntityConvert(HomestayDto homestayDto) {
+		HomestayEntity homestayEntity = new HomestayEntity();
+		homestayEntity.setName(homestayDto.getName());
+		homestayEntity.setDescription(homestayDto.getDescription());
+		homestayEntity.setAddress(homestayDto.getAddress());
+		homestayEntity.setCity(homestayDto.getCity());
+		homestayEntity.setPriceList(homestayDto.getHomestayFacilities());
+		homestayEntity.setNumberOfRoom(homestayDto.getNumberOfRoom());
+		homestayEntity.setCheckInTime(homestayDto.getCheckInTime());
+		homestayEntity.setCheckOutTime(homestayDto.getCheckOutTime());
+		homestayEntity.setPayment(homestayDto.getPayment());
+
+		return homestayEntity;
+	}
+
+	public HomestayAftercareEntity homestayAftercareEntityConvert(HomestayAftercareDto homestayAftercareDto) {
+		HomestayAftercareEntity homestayAftercareEntity = new HomestayAftercareEntity();
+		homestayAftercareEntity.setServiceName(homestayAftercareDto.getName());
+		homestayAftercareEntity.setPrice(homestayAftercareDto.getPrice());
+
+		return homestayAftercareEntity;
+	}
+
+	public HomestayLicenseImageEntity homestayLicenseEntityConvert(HomestayLicenseDto homestayLicenseDto) {
+		HomestayLicenseImageEntity homestayLicenseEntity = new HomestayLicenseImageEntity();
+		homestayLicenseEntity.setUrl(homestayLicenseDto.getUrl());
+
+		return homestayLicenseEntity;
+	}
+
+	public HomestayImageEntity homestayImageEntityConvert(HomestayImageDto homestayImageDto) {
+		HomestayImageEntity homestayImageEntity = new HomestayImageEntity();
+		homestayImageEntity.setUrl(homestayImageDto.getUrl());
+
+		return homestayImageEntity;
+	}
+
+	public HomestayCommonFacilityEntity homestayFacilityEntityConvert(HomestayFacilityDto homestayFacilityDto) {
+		HomestayCommonFacilityEntity homestayFacilityEntity = new HomestayCommonFacilityEntity();
+		homestayFacilityEntity.setName(homestayFacilityDto.getName());
+		homestayFacilityEntity.setAmount(homestayFacilityDto.getAmount());
+
+		return homestayFacilityEntity;
+	}
+	
+	public HomestayDto homestayCompleteInfoDtoConvert(HomestayEntity homestayEntity) {
+		List<HomestayImageDto> homestayImageList = homestayEntity.getImageList().stream()
+				.map(img -> this.homestayImageDtoConvert(img)).collect(Collectors.toList());
+		List<HomestayAftercareDto> homestayServiceList = homestayEntity.getHomestayService().stream()
+				.map(srv -> this.homestayAftercareDtoConvert(srv)).collect(Collectors.toList());
+		List<HomestayFacilityDto> homestayFacilityList = homestayEntity.getCommonFacilities().stream()
+				.map(fct -> this.homestayFacilityDtoConvert(fct)).collect(Collectors.toList());
+		HomestayLicenseDto homestayLicenseImageDto = homestayLicenseDtoConvert(homestayEntity.getLicenseImage());
+		HomestayDto homestayDto = new HomestayDto();
+		homestayDto.setId(homestayEntity.getId());
+		homestayDto.setName(homestayEntity.getName());
+		homestayDto.setDescription(homestayEntity.getDescription());
+		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
+		homestayDto.setAddress(homestayEntity.getAddress());
+		homestayDto.setCity(homestayEntity.getCity());
+		homestayDto.setPrice(homestayEntity.getPrice());
+		homestayDto.setNumberOfRoom(homestayEntity.getNumberOfRoom());
+		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
+		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
+		homestayDto.setPayment(homestayEntity.getPayment());
+		homestayDto.setStatus(homestayEntity.getStatus());
+		homestayDto.setConvenientPoint(homestayEntity.getRating().getConvenient());
+		homestayDto.setSecurityPoint(homestayEntity.getRating().getSecurity());
+		homestayDto.setPositionPoint(homestayEntity.getRating().getPosition());
+		homestayDto.setAverage(homestayEntity.getRating().getAverage());
+		homestayDto.setHomestayLicenseDto(homestayLicenseImageDto);
+		homestayDto.setHomestayImages(homestayImageList);
+		homestayDto.setHomestayServices(homestayServiceList);
+		homestayDto.setHomestayFacilities(homestayFacilityList);
+		homestayDto.setNumberOfFinishedBooking(homestayService.numberOfFinishedBookingHomestay(homestayEntity.getId()));
+		
+		return homestayDto;
+	}
+
+	private HomestayLicenseDto homestayLicenseDtoConvert(HomestayLicenseImageEntity homestayLicenseEntity) {
+		HomestayLicenseDto homestayLicenseDto = new HomestayLicenseDto();
+		homestayLicenseDto.setId(homestayLicenseEntity.getId());
+		homestayLicenseDto.setUrl(homestayLicenseEntity.getUrl());
+
+		return homestayLicenseDto;
+	}
+
+	public HomestayImageDto homestayImageDtoConvert(HomestayImageEntity homestayImageEntity) {
+		HomestayImageDto homestayImageDto = new HomestayImageDto();
+		homestayImageDto.setId(homestayImageEntity.getId());
+		homestayImageDto.setUrl(homestayImageEntity.getUrl());
+
+		return homestayImageDto;
+	}
+	
+	private HomestayPriceListDto homestayPriceListDtoConvert(HomestayPriceListEntity homestayPriceList)
+
+	public HomestayAftercareDto homestayAftercareDtoConvert(HomestayAftercareEntity homestayAftercareEntity) {
+		HomestayAftercareDto homestayAftercareDto = new HomestayAftercareDto();
+		homestayAftercareDto.setId(homestayAftercareEntity.getId());
+		homestayAftercareDto.setName(homestayAftercareEntity.getServiceName());
+		homestayAftercareDto.setPrice(homestayAftercareEntity.getPrice());
+
+		return homestayAftercareDto;
+	}
+
+	public HomestayFacilityDto homestayFacilityDtoConvert(HomestayCommonFacilityEntity homestayFacilityEntity) {
+		HomestayFacilityDto homestayFacilityDto = new HomestayFacilityDto();
+		homestayFacilityDto.setId(homestayFacilityEntity.getId());
+		homestayFacilityDto.setName(homestayFacilityEntity.getName());
+		homestayFacilityDto.setAmount(homestayFacilityEntity.getAmount());
+
+		return homestayFacilityDto;
+	}
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5839 and length is -105.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-08-11 15:48:23.503
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5839 and length is -105.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-08-11 15:48:23.504
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5839 and length is -105.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-08-11 15:48:25.567
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package com.swm.converter;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.swm.dto.HomestayAftercareDto;
+import com.swm.dto.HomestayDto;
+import com.swm.dto.HomestayFacilityDto;
+import com.swm.dto.HomestayImageDto;
+import com.swm.dto.HomestayLicenseDto;
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayCommonFacilityEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.entity.HomestayImageEntity;
+import com.swm.entity.HomestayLicenseImageEntity;
+import com.swm.entity.HomestayPriceListEntity;
+import com.swm.service.IHomestayService;
+
+@Component
+public class HomestayConverter {
+	
+	@Autowired
+	private IHomestayService homestayService;
+
+	/* convert riêng từng cái entity trong homestay dto */
+	public HomestayEntity homestayEntityConvert(HomestayDto homestayDto) {
+		HomestayEntity homestayEntity = new HomestayEntity();
+		homestayEntity.setName(homestayDto.getName());
+		homestayEntity.setDescription(homestayDto.getDescription());
+		homestayEntity.setAddress(homestayDto.getAddress());
+		homestayEntity.setCity(homestayDto.getCity());
+		homestayEntity.setPriceList(homestayDto.getHomestayFacilities());
+		homestayEntity.setNumberOfRoom(homestayDto.getNumberOfRoom());
+		homestayEntity.setCheckInTime(homestayDto.getCheckInTime());
+		homestayEntity.setCheckOutTime(homestayDto.getCheckOutTime());
+		homestayEntity.setPayment(homestayDto.getPayment());
+
+		return homestayEntity;
+	}
+
+	public HomestayAftercareEntity homestayAftercareEntityConvert(HomestayAftercareDto homestayAftercareDto) {
+		HomestayAftercareEntity homestayAftercareEntity = new HomestayAftercareEntity();
+		homestayAftercareEntity.setServiceName(homestayAftercareDto.getName());
+		homestayAftercareEntity.setPrice(homestayAftercareDto.getPrice());
+
+		return homestayAftercareEntity;
+	}
+
+	public HomestayLicenseImageEntity homestayLicenseEntityConvert(HomestayLicenseDto homestayLicenseDto) {
+		HomestayLicenseImageEntity homestayLicenseEntity = new HomestayLicenseImageEntity();
+		homestayLicenseEntity.setUrl(homestayLicenseDto.getUrl());
+
+		return homestayLicenseEntity;
+	}
+
+	public HomestayImageEntity homestayImageEntityConvert(HomestayImageDto homestayImageDto) {
+		HomestayImageEntity homestayImageEntity = new HomestayImageEntity();
+		homestayImageEntity.setUrl(homestayImageDto.getUrl());
+
+		return homestayImageEntity;
+	}
+
+	public HomestayCommonFacilityEntity homestayFacilityEntityConvert(HomestayFacilityDto homestayFacilityDto) {
+		HomestayCommonFacilityEntity homestayFacilityEntity = new HomestayCommonFacilityEntity();
+		homestayFacilityEntity.setName(homestayFacilityDto.getName());
+		homestayFacilityEntity.setAmount(homestayFacilityDto.getAmount());
+
+		return homestayFacilityEntity;
+	}
+	
+	public HomestayDto homestayCompleteInfoDtoConvert(HomestayEntity homestayEntity) {
+		List<HomestayImageDto> homestayImageList = homestayEntity.getImageList().stream()
+				.map(img -> this.homestayImageDtoConvert(img)).collect(Collectors.toList());
+		List<HomestayAftercareDto> homestayServiceList = homestayEntity.getHomestayService().stream()
+				.map(srv -> this.homestayAftercareDtoConvert(srv)).collect(Collectors.toList());
+		List<HomestayFacilityDto> homestayFacilityList = homestayEntity.getCommonFacilities().stream()
+				.map(fct -> this.homestayFacilityDtoConvert(fct)).collect(Collectors.toList());
+		HomestayLicenseDto homestayLicenseImageDto = homestayLicenseDtoConvert(homestayEntity.getLicenseImage());
+		HomestayDto homestayDto = new HomestayDto();
+		homestayDto.setId(homestayEntity.getId());
+		homestayDto.setName(homestayEntity.getName());
+		homestayDto.setDescription(homestayEntity.getDescription());
+		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
+		homestayDto.setAddress(homestayEntity.getAddress());
+		homestayDto.setCity(homestayEntity.getCity());
+		homestayDto.setPrice(homestayEntity.getPrice());
+		homestayDto.setNumberOfRoom(homestayEntity.getNumberOfRoom());
+		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
+		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
+		homestayDto.setPayment(homestayEntity.getPayment());
+		homestayDto.setStatus(homestayEntity.getStatus());
+		homestayDto.setConvenientPoint(homestayEntity.getRating().getConvenient());
+		homestayDto.setSecurityPoint(homestayEntity.getRating().getSecurity());
+		homestayDto.setPositionPoint(homestayEntity.getRating().getPosition());
+		homestayDto.setAverage(homestayEntity.getRating().getAverage());
+		homestayDto.setHomestayLicenseDto(homestayLicenseImageDto);
+		homestayDto.setHomestayImages(homestayImageList);
+		homestayDto.setHomestayServices(homestayServiceList);
+		homestayDto.setHomestayFacilities(homestayFacilityList);
+		homestayDto.setNumberOfFinishedBooking(homestayService.numberOfFinishedBookingHomestay(homestayEntity.getId()));
+		
+		return homestayDto;
+	}
+
+	private HomestayLicenseDto homestayLicenseDtoConvert(HomestayLicenseImageEntity homestayLicenseEntity) {
+		HomestayLicenseDto homestayLicenseDto = new HomestayLicenseDto();
+		homestayLicenseDto.setId(homestayLicenseEntity.getId());
+		homestayLicenseDto.setUrl(homestayLicenseEntity.getUrl());
+
+		return homestayLicenseDto;
+	}
+
+	public HomestayImageDto homestayImageDtoConvert(HomestayImageEntity homestayImageEntity) {
+		HomestayImageDto homestayImageDto = new HomestayImageDto();
+		homestayImageDto.setId(homestayImageEntity.getId());
+		homestayImageDto.setUrl(homestayImageEntity.getUrl());
+
+		return homestayImageDto;
+	}
+	
+	private HomestayPriceListDto homestayPriceListDtoConvert(HomestayPriceListEntity homestayPriceListEntity)
+
+	public HomestayAftercareDto homestayAftercareDtoConvert(HomestayAftercareEntity homestayAftercareEntity) {
+		HomestayAftercareDto homestayAftercareDto = new HomestayAftercareDto();
+		homestayAftercareDto.setId(homestayAftercareEntity.getId());
+		homestayAftercareDto.setName(homestayAftercareEntity.getServiceName());
+		homestayAftercareDto.setPrice(homestayAftercareEntity.getPrice());
+
+		return homestayAftercareDto;
+	}
+
+	public HomestayFacilityDto homestayFacilityDtoConvert(HomestayCommonFacilityEntity homestayFacilityEntity) {
+		HomestayFacilityDto homestayFacilityDto = new HomestayFacilityDto();
+		homestayFacilityDto.setId(homestayFacilityEntity.getId());
+		homestayFacilityDto.setName(homestayFacilityEntity.getName());
+		homestayFacilityDto.setAmount(homestayFacilityEntity.getAmount());
+
+		return homestayFacilityDto;
+	}
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5845 and length is -111.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-08-11 15:48:25.569
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5845 and length is -111.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-08-11 15:48:25.570
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 5845 and length is -111.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:51:09.065
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:51:09.071
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:51:23.282
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:51:23.287
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:51:39.181
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:51:39.186
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-08-11 15:52:16.213
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package com.swm.converter;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.swm.dto.HomestayAftercareDto;
+import com.swm.dto.HomestayDto;
+import com.swm.dto.HomestayFacilityDto;
+import com.swm.dto.HomestayImageDto;
+import com.swm.dto.HomestayLicenseDto;
+import com.swm.dto.HomestayPriceListDto;
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayCommonFacilityEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.entity.HomestayImageEntity;
+import com.swm.entity.HomestayLicenseImageEntity;
+import com.swm.entity.HomestayPriceListEntity;
+import com.swm.service.IHomestayService;
+
+@Component
+public class HomestayConverter {
+	
+	@Autowired
+	private IHomestayService homestayService;
+
+	/* convert riêng từng cái entity trong homestay dto */
+	public HomestayEntity homestayEntityConvert(HomestayDto homestayDto) {
+		HomestayEntity homestayEntity = new HomestayEntity();
+		homestayEntity.setName(homestayDto.getName());
+		homestayEntity.setDescription(homestayDto.getDescription());
+		homestayEntity.setAddress(homestayDto.getAddress());
+		homestayEntity.setCity(homestayDto.getCity());
+		homestayEntity.setPriceList(homestayDto.getHomestayPriceList());
+		homestayEntity.setNumberOfRoom(homestayDto.getNumberOfRoom());
+		homestayEntity.setCheckInTime(homestayDto.getCheckInTime());
+		homestayEntity.setCheckOutTime(homestayDto.getCheckOutTime());
+		homestayEntity.setPayment(homestayDto.getPayment());
+
+		return homestayEntity;
+	}
+
+	public HomestayAftercareEntity homestayAftercareEntityConvert(HomestayAftercareDto homestayAftercareDto) {
+		HomestayAftercareEntity homestayAftercareEntity = new HomestayAftercareEntity();
+		homestayAftercareEntity.setServiceName(homestayAftercareDto.getName());
+		homestayAftercareEntity.setPrice(homestayAftercareDto.getPrice());
+
+		return homestayAftercareEntity;
+	}
+
+	public HomestayLicenseImageEntity homestayLicenseEntityConvert(HomestayLicenseDto homestayLicenseDto) {
+		HomestayLicenseImageEntity homestayLicenseEntity = new HomestayLicenseImageEntity();
+		homestayLicenseEntity.setUrl(homestayLicenseDto.getUrl());
+
+		return homestayLicenseEntity;
+	}
+
+	public HomestayImageEntity homestayImageEntityConvert(HomestayImageDto homestayImageDto) {
+		HomestayImageEntity homestayImageEntity = new HomestayImageEntity();
+		homestayImageEntity.setUrl(homestayImageDto.getUrl());
+
+		return homestayImageEntity;
+	}
+
+	public HomestayCommonFacilityEntity homestayFacilityEntityConvert(HomestayFacilityDto homestayFacilityDto) {
+		HomestayCommonFacilityEntity homestayFacilityEntity = new HomestayCommonFacilityEntity();
+		homestayFacilityEntity.setName(homestayFacilityDto.getName());
+		homestayFacilityEntity.setAmount(homestayFacilityDto.getAmount());
+
+		return homestayFacilityEntity;
+	}
+	
+	public HomestayDto homestayCompleteInfoDtoConvert(HomestayEntity homestayEntity) {
+		List<HomestayImageDto> homestayImageList = homestayEntity.getImageList().stream()
+				.map(img -> this.homestayImageDtoConvert(img)).collect(Collectors.toList());
+		List<HomestayAftercareDto> homestayServiceList = homestayEntity.getHomestayService().stream()
+				.map(srv -> this.homestayAftercareDtoConvert(srv)).collect(Collectors.toList());
+		List<HomestayFacilityDto> homestayFacilityList = homestayEntity.getCommonFacilities().stream()
+				.map(fct -> this.homestayFacilityDtoConvert(fct)).collect(Collectors.toList());
+		List<HomestayPriceListDto> homestayPriceList = homestayEntity.getPriceList().stream()
+				.map(p -> this.homestayPriceListDtoConvert(p)).collect(Collectors.toList());
+		HomestayLicenseDto homestayLicenseImageDto = homestayLicenseDtoConvert(homestayEntity.getLicenseImage());
+		HomestayDto homestayDto = new HomestayDto();
+		homestayDto.setId(homestayEntity.getId());
+		homestayDto.setName(homestayEntity.getName());
+		homestayDto.setDescription(homestayEntity.getDescription());
+		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
+		homestayDto.setAddress(homestayEntity.getAddress());
+		homestayDto.setCity(homestayEntity.getCity());
+		homestayDto.setHomestayPriceList(homestayPriceList);
+		homestayDto.setNumberOfRoom(homestayEntity.getNumberOfRoom());
+		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
+		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
+		homestayDto.setPayment(homestayEntity.getPayment());
+		homestayDto.setStatus(homestayEntity.getStatus());
+		homestayDto.setConvenientPoint(homestayEntity.getRating().getConvenient());
+		homestayDto.setSecurityPoint(homestayEntity.getRating().getSecurity());
+		homestayDto.setPositionPoint(homestayEntity.getRating().getPosition());
+		homestayDto.setAverage(homestayEntity.getRating().getAverage());
+		homestayDto.setHomestayLicenseDto(homestayLicenseImageDto);
+		homestayDto.setHomestayImages(homestayImageList);
+		homestayDto.setHomestayServices(homestayServiceList);
+		homestayDto.setHomestayFacilities(homestayFacilityList);
+		homestayDto.setNumberOfFinishedBooking(homestayService.numberOfFinishedBookingHomestay(homestayEntity.getId()));
+		
+		return homestayDto;
+	}
+
+	private HomestayLicenseDto homestayLicenseDtoConvert(HomestayLicenseImageEntity homestayLicenseEntity) {
+		HomestayLicenseDto homestayLicenseDto = new HomestayLicenseDto();
+		homestayLicenseDto.setId(homestayLicenseEntity.getId());
+		homestayLicenseDto.setUrl(homestayLicenseEntity.getUrl());
+
+		return homestayLicenseDto;
+	}
+
+	public HomestayImageDto homestayImageDtoConvert(HomestayImageEntity homestayImageEntity) {
+		HomestayImageDto homestayImageDto = new HomestayImageDto();
+		homestayImageDto.setId(homestayImageEntity.getId());
+		homestayImageDto.setUrl(homestayImageEntity.getUrl());
+
+		return homestayImageDto;
+	}
+	
+	private HomestayPriceListDto homestayPriceListDtoConvert(HomestayPriceListEntity homestayPriceListEntity) {
+		HomestayPriceListDto homestayPriceListDto = new HomestayPriceListDto();
+		homestayPriceListDto.setId(homestayPriceListEntity.getId());
+		homestayPriceListDto.setPrice(homestayPriceListEntity.getPrice());
+		
+		return homestayPriceListDto;
+	}
+	
+	private HomestayPriceListEntity homestayPriceListEntityConvert()
+
+	public HomestayAftercareDto homestayAftercareDtoConvert(HomestayAftercareEntity homestayAftercareEntity) {
+		HomestayAftercareDto homestayAftercareDto = new HomestayAftercareDto();
+		homestayAftercareDto.setId(homestayAftercareEntity.getId());
+		homestayAftercareDto.setName(homestayAftercareEntity.getServiceName());
+		homestayAftercareDto.setPrice(homestayAftercareEntity.getPrice());
+
+		return homestayAftercareDto;
+	}
+
+	public HomestayFacilityDto homestayFacilityDtoConvert(HomestayCommonFacilityEntity homestayFacilityEntity) {
+		HomestayFacilityDto homestayFacilityDto = new HomestayFacilityDto();
+		homestayFacilityDto.setId(homestayFacilityEntity.getId());
+		homestayFacilityDto.setName(homestayFacilityEntity.getName());
+		homestayFacilityDto.setAmount(homestayFacilityEntity.getAmount());
+
+		return homestayFacilityDto;
+	}
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 6382 and length is -70.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-08-11 15:52:16.214
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 6382 and length is -70.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-08-11 15:52:16.215
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 6382 and length is -70.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-08-11 15:52:20.778
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package com.swm.converter;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.swm.dto.HomestayAftercareDto;
+import com.swm.dto.HomestayDto;
+import com.swm.dto.HomestayFacilityDto;
+import com.swm.dto.HomestayImageDto;
+import com.swm.dto.HomestayLicenseDto;
+import com.swm.dto.HomestayPriceListDto;
+import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayCommonFacilityEntity;
+import com.swm.entity.HomestayEntity;
+import com.swm.entity.HomestayImageEntity;
+import com.swm.entity.HomestayLicenseImageEntity;
+import com.swm.entity.HomestayPriceListEntity;
+import com.swm.service.IHomestayService;
+
+@Component
+public class HomestayConverter {
+	
+	@Autowired
+	private IHomestayService homestayService;
+
+	/* convert riêng từng cái entity trong homestay dto */
+	public HomestayEntity homestayEntityConvert(HomestayDto homestayDto) {
+		HomestayEntity homestayEntity = new HomestayEntity();
+		homestayEntity.setName(homestayDto.getName());
+		homestayEntity.setDescription(homestayDto.getDescription());
+		homestayEntity.setAddress(homestayDto.getAddress());
+		homestayEntity.setCity(homestayDto.getCity());
+		homestayEntity.setPriceList(homestayDto.getHomestayPriceList());
+		homestayEntity.setNumberOfRoom(homestayDto.getNumberOfRoom());
+		homestayEntity.setCheckInTime(homestayDto.getCheckInTime());
+		homestayEntity.setCheckOutTime(homestayDto.getCheckOutTime());
+		homestayEntity.setPayment(homestayDto.getPayment());
+
+		return homestayEntity;
+	}
+
+	public HomestayAftercareEntity homestayAftercareEntityConvert(HomestayAftercareDto homestayAftercareDto) {
+		HomestayAftercareEntity homestayAftercareEntity = new HomestayAftercareEntity();
+		homestayAftercareEntity.setServiceName(homestayAftercareDto.getName());
+		homestayAftercareEntity.setPrice(homestayAftercareDto.getPrice());
+
+		return homestayAftercareEntity;
+	}
+
+	public HomestayLicenseImageEntity homestayLicenseEntityConvert(HomestayLicenseDto homestayLicenseDto) {
+		HomestayLicenseImageEntity homestayLicenseEntity = new HomestayLicenseImageEntity();
+		homestayLicenseEntity.setUrl(homestayLicenseDto.getUrl());
+
+		return homestayLicenseEntity;
+	}
+
+	public HomestayImageEntity homestayImageEntityConvert(HomestayImageDto homestayImageDto) {
+		HomestayImageEntity homestayImageEntity = new HomestayImageEntity();
+		homestayImageEntity.setUrl(homestayImageDto.getUrl());
+
+		return homestayImageEntity;
+	}
+
+	public HomestayCommonFacilityEntity homestayFacilityEntityConvert(HomestayFacilityDto homestayFacilityDto) {
+		HomestayCommonFacilityEntity homestayFacilityEntity = new HomestayCommonFacilityEntity();
+		homestayFacilityEntity.setName(homestayFacilityDto.getName());
+		homestayFacilityEntity.setAmount(homestayFacilityDto.getAmount());
+
+		return homestayFacilityEntity;
+	}
+	
+	public HomestayDto homestayCompleteInfoDtoConvert(HomestayEntity homestayEntity) {
+		List<HomestayImageDto> homestayImageList = homestayEntity.getImageList().stream()
+				.map(img -> this.homestayImageDtoConvert(img)).collect(Collectors.toList());
+		List<HomestayAftercareDto> homestayServiceList = homestayEntity.getHomestayService().stream()
+				.map(srv -> this.homestayAftercareDtoConvert(srv)).collect(Collectors.toList());
+		List<HomestayFacilityDto> homestayFacilityList = homestayEntity.getCommonFacilities().stream()
+				.map(fct -> this.homestayFacilityDtoConvert(fct)).collect(Collectors.toList());
+		List<HomestayPriceListDto> homestayPriceList = homestayEntity.getPriceList().stream()
+				.map(p -> this.homestayPriceListDtoConvert(p)).collect(Collectors.toList());
+		HomestayLicenseDto homestayLicenseImageDto = homestayLicenseDtoConvert(homestayEntity.getLicenseImage());
+		HomestayDto homestayDto = new HomestayDto();
+		homestayDto.setId(homestayEntity.getId());
+		homestayDto.setName(homestayEntity.getName());
+		homestayDto.setDescription(homestayEntity.getDescription());
+		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
+		homestayDto.setAddress(homestayEntity.getAddress());
+		homestayDto.setCity(homestayEntity.getCity());
+		homestayDto.setHomestayPriceList(homestayPriceList);
+		homestayDto.setNumberOfRoom(homestayEntity.getNumberOfRoom());
+		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
+		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
+		homestayDto.setPayment(homestayEntity.getPayment());
+		homestayDto.setStatus(homestayEntity.getStatus());
+		homestayDto.setConvenientPoint(homestayEntity.getRating().getConvenient());
+		homestayDto.setSecurityPoint(homestayEntity.getRating().getSecurity());
+		homestayDto.setPositionPoint(homestayEntity.getRating().getPosition());
+		homestayDto.setAverage(homestayEntity.getRating().getAverage());
+		homestayDto.setHomestayLicenseDto(homestayLicenseImageDto);
+		homestayDto.setHomestayImages(homestayImageList);
+		homestayDto.setHomestayServices(homestayServiceList);
+		homestayDto.setHomestayFacilities(homestayFacilityList);
+		homestayDto.setNumberOfFinishedBooking(homestayService.numberOfFinishedBookingHomestay(homestayEntity.getId()));
+		
+		return homestayDto;
+	}
+
+	private HomestayLicenseDto homestayLicenseDtoConvert(HomestayLicenseImageEntity homestayLicenseEntity) {
+		HomestayLicenseDto homestayLicenseDto = new HomestayLicenseDto();
+		homestayLicenseDto.setId(homestayLicenseEntity.getId());
+		homestayLicenseDto.setUrl(homestayLicenseEntity.getUrl());
+
+		return homestayLicenseDto;
+	}
+
+	public HomestayImageDto homestayImageDtoConvert(HomestayImageEntity homestayImageEntity) {
+		HomestayImageDto homestayImageDto = new HomestayImageDto();
+		homestayImageDto.setId(homestayImageEntity.getId());
+		homestayImageDto.setUrl(homestayImageEntity.getUrl());
+
+		return homestayImageDto;
+	}
+	
+	private HomestayPriceListDto homestayPriceListDtoConvert(HomestayPriceListEntity homestayPriceListEntity) {
+		HomestayPriceListDto homestayPriceListDto = new HomestayPriceListDto();
+		homestayPriceListDto.setId(homestayPriceListEntity.getId());
+		homestayPriceListDto.setPrice(homestayPriceListEntity.getPrice());
+		
+		return homestayPriceListDto;
+	}
+	
+	private HomestayPriceListEntity homestayPriceListEntityConvert(HomestayPriceList)
+
+	public HomestayAftercareDto homestayAftercareDtoConvert(HomestayAftercareEntity homestayAftercareEntity) {
+		HomestayAftercareDto homestayAftercareDto = new HomestayAftercareDto();
+		homestayAftercareDto.setId(homestayAftercareEntity.getId());
+		homestayAftercareDto.setName(homestayAftercareEntity.getServiceName());
+		homestayAftercareDto.setPrice(homestayAftercareEntity.getPrice());
+
+		return homestayAftercareDto;
+	}
+
+	public HomestayFacilityDto homestayFacilityDtoConvert(HomestayCommonFacilityEntity homestayFacilityEntity) {
+		HomestayFacilityDto homestayFacilityDto = new HomestayFacilityDto();
+		homestayFacilityDto.setId(homestayFacilityEntity.getId());
+		homestayFacilityDto.setName(homestayFacilityEntity.getName());
+		homestayFacilityDto.setAmount(homestayFacilityEntity.getAmount());
+
+		return homestayFacilityDto;
+	}
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 6381 and length is -69.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-08-11 15:52:20.779
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 6381 and length is -69.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-08-11 15:52:20.780
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException: startPos = 6381 and length is -69.
+This breaks the rule that lengths are not allowed to be negative. Affected Node:
+class org.eclipse.jdt.core.dom.Block: {
+}
+
+	at lombok.eclipse.agent.PatchDiagnostics.setSourceRangeCheck(PatchDiagnostics.java:36)
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:738)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3347)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1524)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:494)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:54:39.979
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 15:54:39.989
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:41:02.697
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:41:03.053
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:43:51.531
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:43:51.536
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:44:25.259
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:44:25.264
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:49:34.583
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:49:34.587
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:49:52.261
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:49:52.266
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:50:41.902
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:50:41.912
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:51:04.097
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:51:04.106
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:54:13.679
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:54:13.684
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:55:57.948
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:55:57.953
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:58:26.263
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 16:58:26.268
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:01:26.420
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:01:26.426
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:06:23.119
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:06:23.125
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:08:25.456
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:08:25.462
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:13:05.979
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:13:05.985
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:13:31.398
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:13:31.403
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:13:33.423
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:13:33.427
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:15:29.425
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:15:29.431
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:15:31.882
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:15:31.886
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:15:57.425
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:15:57.431
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:17:46.178
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:17:46.186
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:20:09.847
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:20:09.852
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:22:17.566
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:22:17.570
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:23:31.287
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:23:31.293
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:24:22.940
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:24:22.945
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:24:54.634
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:24:54.639
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:24:57.209
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:24:57.214
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:27:50.971
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:27:50.979
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:27:52.840
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:27:52.845
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:28:14.984
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:28:14.987
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:28:39.109
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:28:39.114
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:29:10.874
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:29:10.879
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:29:35.580
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:29:35.588
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:32:20.664
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:32:20.669
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:32:57.940
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:32:57.944
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:32:59.873
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:32:59.878
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:33:23.254
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:33:23.295
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:38:32.462
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:38:32.466
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:38:35.561
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:38:35.565
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:40:55.757
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:40:55.763
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:41:27.289
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:41:27.293
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:49:09.017
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:49:09.021
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:49:18.988
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:49:18.993
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:49:28.733
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:49:28.738
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:49:35.233
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:49:35.238
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:50:28.833
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:50:28.838
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:50:36.928
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:50:36.932
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:50:46.725
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:50:46.729
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:54:36.071
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-08-11 17:54:36.077
+!MESSAGE Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!

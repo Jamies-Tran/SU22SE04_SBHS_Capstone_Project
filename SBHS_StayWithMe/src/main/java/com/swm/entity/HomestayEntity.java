@@ -41,15 +41,14 @@ public class HomestayEntity extends BaseEntity {
 	@Column(unique = true, nullable = false)
 	@Setter
 	private String name;
-	
+
 	@Setter
 	private String description;
-	
-	
+
 	@Column(nullable = false)
 	@Setter
 	private String address;
-	
+
 	@Column(nullable = false)
 	@Setter
 	private String city;
@@ -58,13 +57,9 @@ public class HomestayEntity extends BaseEntity {
 	@Setter
 	private double profit = 0.0;
 
-	@Column(nullable = false)
-	@Setter
-	private long price;
-	
 	@Setter
 	private int numberOfRoom;
-	
+
 	@Setter
 	private String checkInTime;
 
@@ -73,13 +68,10 @@ public class HomestayEntity extends BaseEntity {
 
 	@Column(nullable = false)
 	@Setter
-	private String payment;
-
-	@Column(nullable = false)
-	@Setter
 	private String status;
-	
-	@OneToOne(mappedBy = "homestayShieldForCancel", cascade = {CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
+
+	@OneToOne(mappedBy = "homestayShieldForCancel", cascade = { CascadeType.MERGE,
+			CascadeType.REFRESH }, orphanRemoval = true)
 	@Setter
 	private PassengerShieldCancelBookingEntity shieldForCancelBooking;
 
@@ -108,10 +100,15 @@ public class HomestayEntity extends BaseEntity {
 	@Setter
 	private List<CommentEntity> comment;
 
-	@OneToMany(mappedBy = "homestayFacilityContainer", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+	@OneToMany(mappedBy = "homestayCommonFacility", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REFRESH, CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@Setter
-	private List<HomestayFacilityEntity> facilities = new ArrayList<HomestayFacilityEntity>();
+	private List<HomestayCommonFacilityEntity> commonFacilities;
+
+	@OneToMany(mappedBy = "homestayAdditionalFacility", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REFRESH, CascadeType.REMOVE })
+	@Setter
+	private List<HomestayAdditionalFacilityEntity> additionalFacilities;
 
 	@OneToMany(mappedBy = "homestayServiceContainer", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REFRESH, CascadeType.REMOVE }, fetch = FetchType.LAZY)
@@ -138,5 +135,9 @@ public class HomestayEntity extends BaseEntity {
 	@JoinColumn(name = "license_id", referencedColumnName = "Id")
 	@Setter
 	private HomestayLicenseImageEntity licenseImage;
+	
+	@OneToMany(mappedBy = "homestayPriceList", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@Setter
+	private List<HomestayPriceListEntity> priceList;
 
 }

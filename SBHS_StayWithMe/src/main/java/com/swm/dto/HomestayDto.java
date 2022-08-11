@@ -11,14 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class HomestayCompleteInfoDto implements Comparable<HomestayCompleteInfoDto>{
+public class HomestayDto implements Comparable<HomestayDto>{
 	private Long Id;
 	private String name;
 	private String description;
 	private String owner;
 	private String address;
 	private String city;
-	private Long price;
 	private int numberOfRoom;
 	private String checkInTime;
 	private String checkOutTime;
@@ -29,13 +28,16 @@ public class HomestayCompleteInfoDto implements Comparable<HomestayCompleteInfoD
 	private Double positionPoint;
 	private Double average;
 	private int numberOfFinishedBooking;
+	private HomestayLicenseDto homestayLicense;
 	private List<HomestayImageDto> homestayImages;
 	private List<HomestayAftercareDto> homestayServices;
-	private List<HomestayFacilityDto> homestayFacilities;
+	private List<HomestayCommonFacilityDto> homestayCommonFacilities;
+	private List<HomestayPriceListDto> homestayPriceList;
+	private List<HomestayAdditionalFacilityDto> homestayAdditionalFacilities;
 
 
 	@Override
-	public int compareTo(HomestayCompleteInfoDto o) {
+	public int compareTo(HomestayDto o) {
 		if(this.average == o.average) {
 			return 0;
 		} else if(this.average < o.average) {

@@ -2,11 +2,7 @@ package com.swm.service;
 
 import java.util.List;
 
-import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;
-import com.swm.entity.HomestayFacilityEntity;
-import com.swm.entity.HomestayImageEntity;
-import com.swm.entity.HomestayLicenseImageEntity;
 
 public interface IHomestayService {
 
@@ -20,10 +16,7 @@ public interface IHomestayService {
 	
 	List<HomestayEntity> findHomestayListByOwnerName();
 
-	HomestayEntity createHomestay(HomestayEntity homestay, HomestayLicenseImageEntity homestayLicense,
-											List<HomestayImageEntity> homestayImages, 
-											List<HomestayAftercareEntity> homestayServices,
-											List<HomestayFacilityEntity> homestayFacilities);
+	HomestayEntity createHomestay(HomestayEntity homestayEntity);
 	
 
 	HomestayEntity deleteHomestayById(Long Id);

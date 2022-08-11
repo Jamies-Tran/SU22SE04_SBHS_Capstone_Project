@@ -18,14 +18,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swm.dto.MomoCaptureWalletRequestDto;
 import com.swm.dto.MomoCaptureWalletResponseDto;
-import com.swm.dto.MomoRefundRequestDto;
-import com.swm.dto.MomoRefundResponseDto;
 import com.swm.entity.LandlordEntity;
+import com.swm.entity.LandlordWalletEntity;
 import com.swm.entity.MomoPaymentEntity;
 import com.swm.entity.PassengerEntity;
 import com.swm.entity.PassengerWalletEntity;
 import com.swm.entity.UserEntity;
-import com.swm.entity.LandlordWalletEntity;
 import com.swm.enums.UserStatus;
 import com.swm.enums.WalletType;
 import com.swm.exception.ParseJsonException;
@@ -105,27 +103,27 @@ public class PaymentService implements IPaymentService {
 		return momoCaptureWalletResponse;
 	}
 
-	@Override
-	public void requestRefund(MomoRefundRequestDto momoRefundRequest) {
-
-		StringBuilder rawHash = new StringBuilder();
-		rawHash.append("accessKey").append("=").append(MomoInfoUtil.accessKey).append("&").append("amount").append("=")
-				.append(momoRefundRequest.getAmount()).append("&").append("description").append("=")
-				.append(momoRefundRequest.getDescription()).append("&").append("orderId").append("=")
-				.append(momoRefundRequest.getOrderId()).append("&").append("partnerCode").append("=")
-				.append(momoRefundRequest.getPartnerCode()).append("&").append("requestId").append("=")
-				.append(momoRefundRequest.getRequestId()).append("&").append("transId").append("=")
-				.append(momoRefundRequest.getTransId());
-		log.info("Refund raw hash: " + rawHash.toString());
-		String signature = SignatureHashingUtil.sha256HashSigningKey(MomoInfoUtil.secretKey, rawHash.toString());
-		log.info("Refund signature: " + signature);
-		momoRefundRequest.setSignature(signature);
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<MomoRefundRequestDto> httpEntity = new HttpEntity<MomoRefundRequestDto>(momoRefundRequest, headers);
-		restTemplate.postForObject(MomoInfoUtil.MOMO_REFUND_URL, httpEntity, MomoRefundResponseDto.class);
-		log.info("Response from momo: " + momoRefundRequest.toString());
-	}
+//	@Override
+//	public void requestRefund(MomoRefundRequestDto momoRefundRequest) {
+//
+//		StringBuilder rawHash = new StringBuilder();
+//		rawHash.append("accessKey").append("=").append(MomoInfoUtil.accessKey).append("&").append("amount").append("=")
+//				.append(momoRefundRequest.getAmount()).append("&").append("description").append("=")
+//				.append(momoRefundRequest.getDescription()).append("&").append("orderId").append("=")
+//				.append(momoRefundRequest.getOrderId()).append("&").append("partnerCode").append("=")
+//				.append(momoRefundRequest.getPartnerCode()).append("&").append("requestId").append("=")
+//				.append(momoRefundRequest.getRequestId()).append("&").append("transId").append("=")
+//				.append(momoRefundRequest.getTransId());
+//		log.info("Refund raw hash: " + rawHash.toString());
+//		String signature = SignatureHashingUtil.sha256HashSigningKey(MomoInfoUtil.secretKey, rawHash.toString());
+//		log.info("Refund signature: " + signature);
+//		momoRefundRequest.setSignature(signature);
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(MediaType.APPLICATION_JSON);
+//		HttpEntity<MomoRefundRequestDto> httpEntity = new HttpEntity<MomoRefundRequestDto>(momoRefundRequest, headers);
+//		restTemplate.postForObject(MomoInfoUtil.MOMO_REFUND_URL, httpEntity, MomoRefundResponseDto.class);
+//		log.info("Response from momo: " + momoRefundRequest.toString());
+//	}
 
 	@Transactional
 	@Override

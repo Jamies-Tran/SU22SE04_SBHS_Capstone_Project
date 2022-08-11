@@ -24,7 +24,7 @@ import com.swm.converter.HomestayConverter;
 import com.swm.dto.BookingRequestDto;
 import com.swm.dto.BookingResponseDto;
 import com.swm.dto.ConfirmRequestDto;
-import com.swm.dto.HomestayShortageInfoDto;
+import com.swm.dto.HomestayDto;
 import com.swm.entity.BookingDepositEntity;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.HomestayEntity;
@@ -61,7 +61,7 @@ public class BookingController {
 	@Getter
 	@Setter
 	public static class BookingDepositResponse {
-		private HomestayShortageInfoDto homestayDto;
+		private HomestayDto homestayDto;
 		private Long amount;
 	}
 
@@ -105,7 +105,7 @@ public class BookingController {
 		BookingDepositEntity bookingDepositEntity = bookingService.payForBookingDeposit(bookingId,
 				depositAmount.getAmount());
 		HomestayEntity homestayEntity = bookingDepositEntity.getBookingDeposit().getBookingHomestay();
-		HomestayShortageInfoDto homestayResponseDto = homestayConverter.homestayDtoConvert(homestayEntity);
+		HomestayDto homestayResponseDto = homestayConverter.homestayCompleteInfoDtoConvert(homestayEntity);
 		BookingDepositResponse bookingDepositResponse = new BookingDepositResponse();
 		bookingDepositResponse.setHomestayDto(homestayResponseDto);
 		bookingDepositResponse.setAmount(bookingDepositEntity.getDepositPaidAmount());

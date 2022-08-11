@@ -9,8 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class HomestayFacilityDto {
+public class HomestayPriceListDto {
 	private Long Id;
-	private String name;
-	private Integer amount;
+	private Long price;
+	private String type;
 }

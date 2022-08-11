@@ -1,6 +1,5 @@
 package com.swm.repository;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +16,4 @@ public interface IHomestayRepository extends JpaRepository<HomestayEntity, Long>
 	
 	@Query(value = "select h from HomestayEntity h where h.homestayPostingRequest = :homestayPostingRequest")
 	Optional<HomestayEntity> findHomestayEntiyByRequestId(@Param("homestayPostingRequest") HomestayPostingRequestEntity request);
-	
-	@Query(value = "select h from HomestayEntity h where h.price between :lowerPrice and :higherPrice")
-	List<HomestayEntity> findHomestayListBetweenPrice(@Param("lowerPrice") double lowerPrice, @Param("higherPrice") double higherPrice);
-	}
+}

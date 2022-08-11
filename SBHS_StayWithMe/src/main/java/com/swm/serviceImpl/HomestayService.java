@@ -9,11 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.swm.entity.BookingEntity;
-import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;
-import com.swm.entity.HomestayFacilityEntity;
-import com.swm.entity.HomestayImageEntity;
-import com.swm.entity.HomestayLicenseImageEntity;
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.LandlordEntity;
 import com.swm.entity.RatingEntity;
@@ -77,9 +73,7 @@ public class HomestayService implements IHomestayService {
 	}
 
 	@Override
-	public HomestayEntity createHomestay(HomestayEntity homestayEntity, HomestayLicenseImageEntity homestayLicense,
-			List<HomestayImageEntity> homestayImages, List<HomestayAftercareEntity> homestayServices,
-			List<HomestayFacilityEntity> homestayFacilities) {
+	public HomestayEntity createHomestay(HomestayEntity homestayEntity) {
 
 		if (homestayRepo.findHomestayByName(homestayEntity.getName()).isPresent()) {
 			throw new DuplicateResourceException(homestayEntity.getName(), "Homestay exist");
@@ -88,25 +82,29 @@ public class HomestayService implements IHomestayService {
 		String accountPoster = authenticationService.getAuthenticatedUser().getUsername();
 		homestayEntity.setCreatedDate(currentDate);
 		homestayEntity.setCreatedBy(accountPoster);
-		homestayImages.forEach(img -> {
+		homestayEntity.getImageList().forEach(img -> {
 			img.setHomestayImage(homestayEntity);
 			img.setCreatedDate(currentDate);
 			img.setCreatedBy(accountPoster);
 		});
 
-		homestayEntity.setImageList(homestayImages);
-		homestayServices.forEach(srv -> {
+		homestayEntity.getHomestayService().forEach(srv -> {
 			srv.setHomestayServiceContainer(homestayEntity);
 			srv.setCreatedDate(currentDate);
 			srv.setCreatedBy(accountPoster);
 		});
-		homestayEntity.setHomestayService(homestayServices);
-		homestayFacilities.forEach(fct -> {
-			fct.setHomestayFacilityContainer(homestayEntity);
-			fct.setCreatedDate(currentDate);
-			fct.setCreatedBy(accountPoster);
+		
+		homestayEntity.getCommonFacilities().forEach(c -> {
+			c.setHomestayCommonFacility(homestayEntity);
+			c.setCreatedBy(accountPoster);
+			c.setCreatedDate(currentDate);
 		});
-		homestayEntity.setFacilities(homestayFacilities);
+		
+		homestayEntity.getAdditionalFacilities().forEach(a -> {
+			a.setHomestayAdditionalFacility(homestayEntity);
+			a.setCreatedBy(accountPoster);
+			a.setCreatedDate(currentDate);
+		});
 		UserEntity userEntity = userService.findUserByUserInfo(accountPoster);
 		LandlordEntity landlordEntity = userEntity.getLandlord();
 		if (landlordEntity.getWallet().getBalance() < 1000) {
@@ -114,10 +112,9 @@ public class HomestayService implements IHomestayService {
 		}
 		homestayEntity.setLandlordOwner(landlordEntity);
 		landlordEntity.setHomestayOwned(List.of(homestayEntity));
-		homestayLicense.setHomestayLicense(homestayEntity);
-		homestayLicense.setCreatedBy(accountPoster);
-		homestayLicense.setCreatedDate(currentDate);
-		homestayEntity.setLicenseImage(homestayLicense);
+		homestayEntity.getLicenseImage().setHomestayLicense(homestayEntity);
+		homestayEntity.getLicenseImage().setCreatedBy(accountPoster);
+		homestayEntity.getLicenseImage().setCreatedDate(currentDate);
 		RatingEntity rating = new RatingEntity();
 		rating.setCreatedDate(currentDate);
 		rating.setHomestayPoint(homestayEntity);

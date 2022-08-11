@@ -14,7 +14,6 @@ import lombok.Setter;
 public class HomestayRequestDto extends RequestDto {
 	private String homestayName;
 	private int numberOfRoom;
-	private Long price;
 	private String city;
 	private String checkInTime;
 	private String checkOutTime;
@@ -22,6 +21,7 @@ public class HomestayRequestDto extends RequestDto {
 	private String description;
 	private String imageLicenseUrl;
 	private List<HomestayImageDto> homestayImagesList;
-	private List<HomestayFacilityDto> homestayFacilityList;
+	private List<HomestayCommonFacilityDto> homestayFacilityList;
 	private List<HomestayAftercareDto> homestayAftercareList;
+	private List<HomestayPriceListDto> homestayPriceList;
 }
