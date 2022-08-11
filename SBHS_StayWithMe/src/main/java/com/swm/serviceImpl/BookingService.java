@@ -1,14 +1,9 @@
 package com.swm.serviceImpl;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.lang.Nullable;
@@ -68,9 +63,9 @@ public class BookingService implements IBookingService {
 
 	private Date currentDate = new Date();
 
-	private Logger log = LoggerFactory.getLogger(BookingService.class);
+	// private Logger log = LoggerFactory.getLogger(BookingService.class);
 
-	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	//private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Override
 	public BookingEntity createBooking(BookingEntity bookingEntity) {
@@ -82,8 +77,6 @@ public class BookingService implements IBookingService {
 		if (!homestayEntity.getStatus().equalsIgnoreCase(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name())) {
 			throw new ResourceNotAllowException(homestayEntity.getName(), "Homestay not active");
 		}
-//		boolean isHomestayScheduleAvailable = this.isBookingDateValid(homestayEntity, bookingEntity.getCheckIn(),
-//				bookingEntity.getCheckOut());
 		homestayEntity.setBooking(List.of(bookingEntity));
 		if (bookingEntity.getHomestayServiceBooking() != null) {
 			bookingEntity.getHomestayServiceBooking().forEach(s -> {
@@ -98,8 +91,6 @@ public class BookingService implements IBookingService {
 		bookingOtpEntity.setBookingContainer(bookingEntity);
 		bookingOtpEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
 		bookingOtpEntity.setCreatedDate(currentDate);
-		// PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = new
-		// PassengerShieldCancelBookingEntity();
 		PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = homestayEntity
 				.getShieldForCancelBooking();
 		if (passengerShiedCancelBookingEntity == null) {
@@ -114,16 +105,6 @@ public class BookingService implements IBookingService {
 			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
 			homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
 		}
-//		passengerShiedCancelBookingEntity.setActiveDate(currentDate);
-//		passengerShiedCancelBookingEntity.setPassengerOwnerOfShield(passengerEntity);
-//		passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
-//		passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
-//		homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
-
-//		PassengerShieldCancelBookingEntity passengerShieldCancelBookingPersisted = passengerShieldCancelBookingRepository
-//				.save(passengerShiedCancelBookingEntity);
-//		passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
-//		homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
 		bookingEntity.setBookingCreator(passengerEntity);
 		bookingEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
 		bookingEntity.setCreatedDate(currentDate);
@@ -148,10 +129,15 @@ public class BookingService implements IBookingService {
 
 	@Override
 	public List<BookingEntity> getHomestayBookingList(String homestayName, String status) {
-		List<BookingEntity> bookingEntityList = status.equals("all") ? bookingRepo.findAll() : bookingRepo.findAll().stream()
-				.filter(b -> b.getStatus().equalsIgnoreCase(status)
-						&& b.getBookingHomestay().getName().equals(homestayName))
-				.collect(Collectors.toList());
+		List<BookingEntity> bookingEntityList = status
+				.equals("all")
+						? bookingRepo.findAll().stream()
+								.filter(b -> b.getBookingHomestay().getName().equals(homestayName))
+								.collect(Collectors.toList())
+						: bookingRepo.findAll().stream()
+								.filter(b -> b.getStatus().equalsIgnoreCase(status)
+										&& b.getBookingHomestay().getName().equals(homestayName))
+								.collect(Collectors.toList());
 
 		return bookingEntityList;
 	}
@@ -170,20 +156,22 @@ public class BookingService implements IBookingService {
 		if (!bookingEntity.getStatus().equals(BookingStatus.BOOKING_PENDING_CHECKIN.name())) {
 			throw new ResourceNotAllowException("You haven't pay deposit yet");
 		}
-		if (bookingOtpEntity.getCode().equals(bookingOtp)) {
+		
+		if (checkInUserEntity.getUsername().equals(homestayOwnerEntity.getUsername())) {
+			// chủ homestay check-in cho khách
+			msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity,
+					bookingEntity, AccountRole.LANDLORD.name());
+			bookingEntity.setStatus(BookingStatus.BOOKING_CONFIRM_CHECKIN.name());
+			bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
+			sendMailService.sendMail(bookingUserEntity.getUsername(), msg, "Booking confirm");
+			return bookingEntity;
+		} else if (bookingOtpEntity.getCode().equals(bookingOtp)) {
 			if (!checkInUserEntity.getUsername().equals(bookingUserEntity.getUsername())) {
-				if (checkInUserEntity.getUsername().equals(homestayOwnerEntity.getUsername())) {
-					// chủ homestay check-in cho khách
-					msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity,
-							bookingEntity, AccountRole.LANDLORD.name());
-					bookingEntity.setStatus(BookingStatus.BOOKING_CHECKIN_BY_LANDLORD.name());
-					bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
-					sendMailService.sendMail(bookingUserEntity.getUsername(), msg, "Booking confirm");
-				} else if (!checkInUserEntity.getUsername().equals(bookingUserEntity.getUsername())) {
+				if (!checkInUserEntity.getUsername().equals(bookingUserEntity.getUsername())) {
 					// người quen của passenger người có otp code
 					msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity,
 							bookingEntity, AccountRole.PASSENGER.name());
-					bookingEntity.setStatus(BookingStatus.BOOKING_CHECKIN_BY_PASSENGER_RELATIVE.name());
+					bookingEntity.setStatus(BookingStatus.BOOKING_CONFIRM_CHECKIN.name());
 					bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
 					sendMailService.sendMail(bookingUserEntity.getUsername(), msg, "Booking confirm");
 				}
@@ -198,8 +186,6 @@ public class BookingService implements IBookingService {
 			throw new ResourceNotFoundException(bookingOtp, "Booking otp not correct");
 		}
 	}
-	
-	
 
 	@Transactional
 	@Override
@@ -230,7 +216,6 @@ public class BookingService implements IBookingService {
 		return bookingEntity;
 	}
 
-
 	@Transactional
 	@Override
 	public void confirmCheckIn(Long bookingId, boolean isAccepted) {
@@ -242,15 +227,6 @@ public class BookingService implements IBookingService {
 			bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_CHECKIN.name());
 		}
 	}
-
-	private Long differentInDay(Date checkIn, Date checkOut) {
-		long difference_in_time = checkOut.getTime() - checkIn.getTime();
-		long difference_in_day = (difference_in_time / (1000 * 60 * 60 * 24)) % 365;
-
-		return difference_in_day;
-	}
-
-
 
 	@Override
 	public BookingEntity checkOutRequest(Long bookingId, String paymentMethod) {
@@ -360,37 +336,19 @@ public class BookingService implements IBookingService {
 	}
 
 	@Override
-	public List<String> getHomestayBookingDate(Long homestayId) {
-		HomestayEntity homestayEntity = homestayService.findHomestayById(homestayId);
-		List<BookingEntity> bookingEntityList = homestayEntity.getBooking();
-		List<String> bookingDateList = new ArrayList<String>();
-		bookingEntityList.stream().filter(b -> b.getStatus().equals(BookingStatus.BOOKING_PENDING_CHECKIN.name()))
-				.collect(Collectors.toList()).forEach(b -> {
-					Date currentDate = b.getCheckIn();
-					bookingDateList.add(simpleDateFormat.format(currentDate));
-					Long differentInDate = this.differentInDay(b.getCheckIn(), b.getCheckOut());
-					Calendar cal = Calendar.getInstance();
-					cal.setTime(currentDate);
-					for (long i = 0; i < differentInDate; i++) {
-						// log.info("Date increase: " + currentDate);
-						cal.add(Calendar.DATE, 1);
-						currentDate = cal.getTime();
-						bookingDateList.add(simpleDateFormat.format(currentDate));
-					}
-				});
-
-		return bookingDateList;
-	}
-
-	@Override
 	public List<BookingEntity> getUserBookingList(String username, String status) {
-		List<BookingEntity> bookingEntityList = status.equals("all") ? bookingRepo.findAll() : bookingRepo.findAll().stream()
-				.filter(b -> b.getBookingCreator().getPassengerAccount().getUsername().equals(username) && b.getStatus().equalsIgnoreCase(status))
-				.collect(Collectors.toList());
-		if(bookingEntityList.isEmpty()) {
+		List<BookingEntity> bookingEntityList = status.equals("all")
+				? bookingRepo.findAll().stream()
+						.filter(b -> b.getBookingCreator().getPassengerAccount().getUsername().equals(username))
+						.collect(Collectors.toList())
+				: bookingRepo.findAll().stream()
+						.filter(b -> b.getBookingCreator().getPassengerAccount().getUsername().equals(username)
+								&& b.getStatus().equalsIgnoreCase(status))
+						.collect(Collectors.toList());
+		if (bookingEntityList.isEmpty()) {
 			throw new ResourceNotFoundException("There is no booking yet");
 		}
-		
+
 		return bookingEntityList;
 	}
 

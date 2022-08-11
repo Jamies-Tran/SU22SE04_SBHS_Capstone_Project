@@ -20,10 +20,13 @@ public class BookingResponseDto {
 	private String homestayLocation;
 	private String homestayCity;
 	private String homestayOwner;
+	private String homestayOwnerPhone;
+	private String homestayOwnerEmail;
 	private List<HomestayAftercareDto> homestayServiceList;
 	private String checkIn;
 	private String checkOut;
 	private Long totalPrice;
 	private String status;
 	private Long deposit;
+	private String bookingOtp;
 }

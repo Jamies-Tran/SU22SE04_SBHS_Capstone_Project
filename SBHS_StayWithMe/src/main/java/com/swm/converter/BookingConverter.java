@@ -72,17 +72,20 @@ public class BookingConverter {
 		bookingDto.setHomestayLocation(bookingEntity.getBookingHomestay().getAddress());
 		bookingDto.setHomestayCity(bookingEntity.getBookingHomestay().getCity());
 		bookingDto.setHomestayOwner(bookingEntity.getBookingHomestay().getLandlordOwner().getLandlordAccount().getUsername());
+		bookingDto.setHomestayOwnerPhone(bookingEntity.getBookingHomestay().getLandlordOwner().getLandlordAccount().getPhone());
+		bookingDto.setHomestayOwnerEmail(bookingEntity.getBookingHomestay().getLandlordOwner().getLandlordAccount().getEmail());
 		if(bookingEntity.getHomestayServiceBooking() != null) {
 			List<HomestayAftercareDto> homestayServiceList = bookingEntity.getHomestayServiceBooking().stream()
 					.map(s -> homestayConvert.homestayAftercareDtoConvert(s)).collect(Collectors.toList());
 			bookingDto.setHomestayServiceList(homestayServiceList);
 		}
-		bookingDto.setCheckIn(bookingEntity.getCheckIn().toString());
-		bookingDto.setCheckOut(bookingEntity.getCheckOut().toString());
+		bookingDto.setCheckIn(simpleDateFormat.format(bookingEntity.getCheckIn()));
+		bookingDto.setCheckOut(simpleDateFormat.format(bookingEntity.getCheckOut()));
 		bookingDto.setTotalPrice(bookingEntity.getTotalPrice());
 		long deposit = bookingEntity.getTotalPrice() * 50 / 100;
 		bookingDto.setDeposit(deposit);
 		bookingDto.setStatus(bookingEntity.getStatus());
+		bookingDto.setBookingOtp(bookingEntity.getBookingOtp().getCode());
 		
 		return bookingDto;
 	}

@@ -10,7 +10,6 @@ import com.swm.dto.RequestDto;
 import com.swm.entity.BaseRequestEntity;
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.LandlordAccountRequestEntity;
-import com.swm.enums.HomestayStatus;
 import com.swm.enums.RequestStatus;
 
 @Component

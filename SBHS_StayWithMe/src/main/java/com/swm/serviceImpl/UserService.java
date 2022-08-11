@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,20 +49,20 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private ISendMailService sendMailService;
-	
+
 	@Autowired
 	@Lazy
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	@Lazy
 	private IAuthenticationService authenticationService;
-	
+
 	private final String sendOtpToUserSubject = "Change password OTP";
 
 	private Date currentDate = new Date();
-	
-	private Logger log = LoggerFactory.getLogger(UserService.class);
+
+	// private Logger log = LoggerFactory.getLogger(UserService.class);
 
 	@Override
 	public UserEntity findUserByUserInfo(String userInfo) {
@@ -88,8 +86,10 @@ public class UserService implements IUserService {
 			throw new DuplicateResourceException(userEntity.getPhone(), "Phone exist");
 		} else if (userRepo.findUserByEmail(userEntity.getEmail()).isPresent()) {
 			throw new DuplicateResourceException(userEntity.getEmail(), "Email exist");
-		} else if(userRepo.findUserByCitizenIdentificationString(userEntity.getCitizenIdentificationString()).isPresent()) {
-			throw new DuplicateResourceException(userEntity.getCitizenIdentificationString(), "Citizen identification exist");
+		} else if (userRepo.findUserByCitizenIdentificationString(userEntity.getCitizenIdentificationString())
+				.isPresent()) {
+			throw new DuplicateResourceException(userEntity.getCitizenIdentificationString(),
+					"Citizen identification exist");
 		}
 		// create avatar
 		AvatarEntity avatar = userEntity.getAvatar();
@@ -120,15 +120,18 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public UserEntity createLandlordUser(UserEntity userEntity, String citizenIdentificationUrlFront, String citizenIdentificationUrlBack) {
+	public UserEntity createLandlordUser(UserEntity userEntity, String citizenIdentificationUrlFront,
+			String citizenIdentificationUrlBack) {
 		if (userRepo.findUserByUsername(userEntity.getUsername()).isPresent()) {
 			throw new DuplicateResourceException(userEntity.getUsername(), "User exist");
 		} else if (userRepo.findUserByPhone(userEntity.getPhone()).isPresent()) {
 			throw new DuplicateResourceException(userEntity.getPhone(), "Phone exist");
 		} else if (userRepo.findUserByEmail(userEntity.getEmail()).isPresent()) {
 			throw new DuplicateResourceException(userEntity.getEmail(), "Email exist");
-		} else if(userRepo.findUserByCitizenIdentificationString(userEntity.getCitizenIdentificationString()).isPresent()) {
-			throw new DuplicateResourceException(userEntity.getCitizenIdentificationString(), "Citizen identification exist");
+		} else if (userRepo.findUserByCitizenIdentificationString(userEntity.getCitizenIdentificationString())
+				.isPresent()) {
+			throw new DuplicateResourceException(userEntity.getCitizenIdentificationString(),
+					"Citizen identification exist");
 		}
 		// create avatar
 		AvatarEntity avatarEntity = userEntity.getAvatar();
@@ -183,8 +186,10 @@ public class UserService implements IUserService {
 			throw new DuplicateResourceException(userEntity.getPhone(), "Phone exist");
 		} else if (userRepo.findUserByEmail(userEntity.getEmail()).isPresent()) {
 			throw new DuplicateResourceException(userEntity.getEmail(), "Email exist");
-		} else if(userRepo.findUserByCitizenIdentificationString(userEntity.getCitizenIdentificationString()).isPresent()) {
-			throw new DuplicateResourceException(userEntity.getCitizenIdentificationString(), "Citizen identification exist");
+		} else if (userRepo.findUserByCitizenIdentificationString(userEntity.getCitizenIdentificationString())
+				.isPresent()) {
+			throw new DuplicateResourceException(userEntity.getCitizenIdentificationString(),
+					"Citizen identification exist");
 		}
 
 		// create avatar
@@ -215,7 +220,7 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public UserOtpEntity createUserOtpByUserInfo(String userInfo) {		
+	public UserOtpEntity createUserOtpByUserInfo(String userInfo) {
 		String otpCode = this.generateUserOtp();
 		UserEntity userEntity = this.findUserByUserInfo(userInfo);
 		UserOtpEntity userOtpEntity = new UserOtpEntity();
@@ -224,13 +229,12 @@ public class UserService implements IUserService {
 		userOtpEntity.setCreatedDate(currentDate);
 		userOtpEntity.setOtpOwner(userEntity);
 		userEntity.setUserOtp(userOtpEntity);
-		String message = String.format("<p>We happy to send you your otp code: </p><br/>"
-				+ "<h1>%s</h1>", otpCode);
+		String message = String.format("<p>We happy to send you your otp code: </p><br/>" + "<h1>%s</h1>", otpCode);
 		sendMailService.sendMail(userEntity.getUsername(), message, this.sendOtpToUserSubject);
 		UserOtpEntity userOtpPersisted = userOtpRepo.save(userOtpEntity);
-		
+
 		return userOtpPersisted;
-		
+
 	}
 
 	@Transactional
@@ -275,13 +279,13 @@ public class UserService implements IUserService {
 	@Override
 	public UserEntity changePassword(String userInfo, String newPassword) {
 		UserEntity userEntity = this.findUserByUserInfo(userInfo);
-		if(!userEntity.getPasswordChangable().booleanValue()) {
+		if (!userEntity.getPasswordChangable().booleanValue()) {
 			throw new ResourceNotAllowException(userInfo, "User did not enter change password otp.");
 		}
 		String encodeNewPassword = passwordEncoder.encode(newPassword);
 		userEntity.setPassword(encodeNewPassword);
 		userEntity.setPasswordChangable(false);
-		
+
 		return userEntity;
 	}
 
@@ -289,37 +293,20 @@ public class UserService implements IUserService {
 	public BaseWalletEntity findSystemWalletByUsername(String walletType) {
 		String username = authenticationService.getAuthenticatedUser().getUsername();
 		UserEntity userEntity = this.findUserByUserInfo(username);
-		
-		if(WalletType.valueOf(walletType.toUpperCase()).compareTo(WalletType.LANDLORD_WALLET) == 0) {
-			if(userEntity.getLandlord() == null) {
+
+		if (WalletType.valueOf(walletType.toUpperCase()).compareTo(WalletType.LANDLORD_WALLET) == 0) {
+			if (userEntity.getLandlord() == null) {
 				throw new ResourceNotAllowException("This account doesn't have lanflord wallet");
 			}
 			return userEntity.getLandlord().getWallet();
-		} else if(WalletType.valueOf(walletType.toUpperCase()).compareTo(WalletType.PASSENGER_WALLET) == 0) {
-			if(userEntity.getPassenger() == null) {
+		} else if (WalletType.valueOf(walletType.toUpperCase()).compareTo(WalletType.PASSENGER_WALLET) == 0) {
+			if (userEntity.getPassenger() == null) {
 				throw new ResourceNotAllowException("This account doesn't have passenger wallet");
 			}
 			return userEntity.getPassenger().getWallet();
 		}
-		
+
 		throw new ResourceNotFoundException("Wallet type not found.");
-		
-	}
 
-	@Override
-	public boolean checkUserDuplicate(String userInfo) {
-		log.info("Is user info emai: " + userInfo.contains("@"));
-		if(userInfo.contains("@")) {
-			if(userRepo.findUserByEmail(userInfo).isPresent()) {
-				throw new DuplicateResourceException("Email exist");
-			}
-		} else {
-			if(userRepo.findUserByUsername(userInfo).isPresent()) {
-				throw new DuplicateResourceException("Email exist");
-			}
-		}
-		
-		return true;
 	}
-
 }

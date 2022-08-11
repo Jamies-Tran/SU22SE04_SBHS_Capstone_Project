@@ -1,9 +1,6 @@
 package com.swm.service;
 
-import java.util.List;
-
 import com.swm.entity.BaseWalletEntity;
-import com.swm.entity.BookingEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
 
@@ -11,8 +8,6 @@ public interface IUserService {
 	BaseWalletEntity findSystemWalletByUsername(String wallet_type);
 	
 	UserEntity findUserById(Long Id);
-	
-	boolean checkUserDuplicate(String userInfo);
 	
 	UserEntity findUserByUserInfo(String userInfo);
 	
@@ -31,7 +26,6 @@ public interface IUserService {
 	UserEntity changePassword(String userInfo, String newPassword);
 	
 	void deleteUserOtp(UserOtpEntity useOtpEntity);
-	
 	
 	
 }

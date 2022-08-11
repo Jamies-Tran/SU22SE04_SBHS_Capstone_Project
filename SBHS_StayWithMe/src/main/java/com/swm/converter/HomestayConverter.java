@@ -82,7 +82,7 @@ public class HomestayConverter {
 		homestayDto.setId(homestayEntity.getId());
 		homestayDto.setName(homestayEntity.getName());
 		homestayDto.setDescription(homestayEntity.getDescription());
-		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
+		//homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
 		homestayDto.setAddress(homestayEntity.getAddress());
 		homestayDto.setCity(homestayEntity.getCity());
 		homestayDto.setPrice(homestayEntity.getPrice());
@@ -90,7 +90,7 @@ public class HomestayConverter {
 		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
 		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
 		homestayDto.setPayment(homestayEntity.getPayment());
-		homestayDto.setStatus(homestayEntity.getStatus());
+		//homestayDto.setStatus(homestayEntity.getStatus());
 		homestayDto.setHomestayLicense(this.homestayLicenseDtoConvert(homestayEntity.getLicenseImage()));
 		homestayDto.setHomestayImages(homestayImageList);
 		homestayDto.setHomestayServices(homestayServiceList);

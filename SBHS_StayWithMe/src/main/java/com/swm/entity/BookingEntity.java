@@ -41,7 +41,7 @@ public class BookingEntity extends BaseEntity {
 	private Long Id;
 
 	@Temporal(TemporalType.DATE)
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	@Setter
 	private Date checkIn;
 

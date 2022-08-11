@@ -42,12 +42,7 @@ public class ApplicationSendMailUtil {
 					+ "	<p><span style='font-weight:bold;margin:10px'>Check-in: </span>"+simpleDateFormat.format(bookingEntity.getCheckIn())+"</p>\r\n"
 					+ "	<p><span style='font-weight:bold;margin:10px'>Check-out: </span>"+simpleDateFormat.format(bookingEntity.getCheckOut())+"</p>\r\n"
 					+ "	<p><span style='font-weight:bold;margin:10px'>Total price: </span>"+bookingEntity.getTotalPrice()+" VND</p>\r\n"
-					+ "	<p><span style='font-weight:bold;margin:10px'>You have paid booking deposit for: </span>"+bookingEntity.getBookingPaidDeposit().getDepositPaidAmount()+" VND</p>\r\n"
-					+ "<p>Click on button below to confirm that person is your relative.</p>\r\n"
-					+ "<form action=\"http://localhost:8080/checkin/redirect/"+bookingEntity.getId()+"\", method=\"get\">\r\n"
-					+ "	<input type=\"hidden\" name=\"isConfirmed\" value=\"true\"/>\r\n"
-					+ "	<input type=\"submit\" value=\"Confirm\" 		style=\"background-color:#04AA6D;border:none;color:white;padding:16px 32px;text-decoration: none;margin: 4px 2px;cursor: pointer;\"/>\r\n"
-					+ "</form>";
+					+ "	<p><span style='font-weight:bold;margin:10px'>You have paid booking deposit for: </span>"+bookingEntity.getBookingPaidDeposit().getDepositPaidAmount()+" VND</p>\r\n";
 			return message;
 		default:
 			throw new ResourceNotFoundException(authorityCheckIn);

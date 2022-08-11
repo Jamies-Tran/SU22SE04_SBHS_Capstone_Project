@@ -15,7 +15,7 @@ public class HomestayShortageInfoDto {
 	private Long Id;
 	private String name;
 	private String description;
-	private String owner;
+	//private String owner;
 	private String address;
 	private int numberOfRoom;
 	private String city;
@@ -23,7 +23,7 @@ public class HomestayShortageInfoDto {
 	private String checkInTime;
 	private String checkOutTime;
 	private String payment;
-	private String status;
+	//private String status;
 	private HomestayLicenseDto homestayLicense;
 	private List<HomestayImageDto> homestayImages;
 	private List<HomestayAftercareDto> homestayServices;

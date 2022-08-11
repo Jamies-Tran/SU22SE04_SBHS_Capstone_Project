@@ -86,7 +86,7 @@ public class BookingController {
 		return new ResponseEntity<>(bookingResponseDto, HttpStatus.CREATED);
 	}
 
-	@PostMapping("/confirm/{bookingId}")
+	@PatchMapping("/confirm/{bookingId}")
 	@PreAuthorize("hasRole('ROLE_LANDLORD')")
 	public ResponseEntity<?> confirmBooking(@PathVariable("bookingId") Long bookingId,
 			@RequestBody ConfirmRequestDto confirmRequestDto) {

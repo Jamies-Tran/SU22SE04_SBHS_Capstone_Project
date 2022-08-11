@@ -7,15 +7,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpResponse;
+import com.swm.converter.MomoOrderProcessConverter;
 import com.swm.dto.MomoCaptureWalletRequestDto;
 import com.swm.dto.MomoCaptureWalletResponseDto;
+import com.swm.dto.MomoPaymentDto;
 import com.swm.dto.MomoRefundRequestDto;
+import com.swm.entity.MomoPaymentEntity;
 import com.swm.enums.MomoResponseLanguage;
+import com.swm.service.IBookingService;
 import com.swm.service.IPaymentService;
 import com.swm.util.MomoInfoUtil;
 
@@ -28,13 +38,18 @@ public class PaymentController {
 	@Autowired
 	private IPaymentService moneyService;
 	
+	@Autowired
+	private MomoOrderProcessConverter momoOrderProcessConvert;
+	
+	private RestTemplate restempLate = new RestTemplate();
+	
 	private Logger log = LoggerFactory.getLogger(PaymentController.class);
 	
 	@PostMapping
 	public ResponseEntity<?> paymentRequest(@RequestBody MomoCaptureWalletRequestDto momoCaptureRequestDto) {
 		momoCaptureRequestDto.setPartnerCode(MomoInfoUtil.partnerCode);
-		momoCaptureRequestDto.setRequestId(MomoInfoUtil.requestId);
-		momoCaptureRequestDto.setOrderId(MomoInfoUtil.orderId);
+		momoCaptureRequestDto.setRequestId(UUID.randomUUID().toString());
+		momoCaptureRequestDto.setOrderId(UUID.randomUUID().toString());
 		momoCaptureRequestDto.setRedirectUrl(MomoInfoUtil.MOMO_REDIRECT_URL);
 		momoCaptureRequestDto.setIpnUrl(MomoInfoUtil.MOMO_IPN_URL);
 		momoCaptureRequestDto.setRequestType(MomoInfoUtil.requestType);
@@ -55,6 +70,8 @@ public class PaymentController {
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+
 	
 	/*
 	@AllArgsConstructor

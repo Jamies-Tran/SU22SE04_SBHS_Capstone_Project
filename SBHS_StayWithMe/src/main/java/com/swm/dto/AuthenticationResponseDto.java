@@ -1,7 +1,6 @@
 package com.swm.dto;
 
 import java.util.Collection;
-import java.util.Date;
 
 import org.springframework.security.core.GrantedAuthority;
 

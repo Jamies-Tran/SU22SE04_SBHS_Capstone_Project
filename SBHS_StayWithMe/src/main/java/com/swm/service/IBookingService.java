@@ -1,13 +1,11 @@
 package com.swm.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.lang.Nullable;
 
 import com.swm.entity.BookingDepositEntity;
 import com.swm.entity.BookingEntity;
-import com.swm.entity.HomestayEntity;
 
 public interface IBookingService {
 	BookingEntity createBooking(BookingEntity bookingEntity);
@@ -18,7 +16,6 @@ public interface IBookingService {
 	
 	List<BookingEntity> getUserBookingList(String username, String status);
 	
-	List<String> getHomestayBookingDate(Long bookingId);
 	
 	BookingEntity confirmBooking(Long BookingId, boolean isAccepted, @Nullable String rejectMessage);
 	
@@ -32,7 +29,6 @@ public interface IBookingService {
 	
 	void confirmCheckIn(Long bookingId, boolean isAccepted);
 	
-//	boolean isBookingDateValid(HomestayEntity homestayEntity ,Date checkIn, Date checkOut);
 	
 	BookingEntity deleteBooking(Long bookingId);
 

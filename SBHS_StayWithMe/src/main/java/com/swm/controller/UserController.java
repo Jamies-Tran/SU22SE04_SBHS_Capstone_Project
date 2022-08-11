@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.swm.converter.UserConverter;
 import com.swm.dto.AdminDto;
 import com.swm.dto.AuthenticationRequestDto;
-import com.swm.dto.LandlordDto;
 import com.swm.dto.AuthenticationResponseDto;
+import com.swm.dto.LandlordDto;
 import com.swm.dto.PassengerDto;
 import com.swm.dto.PasswordModificationDto;
 import com.swm.dto.UserDto;
@@ -41,6 +40,15 @@ import lombok.Setter;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class GmailRequestDto {
+		private String gmail;
+		private String password;
+	}
 
 	@Autowired
 	private IUserService userService;
@@ -174,14 +182,6 @@ public class UserController {
 		return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
 	}
 
-	@GetMapping("/exist/{userInfo}")
-	public ResponseEntity<?> checkGmailExist(@PathVariable("userInfo") String userInfo) {
-		boolean test = userService.checkUserDuplicate(userInfo);
-		log.info("Is duplicate?: " + test);
-
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
 	@GetMapping("/get/{userInfo}")
 	public ResponseEntity<?> getUserByUserInfo(@PathVariable("userInfo") String userInfo) {
 		UserEntity userEntity = userService.findUserByUserInfo(userInfo);
@@ -220,6 +220,4 @@ public class UserController {
 		return new ResponseEntity<>(walletResponseDto, HttpStatus.OK);
 
 	}
-
-
 }
