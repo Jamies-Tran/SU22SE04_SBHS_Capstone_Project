@@ -1,3 +1,4 @@
+import 'package:capstoneproject2/screens/profile/wallet_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileOption extends StatelessWidget {
@@ -14,7 +15,7 @@ class ProfileOption extends StatelessWidget {
           title: const Text("Manage wallet"),
           focusColor: Colors.purpleAccent,
           onTap: () {
-
+            Navigator.push(context, MaterialPageRoute(builder: (context) => WalletManagementScreen(),));
           },
         ),
 

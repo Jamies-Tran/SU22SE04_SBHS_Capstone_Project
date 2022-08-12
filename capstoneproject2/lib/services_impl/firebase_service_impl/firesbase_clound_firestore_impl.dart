@@ -7,15 +7,6 @@ class CloudFireStoreServiceImpl extends ICloudFirestoreService {
   // final _googleUserCollection = FirebaseFirestore.instance.collection("google_user");
   final _systemUserCollection = FirebaseFirestore.instance.collection("system_user");
 
-  // @override
-  // Future createGoogleSignIn(GoogleSignInAccount? googleSignInAccount, String accessToken) async {
-  //   await _googleUserCollection.add({
-  //     "username" : googleSignInAccount?.displayName,
-  //     "email" : googleSignInAccount?.email,
-  //     "avatarUrl" : googleSignInAccount?.photoUrl,
-  //     "accessToken" : accessToken
-  //   });
-  // }
 
   @override
   Future createUserSignIn(AuthenticateModel authenticateModel) async {
@@ -30,7 +21,7 @@ class CloudFireStoreServiceImpl extends ICloudFirestoreService {
 
   @override
   Future findUserFireStore(String username) async {
-    final result = await _systemUserCollection.where("username", isEqualTo: username).get().timeout(const Duration(seconds: 5));
+    final result = await _systemUserCollection.where("username", isEqualTo: username).get().timeout(const Duration(seconds: 20));
     if(result.docs.isNotEmpty) {
       AuthenticateModel authenticateModel = AuthenticateModel(
           username: result.docs[0].data()["username"],
@@ -43,6 +34,14 @@ class CloudFireStoreServiceImpl extends ICloudFirestoreService {
     }
 
     return null;
+  }
+
+  @override
+  Future deleteUserWhenSignOut(String username) async {
+    final result = await _systemUserCollection.where("username", isEqualTo: username).get().timeout(const Duration(seconds: 20));
+    result.docs.forEach((element) {
+      element.reference.delete();
+    });
   }
 
 }

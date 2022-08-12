@@ -21,7 +21,7 @@ class HomestayServiceImpl extends IHomestayService {
     var response = await client.get(
         uri,
         headers: {"content-type" : "application/json"},
-    ).timeout(Duration(seconds: 5));
+    ).timeout(Duration(seconds: 20));
     if(response.statusCode == 200) {
       var responseBody = json.decode(response.body);
       var homestayList = List<HomestayModel>.from(responseBody.map((element) => HomestayModel.fromJson(element)));

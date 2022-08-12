@@ -168,7 +168,7 @@ class _ProfileInformationFormsState extends State<ProfileInformationForms> {
              const SizedBox(height: defaultPadding / 2),
              ElevatedButton(
                onPressed: () async {
-                 await _authService.forgetGoogleSignIn();
+                 // await _authService.forgetGoogleSignIn();
                },
                child: Text("Log Out".toUpperCase()),
              ),

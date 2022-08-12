@@ -8,4 +8,6 @@ abstract class ICloudFirestoreService {
   Future createUserSignIn(AuthenticateModel authenticateModel);
 
   Future findUserFireStore(String username);
+
+  Future deleteUserWhenSignOut(String username);
 }

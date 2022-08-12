@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:capstoneproject2/services/api_url_provider/api_url_provider.dart';
 import 'package:capstoneproject2/services/auth_service.dart';
+import 'package:capstoneproject2/services/firebase_service/firebase_clound_firestore_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
+import 'package:capstoneproject2/services/model/auth_model.dart';
 import 'package:capstoneproject2/services/model/error_handler_model.dart';
 import 'package:capstoneproject2/services/model/passenger_model.dart';
+import 'package:capstoneproject2/services/model/wallet_model.dart';
 import 'package:capstoneproject2/services/passenger_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -13,11 +16,15 @@ import 'package:http/http.dart' as http;
 class PassengerServiceImpl extends IPassengerService {
   final _registerPassengerUrl = "$USER_API_URL/register/passenger";
 
+  final _getUserWalletUrl = "$USER_API_URL/get/wallet/passenger_wallet";
+
   final _checkUserExistUrl = "$USER_API_URL/exist";
   
   final _firebaseAuth = FirebaseAuth.instance;
 
   final _authService = locator.get<IAuthenticateService>();
+
+  final _firebaseFirestore = locator.get<ICloudFirestoreService>();
 
   @override
   Future<dynamic> completeGoogleSignUpPassenger(PassengerModel passengerModel, GoogleSignInAccount? googleSignInAccount) async {
@@ -78,28 +85,21 @@ class PassengerServiceImpl extends IPassengerService {
   }
 
   @override
-  Future signUpWithGoogleAccount(PassengerModel passengerModel, GoogleSignInAccount? googleSignInAccount) async {
+  Future signUpWithGoogleAccount(PassengerModel passengerModel, GoogleSignInAccount googleSignInAccount) async {
     var client = http.Client();
-    final password = "${googleSignInAccount?.id}";
+    final password = googleSignInAccount!.id;
     passengerModel.password = password;
     final uri = Uri.parse(_registerPassengerUrl);
     final response = await client.post(
         uri,
         headers: {"content-type" : "application/json"},
         body: json.encode(passengerModel.toJson())
-    );
+    ).timeout(const Duration(seconds: 20));
     if(response.statusCode == 201) {
-      var responseBody = PassengerModel.fromJson(json.decode(response.body));
-      // final credential = GoogleAuthProvider.credential(
-      //   idToken: googleSignInAuth?.idToken,
-      //   accessToken: googleSignInAuth?.accessToken
-      // );
-      // _firebaseAuth.signInWithCredential(credential);
-      var authResult = await _authService.loginByGoogleAccount(googleSignInAccount);
-      if(authResult is ErrorHandlerModel) {
-        return authResult;
-      }
-      return responseBody;
+      final responseBody = json.decode(response.body);
+      final passengerModel = PassengerModel.fromJson(responseBody);
+      await _authService.loginByGoogleAccount(googleSignInAccount);
+      return passengerModel;
     }else {
       var errorHandler = ErrorHandlerModel.fromJson(json.decode(response.body));
       return errorHandler;
@@ -120,6 +120,27 @@ class PassengerServiceImpl extends IPassengerService {
       final responseBody = json.decode(response.body);
       final errorHandlerModel = ErrorHandlerModel.fromJson(responseBody);
       return errorHandlerModel;
+    }
+  }
+
+  @override
+  Future getUserWallet(String username) async {
+    final user = await _firebaseFirestore.findUserFireStore(username);
+    if(user is AuthenticateModel) {
+      final client = http.Client();
+      final url = Uri.parse(_getUserWalletUrl);
+      final response = await client.get(
+          url,
+          headers: {"content-type":"application/json", "Authorization":"Bearer ${user.accessToken}"}
+      ).timeout(const Duration(seconds: 20));
+      final responseBody = json.decode(response.body);
+      if(response.statusCode == 200) {
+        final walletModel = WalletModel.fromJson(responseBody);
+        return walletModel;
+      } else {
+        final errorHandler = ErrorHandlerModel.fromJson(responseBody);
+        return errorHandler;
+      }
     }
   }
 

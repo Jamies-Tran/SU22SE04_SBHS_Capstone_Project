@@ -45,7 +45,7 @@ class _HomestayBodyComponentState extends State<HomestayBodyComponent> {
                     ),
                     SizedBox(width: 10),
                     Text(
-                        "Homestay of the year",
+                        "New homestays",
                         style: TextStyle(
                             fontSize: 20,
                             fontFamily: 'OpenSans',

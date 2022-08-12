@@ -16,7 +16,7 @@ class HomestayImageModel {
 class HomestayServiceModel {
   var id;
   var name;
-  var price;
+  int? price;
 
   HomestayServiceModel({this.id, this.name, this.price});
 
@@ -26,6 +26,10 @@ class HomestayServiceModel {
     price: json["price"]
   );
 
+  Map<String, dynamic> toJson() => {
+    "name" : name,
+    "price" : price
+  };
 }
 
 class HomestayFacilityModel {
@@ -46,10 +50,11 @@ class HomestayModel {
   var id;
   var name;
   var description;
+  var owner;
   var address;
   var numberOfRoom;
   var city;
-  var price;
+  int? price;
   var checkInTime;
   var checkOutTime;
   var convenientPoint;
@@ -65,6 +70,7 @@ class HomestayModel {
     this.id, 
     this.name,
     this.description,
+    this.owner,
     this.address, 
     this.city, 
     this.price,
@@ -85,6 +91,7 @@ class HomestayModel {
     id: json["id"],
     name: json["name"],
     description: json["description"],
+    owner: json["owner"],
     price: json["price"],
     numberOfRoom: json["numberOfRoom"],
     checkInTime: json["checkInTime"],

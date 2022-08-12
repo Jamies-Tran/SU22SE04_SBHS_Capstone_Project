@@ -50,6 +50,8 @@ dependencies:
   flutter_advanced_avatar: ^1.1.0
   flutter_rating_stars: ^1.0.3+4
   flutter_rating_bar: ^4.0.1
+  font_awesome_flutter: ^10.1.0
+  syncfusion_flutter_calendar: ^20.2.40
 dev_dependencies:
   flutter_test:
     sdk: flutter

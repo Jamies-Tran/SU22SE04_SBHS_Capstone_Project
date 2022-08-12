@@ -7,7 +7,7 @@ class FirebaseCloudStorageImpl extends IFirebaseCloudStorage {
 
   @override
   Future<String> getImageDownloadUrl(String name) async {
-    final downLoadURL = await homestayCloudStorage.ref("homestay/$name").getDownloadURL().timeout(const Duration(seconds: 5));
+    final downLoadURL = await homestayCloudStorage.ref("homestay/$name").getDownloadURL().timeout(const Duration(seconds: 20));
 
     return downLoadURL;
   }

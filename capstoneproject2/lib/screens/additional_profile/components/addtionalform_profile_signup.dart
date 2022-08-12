@@ -1,52 +1,55 @@
 import 'package:capstoneproject2/components/datePickerDOB.dart';
-import 'package:capstoneproject2/components/dialog_component.dart';
+
 import 'package:capstoneproject2/navigator/google_sign_in_navigator.dart';
-import 'package:capstoneproject2/services/auth_service.dart';
-import 'package:capstoneproject2/services/locator/service_locator.dart';
-import 'package:capstoneproject2/services/model/error_handler_model.dart';
+import 'package:capstoneproject2/screens/home_page/home_page_screen.dart';
+
 import 'package:capstoneproject2/services/model/passenger_model.dart';
-import 'package:capstoneproject2/services/passenger_service.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../constants.dart';
 import 'package:capstoneproject2/components/radiobutton.dart';
 
 class AdditionalProfileFormSignUp extends StatefulWidget {
-  AdditionalProfileFormSignUp({Key? key, this.googleSignInAccount}) : super(key: key);
-  GoogleSignInAccount? googleSignInAccount;
-
-  final _passengerService = locator.get<IPassengerService>();
-  final _authService = locator.get<IAuthenticateService>();
+  const AdditionalProfileFormSignUp({Key? key, this.googleSignInAccount, this.isSignInFromBookingScreen, this.homestayName}) : super(key: key);
+  final GoogleSignInAccount? googleSignInAccount;
+  final bool? isSignInFromBookingScreen;
+  final String? homestayName;
 
   @override
   State<AdditionalProfileFormSignUp> createState() => _AdditionalProfileFormSignUpState();
 }
 
 class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignUp> {
-
-  var username;
-  var email;
-  var address;
-  var phone;
-  var gender;
-  var citizenIdentification;
-  var dob;
-
-  final _textEditingMailController = TextEditingController();
-
-  final _textEditingUsernameController = TextEditingController();
+  late String gender;
+  final _mailTextEditingController = TextEditingController();
+  final _usernameTextEditingController = TextEditingController();
+  final _addressTextEditingController = TextEditingController();
+  final _phoneTextEditingController = TextEditingController();
+  final _genderTextEditingController = TextEditingController();
+  final _citizenIdentificationTextEditingController = TextEditingController();
+  final _dobTextEditingController = TextEditingController();
+  var isErrorOccur = false;
+  var errorMsg = "";
+  // final _passengerService = locator.get<IPassengerService>();
+  // final _authService = locator.get<IAuthenticateService>();
 
   @override
   void initState() {
-    _textEditingMailController.text = widget.googleSignInAccount!.email.toString();
-    _textEditingUsernameController.text = widget.googleSignInAccount!.displayName.toString();
+    _mailTextEditingController.text = widget.googleSignInAccount!.email!;
+    _usernameTextEditingController.text = widget.googleSignInAccount!.displayName!;
     super.initState();
   }
 
   @override
   void dispose() {
-    _textEditingMailController.dispose();
-    _textEditingUsernameController.dispose();
+    _mailTextEditingController.dispose();
+    _usernameTextEditingController.dispose();
+    _addressTextEditingController.dispose();
+    _phoneTextEditingController.dispose();
+    _genderTextEditingController.dispose();
+    _citizenIdentificationTextEditingController.dispose();
+    _dobTextEditingController.dispose();
     super.dispose();
   }
 
@@ -57,7 +60,7 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
           children: <Widget> [
             TextFormField(
               keyboardType: TextInputType.text,
-              controller: _textEditingUsernameController,
+              controller: _usernameTextEditingController,
               textInputAction: TextInputAction.next,
               cursorColor: kPrimaryColor,
               decoration: const InputDecoration(
@@ -68,16 +71,17 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
                 ),
               ),
             ),
-            const SizedBox(height: defaultPadding / 2),
+
+            const SizedBox(height: 20),
             TextFormField(
-              controller: _textEditingMailController,
+              controller: _mailTextEditingController,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               cursorColor: kPrimaryColor,
               readOnly: true,
-              onFieldSubmitted: (value) {
-                email = value;
-              },
+              // onFieldSubmitted: (value) {
+              //   email = value;
+              // },
               decoration: const InputDecoration(
                 hintText: "Email",
                 prefixIcon: Padding(
@@ -86,14 +90,16 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
                 ),
               ),
             ),
-            const SizedBox(height: defaultPadding / 2),
+
+            const SizedBox(height: 20),
             TextFormField(
+              controller: _addressTextEditingController,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               cursorColor: kPrimaryColor,
-              onChanged: (value) {
-                address = value;
-              },
+              // onChanged: (value) {
+              //   address = value;
+              // },
               decoration: const InputDecoration(
                 hintText: "Address",
                 prefixIcon: Padding(
@@ -102,16 +108,18 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
                 ),
               ),
             ),
-            const SizedBox(height: defaultPadding / 2),
+
+            const SizedBox(height: 20),
             TextFormField(
+              controller: _phoneTextEditingController,
               keyboardType: TextInputType.phone,
               textInputAction: TextInputAction.next,
               cursorColor: kPrimaryColor,
-              onChanged: (value) {
-                setState(() {
-                  phone = value;
-                });
-              },
+              // onChanged: (value) {
+              //   setState(() {
+              //     phone = value;
+              //   });
+              // },
               decoration: const InputDecoration(
                 hintText: "Phone",
                 prefixIcon: Padding(
@@ -122,14 +130,16 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
                 ),
               ),
             ),
-            const SizedBox(height: defaultPadding / 2),
+
+            const SizedBox(height: 20),
             TextFormField(
+              controller: _citizenIdentificationTextEditingController,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.next,
               cursorColor: kPrimaryColor,
-              onChanged: (value) {
-                citizenIdentification = value;
-              },
+              // onChanged: (value) {
+              //   citizenIdentification = value;
+              // },
               decoration: const InputDecoration(
                 hintText: "Citizen Identification",
                 prefixIcon: Padding(
@@ -138,7 +148,8 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
                 ),
               ),
             ),
-            const SizedBox(height: defaultPadding / 2),
+
+            const SizedBox(height: 20),
             SizedBox(
               height: 50,
               child: Row(
@@ -155,7 +166,8 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
                 child: RadioButtonOnlyOne(),
               ),
             ),
-            const SizedBox(height: defaultPadding / 2),
+
+            const SizedBox(height: 20),
             SizedBox(
               height: 50,
               child: Row(
@@ -169,35 +181,49 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
             Center(
               child: CupertinoDateDOB(),
             ),
-            const SizedBox(height: defaultPadding / 2),
+
+            const SizedBox(height: 20),
+
+            isErrorOccur ? Center(child: Text(errorMsg,style: const TextStyle(
+                fontSize: 10,
+                fontFamily: 'OpenSans',
+                letterSpacing: 1.0,
+                color: Colors.red,
+                fontWeight: FontWeight.bold
+            )),) : const SizedBox(),
+
+            const SizedBox(height: 20),
 
             ElevatedButton(
-              onPressed: () async {
-                email = _textEditingMailController.text;
-                username = _textEditingUsernameController.text;
-                dob = dateValue;
+              onPressed: () {
                 gender = character.toString().split(".").last;
                 PassengerModel passengerModel = PassengerModel(
-                  username: username,
-                  email: email,
-                  address: address,
-                  phone: phone,
-                  dob: dob,
+                  username: _usernameTextEditingController.text,
+                  email: _mailTextEditingController.text,
+                  address: _addressTextEditingController.text,
+                  phone: _phoneTextEditingController.text,
+                  dob: dateValue,
                   gender: gender,
-                  citizenIdentificationString: citizenIdentification,
-                  avatarUrl: widget.googleSignInAccount?.photoUrl
+                  citizenIdentificationString: _citizenIdentificationTextEditingController.text,
+                  avatarUrl: widget.googleSignInAccount!.photoUrl
                 );
-                final _confirmLogin = await widget._passengerService.signUpWithGoogleAccount(passengerModel, widget.googleSignInAccount);
-                if(_confirmLogin is PassengerModel) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleSignInNavigator(googleSignInFuture: widget._authService.loginByGoogleAccount(widget.googleSignInAccount))));
-                } else if(_confirmLogin is ErrorHandlerModel) {
-                  showDialog(context: context, builder: (context) {
-                    return DialogComponent(message: _confirmLogin.message);
-                  },);
-                }
+
+                Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleSignInNavigator(googleSignInAccount: widget!.googleSignInAccount, passengerModel: passengerModel,homestayName: widget.homestayName, isSignInFromBookingScreen: widget.isSignInFromBookingScreen),));
               },
               child: Text("Complete Sign Up".toUpperCase()),
             ),
+            TextButton(
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePageScreen())),
+                child: const Text("Cancel", style: TextStyle(
+                    fontSize: 10,
+                    fontFamily: 'OpenSans',
+                    letterSpacing: 1.0,
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline
+                )),
+
+            )
           ],
         ),
     );

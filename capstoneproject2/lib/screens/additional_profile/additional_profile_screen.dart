@@ -1,20 +1,25 @@
-import 'package:capstoneproject2/Screens/additional_profile/components/addtionalform_profile_signup.dart';
+
 import 'package:capstoneproject2/components/background.dart';
 import 'package:capstoneproject2/responsive.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:capstoneproject2/Screens/additional_profile//components/complete_profile_top_image.dart';
 
+import 'components/addtionalform_profile_signup.dart';
+
 class AdditionalProfileForm extends StatelessWidget {
-  AdditionalProfileForm({Key? key, this.googleSignInAccount}) : super(key: key);
-  GoogleSignInAccount? googleSignInAccount;
+  const AdditionalProfileForm({Key? key, this.googleSignInAccount, this.isSignInFromBookingScreen, this.homestayName}) : super(key: key);
+  final GoogleSignInAccount? googleSignInAccount;
+  final bool? isSignInFromBookingScreen;
+  final String? homestayName;
 
   @override
   Widget build(BuildContext context) {
     return Background(
       child: SingleChildScrollView(
         child: Responsive(
-          mobile: MobileAdditionalProfileScreen(googleSignInAccount: googleSignInAccount),
+          mobile: MobileAdditionalProfileScreen(googleSignInAccount: googleSignInAccount, isSignInFromBookingScreen: isSignInFromBookingScreen, homestayName: homestayName),
           desktop: Row(
             children: [
               const Expanded(
@@ -26,7 +31,7 @@ class AdditionalProfileForm extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: 450,
-                          child: AdditionalProfileFormSignUp(googleSignInAccount: googleSignInAccount),
+                          child: AdditionalProfileFormSignUp(isSignInFromBookingScreen: isSignInFromBookingScreen, homestayName: homestayName),
                         ),
                       ]
                   )
@@ -39,11 +44,14 @@ class AdditionalProfileForm extends StatelessWidget {
   }
 }
 class MobileAdditionalProfileScreen extends StatelessWidget {
-  MobileAdditionalProfileScreen({Key? key, this.googleSignInAccount}) : super(key: key);
-  GoogleSignInAccount? googleSignInAccount;
+  const MobileAdditionalProfileScreen({Key? key, this.googleSignInAccount, this.isSignInFromBookingScreen, this.homestayName}) : super(key: key);
+  final GoogleSignInAccount? googleSignInAccount;
+  final bool? isSignInFromBookingScreen;
+  final String? homestayName;
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -53,7 +61,7 @@ class MobileAdditionalProfileScreen extends StatelessWidget {
               const Spacer(),
               Expanded(
                 flex: 8,
-                child: AdditionalProfileFormSignUp(googleSignInAccount: googleSignInAccount),
+                child: AdditionalProfileFormSignUp(googleSignInAccount: googleSignInAccount, isSignInFromBookingScreen: isSignInFromBookingScreen, homestayName: homestayName,),
               ),
               const Spacer(),
               // Expanded(

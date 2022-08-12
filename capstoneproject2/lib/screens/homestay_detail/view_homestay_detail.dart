@@ -16,6 +16,8 @@ class HomestayDetailsScreen extends StatelessWidget {
     final homestayService = locator.get<IHomestayService>();
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePageScreen(),))),
         title: const Text("Details", style: TextStyle(
             fontSize: 15,
             fontFamily: 'OpenSans',
@@ -43,12 +45,12 @@ class HomestayDetailsScreen extends StatelessWidget {
                 return SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: SizedBox(
-                    height: 1000,
+                    height: 2000,
                     width: double.infinity,
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 370,
+                          height: 340,
                           width: double.infinity,
                           child: HomestayDetailsTop(homestayImages: snapshotData.homestayImages),
                         ),

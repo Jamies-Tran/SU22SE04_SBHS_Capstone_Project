@@ -1,7 +1,8 @@
 
-import 'package:capstoneproject2/Screens/Welcome/welcome_screen.dart';
+
 import 'package:capstoneproject2/components/spinkit_component.dart';
 import 'package:capstoneproject2/screens/profile/screen_profile.dart';
+import 'package:capstoneproject2/screens/welcome/welcome_screen.dart';
 import 'package:capstoneproject2/services/firebase_service/firebase_clound_firestore_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 
@@ -24,7 +25,7 @@ class Wrapper extends StatelessWidget {
             User? user = snapshot.data as User;
             return ProfileInforScreen(user: user,);
           } else {
-            return const WelcomeScreen();
+            return const WelcomeScreen(isSignInFromBookingScreen: false,);
           }
         },
     );

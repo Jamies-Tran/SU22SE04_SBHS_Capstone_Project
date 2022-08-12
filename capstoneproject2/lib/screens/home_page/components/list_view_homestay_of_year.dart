@@ -23,7 +23,7 @@ class HomestayOfTheYearListView extends StatelessWidget {
     final homestayService = locator.get<IHomestayService>();
     final currencyFormat = NumberFormat("#,##0");
     return StreamBuilder(
-        stream: Stream.periodic(const Duration(seconds: 20)).asyncMap((event) => homestayService.getAvailableHomestay()),
+        stream: Stream.periodic(const Duration(seconds: 10)).asyncMap((event) => homestayService.getAvailableHomestay()),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const SpinKitComponent();

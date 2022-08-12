@@ -1,15 +1,18 @@
-import 'package:capstoneproject2/Screens/Signup/components/social_sign_up.dart';
+
 import 'package:flutter/material.dart';
 import 'package:capstoneproject2/responsive.dart';
 
 import '../../components/background.dart';
+import '../signup/components/social_sign_up.dart';
 import 'components/login_form.dart';
 import 'components/login_screen_top_image.dart';
 import 'components/social_log_in.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key, this.emailAfterSignUpSuccess}) : super(key: key);
+  LoginScreen({Key? key, this.emailAfterSignUpSuccess, this.isSignInFromBookingScreen, this.homestayName}) : super(key: key);
   String? emailAfterSignUpSuccess;
+  bool? isSignInFromBookingScreen;
+  String? homestayName;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,9 @@ class LoginScreen extends StatelessWidget {
     return Background(
       child: SingleChildScrollView(
         child: Responsive(
-          mobile: MobileLoginScreen(emailAfterSignUpSuccess: emailAfterSignUpSuccess),
+          mobile: MobileLoginScreen(emailAfterSignUpSuccess: emailAfterSignUpSuccess, isSignInFromBookingScreen: isSignInFromBookingScreen,
+              homestayName: homestayName
+          ),
           desktop: Row(
             children: [
               const Expanded(
@@ -33,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     SizedBox(
                       width: 450,
-                      child: SocialSignUp(),
+                      child: SocialSignUp(isSignInFromBookingScreen : isSignInFromBookingScreen, homestayName: homestayName),
                     ),
                   ],
                 ),
@@ -49,9 +54,13 @@ class LoginScreen extends StatelessWidget {
 class MobileLoginScreen extends StatelessWidget {
   MobileLoginScreen({
     Key? key,
-    this.emailAfterSignUpSuccess
+    this.emailAfterSignUpSuccess,
+    this.isSignInFromBookingScreen,
+    this.homestayName
   }) : super(key: key);
   String? emailAfterSignUpSuccess;
+  bool? isSignInFromBookingScreen;
+  String? homestayName;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +79,7 @@ class MobileLoginScreen extends StatelessWidget {
           ],
 
         ),
-         SocialSignUp(),
+         SocialSignUp(isSignInFromBookingScreen: isSignInFromBookingScreen, homestayName: homestayName),
       ],
     );
   }

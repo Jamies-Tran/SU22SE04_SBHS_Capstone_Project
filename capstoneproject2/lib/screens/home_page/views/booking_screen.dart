@@ -1,3 +1,4 @@
+import 'package:capstoneproject2/screens/home_page/components/list_view_booking_history.dart';
 import 'package:flutter/material.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -8,16 +9,25 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
+  var dropdownValue = "all";
+
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Coming soon", style: TextStyle(
-          fontSize: 15,
-          fontFamily: 'OpenSans',
-          letterSpacing: 3.0,
-          color: Colors.black87,
-          fontWeight: FontWeight.bold
-      )),
+    return Scaffold(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            Container(
+              height: 700,
+              width: double.infinity,
+              child: const BookingHistoryComponent(),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

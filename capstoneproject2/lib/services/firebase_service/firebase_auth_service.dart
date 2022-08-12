@@ -5,6 +5,6 @@ abstract class IFirebaseAuthenticateService {
 
   Future<dynamic> confirmBrandNewAccount(GoogleSignInAccount? googleSignInAccount);
 
-  Future forgetGoogleSignIn();
+  Future forgetGoogleSignIn(String? username);
 
 }

@@ -10,9 +10,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 class SocialSignUp extends StatelessWidget {
   SocialSignUp({
     Key? key,
+    this.isSignInFromBookingScreen,
+    this.homestayName
   }) : super(key: key);
 
   final _firebaseAuth = locator.get<IFirebaseAuthenticateService>();
+  bool? isSignInFromBookingScreen;
+  String? homestayName;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +30,8 @@ class SocialSignUp extends StatelessWidget {
 
             SocalIcon(
               iconSrc: "assets/icons/gmail.svg",
-              press: () async {
-                GoogleSignInAccount? googleSignInAccount = await _firebaseAuth.getGoogleSignInAccount();
-                if(googleSignInAccount != null) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleSignUpNavigator(googleSignUpFuture: _firebaseAuth.confirmBrandNewAccount(googleSignInAccount))));
-                }
+              press: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GoogleSignUpNavigator(isSignInFromBookingScreen: isSignInFromBookingScreen, homestayName: homestayName,)));
               },
 
             ),

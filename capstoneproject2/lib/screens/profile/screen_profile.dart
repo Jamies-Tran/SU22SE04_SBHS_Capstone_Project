@@ -67,7 +67,7 @@ class MobileProfileInforScreen extends StatelessWidget {
             onPrimary: Colors.white
           ),
           onPressed: () async {
-            await firebaseAuth.forgetGoogleSignIn();
+            await firebaseAuth.forgetGoogleSignIn(user!.displayName!);
           },
           child: Text("Log Out".toUpperCase()),
         ),
