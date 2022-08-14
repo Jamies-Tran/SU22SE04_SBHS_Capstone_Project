@@ -156,6 +156,7 @@
       <h1>Add Facility </h1>
       <div class="input-content">
         <div class="add-input ">
+          <h1>Common Facility</h1>
           <form [formGroup]="facilityFormGroup" (ngSubmit)="facilityForm()" #formtwo="ngForm">
 
             <div class="row">
@@ -169,9 +170,7 @@
                   </div>
                   <div class=" checkbox">
                     <!-- formControlName="{{ }}" -->
-                    <mat-checkbox color="primary" formControlName="tv"
-                    (change)="enableInputTV()"
-                    ></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="tv" (change)="enableInputTV()"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
@@ -187,13 +186,13 @@
                     <p>Bed</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox (change)="enableInputBed()" color="primary" formControlName="bed" ></mat-checkbox>
+                    <mat-checkbox (change)="enableInputBed()" color="primary" formControlName="bed"></mat-checkbox>
                   </div>
 
                   <div class=" input">
                     <div class="col-input">
-                      <input  name="amount" type="number" min="0" formControlName="inputBed" class="col-input-amount"
-                        matInput placeholder="Amount"  />
+                      <input name="amount" type="number" min="0" formControlName="inputBed" class="col-input-amount"
+                        matInput placeholder="Amount" />
                     </div>
                   </div>
                 </div>
@@ -235,7 +234,8 @@
                     <p>Cooking stove</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox (change)="enableInputCookingStove()" color="primary" formControlName="cookingStove"></mat-checkbox>
+                    <mat-checkbox (change)="enableInputCookingStove()" color="primary" formControlName="cookingStove">
+                    </mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
@@ -250,7 +250,8 @@
                     <p>Shower</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox (change)="enableInputShower()" color="primary" formControlName="shower"></mat-checkbox>
+                    <mat-checkbox (change)="enableInputShower()" color="primary" formControlName="shower">
+                    </mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
@@ -265,7 +266,8 @@
                     <p>Toilet</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox (change)="enableInputToilet()" color="primary" formControlName="toilet"></mat-checkbox>
+                    <mat-checkbox (change)="enableInputToilet()" color="primary" formControlName="toilet">
+                    </mat-checkbox>
                   </div>
                   <div class="co input">
                     <div class="col-input">
@@ -280,7 +282,8 @@
                     <p>Bathtub</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox (change)="enableInputBathub()" color="primary" formControlName="bathtub"></mat-checkbox>
+                    <mat-checkbox (change)="enableInputBathub()" color="primary" formControlName="bathtub">
+                    </mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
@@ -292,10 +295,14 @@
               </div>
             </div>
           </form>
+
+
+        </div>
+        <div class="add-input ">
           <!-- Add Facility -->
 
 
-
+          <h1>Additional Facility</h1>
           <div class="row">
             <div class="col ">
               <div *ngFor="let value of newFacility; let i = index">
@@ -308,13 +315,13 @@
                     </div>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary" [(ngModel)]="value.status" >
+                    <mat-checkbox color="primary" [(ngModel)]="value.status">
                     </mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input type="number" min="0" [disabled]="!value.status" [(ngModel)]="value.amount" autocomplete="off" name="value{{i}}"
-                        class="col-input-amount" matInput placeholder="Price" />
+                      <input type="number" min="0" [disabled]="!value.status" [(ngModel)]="value.amount"
+                        autocomplete="off" name="value{{i}}" class="col-input-amount" matInput placeholder="Price" />
                     </div>
                   </div>
                   <div class="icon-x" matRipple>
@@ -348,8 +355,9 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input type="number" min="0" [disabled]="!value.status" [(ngModel)]="value.amount" autocomplete="off" #name="ngModel"
-                        name="value{{i}}" class="col-input-amount" matInput placeholder="Amount" />
+                      <input type="number" min="0" [disabled]="!value.status" [(ngModel)]="value.amount"
+                        autocomplete="off" #name="ngModel" name="value{{i}}" class="col-input-amount" matInput
+                        placeholder="Amount" />
                     </div>
                   </div>
                   <div class="icon-x" matRipple> <i class="fa-solid fa-xmark" (click)="removeFacility(i)"></i></div>
@@ -359,7 +367,6 @@
               </div>
             </div>
           </div>
-
         </div>
         <form [formGroup]="facilityFormGroup" (ngSubmit)="facilityForm()" #formtwo="ngForm">
 
@@ -390,7 +397,7 @@
                     <p>Wireless internet</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox  (change)="enableInputWifi()" color="primary" formControlName="wifi"></mat-checkbox>
+                    <mat-checkbox (change)="enableInputWifi()" color="primary" formControlName="wifi"></mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
@@ -438,7 +445,8 @@
                     <p>Swimming Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox (change)="enableInputSwimming()" color="primary" formControlName="swimming"></mat-checkbox>
+                    <mat-checkbox (change)="enableInputSwimming()" color="primary" formControlName="swimming">
+                    </mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
@@ -475,7 +483,8 @@
                     <p>Fishing Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox  (change)="enableInputFishing()" color="primary" formControlName="fishing"></mat-checkbox>
+                    <mat-checkbox (change)="enableInputFishing()" color="primary" formControlName="fishing">
+                    </mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
@@ -491,7 +500,8 @@
                     <p>Car Rental Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox (change)="enableInputCarRental()" color="primary" formControlName="carRental"></mat-checkbox>
+                    <mat-checkbox (change)="enableInputCarRental()" color="primary" formControlName="carRental">
+                    </mat-checkbox>
                   </div>
                   <div class="co input">
                     <div class="col-input">
@@ -507,7 +517,8 @@
                     <p>Campfire Service</p>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox (change)="enableInputCampFire()" color="primary" formControlName="campfire"></mat-checkbox>
+                    <mat-checkbox (change)="enableInputCampFire()" color="primary" formControlName="campfire">
+                    </mat-checkbox>
                   </div>
                   <div class=" input">
                     <div class="col-input">
@@ -542,8 +553,9 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input autocomplete="off" type="number" min="0" [(ngModel)]="value.price" [disabled]="!value.status" #name="ngModel"
-                        name="value{{i}}" class="col-input-amount" matInput placeholder="Price" />
+                      <input autocomplete="off" type="number" min="0" [(ngModel)]="value.price"
+                        [disabled]="!value.status" #name="ngModel" name="value{{i}}" class="col-input-amount" matInput
+                        placeholder="Price" />
                     </div>
                   </div>
                   <div class="icon-x" matRipple> <i class="fa-solid fa-xmark" (click)="removeService(i)"></i></div>
@@ -578,8 +590,8 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input id="amount" type="number" min="0" [disabled]="!value.status" [(ngModel)]="value.price" #name="ngModel"
-                        name="value{{i}}" class="col-input-amount" matInput placeholder="Price" />
+                      <input id="amount" type="number" min="0" [disabled]="!value.status" [(ngModel)]="value.price"
+                        #name="ngModel" name="value{{i}}" class="col-input-amount" matInput placeholder="Price" />
                     </div>
                   </div>
                   <div class="icon-x" matRipple>
