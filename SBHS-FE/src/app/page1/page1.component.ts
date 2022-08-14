@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-page1',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Page1Component implements OnInit {
 
-  constructor() { }
+  constructor(private _formBuilder: FormBuilder) { }
 
-  ngOnInit(): void {
+  name = 'Dynamic Add Fields';
+  values : any[]=[] ;
+  ngOnInit() {
+    console.log('value', this.values);
   }
+
+  removevalue(i:any){
+    this.values.splice(i,1);
+  }
+
+  addvalue(){
+    this.values.push({name:"", amount:"", status:false });
+    console.log('values', this.values);
+    console.log('size', this.values.length);
+  }
+
 
 }

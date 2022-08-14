@@ -9,7 +9,7 @@
       background: rgba(29, 36, 46, 0.08);
       border-radius: 30px;
       padding-bottom: 3rem;
-      margin: 0 55px;
+
 
       .row-fill {
 
@@ -62,9 +62,8 @@
           font-size: 20px;
           padding-top: 5%;
           min-width: 6%;
-          width: 10%;
+          width: 9%;
           height: 100%;
-
           float: left;
         }
 
@@ -72,10 +71,10 @@
           font-size: 20px;
           padding: 0;
           padding-top: 5%;
-          width: 39%;
+          width: 35%;
           height: 100%;
-
           float: left;
+          margin-left: 1%;
 
 
         }
@@ -89,11 +88,28 @@
           float: left;
         }
 
+        .icon-x {
+          width: 22px;
+          height: 22px;
+          font-size: 20px;
+          min-width: 20px;
+          float: left;
+          margin-left: 4%;
+          cursor: pointer;
+          text-align: center;
+          border-radius: 1rem;
+          line-height: 22px;
+          margin-top: 5%;
+        }
+
+
+
         .input {
           height: 100%;
 
           float: left;
-          width: 35%;
+          width: 36%;
+          line-height: 35px;
 
           .col-input {
             margin: 2px;
@@ -115,6 +131,13 @@
 
             }
 
+            .value-name {
+              text-align: left;
+              padding-left: 10px;
+              width: 85%;
+
+            }
+
             .col-input-amount:focus {
               outline: 2px solid rgb(36, 36, 245);
             }
@@ -125,47 +148,74 @@
 
 
           }
+
         }
+
 
       }
 
       .textarea {
         text-align: center;
-        .mat-form-field{
+
+        .mat-form-field {
           margin-left: 0%;
         }
 
       }
-      .col-right-2{
-        .row-fill{
+
+      .col-right-2 {
+        min-width: 50%;
+
+        .row-fill {
           margin-left: 1rem;
         }
       }
 
+      .click {
+
+        width: 200px;
+        cursor: pointer;
+        height: 45px;
+        border-radius: 1rem;
+        margin-left: 1rem;
+        padding-left: 1rem;
+
+        .icon {
+          min-width: 20px;
+          width: 40px;
+        }
+
+        .text {
+          width: auto;
+        }
+      }
     }
 
-    .add-img{
+    .add-img {
 
       text-align: center;
       margin-top: 40px;
-      .img-homestay{
+
+      .img-homestay {
         text-align: center;
         width: 100%;
 
-        h1{
+        h1 {
           text-align: left;
           margin-left: 8%;
         }
       }
 
-      .img-homestayLicense{
+      .img-homestayLicense {
         width: 100%;
         text-align: center;
-        h1{
+
+        h1 {
           text-align: left;
           margin-left: 8%;
         }
       }
+
       .upload {
         box-sizing: border-box;
         width: 80%;
