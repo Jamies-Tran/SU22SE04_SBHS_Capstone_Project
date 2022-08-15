@@ -16,7 +16,6 @@ public interface IBookingService {
 	
 	List<BookingEntity> getUserBookingList(String username, String status);
 	
-	
 	BookingEntity confirmBooking(Long BookingId, boolean isAccepted, @Nullable String rejectMessage);
 	
 	BookingEntity verifyBookingCheckIn(Long bookingId, String bookingOtp);

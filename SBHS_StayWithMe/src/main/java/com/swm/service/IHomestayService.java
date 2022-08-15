@@ -3,6 +3,7 @@ package com.swm.service;
 import java.util.List;
 
 import com.swm.entity.HomestayEntity;
+import com.swm.entity.SpecialDayPriceListEntity;
 
 public interface IHomestayService {
 
@@ -18,7 +19,8 @@ public interface IHomestayService {
 
 	HomestayEntity createHomestay(HomestayEntity homestayEntity);
 	
-
+	void addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList);
+	
 	HomestayEntity deleteHomestayById(Long Id);
 	
 	Integer numberOfFinishedBookingHomestay(Long homestayId);

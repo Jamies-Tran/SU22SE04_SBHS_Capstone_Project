@@ -13,13 +13,16 @@ import com.swm.entity.HomestayEntity;
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.LandlordEntity;
 import com.swm.entity.RatingEntity;
+import com.swm.entity.SpecialDayPriceListEntity;
 import com.swm.entity.UserEntity;
 import com.swm.enums.BookingStatus;
 import com.swm.enums.HomestayStatus;
+import com.swm.enums.PriceType;
 import com.swm.enums.RequestStatus;
 import com.swm.enums.RequestType;
 import com.swm.exception.DuplicateResourceException;
 import com.swm.exception.InvalidBalanceException;
+import com.swm.exception.ResourceNotAllowException;
 import com.swm.exception.ResourceNotFoundException;
 import com.swm.repository.IHomestayRepository;
 import com.swm.service.IAuthenticationService;
@@ -105,6 +108,16 @@ public class HomestayService implements IHomestayService {
 			a.setCreatedBy(accountPoster);
 			a.setCreatedDate(currentDate);
 		});
+		
+		
+		homestayEntity.getPriceList().forEach(p -> {
+			if(p.getType().equalsIgnoreCase(PriceType.SPECIAL.name()) && p.getSpecialDayPriceList() == null) {
+				throw new ResourceNotAllowException("Special day day must include day, month and description");
+			}
+			p.setHomestayPriceList(homestayEntity);
+			p.setCreatedBy(accountPoster);
+			p.setCreatedDate(currentDate);
+		});
 		UserEntity userEntity = userService.findUserByUserInfo(accountPoster);
 		LandlordEntity landlordEntity = userEntity.getLandlord();
 		if (landlordEntity.getWallet().getBalance() < 1000) {
@@ -167,6 +180,12 @@ public class HomestayService implements IHomestayService {
 				.collect(Collectors.toList());
 		
 		return succeedBookingList.size();
+	}
+
+	@Override
+	public void addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

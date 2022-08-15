@@ -56,14 +56,6 @@ public class HomestayController {
 	@PreAuthorize("hasRole('ROLE_LANDLORD')")
 	public ResponseEntity<?> requestPostingHomestay(@RequestBody HomestayDto homestayDto) {
 		HomestayEntity homestayEntity = homestayConvert.homestayEntityConvert(homestayDto);
-//		HomestayLicenseImageEntity homestayLicense = homestayConvert
-//				.homestayLicenseEntityConvert(homestayDto.getHomestayLicenseDto());
-//		List<HomestayImageEntity> homestayImageList = homestayDto.getHomestayImages().stream()
-//				.map(img -> homestayConvert.homestayImageEntityConvert(img)).collect(Collectors.toList());
-//		List<HomestayAftercareEntity> homestayServiceList = homestayDto.getHomestayServices().stream()
-//				.map(srv -> homestayConvert.homestayAftercareEntityConvert(srv)).collect(Collectors.toList());
-//		List<HomestayCommonFacilityEntity> homestayFacilityList = homestayDto.getHomestayFacilities().stream()
-//				.map(fct -> homestayConvert.homestayFacilityEntityConvert(fct)).collect(Collectors.toList());
 		HomestayEntity homestayRequested = homestayService.createHomestay(homestayEntity);
 		HomestayDto homestayResponse = homestayConvert.homestayCompleteInfoDtoConvert(homestayRequested);
 

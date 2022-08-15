@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,8 +22,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class HomestayPriceListEntity {
+public class HomestayPriceListEntity extends BaseEntity {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@SequenceGenerator(name = "price_list_sequence", sequenceName = "price_list_sequence", initialValue = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "price_list_sequence")
@@ -34,6 +40,10 @@ public class HomestayPriceListEntity {
 	
 	@Setter
 	private String type;
+	
+	@OneToOne(mappedBy = "homestayPriceLst", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@Setter
+	private SpecialDayPriceListEntity specialDayPriceList;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "homestay_id", referencedColumnName = "Id")

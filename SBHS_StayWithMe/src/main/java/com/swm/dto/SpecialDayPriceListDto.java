@@ -9,9 +9,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class HomestayPriceListDto {
+public class SpecialDayPriceListDto {
 	private Long Id;
-	private Long price;
-	private String type;
-	private SpecialDayPriceListDto specialDayPriceList;
+	private int startDay;
+	private int endDay;
+	private int startMonth;
+	private int endMonth;
+	private String description;
 }

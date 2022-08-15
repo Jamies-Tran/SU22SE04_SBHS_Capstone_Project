@@ -13,6 +13,7 @@ import com.swm.dto.HomestayCommonFacilityDto;
 import com.swm.dto.HomestayImageDto;
 import com.swm.dto.HomestayLicenseDto;
 import com.swm.dto.HomestayPriceListDto;
+import com.swm.dto.SpecialDayPriceListDto;
 import com.swm.entity.HomestayAdditionalFacilityEntity;
 import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayCommonFacilityEntity;
@@ -20,6 +21,7 @@ import com.swm.entity.HomestayEntity;
 import com.swm.entity.HomestayImageEntity;
 import com.swm.entity.HomestayLicenseImageEntity;
 import com.swm.entity.HomestayPriceListEntity;
+import com.swm.entity.SpecialDayPriceListEntity;
 import com.swm.service.IHomestayService;
 
 @Component
@@ -150,16 +152,48 @@ public class HomestayConverter {
 		homestayPriceListDto.setId(homestayPriceListEntity.getId());
 		homestayPriceListDto.setPrice(homestayPriceListEntity.getPrice());
 		homestayPriceListDto.setType(homestayPriceListEntity.getType());
+		if(homestayPriceListEntity.getSpecialDayPriceList() != null) {
+			homestayPriceListDto.setSpecialDayPriceList(specialDayPriceListDtoConvert(homestayPriceListEntity.getSpecialDayPriceList()));
+		}
 		
 		return homestayPriceListDto;
 	}
 	
 	private HomestayPriceListEntity homestayPriceListEntityConvert(HomestayPriceListDto homestayPriceListDto) {
 		HomestayPriceListEntity homestayPriceListEntity = new HomestayPriceListEntity();
+		if(homestayPriceListDto.getSpecialDayPriceList() != null) {
+			SpecialDayPriceListEntity specialDayPriceListEntity = this.specialDayPriceListConverter(homestayPriceListDto.getSpecialDayPriceList());
+			specialDayPriceListEntity.setHomestayPriceLst(homestayPriceListEntity);
+			homestayPriceListEntity.setSpecialDayPriceList(specialDayPriceListEntity);
+		}
 		homestayPriceListEntity.setPrice(homestayPriceListDto.getPrice());
 		homestayPriceListEntity.setType(homestayPriceListDto.getType());
 		
+		
 		return homestayPriceListEntity;
+	}
+	
+	private SpecialDayPriceListDto specialDayPriceListDtoConvert(SpecialDayPriceListEntity homestayPriceListEntity) {
+		SpecialDayPriceListDto specialDayListDto = new SpecialDayPriceListDto();
+		specialDayListDto.setId(homestayPriceListEntity.getId());
+		specialDayListDto.setStartDay(homestayPriceListEntity.getStartDay());
+		specialDayListDto.setEndDay(homestayPriceListEntity.getEndDay());
+		specialDayListDto.setStartMonth(homestayPriceListEntity.getStartMonth());
+		specialDayListDto.setEndMonth(homestayPriceListEntity.getEndMonth());
+		specialDayListDto.setDescription(homestayPriceListEntity.getDescription());
+		
+		return specialDayListDto;
+	}
+	
+	private SpecialDayPriceListEntity specialDayPriceListConverter(SpecialDayPriceListDto specialDayPriceListDto) {
+		SpecialDayPriceListEntity specialDayPriceListEntity = new SpecialDayPriceListEntity();
+		specialDayPriceListEntity.setStartDay(specialDayPriceListDto.getStartDay());
+		specialDayPriceListEntity.setEndDay(specialDayPriceListDto.getEndDay());
+		specialDayPriceListEntity.setStartMonth(specialDayPriceListDto.getStartMonth());
+		specialDayPriceListEntity.setEndMonth(specialDayPriceListDto.getEndMonth());
+		specialDayPriceListEntity.setDescription(specialDayPriceListDto.getDescription());
+		
+		return specialDayPriceListEntity;
 	}
 
 	public HomestayAftercareDto homestayAftercareDtoConvert(HomestayAftercareEntity homestayAftercareEntity) {
