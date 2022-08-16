@@ -104,7 +104,10 @@
 
                     <!-- collapse -->
                     <div>
-                      <h3>Tet Nguyen Dan</h3>
+                      <mat-checkbox class="chb-special" color="primary" >
+                        Tet Nguyen Dan
+                      </mat-checkbox>
+
 
 
                       <div>
@@ -182,7 +185,12 @@
                     </div>
                     <!-- collapse -->
                     <div>
-                      <h3>Tet Nguyen Dan</h3>
+
+                        <mat-checkbox class="chb-special" color="primary" >
+                          Tet Nguyen Dan
+                        </mat-checkbox>
+
+
 
 
                       <div>
@@ -275,8 +283,7 @@
 
               <mat-form-field class="fill" appearance="legacy">
                 <mat-label>Description</mat-label>
-                <input  type="text" matInput
-                  disabled>
+                <input type="text" matInput disabled>
               </mat-form-field>
               <div class="editor">
                 <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
@@ -369,7 +376,6 @@
                     <p>TV</p>
                   </div>
                   <div class=" checkbox">
-                    <!-- formControlName="{{ }}" -->
                     <mat-checkbox color="primary" formControlName="tv" (change)="enableInputTV()"></mat-checkbox>
                   </div>
                   <div class=" input">
@@ -521,7 +527,7 @@
                   <div class=" input">
                     <div class="col-input">
                       <input type="number" min="0" [disabled]="!value.status" [(ngModel)]="value.amount"
-                        autocomplete="off" name="value{{i}}" class="col-input-amount" matInput placeholder="Price" />
+                        autocomplete="off" name="value{{i}}" class="col-input-amount" matInput placeholder="Amount" />
                     </div>
                   </div>
                   <div class="icon-x" matRipple>
