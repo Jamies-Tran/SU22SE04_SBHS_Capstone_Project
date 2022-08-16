@@ -11,35 +11,7 @@
       padding-bottom: 3rem;
       margin-bottom: 2%;
 
-      .editor {
-        border: 2px solid rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
-        margin-top: 3%;
-        margin-left: 8%;
-        width: 84%;
 
-        .NgxEditor__MenuBar {
-          border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-        }
-
-        .NgxEditor {
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-
-        }
-
-        .CodeMirror {
-          border: 1px solid #eee;
-          height: auto;
-          margin-bottom: 0.7rem;
-
-          pre {
-            white-space: pre !important;
-          }
-        }
-      }
 
 
 
@@ -101,7 +73,8 @@
             }
           }
         }
-        .chb-special{
+
+        .chb-special {
           font-size: 17px;
           font-weight: 400;
           letter-spacing: normal;
@@ -416,4 +389,54 @@
 
 .example-headers-align .mat-form-field+.mat-form-field {
   margin-left: 8px;
+}
+
+.container {
+  .input-content {
+    .add-input {
+      .col {
+        .editor {
+          border: 2px solid rgba(0, 0, 0, 0.2);
+          border-radius: 4px;
+          margin-top: 3%;
+          margin-left: 8%;
+          width: 84%;
+
+          .NgxEditor__MenuBar {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+          }
+
+
+
+
+
+
+          .CodeMirror {
+            border: 1px solid #eee;
+            height: auto;
+            margin-bottom: 0.7rem;
+
+            pre {
+              white-space: pre !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep  {
+
+  .NgxEditor {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom: none !important;
+    border-left: unset !important;
+    border-right: unset !important;
+    min-height: 170px;
+
+  }
 }
