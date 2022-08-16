@@ -24,6 +24,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {NgxMatFileInputModule} from '@angular-material-components/file-input';
 import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { NgxEditorModule } from 'ngx-editor';
 
 
 import { AppComponent } from './app.component';
@@ -74,7 +75,8 @@ import { Page1Component } from './page1/page1.component';
     MatIconModule,
     NgxMatFileInputModule,
     MatTableModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxEditorModule
 
   ],
   providers: [],

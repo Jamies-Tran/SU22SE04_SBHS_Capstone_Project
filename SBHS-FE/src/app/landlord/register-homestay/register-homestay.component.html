@@ -259,18 +259,6 @@
                       </div>
                     </div>
 
-
-
-                    <!-- <mat-form-field class="fill" appearance="legacy">
-                      <mat-label>End day</mat-label>
-
-                    </mat-form-field> -->
-
-
-
-
-
-
                   </mat-expansion-panel>
                 </mat-accordion>
 
@@ -284,11 +272,15 @@
                 </mat-form-field>
               </div>
               <!-- description -->
-              <div>
-                <mat-form-field class="fill " appearance="outline">
-                  <mat-label>Description</mat-label>
-                  <textarea id="description" matInput formControlName="description" autocomplete="off"></textarea>
-                </mat-form-field>
+
+              <mat-form-field class="fill" appearance="legacy">
+                <mat-label>Description</mat-label>
+                <input  type="text" matInput
+                  disabled>
+              </mat-form-field>
+              <div class="editor">
+                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+                <ngx-editor [editor]="editor" [placeholder]="'Type here...'"></ngx-editor>
               </div>
 
             </div>

@@ -27,6 +27,7 @@ import { enviroment } from 'src/enviroment/enviroment';
 import { initializeApp } from 'firebase/app';
 import { BookingComponent } from './booking/booking.component';
 import { BookingDetailComponent } from './booking/booking-detail/booking-detail.component';
+import { NgxEditorModule } from 'ngx-editor';
 
 
 
@@ -61,7 +62,8 @@ import { BookingDetailComponent } from './booking/booking-detail/booking-detail.
     MatProgressSpinnerModule,
     NgxPaginationModule,
     MatExpansionModule,
-    MatIconModule
+    MatIconModule,
+    NgxEditorModule
   ]
 })
 export class LandlordModule { }

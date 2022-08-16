@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ServerHttpService } from 'src/app/services/register-homestay.service';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Editor, Toolbar } from 'ngx-editor';
 
 interface City {
   value: string;
@@ -32,6 +33,20 @@ export class RegisterHomestayComponent implements OnInit {
 
   newServices: any[] = [];
   newFacility: any[] = [];
+
+  // richtext
+  editor!: Editor;
+  html!: '';
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
 
   // new Facility
   addFacility() {
@@ -271,7 +286,13 @@ export class RegisterHomestayComponent implements OnInit {
     private db: AngularFirestore
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.editor = new Editor();
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
+  }
 
   // lấy file hình
   onSelectImageHomestay(files: any) {
