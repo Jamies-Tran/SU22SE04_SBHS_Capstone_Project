@@ -20,6 +20,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
 
 import { enviroment } from 'src/enviroment/enviroment';
 import { initializeApp } from 'firebase/app';
@@ -57,7 +59,9 @@ import { BookingDetailComponent } from './booking/booking-detail/booking-detail.
     MatPaginatorModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatExpansionModule,
+    MatIconModule
   ]
 })
 export class LandlordModule { }

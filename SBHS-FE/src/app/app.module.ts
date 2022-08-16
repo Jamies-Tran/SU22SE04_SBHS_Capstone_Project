@@ -22,6 +22,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatRippleModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {NgxMatFileInputModule} from '@angular-material-components/file-input';
+import {MatTableModule} from '@angular/material/table';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 import { AppComponent } from './app.component';
@@ -70,7 +72,9 @@ import { Page1Component } from './page1/page1.component';
     MatSelectModule,
     MatRippleModule,
     MatIconModule,
-    NgxMatFileInputModule
+    NgxMatFileInputModule,
+    MatTableModule,
+    MatExpansionModule
 
   ],
   providers: [],

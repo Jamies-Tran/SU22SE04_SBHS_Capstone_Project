@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {MatAccordion} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-page1',
@@ -8,23 +8,9 @@ import { FormBuilder } from '@angular/forms';
 })
 export class Page1Component implements OnInit {
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor() { }
 
-  name = 'Dynamic Add Fields';
-  values : any[]=[] ;
-  ngOnInit() {
-    console.log('value', this.values);
+  ngOnInit(): void {
   }
-
-  removevalue(i:any){
-    this.values.splice(i,1);
-  }
-
-  addvalue(){
-    this.values.push({name:"", amount:"", status:false });
-    console.log('values', this.values);
-    console.log('size', this.values.length);
-  }
-
 
 }

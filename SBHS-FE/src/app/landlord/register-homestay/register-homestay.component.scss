@@ -11,6 +11,65 @@
       padding-bottom: 3rem;
       margin-bottom: 2%;
 
+
+      .special {
+        width: 84%;
+        margin-left: 8%;
+        padding-top: 3%;
+        z-index: -1;
+
+        .panel-special {
+          background-color: rgba(255, 255, 255, 0.65);
+
+          .panel-header-special {
+            font-size: large;
+            padding-left: 10px;
+          }
+          .col{
+            min-width: 150px;
+          }
+          .right {
+            padding-left: 0%;
+            max-width: 38%;
+
+            .mat-form-field {
+              width: 48.5%;
+              min-width:157px ;
+            }
+          }
+
+          .left {
+            padding-right: 0%;
+            max-width: 40%;
+
+
+            .mat-form-field {
+              width: 48.5%;
+              min-width:157px ;
+            }
+          }
+
+          .line- {
+            width: fit-content;
+
+            padding-top: 55px;
+              margin: 5px;
+              font-size: 20px;
+              font-weight: 500;
+
+          }
+
+
+          .price {
+            max-width: 20%;
+
+            .mat-form-field {
+              width: 100%;
+            }
+          }
+        }
+      }
+
       h1 {
         padding: 0;
         margin: 0;
@@ -227,7 +286,9 @@
 
       .upload {
         box-sizing: border-box;
-        width: 80%;
+        width: 455px;
+
+        max-width: 80%;
         height: 130px;
         background: #D9D9D9;
         border: 1px dashed #000000;
@@ -297,4 +358,13 @@
 
 .mat-form-field {
   margin-top: 16px;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field+.mat-form-field {
+  margin-left: 8px;
 }

@@ -13,15 +13,267 @@
 
         <h1>Request Add Homestay Information</h1>
         <div class="input-content">
-          <div class="add-input row">
-            <div class="col left">
-              <!-- name -->
+          <div class="add-input">
+            <div class="row">
+              <div class="col left">
+                <!-- name -->
+                <div>
+                  <mat-form-field class="fill" appearance="legacy">
+                    <mat-label>Homestay's Name</mat-label>
+                    <input name="homestayname" matInput placeholder="StaywithMe Homestay" formControlName="homestayName"
+                      required formControlName="homestayName">
+                  </mat-form-field>
+                </div>
+
+                <!-- check in -->
+                <div>
+                  <mat-form-field class="fill" appearance="legacy">
+                    <mat-label>Check-in time</mat-label>
+                    <input id="check-in" type="time" matInput required formControlName="checkInTime">
+                  </mat-form-field>
+                </div>
+
+                <div>
+                  <mat-form-field class="fill" appearance="legacy">
+                    <mat-label>Number of Room</mat-label>
+                    <input id="number" type="number" matInput placeholder="1" required formControlName="number">
+                  </mat-form-field>
+                </div>
+
+
+              </div>
+              <div class="col right">
+
+
+                <!-- city -->
+                <div>
+                  <mat-form-field class="fill" appearance="legacy">
+                    <mat-label>City</mat-label>
+                    <!-- <input id="name" matInput
+                      placeholder="StaywithMe Homestay"
+                      formControlName="city" required
+                      formControlName="city"> -->
+
+                    <mat-select placeholder="TP.HCM" name="city" formControlName="city">
+                      <mat-option *ngFor="let city of cities" [value]="city.value"> {{city.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field class="fill" appearance="legacy">
+                    <mat-label>Check-out time</mat-label>
+                    <input id="checkout" type="time" matInput required formControlName="checkOutTime">
+                  </mat-form-field>
+                </div>
+
+
+              </div>
+            </div>
+            <div class="col">
+              <!-- Price normal day-->
               <div>
                 <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>Homestay's Name</mat-label>
-                  <input name="homestayname" matInput placeholder="StaywithMe Homestay" formControlName="homestayName"
-                    required formControlName="homestayName">
+                  <mat-label>Normal day: Price (VND)</mat-label>
+                  <input name="price" id="price" type="number" matInput placeholder="1000000" required
+                    formControlName="price">
                 </mat-form-field>
+              </div>
+              <!-- Price weekend day-->
+              <div>
+                <mat-form-field class="fill" appearance="legacy">
+                  <mat-label>Weekend: Price (VND)</mat-label>
+                  <input name="price" id="price" type="number" matInput placeholder="1000000" required
+                    formControlName="price">
+                </mat-form-field>
+              </div>
+              <!-- Price special day-->
+              <div class="special">
+                <mat-accordion class="example-headers-align">
+
+                  <mat-expansion-panel class="panel-special">
+                    <!-- header -->
+                    <mat-expansion-panel-header class="panel-header-special">
+                      <mat-panel-title>
+                        Special day
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        Type your price of special day
+                        <mat-icon>paid</mat-icon>
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <!-- collapse -->
+                    <div>
+                      <h3>Tet Nguyen Dan</h3>
+
+
+                      <div>
+                        <!-- day -->
+                        <div class="row">
+                          <!-- Start -->
+                          <div class="col left">
+                            <div>
+                              Start day
+                            </div>
+                            <!-- day / month -->
+                            <div class="start-day">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Day</mat-label>
+                                <mat-select value="1">
+                                  <mat-option value="1">1</mat-option>
+                                  <mat-option value="2">2</mat-option>
+                                  <mat-option value="3">3</mat-option>
+                                  <mat-option value="4">4</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                              <mat-form-field appearance="outline">
+                                <mat-label>Month</mat-label>
+                                <mat-select value="1">
+                                  <mat-option value="1">Junuary</mat-option>
+                                  <mat-option value="2">February</mat-option>
+                                  <mat-option value="3">March</mat-option>
+                                  <mat-option value="4">April</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+
+                            </div>
+                          </div>
+                          <p class="line-"> - </p>
+                          <div class="col right">
+                            <div>
+                              End day
+                            </div>
+                            <!-- day / month -->
+                            <div>
+                              <mat-form-field appearance="outline">
+                                <mat-label>Day</mat-label>
+                                <mat-select value="1">
+                                  <mat-option value="1">1</mat-option>
+                                  <mat-option value="2">2</mat-option>
+                                  <mat-option value="3">3</mat-option>
+                                  <mat-option value="4">4</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                              <mat-form-field appearance="outline">
+                                <mat-label>Month</mat-label>
+                                <mat-select value="1">
+                                  <mat-option value="1">Junuary</mat-option>
+                                  <mat-option value="2">February</mat-option>
+                                  <mat-option value="3">March</mat-option>
+                                  <mat-option value="4">April</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <!-- price -->
+                          <div class="col price">
+                            <div>
+                              Price
+                            </div>
+                            <mat-form-field appearance="outline">
+                              <mat-label>Price (VND)</mat-label>
+                              <input name="price" id="price" type="number" matInput placeholder="1000000" required>
+                            </mat-form-field>
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+                    <!-- collapse -->
+                    <div>
+                      <h3>Tet Nguyen Dan</h3>
+
+
+                      <div>
+                        <!-- day -->
+                        <div class="row">
+                          <!-- Start -->
+                          <div class="col left">
+                            <div>
+                              Start day
+                            </div>
+                            <!-- day / month -->
+                            <div class="start-day">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Day</mat-label>
+                                <mat-select value="1">
+                                  <mat-option value="1">1</mat-option>
+                                  <mat-option value="2">2</mat-option>
+                                  <mat-option value="3">3</mat-option>
+                                  <mat-option value="4">4</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                              <mat-form-field appearance="outline">
+                                <mat-label>Month</mat-label>
+                                <mat-select value="1">
+                                  <mat-option value="1">Junuary</mat-option>
+                                  <mat-option value="2">February</mat-option>
+                                  <mat-option value="3">March</mat-option>
+                                  <mat-option value="4">April</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+
+                            </div>
+                          </div>
+                          <p class="line-"> - </p>
+                          <div class="col right">
+                            <div>
+                              End day
+                            </div>
+                            <!-- day / month -->
+                            <div>
+                              <mat-form-field appearance="outline">
+                                <mat-label>Day</mat-label>
+                                <mat-select value="1">
+                                  <mat-option value="1">1</mat-option>
+                                  <mat-option value="2">2</mat-option>
+                                  <mat-option value="3">3</mat-option>
+                                  <mat-option value="4">4</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                              <mat-form-field appearance="outline">
+                                <mat-label>Month</mat-label>
+                                <mat-select value="1">
+                                  <mat-option value="1">Junuary</mat-option>
+                                  <mat-option value="2">February</mat-option>
+                                  <mat-option value="3">March</mat-option>
+                                  <mat-option value="4">April</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <!-- price -->
+                          <div class="col price">
+                            <div>
+                              Price
+                            </div>
+                            <mat-form-field appearance="outline">
+                              <mat-label>Price (VND)</mat-label>
+                              <input name="price" id="price" type="number" matInput placeholder="1000000" required>
+                            </mat-form-field>
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+
+
+
+                    <!-- <mat-form-field class="fill" appearance="legacy">
+                      <mat-label>End day</mat-label>
+
+                    </mat-form-field> -->
+
+
+
+
+
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+
               </div>
               <!-- address -->
               <div>
@@ -31,112 +283,68 @@
                     formControlName="address" required>
                 </mat-form-field>
               </div>
-              <!-- check in -->
-              <div>
-                <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>Check-in time</mat-label>
-                  <input id="check-in" type="time" matInput required formControlName="checkInTime">
-                </mat-form-field>
-              </div>
-
-              <div>
-                <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>Number of Room</mat-label>
-                  <input id="number" type="number" matInput placeholder="1" required formControlName="number">
-                </mat-form-field>
-              </div>
-
-              <div class="add-img">
-                <div class="img-homestay">
-                  <h1>Image Homestay</h1>
-                  <div class="upload" ngx-dropzone [accept]="'image/*'" (change)="onSelectImageHomestay($event)">
-                    <ngx-dropzone-label>
-                      <div>
-                        <i class="fas fa-cloud-upload-alt icon-upload"></i>
-                        <header>Drop files here or click to upload *</header>
-                      </div>
-                    </ngx-dropzone-label>
-                    <div class="wrapper" *ngFor="let f of homestayImageFiles">
-                      <ngx-dropzone-image-preview class="image-preview" ngProjectAs="ngx-dropzone-preview" [file]="f"
-                        [removable]="true" (removed)="onRemoveHomestayImage(f)">
-                      </ngx-dropzone-image-preview>
-
-                      <!-- <label class="image-upload-container btn btn-bwm" style="margin-left: 35%">
-                        <span>Upload font and back your ID</span>
-                        <input #imageInput type="file" multiple accept="image/*" [(ngModel)]="homestayLicense"
-                            [ngModelOptions]="{standalone: true}">
-                      </label> -->
-                      <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" (removed)="onRemoveHomestayImage(f)">{{
-                        f.name }}</ngx-dropzone-label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col right">
-              <div>
-                <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>Price (VND)</mat-label>
-                  <input name="price" id="price" type="number" matInput placeholder="1000000" required
-                    formControlName="price">
-                </mat-form-field>
-              </div>
-
-              <!-- city -->
-              <div>
-                <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>City</mat-label>
-                  <!-- <input id="name" matInput
-                    placeholder="StaywithMe Homestay"
-                    formControlName="city" required
-                    formControlName="city"> -->
-
-                  <mat-select placeholder="TP.HCM" name="city" formControlName="city">
-                    <mat-option *ngFor="let city of cities" [value]="city.value"> {{city.value}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div>
-                <mat-form-field class="fill" appearance="legacy">
-                  <mat-label>Check-out time</mat-label>
-                  <input id="checkout" type="time" matInput required formControlName="checkOutTime">
-                </mat-form-field>
-              </div>
+              <!-- description -->
               <div>
                 <mat-form-field class="fill " appearance="outline">
                   <mat-label>Description</mat-label>
                   <textarea id="description" matInput formControlName="description" autocomplete="off"></textarea>
                 </mat-form-field>
               </div>
-              <div class="add-img">
-                <div class="img-homestayLicense col">
-                  <h1>Image Homestay License</h1>
 
-                  <div class="upload" [multiple]="false" ngx-dropzone [accept]="'image/*'"
-                    (change)="onSelectHomestayLicense($event)">
-                    <ngx-dropzone-label>
-                      <div>
-                        <i class="fas fa-cloud-upload-alt icon-upload"></i>
-                        <header>Drop files here or click to upload *</header>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="add-img">
+                  <div class="img-homestay">
+                    <h1>Image Homestay</h1>
+                    <div class="upload" ngx-dropzone [accept]="'image/*'" (change)="onSelectImageHomestay($event)">
+                      <ngx-dropzone-label>
+                        <div>
+                          <i class="fas fa-cloud-upload-alt icon-upload"></i>
+                          <header>Drop files here or click to upload *</header>
+                        </div>
+                      </ngx-dropzone-label>
+                      <div class="wrapper" *ngFor="let f of homestayImageFiles">
+                        <ngx-dropzone-image-preview class="image-preview" ngProjectAs="ngx-dropzone-preview" [file]="f"
+                          [removable]="true" (removed)="onRemoveHomestayImage(f)">
+                        </ngx-dropzone-image-preview>
+                        <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" (removed)="onRemoveHomestayImage(f)">{{
+                          f.name }}</ngx-dropzone-label>
                       </div>
-                    </ngx-dropzone-label>
-                    <div class="wrapper" *ngFor="let f of homestayLicenseFiles">
-                      <ngx-dropzone-image-preview class="image-preview" ngProjectAs="ngx-dropzone-preview" [file]="f"
-                        [removable]="true" (removed)="onRemoveHomestayLicense(f)">
-                      </ngx-dropzone-image-preview>
-
-
-
-                      <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" *ngFor="let f of homestayLicenseFiles"
-                        (removed)="onRemoveHomestayLicense(f)">{{
-                        f.name }}</ngx-dropzone-label>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="add-img">
+                  <div class="img-homestayLicense col">
+                    <h1>Image Homestay License</h1>
+
+                    <div class="upload" [multiple]="false" ngx-dropzone [accept]="'image/*'"
+                      (change)="onSelectHomestayLicense($event)">
+                      <ngx-dropzone-label>
+                        <div>
+                          <i class="fas fa-cloud-upload-alt icon-upload"></i>
+                          <header>Drop files here or click to upload *</header>
+                        </div>
+                      </ngx-dropzone-label>
+                      <div class="wrapper" *ngFor="let f of homestayLicenseFiles">
+                        <ngx-dropzone-image-preview class="image-preview" ngProjectAs="ngx-dropzone-preview" [file]="f"
+                          [removable]="true" (removed)="onRemoveHomestayLicense(f)">
+                        </ngx-dropzone-image-preview>
 
 
+
+                        <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" *ngFor="let f of homestayLicenseFiles"
+                          (removed)="onRemoveHomestayLicense(f)">{{
+                          f.name }}</ngx-dropzone-label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
 
 
