@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServerHttpService } from 'src/app/services/specialday.service';
 
 @Component({
   selector: 'app-special-day',
@@ -8,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class SpecialDayComponent implements OnInit {
 
   newSpecialDay: any[] = [];
-  constructor() { };
+  Error: string ="";
+  constructor(private http: ServerHttpService) { };
   // valueday30: Array<number> =[];
   // valueday31 : Array<number> =[];
   // valueday28 : Array<number> =[];
@@ -17,6 +19,8 @@ export class SpecialDayComponent implements OnInit {
   endDay ="";
   startMonth ="";
   endMonth ="";
+  description ="";
+  flag = false;
   ngOnInit(): void {
     // for (let index = 1; index < 31; index++) {
     //   this.valueday30.push(index)
@@ -36,6 +40,14 @@ export class SpecialDayComponent implements OnInit {
   removeSpecialDay(i :any){}
   resetSpecial(){}
   public add(){
-    
+    this.newSpecialDay.push(this.startDay,this.startMonth,this.endDay,this.endMonth,this.description)
+    this.http.addSpecialDay(this.startDay,this.startMonth,this.endDay,this.endMonth,this.description).subscribe((data =>{
+      this.flag =true
+    }),
+    (error) => {
+      if (error['status'] == 500) {
+        this.Error = 'please check your information again!';
+      } else this.Error = error;
+    })
   }
 }
