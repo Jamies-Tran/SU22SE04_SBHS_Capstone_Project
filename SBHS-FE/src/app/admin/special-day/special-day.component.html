@@ -23,7 +23,7 @@
               <div class="day">
                 <mat-form-field appearance="outline">
                   <mat-label>Day</mat-label>
-                  <mat-select value="1">
+                  <mat-select value="1" (ngModel) ="startDay" >
                     <mat-option value="1">1</mat-option>
                     <mat-option value="2">2</mat-option>
                     <mat-option value="3">3</mat-option>
@@ -32,7 +32,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                   <mat-label>Month</mat-label>
-                  <mat-select value="1">
+                  <mat-select value="1" (ngModel) ="startMonth">
                     <mat-option value="1">Junuary</mat-option>
                     <mat-option value="2">February</mat-option>
                     <mat-option value="3">March</mat-option>
@@ -51,7 +51,7 @@
               <div class="day">
                 <mat-form-field appearance="outline">
                   <mat-label>Day</mat-label>
-                  <mat-select value="1">
+                  <mat-select value="1" (ngModel) ="endDay">
                     <mat-option value="1">1</mat-option>
                     <mat-option value="2">2</mat-option>
                     <mat-option value="3">3</mat-option>
@@ -60,7 +60,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                   <mat-label>Month</mat-label>
-                  <mat-select value="1">
+                  <mat-select value="1" (ngModel) ="endMonth">
                     <mat-option value="1">Junuary</mat-option>
                     <mat-option value="2">February</mat-option>
                     <mat-option value="3">March</mat-option>
@@ -68,16 +68,6 @@
                   </mat-select>
                 </mat-form-field>
               </div>
-            </div>
-            <!-- price -->
-            <div class="col price">
-              <div>
-                Price
-              </div>
-              <mat-form-field appearance="outline">
-                <mat-label>Price (VND)</mat-label>
-                <input name="price" id="price" type="number" matInput placeholder="1000000" required>
-              </mat-form-field>
             </div>
           </div>
 
