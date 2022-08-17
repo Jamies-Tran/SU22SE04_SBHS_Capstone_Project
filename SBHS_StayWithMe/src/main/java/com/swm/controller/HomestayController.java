@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.HomestayConverter;
 import com.swm.dto.HomestayAftercareDto;
-import com.swm.dto.HomestayDto;
+import com.swm.dto.HomestayRequestDto;
+import com.swm.dto.HomestayResponseDto;
+import com.swm.dto.SpecialDayPriceListDto;
 import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;
+import com.swm.entity.SpecialDayPriceListEntity;
 import com.swm.service.IHomestayAftercareService;
 import com.swm.service.IHomestayService;
 
@@ -33,7 +36,7 @@ import lombok.Setter;
 @RestController
 @RequestMapping("/api/homestay")
 public class HomestayController {
-	
+
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Getter
@@ -41,8 +44,15 @@ public class HomestayController {
 	public static class HomestayAftercareListDto {
 		List<HomestayAftercareDto> homestayServiceList;
 	}
-
 	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class SpecialDayListDto {
+		List<SpecialDayPriceListDto> specialDayList;
+	}
+
 	@Autowired
 	private IHomestayService homestayService;
 
@@ -54,10 +64,10 @@ public class HomestayController {
 
 	@PostMapping("/register")
 	@PreAuthorize("hasRole('ROLE_LANDLORD')")
-	public ResponseEntity<?> requestPostingHomestay(@RequestBody HomestayDto homestayDto) {
+	public ResponseEntity<?> requestPostingHomestay(@RequestBody HomestayRequestDto homestayDto) {
 		HomestayEntity homestayEntity = homestayConvert.homestayEntityConvert(homestayDto);
 		HomestayEntity homestayRequested = homestayService.createHomestay(homestayEntity);
-		HomestayDto homestayResponse = homestayConvert.homestayCompleteInfoDtoConvert(homestayRequested);
+		HomestayResponseDto homestayResponse = homestayConvert.homestayResponseDtoConvert(homestayRequested);
 
 		return new ResponseEntity<>(homestayResponse, HttpStatus.CREATED);
 	}
@@ -68,7 +78,7 @@ public class HomestayController {
 			@RequestBody HomestayAftercareDto homestayServiceDto) {
 		HomestayEntity homestayEntity = homestayAftercareService.addNewHomestayService(homestayName,
 				homestayServiceDto.getName(), homestayServiceDto.getPrice());
-		HomestayDto homestayResponseDto = homestayConvert.homestayCompleteInfoDtoConvert(homestayEntity);
+		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestayEntity);
 
 		return new ResponseEntity<>(homestayResponseDto, HttpStatus.OK);
 	}
@@ -81,7 +91,7 @@ public class HomestayController {
 				.map(s -> homestayConvert.homestayAftercareEntityConvert(s)).collect(Collectors.toList());
 		HomestayEntity homestayEntity = homestayAftercareService.addNewHomestayServiceList(homestayName,
 				homestayListEntity);
-		HomestayDto homestayResponseDto = homestayConvert.homestayCompleteInfoDtoConvert(homestayEntity);
+		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestayEntity);
 
 		return new ResponseEntity<>(homestayResponseDto, HttpStatus.OK);
 	}
@@ -89,7 +99,7 @@ public class HomestayController {
 	@GetMapping("/permit-all/details/{name}")
 	public ResponseEntity<?> findHomestayByName(@PathVariable("name") String name) {
 		HomestayEntity homestay = homestayService.findHomestayByName(name);
-		HomestayDto homestayResponseDto = homestayConvert.homestayCompleteInfoDtoConvert(homestay);
+		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestay);
 
 		return new ResponseEntity<>(homestayResponseDto, HttpStatus.OK);
 	}
@@ -97,30 +107,32 @@ public class HomestayController {
 	@GetMapping("/permit-all/list/{location}")
 	public ResponseEntity<?> findHomestayListContainLocation(@PathVariable("location") String location) {
 		List<HomestayEntity> homestayEntityList = homestayService.findHomestayBookingAvailableListByCity(location);
-		List<HomestayDto> homestayResponseListDto = homestayEntityList.stream()
-				.map(h -> homestayConvert.homestayCompleteInfoDtoConvert(h)).sorted(Collections.reverseOrder()).collect(Collectors.toList());
+		List<HomestayResponseDto> homestayResponseListDto = homestayEntityList.stream()
+				.map(h -> homestayConvert.homestayResponseDtoConvert(h)).sorted(Collections.reverseOrder())
+				.collect(Collectors.toList());
 
 		return new ResponseEntity<>(homestayResponseListDto, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/permit-all/owner-list")
 	public ResponseEntity<?> getOwnerHomestayList() {
 		List<HomestayEntity> homestayEntityList = homestayService.findHomestayListByOwnerName();
-		List<HomestayDto> homestayResponseListDto = homestayEntityList.stream()
-				.map(h -> homestayConvert.homestayCompleteInfoDtoConvert(h)).sorted(Collections.reverseOrder()).collect(Collectors.toList());
+		List<HomestayResponseDto> homestayResponseListDto = homestayEntityList.stream()
+				.map(h -> homestayConvert.homestayResponseDtoConvert(h)).sorted(Collections.reverseOrder())
+				.collect(Collectors.toList());
 
 		return new ResponseEntity<>(homestayResponseListDto, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/permit-all/available-list")
 	public ResponseEntity<?> getAvailableHomestayList() {
 		List<HomestayEntity> homestayEntityList = homestayService.getHomestayBookingAvailableList();
-		List<HomestayDto> homestayResponseListDto = homestayEntityList.stream()
-				.map(h -> homestayConvert.homestayCompleteInfoDtoConvert(h)).sorted(Collections.reverseOrder()).collect(Collectors.toList());
+		List<HomestayResponseDto> homestayResponseListDto = homestayEntityList.stream()
+				.map(h -> homestayConvert.homestayResponseDtoConvert(h)).sorted(Collections.reverseOrder())
+				.collect(Collectors.toList());
 
 		return new ResponseEntity<>(homestayResponseListDto, HttpStatus.OK);
 	}
-	
 
 	@PatchMapping("/service/{homestayName}/{serviceId}")
 	@PreAuthorize("hasAuthority('homestay:update')")
@@ -130,7 +142,7 @@ public class HomestayController {
 				.homestayAftercareEntityConvert(newHomstayServiceDto);
 		HomestayEntity homestayEntity = homestayAftercareService.updateHomestayServiceById(homestayName, serviceId,
 				newHomestayServiceEntity);
-		HomestayDto homestayResponseDto = homestayConvert.homestayCompleteInfoDtoConvert(homestayEntity);
+		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestayEntity);
 
 		return new ResponseEntity<>(homestayResponseDto, HttpStatus.OK);
 
@@ -140,7 +152,7 @@ public class HomestayController {
 	@PreAuthorize("hasAuthority('homestay:delete')")
 	public ResponseEntity<?> deleteHomestayById(@PathVariable("Id") Long Id) {
 		HomestayEntity homestayEntity = homestayService.deleteHomestayById(Id);
-		HomestayDto homestayResponseDto = homestayConvert.homestayCompleteInfoDtoConvert(homestayEntity);
+		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestayEntity);
 
 		return new ResponseEntity<>(homestayResponseDto, HttpStatus.GONE);
 	}
@@ -151,10 +163,24 @@ public class HomestayController {
 			@RequestBody HomestayAftercareListDto homestayServiceListDto) {
 		List<Long> homestayServiceIdList = homestayServiceListDto.getHomestayServiceList().stream().map(s -> s.getId())
 				.collect(Collectors.toList());
-		HomestayEntity homestayEntity = homestayAftercareService.deleteAllHomestayServiceById(homestayId, homestayServiceIdList);
-		HomestayDto homestayResponseDto = homestayConvert.homestayCompleteInfoDtoConvert(homestayEntity);
-		
+		HomestayEntity homestayEntity = homestayAftercareService.deleteAllHomestayServiceById(homestayId,
+				homestayServiceIdList);
+		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestayEntity);
+
 		return new ResponseEntity<>(homestayResponseDto, HttpStatus.GONE);
-		
+
+	}
+
+	@PostMapping("/add/list/special-day")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ResponseEntity<?> addSpecialDayList(@RequestBody SpecialDayListDto specialDayListDtoList) {
+		List<SpecialDayPriceListEntity> specialDayPriceListEntityList = specialDayListDtoList.getSpecialDayList().stream()
+				.map(sd -> homestayConvert.specialDayPriceListEntityConverter(sd)).collect(Collectors.toList());
+		List<SpecialDayPriceListEntity> specialDayPriceListEntityPersistence = homestayService
+				.addSpecialDayPriceList(specialDayPriceListEntityList);
+		List<SpecialDayPriceListDto> specialDayListDtoResponse = specialDayPriceListEntityPersistence.stream()
+				.map(sd -> homestayConvert.specialDayPriceListDtoConvert(sd)).collect(Collectors.toList());
+	
+		return new ResponseEntity<>(specialDayListDtoResponse, HttpStatus.OK);
 	}
 }

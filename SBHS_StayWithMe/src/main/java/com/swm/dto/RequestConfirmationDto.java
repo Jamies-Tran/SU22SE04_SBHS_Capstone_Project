@@ -9,9 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class HomestayPriceListDto {
+public class RequestConfirmationDto {
 	private Long Id;
-	private Long price;
-	private String type;
-	private SpecialDayPriceListDto specialDayPriceList;
+	private Boolean isAccepted;
+	private String rejectMessage;
 }

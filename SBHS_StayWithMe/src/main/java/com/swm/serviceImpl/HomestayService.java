@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ import com.swm.exception.InvalidBalanceException;
 import com.swm.exception.ResourceNotAllowException;
 import com.swm.exception.ResourceNotFoundException;
 import com.swm.repository.IHomestayRepository;
+import com.swm.repository.ISpecialDayPriceListRepository;
 import com.swm.service.IAuthenticationService;
 import com.swm.service.IHomestayService;
 import com.swm.service.IUserService;
@@ -41,7 +44,12 @@ public class HomestayService implements IHomestayService {
 	@Autowired
 	private IAuthenticationService authenticationService;
 
+	@Autowired
+	private ISpecialDayPriceListRepository specialDayPriceListRepo;
+
 	private Date currentDate = new Date();
+
+	Logger log = LoggerFactory.getLogger(HomestayService.class);
 
 	@Override
 	public HomestayEntity findHomestayByName(String name) {
@@ -96,22 +104,21 @@ public class HomestayService implements IHomestayService {
 			srv.setCreatedDate(currentDate);
 			srv.setCreatedBy(accountPoster);
 		});
-		
+
 		homestayEntity.getCommonFacilities().forEach(c -> {
 			c.setHomestayCommonFacility(homestayEntity);
 			c.setCreatedBy(accountPoster);
 			c.setCreatedDate(currentDate);
 		});
-		
+
 		homestayEntity.getAdditionalFacilities().forEach(a -> {
 			a.setHomestayAdditionalFacility(homestayEntity);
 			a.setCreatedBy(accountPoster);
 			a.setCreatedDate(currentDate);
 		});
-		
-		
+
 		homestayEntity.getPriceList().forEach(p -> {
-			if(p.getType().equalsIgnoreCase(PriceType.SPECIAL.name()) && p.getSpecialDayPriceList() == null) {
+			if (p.getType().equalsIgnoreCase(PriceType.SPECIAL.name()) && p.getSpecialDayPriceList() == null) {
 				throw new ResourceNotAllowException("Special day day must include day, month and description");
 			}
 			p.setHomestayPriceList(homestayEntity);
@@ -165,8 +172,8 @@ public class HomestayService implements IHomestayService {
 	public List<HomestayEntity> findHomestayListByOwnerName() {
 		UserDetails userDetails = authenticationService.getAuthenticatedUser();
 		List<HomestayEntity> homestayEntityList = this.getHomestayBookingAvailableList();
-		List<HomestayEntity> ownerHomestayList = homestayEntityList.stream()
-				.filter(homestay -> homestay.getLandlordOwner().getLandlordAccount().getUsername().equals(userDetails.getUsername()))
+		List<HomestayEntity> ownerHomestayList = homestayEntityList.stream().filter(homestay -> homestay
+				.getLandlordOwner().getLandlordAccount().getUsername().equals(userDetails.getUsername()))
 				.collect(Collectors.toList());
 
 		return ownerHomestayList;
@@ -178,14 +185,46 @@ public class HomestayService implements IHomestayService {
 		List<BookingEntity> succeedBookingList = homestayEntity.getBooking().stream()
 				.filter(b -> b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_FINISHED.name()))
 				.collect(Collectors.toList());
-		
+
 		return succeedBookingList.size();
 	}
 
 	@Override
-	public void addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList) {
-		// TODO Auto-generated method stub
+	public List<SpecialDayPriceListEntity> addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList) {
+		specialDayPriceList.forEach(sd -> {
+			StringBuilder specialDayCodeBuilder = new StringBuilder(sd.getSpecialDayCode());
+			if (sd.getStartDay() != sd.getEndDay()) {
+				specialDayCodeBuilder.append(sd.getStartDay()).append(sd.getStartMonth()).append(sd.getEndDay())
+						.append(sd.getEndMonth());
+			} else {
+				specialDayCodeBuilder.append(sd.getStartDay()).append(sd.getStartMonth());
+			}
+			sd.setSpecialDayCode(specialDayCodeBuilder.toString());
+			log.info(sd.getSpecialDayCode());
+		});
+
+		List<SpecialDayPriceListEntity> specialDayList = this.specialDayPriceListRepo.saveAll(specialDayPriceList);
+
+		return specialDayList;
+	}
+
+	@Override
+	public SpecialDayPriceListEntity findSpecialDayByCode(String code) {
+		SpecialDayPriceListEntity specialDayPriceListEntity = specialDayPriceListRepo.findSpecialDayByCode(code)
+				.orElseThrow(() -> new ResourceNotFoundException("Can't find special day code"));
 		
+		return specialDayPriceListEntity;
+	}
+
+	@Override
+	public SpecialDayPriceListEntity deleteSpecialDayPriceList(String code) {
+		SpecialDayPriceListEntity specialDayPriceList = this.findSpecialDayByCode(code);
+		if(specialDayPriceList.getHomestayPriceLst() != null) {
+			throw new ResourceNotAllowException("Can't delete special day with code " + code);
+		}
+		
+		specialDayPriceListRepo.delete(specialDayPriceList);
+		return specialDayPriceList;
 	}
 
 }

@@ -23,8 +23,8 @@ import com.swm.converter.BookingConverter;
 import com.swm.converter.HomestayConverter;
 import com.swm.dto.BookingRequestDto;
 import com.swm.dto.BookingResponseDto;
-import com.swm.dto.ConfirmRequestDto;
-import com.swm.dto.HomestayDto;
+import com.swm.dto.RequestConfirmationDto;
+import com.swm.dto.HomestayResponseDto;
 import com.swm.entity.BookingDepositEntity;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.HomestayEntity;
@@ -61,7 +61,7 @@ public class BookingController {
 	@Getter
 	@Setter
 	public static class BookingDepositResponse {
-		private HomestayDto homestayDto;
+		private HomestayResponseDto homestayDto;
 		private Long amount;
 	}
 
@@ -89,7 +89,7 @@ public class BookingController {
 	@PatchMapping("/confirm/{bookingId}")
 	@PreAuthorize("hasRole('ROLE_LANDLORD')")
 	public ResponseEntity<?> confirmBooking(@PathVariable("bookingId") Long bookingId,
-			@RequestBody ConfirmRequestDto confirmRequestDto) {
+			@RequestBody RequestConfirmationDto confirmRequestDto) {
 		BookingEntity bookingEntity = bookingService.confirmBooking(bookingId, confirmRequestDto.getIsAccepted(),
 				confirmRequestDto.getRejectMessage());
 		BookingResponseDto bookingResponseDto = bookingConvert.bookingToDto(bookingEntity);
@@ -105,7 +105,7 @@ public class BookingController {
 		BookingDepositEntity bookingDepositEntity = bookingService.payForBookingDeposit(bookingId,
 				depositAmount.getAmount());
 		HomestayEntity homestayEntity = bookingDepositEntity.getBookingDeposit().getBookingHomestay();
-		HomestayDto homestayResponseDto = homestayConverter.homestayCompleteInfoDtoConvert(homestayEntity);
+		HomestayResponseDto homestayResponseDto = homestayConverter.homestayResponseDtoConvert(homestayEntity);
 		BookingDepositResponse bookingDepositResponse = new BookingDepositResponse();
 		bookingDepositResponse.setHomestayDto(homestayResponseDto);
 		bookingDepositResponse.setAmount(bookingDepositEntity.getDepositPaidAmount());
@@ -127,7 +127,7 @@ public class BookingController {
 	@PatchMapping("/checkin-confirm/{bookingId}")
 	@PreAuthorize("hasRole('ROLE_LANDLORD')")
 	public ResponseEntity<?> confirmCheckInHomestay(@PathVariable("bookingId") Long bookingId,
-			@RequestBody ConfirmRequestDto confirmRequestDto) {
+			@RequestBody RequestConfirmationDto confirmRequestDto) {
 		bookingService.confirmCheckIn(bookingId, confirmRequestDto.getIsAccepted());
 
 		return new ResponseEntity<>(HttpStatus.OK);

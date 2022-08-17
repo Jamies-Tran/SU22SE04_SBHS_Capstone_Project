@@ -19,7 +19,11 @@ public interface IHomestayService {
 
 	HomestayEntity createHomestay(HomestayEntity homestayEntity);
 	
-	void addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList);
+	List<SpecialDayPriceListEntity> addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList);
+	
+	SpecialDayPriceListEntity findSpecialDayByCode(String code);
+	
+	SpecialDayPriceListEntity deleteSpecialDayPriceList(String code);
 	
 	HomestayEntity deleteHomestayById(Long Id);
 	

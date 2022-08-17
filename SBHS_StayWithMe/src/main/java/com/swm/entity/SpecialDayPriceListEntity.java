@@ -1,6 +1,7 @@
 package com.swm.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,10 @@ public class SpecialDayPriceListEntity {
 	@SequenceGenerator(name = "special_day_sequence", sequenceName = "special_day_sequence", initialValue = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "special_day_sequence")
 	private Long Id;
+	
+	@Column(unique = true, nullable = false)
+	@Setter
+	private String specialDayCode = "SD";
 
 	@Setter
 	private int startDay;

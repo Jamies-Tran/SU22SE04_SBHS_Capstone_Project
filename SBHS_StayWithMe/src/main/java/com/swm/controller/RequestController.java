@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.RequestConverter;
-import com.swm.dto.ConfirmRequestDto;
+import com.swm.dto.RequestConfirmationDto;
 import com.swm.dto.RequestDto;
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.LandlordAccountRequestEntity;
@@ -54,7 +54,7 @@ public class RequestController {
 
 	@PatchMapping("/verification/landlord/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> verifyLandlordAccountRequest(@PathVariable("Id") Long Id, @RequestBody ConfirmRequestDto confirmRequest) {
+	public ResponseEntity<?> verifyLandlordAccountRequest(@PathVariable("Id") Long Id, @RequestBody RequestConfirmationDto confirmRequest) {
 		LandlordAccountRequestEntity requestEntity = requestService.verifyLandlordAccountRequestById(Id, confirmRequest.getIsAccepted());
 		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity, requestEntity.getId());
 
@@ -63,7 +63,7 @@ public class RequestController {
 
 	@PatchMapping("/verification/homestay/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> verifyRequest(@PathVariable("Id") Long Id, @RequestBody ConfirmRequestDto confirmRequest) {
+	public ResponseEntity<?> verifyRequest(@PathVariable("Id") Long Id, @RequestBody RequestConfirmationDto confirmRequest) {
 		HomestayPostingRequestEntity requestEntity = requestService.verifyHomestayPostinRequest(Id, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
 		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity, requestEntity.getId());
 

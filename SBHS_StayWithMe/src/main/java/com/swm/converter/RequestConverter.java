@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.swm.dto.HomestayPriceListDto;
-import com.swm.dto.HomestayRequestDto;
+import com.swm.dto.HomestayPriceListRequestDto;
+import com.swm.dto.HomestayPostingRequestDto;
 import com.swm.dto.RequestDto;
 import com.swm.entity.BaseRequestEntity;
 import com.swm.entity.HomestayPostingRequestEntity;
@@ -38,8 +38,8 @@ public class RequestConverter {
 	}
 
 	public RequestDto homestayPostinRequestDtoConvert(HomestayPostingRequestEntity request) {
-		HomestayRequestDto requestDto = new HomestayRequestDto();
-		List<HomestayPriceListDto> homestayPriceList = request.getRequestHomestay().getPriceList().stream()
+		HomestayPostingRequestDto requestDto = new HomestayPostingRequestDto();
+		List<HomestayPriceListRequestDto> homestayPriceList = request.getRequestHomestay().getPriceList().stream()
 				.map(p -> this.homestayPriceListDtoConvert(p)).collect(Collectors.toList());
 		requestDto.setId(request.getId());
 		requestDto.setCreatedBy(request.getCreatedBy());
@@ -70,8 +70,8 @@ public class RequestConverter {
 		return requestDto;
 	}
 	
-	private HomestayPriceListDto homestayPriceListDtoConvert(HomestayPriceListEntity homestayPriceListEntity) {
-		HomestayPriceListDto homestayPriceListDto = new HomestayPriceListDto();
+	private HomestayPriceListRequestDto homestayPriceListDtoConvert(HomestayPriceListEntity homestayPriceListEntity) {
+		HomestayPriceListRequestDto homestayPriceListDto = new HomestayPriceListRequestDto();
 		homestayPriceListDto.setId(homestayPriceListEntity.getId());
 		homestayPriceListDto.setPrice(homestayPriceListEntity.getPrice());
 		
