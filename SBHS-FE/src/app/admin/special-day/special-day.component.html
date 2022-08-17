@@ -4,122 +4,130 @@
     <div class="add-input">
       <div class="special">
         <div class="panel-special">
+          <div>
+
+
+
+
+
             <div>
-        <mat-checkbox class="chb-special" color="primary" >
-          Tet Nguyen Dan
-        </mat-checkbox>
+              <!-- day -->
+              <div class="row">
+                <!-- Start -->
+                <div class="col left">
+                  <div>
+                    Start day
+                  </div>
+                  <!-- day / month -->
+                  <div class="day">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Day</mat-label>
+                      <mat-select value="1" (ngModel)="startDay">
+                        <mat-option value="1">1</mat-option>
+                        <mat-option value="2">2</mat-option>
+                        <mat-option value="3">3</mat-option>
+                        <mat-option value="4">4</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Month</mat-label>
+                      <mat-select value="1" (ngModel)="startMonth">
+                        <mat-option value="1">Junuary</mat-option>
+                        <mat-option value="2">February</mat-option>
+                        <mat-option value="3">March</mat-option>
+                        <mat-option value="4">April</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                  </div>
+                </div>
+                <p class="line-"> - </p>
+                <div class="col right">
+                  <div>
+                    End day
+                  </div>
+                  <!-- day / month -->
+                  <div class="day">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Day</mat-label>
+                      <mat-select value="1" (ngModel)="endDay">
+                        <mat-option value="1">1</mat-option>
+                        <mat-option value="2">2</mat-option>
+                        <mat-option value="3">3</mat-option>
+                        <mat-option value="4">4</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Month</mat-label>
+                      <mat-select value="1" (ngModel)="endMonth">
+                        <mat-option value="1">Junuary</mat-option>
+                        <mat-option value="2">February</mat-option>
+                        <mat-option value="3">March</mat-option>
+                        <mat-option value="4">April</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col price">
+                  <div>
+                    Description
+                  </div>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Tet Nguyen Dan</mat-label>
+                    <input name="description" id="description" type="text" matInput  required>
+                  </mat-form-field>
+                </div>
+              </div>
 
 
-
-        <div>
-          <!-- day -->
-          <div class="row">
-            <!-- Start -->
-            <div class="col left">
-              <div>
-                Start day
-              </div>
-              <!-- day / month -->
-              <div class="day">
-                <mat-form-field appearance="outline">
-                  <mat-label>Day</mat-label>
-                  <mat-select value="1" (ngModel) ="startDay" >
-                    <mat-option value="1">1</mat-option>
-                    <mat-option value="2">2</mat-option>
-                    <mat-option value="3">3</mat-option>
-                    <mat-option value="4">4</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                  <mat-label>Month</mat-label>
-                  <mat-select value="1" (ngModel) ="startMonth">
-                    <mat-option value="1">Junuary</mat-option>
-                    <mat-option value="2">February</mat-option>
-                    <mat-option value="3">March</mat-option>
-                    <mat-option value="4">April</mat-option>
-                  </mat-select>
-                </mat-form-field>
-
-              </div>
-            </div>
-            <p class="line-"> - </p>
-            <div class="col right">
-              <div>
-                End day
-              </div>
-              <!-- day / month -->
-              <div class="day">
-                <mat-form-field appearance="outline">
-                  <mat-label>Day</mat-label>
-                  <mat-select value="1" (ngModel) ="endDay">
-                    <mat-option value="1">1</mat-option>
-                    <mat-option value="2">2</mat-option>
-                    <mat-option value="3">3</mat-option>
-                    <mat-option value="4">4</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                  <mat-label>Month</mat-label>
-                  <mat-select value="1" (ngModel) ="endMonth">
-                    <mat-option value="1">Junuary</mat-option>
-                    <mat-option value="2">February</mat-option>
-                    <mat-option value="3">March</mat-option>
-                    <mat-option value="4">April</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
             </div>
           </div>
-
-
-        </div>
-      </div>
         </div>
       </div>
 
 
-        <!-- Add Facility -->
+      <!-- Add Facility -->
 
 
-        <h1>Additional Special Day</h1>
-        <div class="row">
-          <div class="col ">
-            <div *ngFor="let value of newSpecialDay; let i = index">
+      <h1>Additional Special Day</h1>
+      <div class="row">
+        <div class="col ">
+          <div *ngFor="let value of newSpecialDay; let i = index">
 
-              <div class=" row-fill " >
-                <div class=" icon"><i class="fa-solid fa-plus"></i></div>
-                <div class=" input">
-                  <div class=" col-input add">
-                    <input type="text" [(ngModel)]="value.name" autocomplete="off" name="value{{i}}"
-                      placeholder="New Facility" class="col-input-amount value-name" matInput />
-                  </div>
-                </div>
-                <div class=" checkbox">
-                  <mat-checkbox color="primary" [(ngModel)]="value.status">
-                  </mat-checkbox>
-                </div>
-                <div class=" input">
-                  <div class="col-input">
-                    <input type="number" min="0" [disabled]="!value.status" [(ngModel)]="value.amount"
-                      autocomplete="off" name="value{{i}}" class="col-input-amount" matInput placeholder="Amount" />
-                  </div>
-                </div>
-                <div class="icon-x" matRipple>
-                  <i class="fa-solid fa-xmark" (click)="removeSpecialDay(i)"></i>
-                </div>
-
-              </div>
-            </div>
-            <div class="click row-fill" matRipple (click)="addSpecialDay()">
+            <div class=" row-fill ">
               <div class=" icon"><i class="fa-solid fa-plus"></i></div>
-              <div class=" text">
-                <p>Add SpecialDay</p>
+              <div class=" input">
+                <div class=" col-input add">
+                  <input type="text" [(ngModel)]="value.name" autocomplete="off" name="value{{i}}"
+                    placeholder="New Facility" class="col-input-amount value-name" matInput />
+                </div>
               </div>
+              <div class=" checkbox">
+                <mat-checkbox color="primary" [(ngModel)]="value.status">
+                </mat-checkbox>
+              </div>
+              <div class=" input">
+                <div class="col-input">
+                  <input type="number" min="0" [disabled]="!value.status" [(ngModel)]="value.amount" autocomplete="off"
+                    name="value{{i}}" class="col-input-amount" matInput placeholder="Amount" />
+                </div>
+              </div>
+              <div class="icon-x" matRipple>
+                <i class="fa-solid fa-xmark" (click)="removeSpecialDay(i)"></i>
+              </div>
+
             </div>
           </div>
-
-
+          <div class="click row-fill" matRipple (click)="addSpecialDay()">
+            <div class=" icon"><i class="fa-solid fa-plus"></i></div>
+            <div class=" text">
+              <p>Add SpecialDay</p>
+            </div>
+          </div>
         </div>
+
+
+      </div>
 
       <div class="add-btn">
 
