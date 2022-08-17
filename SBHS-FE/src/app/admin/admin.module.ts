@@ -17,9 +17,24 @@ import { MatButtonModule } from '@angular/material/button';
 import { RequestHomestayComponent } from './request-homestay/request-homestay.component';
 import { RequestHomestayDetailComponent } from './request-homestay/request-homestay-detail/request-homestay-detail.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { SpecialDayComponent } from './special-day/special-day.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRippleModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
-  declarations: [RequestComponent, RequestAccountComponent, RequestHomestayComponent, RequestHomestayDetailComponent],
+  declarations: [
+    RequestComponent,
+    RequestAccountComponent,
+    RequestHomestayComponent,
+    RequestHomestayDetailComponent,
+    SpecialDayComponent,
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -34,7 +49,16 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatSortModule,
     MatButtonModule,
     MatStepperModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatSelectModule,
+    MatRippleModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+
+    MatCheckboxModule,
+    MatRadioModule,
   ],
 })
 export class AdminModule {}
