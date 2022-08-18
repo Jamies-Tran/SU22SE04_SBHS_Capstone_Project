@@ -44,7 +44,7 @@ public class HomestayController {
 	public static class HomestayAftercareListDto {
 		List<HomestayAftercareDto> homestayServiceList;
 	}
-	
+
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Getter
@@ -174,13 +174,33 @@ public class HomestayController {
 	@PostMapping("/add/list/special-day")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> addSpecialDayList(@RequestBody SpecialDayListDto specialDayListDtoList) {
-		List<SpecialDayPriceListEntity> specialDayPriceListEntityList = specialDayListDtoList.getSpecialDayList().stream()
-				.map(sd -> homestayConvert.specialDayPriceListEntityConverter(sd)).collect(Collectors.toList());
+		List<SpecialDayPriceListEntity> specialDayPriceListEntityList = specialDayListDtoList.getSpecialDayList()
+				.stream().map(sd -> homestayConvert.specialDayPriceListEntityConverter(sd))
+				.collect(Collectors.toList());
 		List<SpecialDayPriceListEntity> specialDayPriceListEntityPersistence = homestayService
 				.addSpecialDayPriceList(specialDayPriceListEntityList);
 		List<SpecialDayPriceListDto> specialDayListDtoResponse = specialDayPriceListEntityPersistence.stream()
 				.map(sd -> homestayConvert.specialDayPriceListDtoConvert(sd)).collect(Collectors.toList());
-	
+
 		return new ResponseEntity<>(specialDayListDtoResponse, HttpStatus.OK);
+	}
+
+	@GetMapping("/get/all/special-day")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_LANDLORD')")
+	public ResponseEntity<?> getAllSpcialDay() {
+		List<SpecialDayPriceListEntity> specailDayListEntity = homestayService.getSpecialDayPriceList();
+		List<SpecialDayPriceListDto> specialDayListDto = specailDayListEntity.stream()
+				.map(s -> homestayConvert.specialDayPriceListDtoConvert(s)).collect(Collectors.toList());
+		
+		return new ResponseEntity<>(specialDayListDto, HttpStatus.OK);
+	}
+	
+	@GetMapping("/get/special-day/{specialDayCode}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_LANDLORD')")
+	public ResponseEntity<?> getSpcialDayByCode(@PathVariable("specialDayCode") String specialDayCode) {
+		SpecialDayPriceListEntity specialDayPriceListEntity = homestayService.findSpecialDayByCode(specialDayCode);
+		SpecialDayPriceListDto specialDayPriceListDto = homestayConvert.specialDayPriceListDtoConvert(specialDayPriceListEntity);
+		
+		return new ResponseEntity<>(specialDayPriceListDto, HttpStatus.OK);
 	}
 }

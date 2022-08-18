@@ -21,6 +21,8 @@ public interface IHomestayService {
 	
 	List<SpecialDayPriceListEntity> addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList);
 	
+	List<SpecialDayPriceListEntity> getSpecialDayPriceList();
+	
 	SpecialDayPriceListEntity findSpecialDayByCode(String code);
 	
 	SpecialDayPriceListEntity deleteSpecialDayPriceList(String code);

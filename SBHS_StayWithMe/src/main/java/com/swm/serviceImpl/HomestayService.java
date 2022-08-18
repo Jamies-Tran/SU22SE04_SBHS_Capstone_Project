@@ -227,4 +227,11 @@ public class HomestayService implements IHomestayService {
 		return specialDayPriceList;
 	}
 
+	@Override
+	public List<SpecialDayPriceListEntity> getSpecialDayPriceList() {
+		List<SpecialDayPriceListEntity> specialPriceList = specialDayPriceListRepo.findAll();
+		
+		return specialPriceList;
+	}
+
 }
