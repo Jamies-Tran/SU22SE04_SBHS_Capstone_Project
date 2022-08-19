@@ -2,8 +2,12 @@
   <h1>Special Day</h1>
   <div class="input-content">
     <div class="add-input">
-      <div *ngIf="flag"><h1 style="color: blue; text-align: center;">Add Successfull</h1></div>
-      <div *ngIf="Error != null"><h1 style="color: red; text-align: center;">{{Error}}</h1></div>
+      <div *ngIf="flag">
+        <h1 style="color: blue; text-align: center;">Add Successfull</h1>
+      </div>
+      <div *ngIf="Error != null">
+        <h1 style="color: red; text-align: center;">{{Error}}</h1>
+      </div>
       <div class="special">
         <div class="panel-special">
           <div>
@@ -19,20 +23,23 @@
                   <div class="day">
                     <mat-form-field appearance="outline">
                       <mat-label>Day</mat-label>
-                      <mat-select value="1" (ngModel)="startDay">
-                        <mat-option value="1">1</mat-option>
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="3">3</mat-option>
-                        <mat-option value="4">4</mat-option>
+                      <mat-select value="1" [(ngModel)]="startDay"
+                        *ngIf="startMonth =='1' || startMonth =='1' || startMonth =='5' || startMonth =='7' ||startMonth =='8' ||startMonth =='10' || startMonth =='12'">
+                        <mat-option *ngFor="let item of valueday31" value="{{item}}">{{item}}</mat-option>
+                      </mat-select>
+                      <mat-select value="1" [(ngModel)]="startDay"
+                        *ngIf="startMonth =='4' || startMonth =='6' || startMonth =='9' || startMonth =='11'">
+                        <mat-option *ngFor="let item of valueday30" value="{{item}}">{{item}}</mat-option>
+                      </mat-select>
+                      <mat-select value="1" [(ngModel)]="startDay" *ngIf="startMonth =='2'">
+                        <mat-option *ngFor="let item of valueday28" value="{{item}}">{{item}}</mat-option>
                       </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                       <mat-label>Month</mat-label>
-                      <mat-select value="1" (ngModel)="startMonth">
-                        <mat-option value="1">Junuary</mat-option>
-                        <mat-option value="2">February</mat-option>
-                        <mat-option value="3">March</mat-option>
-                        <mat-option value="4">April</mat-option>
+                      <mat-select value="1" [(ngModel)]="startMonth">
+                        <mat-option *ngFor="let name of valueMonthName; let i = index" value="{{i+1}}">{{name}}
+                        </mat-option>
                       </mat-select>
                     </mat-form-field>
 
@@ -46,21 +53,23 @@
                   <!-- day / month -->
                   <div class="day">
                     <mat-form-field appearance="outline">
-                      <mat-label>Day</mat-label>
-                      <mat-select value="1" (ngModel)="endDay">
-                        <mat-option value="1">1</mat-option>
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="3">3</mat-option>
-                        <mat-option value="4">4</mat-option>
+                      <mat-select value="1" [(ngModel)]="endDay"
+                        *ngIf="endMonth =='1' || endMonth =='1' || endMonth =='5' || endMonth =='7' ||endMonth =='8' ||endMonth =='10' || endMonth =='12'">
+                        <mat-option *ngFor="let item of valueday31" value="{{item}}">{{item}}</mat-option>
+                      </mat-select>
+                      <mat-select value="1" [(ngModel)]="endDay"
+                        *ngIf="endMonth =='4' || endMonth =='6' || endMonth =='9' || endMonth =='11'">
+                        <mat-option *ngFor="let item of valueday30" value="{{item}}">{{item}}</mat-option>
+                      </mat-select>
+                      <mat-select value="1" [(ngModel)]="endDay" *ngIf="endMonth =='2'">
+                        <mat-option *ngFor="let item of valueday28" value="{{item}}">{{item}}</mat-option>
                       </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                       <mat-label>Month</mat-label>
-                      <mat-select value="1" (ngModel)="endMonth">
-                        <mat-option value="1">Junuary</mat-option>
-                        <mat-option value="2">February</mat-option>
-                        <mat-option value="3">March</mat-option>
-                        <mat-option value="4">April</mat-option>
+                      <mat-select value="1" [(ngModel)]="endMonth">
+                        <mat-option *ngFor="let name of valueMonthName; let i = index" value="{{i+1}}">{{name}}
+                        </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -71,7 +80,7 @@
                   </div>
                   <mat-form-field appearance="outline">
                     <mat-label>Tet Nguyen Dan</mat-label>
-                    <input id="description" type="text" (ngModel) ="description" matInput required>
+                    <input id="description" type="text" [(ngModel)]="description" matInput required>
                   </mat-form-field>
                 </div>
               </div>
@@ -85,7 +94,7 @@
 
       <!-- Add Facility -->
 
-<!-- 
+      <!-- 
       <h1>Additional Special Day</h1>
       <div class="row">
         <div class="col ">

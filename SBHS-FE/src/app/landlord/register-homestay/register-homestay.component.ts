@@ -290,6 +290,7 @@ export class RegisterHomestayComponent implements OnInit {
     this.editor = new Editor();
     this.http.getSpecialDay().subscribe((data =>{
       this.ListSpecialDay = data
+      console.log(data)
     }))
   }
 

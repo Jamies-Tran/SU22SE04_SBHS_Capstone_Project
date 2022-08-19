@@ -103,9 +103,9 @@
                     </mat-expansion-panel-header>
 
                     <!-- collapse -->
-                    <div>
+                    <div *ngFor="let item of ListSpecialDay">
                       <mat-checkbox class="chb-special" color="primary" >
-                        Tet Nguyen Dan
+                        {{item.description}}
                       </mat-checkbox>
                       <div>
                         <!-- day -->
