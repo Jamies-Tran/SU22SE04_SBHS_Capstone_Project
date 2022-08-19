@@ -285,9 +285,12 @@ export class RegisterHomestayComponent implements OnInit {
     private storage: AngularFireStorage,
     private db: AngularFirestore
   ) {}
-
+    ListSpecialDay :any
   ngOnInit(): void {
     this.editor = new Editor();
+    this.http.getSpecialDay().subscribe((data =>{
+      this.ListSpecialDay = data
+    }))
   }
 
   ngOnDestroy(): void {
