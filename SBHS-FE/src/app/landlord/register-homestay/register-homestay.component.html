@@ -120,10 +120,7 @@
                               <mat-form-field appearance="outline">
                                 <mat-label>Day</mat-label>
                                 <mat-select value="1">
-                                  <mat-option value="1">1</mat-option>
-                                  <mat-option value="2">2</mat-option>
-                                  <mat-option value="3">3</mat-option>
-                                  <mat-option value="4">4</mat-option>
+                                  <mat-option value="1">{{item.startDay}}</mat-option>
                                 </mat-select>
                               </mat-form-field>
                               <mat-form-field appearance="outline">
@@ -148,20 +145,11 @@
                               <mat-form-field appearance="outline">
                                 <mat-label>Day</mat-label>
                                 <mat-select value="1">
-                                  <mat-option value="1">1</mat-option>
-                                  <mat-option value="2">2</mat-option>
-                                  <mat-option value="3">3</mat-option>
-                                  <mat-option value="4">4</mat-option>
+                                  <mat-option value="1" disabled>{{item.endDay}}</mat-option>
                                 </mat-select>
                               </mat-form-field>
                               <mat-form-field appearance="outline">
-                                <mat-label>Month</mat-label>
-                                <mat-select value="1">
-                                  <mat-option value="1">Junuary</mat-option>
-                                  <mat-option value="2">February</mat-option>
-                                  <mat-option value="3">March</mat-option>
-                                  <mat-option value="4">April</mat-option>
-                                </mat-select>
+                                
                               </mat-form-field>
                             </div>
                           </div>
