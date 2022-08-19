@@ -106,7 +106,7 @@ class HomestayOfTheYearListView extends StatelessWidget {
                               Row(
                                 children: [
                                   const Icon(Icons.attach_money, color: Colors.green),
-                                  Text("${currencyFormat.format(snapshotData[index].price)}/day", style: const TextStyle(
+                                  Text("${currencyFormat.format(snapshotData[index].homestayPriceLists.first.price)} ~ ${currencyFormat.format(snapshotData[index].homestayPriceLists.last.price)}/day", style: const TextStyle(
                                       fontSize: 15,
                                       fontFamily: 'OpenSans',
                                       letterSpacing: 3.0,
@@ -156,7 +156,7 @@ class HomestayOfTheYearListView extends StatelessWidget {
               );
             }
           } else if(snapshot.hasError) {
-            return DialogComponent(message: "Connection time out", eventHandler: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePageScreen(),)),);
+            return DialogComponent(message: "Can't receive data from server - ${snapshot.error}", eventHandler: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePageScreen(),)),);
           }
 
           return const HomePageScreen();

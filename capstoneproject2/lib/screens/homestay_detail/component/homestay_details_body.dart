@@ -32,6 +32,7 @@ class HomestayDetailsBody extends StatelessWidget {
     final userService = locator.get<IPassengerService>();
     final bookingService = locator.get<IBookingService>();
     var rows = <TableRow>[];
+    //print("is homestayPriceList empty: ${homestayModel!.homestayPriceLists.isEmpty}");
 
     homestayModel?.homestayServices.forEach((element) {
       rows.add(TableRow(
@@ -63,9 +64,9 @@ class HomestayDetailsBody extends StatelessWidget {
       ));
     });
 
-    HomestayFacilityModel? homestayFacility(String facility) {
-      if(homestayModel!.homestayFacilities.where((element) => element.name.toLowerCase().compareTo(facility) == 0).isNotEmpty) {
-        return homestayModel!.homestayFacilities.where((element) => element.name.toLowerCase().compareTo(facility) == 0).single;
+    HomestayCommonFacilityModel? homestayFacility(String facility) {
+      if(homestayModel!.homestayCommonFacilities.where((element) => element.name.toLowerCase().compareTo(facility) == 0).isNotEmpty) {
+        return homestayModel!.homestayCommonFacilities.where((element) => element.name.toLowerCase().compareTo(facility) == 0).single;
       }
 
       return null;
@@ -92,7 +93,7 @@ class HomestayDetailsBody extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(Icons.attach_money, color: Colors.green),
-                      Text  ("${currencyFormat.format(homestayModel?.price)}/day", style: const TextStyle(
+                      Text  ("${currencyFormat.format(homestayModel?.homestayPriceLists.first.price)} ~ ${currencyFormat.format(homestayModel?.homestayPriceLists.last.price)}/day", style: const TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
                           letterSpacing: 2.0,
@@ -129,8 +130,9 @@ class HomestayDetailsBody extends StatelessWidget {
         ),
         const SizedBox(height: 20),
 
-        FutureBuilder(
-            future: bookingService.getNearestBookingDate(firebaseAuth.currentUser!.displayName!, homestayModel!.name!),
+        firebaseAuth.currentUser != null
+        ? FutureBuilder(
+            future: bookingService.getNearestBookingDate(firebaseAuth.currentUser?.displayName, homestayModel!.name!),
             builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting) {
                 return const SizedBox();
@@ -155,7 +157,7 @@ class HomestayDetailsBody extends StatelessWidget {
 
               return const SizedBox();
             },
-        ),
+        ) : Container(),
 
         const SizedBox(height: 12,),
 
@@ -185,7 +187,7 @@ class HomestayDetailsBody extends StatelessWidget {
                         } else if(configuration.compareTo("INSUFFICIENT_BALANCE") == 0) {
 
                         } else {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => BookingScheduleComponent(homestayModel: homestayModel, isUpdateCheckInDate: false,isUpdateCheckOutDate: false),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => BookingScreen(homestayModel: homestayModel, chooseCheckInPhase: true)));
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -210,7 +212,7 @@ class HomestayDetailsBody extends StatelessWidget {
                         const SizedBox(height: 5,),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => BookingListScreen(homestayName: homestayModel!.name),));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => BookingListScreen(homestayName: homestayModel!.name,),));
                           },
                           style: ElevatedButton.styleFrom(
                             primary: Colors.green,
@@ -378,7 +380,7 @@ class HomestayDetailsBody extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(bottom: 10, top: 20),
           child: const Text(
-            "Facilities: ",
+            "Common Facilities: ",
             style: TextStyle(
                 fontSize: 25,
                 fontFamily: 'OpenSans',
@@ -389,12 +391,13 @@ class HomestayDetailsBody extends StatelessWidget {
           ),
         ),
 
-        homestayModel!.homestayFacilities.isNotEmpty
+        homestayModel!.homestayCommonFacilities.isNotEmpty
         ? SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Container(
             child: Row(
               children: [
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -597,12 +600,63 @@ class HomestayDetailsBody extends StatelessWidget {
               ],
             ),
           ),
-        ) : const Text("Homestay does not contain any facility.",style:  TextStyle(
+        ) : const Text("Homestay does not contain common facility.",style:  TextStyle(
           fontSize: 15,
           fontFamily: 'OpenSans',
           letterSpacing: 2.0,
           color: Colors.black,
         )),
+
+        Container(
+          margin: const EdgeInsets.only(bottom: 10, top: 20),
+          child: const Text(
+            "Additional Facilities: ",
+            style: TextStyle(
+                fontSize: 25,
+                fontFamily: 'OpenSans',
+                letterSpacing: 3.0,
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+
+        homestayModel!.homestayAdditionalFacilities.isNotEmpty
+        ? SizedBox(
+          height: 150,
+          child: ListView.builder(
+              itemCount: homestayModel!.homestayAdditionalFacilities.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                return Row(
+                  children: [
+                    Text("${homestayModel!.homestayAdditionalFacilities[index].name}", style: const TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'OpenSans',
+                      letterSpacing: 2.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold
+                    ),),
+                    const SizedBox(width: 5,),
+                    const Text("-"),
+                    const SizedBox(width: 5,),
+                    Text("${homestayModel!.homestayAdditionalFacilities[index].amount} / unit", style: const TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'OpenSans',
+                      letterSpacing: 2.0,
+                      color: Colors.black,
+                    ),),
+                  ],
+                );
+              },
+          ),
+        ) : const SizedBox(
+          height: 150,
+          child: Center(
+            child: Text("Homestay does not contain additional facilities."),
+          ),
+        ),
+
 
         Container(
           margin: const EdgeInsets.only(bottom: 10, top: 20),

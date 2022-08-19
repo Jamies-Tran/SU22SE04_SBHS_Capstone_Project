@@ -15,5 +15,5 @@ abstract class IBookingService {
 
   Future<dynamic> checkIn(String checkInOtp, int bookingId, String username);
 
-  Future<dynamic> getNearestBookingDate(String username, String homestayName);
+  Future<dynamic> getNearestBookingDate(String? username, String homestayName);
 }

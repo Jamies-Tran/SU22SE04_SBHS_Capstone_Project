@@ -1,13 +1,13 @@
 class PassengerModel {
-  var username;
-  var password;
-  var address;
-  var gender;
-  var email;
-  var phone;
-  var citizenIdentificationString;
-  var dob;
-  var avatarUrl;
+  dynamic username;
+  dynamic password;
+  dynamic address;
+  dynamic gender;
+  dynamic email;
+  dynamic phone;
+  dynamic citizenIdentificationString;
+  dynamic dob;
+  dynamic avatarUrl;
 
   PassengerModel({
     this.username = "",

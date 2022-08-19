@@ -16,7 +16,7 @@ class CloudFireStoreServiceImpl extends ICloudFirestoreService {
       "loginDate" : authenticateModel.loginDate,
       "accessToken" : authenticateModel.accessToken,
       "photoUrl" : authenticateModel.avatarUrl ?? "/assets/images/passenger-default.png"
-    }).timeout(const Duration(seconds: 5));
+    }).timeout(const Duration(seconds: 20));
   }
 
   @override

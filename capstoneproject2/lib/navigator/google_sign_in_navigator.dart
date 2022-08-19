@@ -6,6 +6,7 @@ import 'package:capstoneproject2/screens/homestay_detail/view_homestay_detail.da
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:capstoneproject2/services/model/auth_model.dart';
 import 'package:capstoneproject2/services/model/error_handler_model.dart';
+import 'package:capstoneproject2/services/model/homestay_model.dart';
 import 'package:capstoneproject2/services/model/passenger_model.dart';
 import 'package:capstoneproject2/services/passenger_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,7 +42,9 @@ class _GoogleSignInNavigatorState extends State<GoogleSignInNavigator> {
             if(snapShotData is PassengerModel) {
               return SignInWithGoogleFromAdditionalProfile(
                 googleSignInAccount: widget.googleSignInAccount,
-                passengerModel: widget.passengerModel
+                passengerModel: widget.passengerModel,
+                isSignInFromBookingScreen: widget.isSignInFromBookingScreen,
+                homestayName: widget.homestayName,
               );
 
             } else if(snapShotData is ErrorHandlerModel) {
@@ -61,10 +64,14 @@ class SignInWithGoogleFromAdditionalProfile extends StatelessWidget {
   const SignInWithGoogleFromAdditionalProfile({
     Key? key,
     this.googleSignInAccount,
-    this.passengerModel
+    this.passengerModel,
+    this.isSignInFromBookingScreen,
+    this.homestayName
   }) : super(key: key);
   final GoogleSignInAccount? googleSignInAccount;
   final PassengerModel? passengerModel;
+  final bool? isSignInFromBookingScreen;
+  final String? homestayName;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +89,9 @@ class SignInWithGoogleFromAdditionalProfile extends StatelessWidget {
             );
             return FinalGoogleSignInSetupFromAdditionalProfile(
                 credential: googleCredential,
-                passengerModel: passengerModel
+                passengerModel: passengerModel,
+                isSignInBookingScreen: isSignInFromBookingScreen,
+                homestayName: homestayName,
             );
           }
         } else if(snapshot.hasError) {
@@ -99,10 +108,14 @@ class FinalGoogleSignInSetupFromAdditionalProfile extends StatelessWidget {
   const FinalGoogleSignInSetupFromAdditionalProfile({
     Key? key,
     this.credential,
-    this.passengerModel
+    this.passengerModel,
+    this.isSignInBookingScreen,
+    this.homestayName
   }) : super(key: key);
   final OAuthCredential? credential;
   final PassengerModel? passengerModel;
+  final bool? isSignInBookingScreen;
+  final String? homestayName;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +130,11 @@ class FinalGoogleSignInSetupFromAdditionalProfile extends StatelessWidget {
             if(snapshotData.user!.displayName!.compareTo(passengerModel!.username) != 0) {
               snapshotData.user!.updateDisplayName(passengerModel!.username);
             }
-            return const HomePageScreen();
+            if(isSignInBookingScreen!) {
+              return HomestayDetailsScreen(homestayName: homestayName!);
+            } else {
+              return const HomePageScreen();
+            }
           }
         } else if (snapshot.hasError) {
           return Center(

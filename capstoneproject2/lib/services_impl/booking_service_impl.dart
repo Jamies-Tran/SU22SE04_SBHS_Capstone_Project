@@ -189,14 +189,16 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future getNearestBookingDate(String username, String homestayName) async {
-    var userBookingList = await getUserBookingList(username, bookingStatus["check_in"]!);
-    if(userBookingList is List<BookingModel>) {
-      final bookingModel = userBookingList
-          .where((element) => element.homestayName.compareTo(homestayName) == 0)
-          .where((element) => formatDate.parse(element.checkIn).difference(DateTime.now()).inDays < 7)
-          .first;
-      return bookingModel;
+  Future getNearestBookingDate(String? username, String homestayName) async {
+    if(username != null) {
+      var userBookingList = await getUserBookingList(username, bookingStatus["check_in"]!);
+      if(userBookingList is List<BookingModel>) {
+        final bookingModel = userBookingList
+            .where((element) => element.homestayName.compareTo(homestayName) == 0)
+            .where((element) => formatDate.parse(element.checkIn).difference(DateTime.now()).inDays < 7)
+            .first;
+        return bookingModel;
+      }
     }
   }
 }

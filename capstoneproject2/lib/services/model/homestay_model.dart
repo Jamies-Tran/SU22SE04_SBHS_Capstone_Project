@@ -1,8 +1,8 @@
 
 
 class HomestayImageModel {
-  var id;
-  var url;
+  dynamic id;
+  dynamic url;
 
   HomestayImageModel({this.id, this.url});
 
@@ -14,8 +14,8 @@ class HomestayImageModel {
 }
 
 class HomestayServiceModel {
-  var id;
-  var name;
+  dynamic id;
+  dynamic name;
   int? price;
 
   HomestayServiceModel({this.id, this.name, this.price});
@@ -32,39 +32,90 @@ class HomestayServiceModel {
   };
 }
 
-class HomestayFacilityModel {
-  var id;
-  var name;
-  var amount;
+class HomestayCommonFacilityModel {
+  dynamic id;
+  dynamic name;
+  dynamic amount;
 
-  HomestayFacilityModel({this.id, this.name, this.amount});
+  HomestayCommonFacilityModel({this.id, this.name, this.amount});
 
-  factory HomestayFacilityModel.fromJson(Map<String, dynamic> json) => HomestayFacilityModel(
+  factory HomestayCommonFacilityModel.fromJson(Map<String, dynamic> json) => HomestayCommonFacilityModel(
     id: json["id"],
     name: json["name"],
     amount: json["amount"]
   );
 }
 
+class HomestayAdditionalFacilityModel {
+  dynamic id;
+  dynamic name;
+  dynamic amount;
+
+  HomestayAdditionalFacilityModel({this.id, this.name, this.amount});
+
+  factory HomestayAdditionalFacilityModel.fromJson(Map<String, dynamic> json) => HomestayAdditionalFacilityModel(
+    id: json["Id"],
+    name: json["name"],
+    amount: json["amount"]
+  );
+}
+
+class HomestayPriceListModel {
+  dynamic id;
+  dynamic price;
+  dynamic type;
+  SpecialDayPriceListModel? specialDayPriceList;
+
+  HomestayPriceListModel({this.id, this.price, this.type, this.specialDayPriceList});
+
+  factory HomestayPriceListModel.fromJson(Map<String, dynamic> json) => HomestayPriceListModel(
+    id: json["Id"],
+    price: json["price"],
+    type: json["type"],
+    specialDayPriceList: SpecialDayPriceListModel.fromJson(json["specialDayList"])
+  );
+}
+
+class SpecialDayPriceListModel {
+  dynamic startDay;
+  dynamic endDay;
+  dynamic startMonth;
+  dynamic endMonth;
+  dynamic specialDayCode;
+  dynamic description;
+
+  SpecialDayPriceListModel({this.startDay, this.startMonth, this.endDay, this.endMonth, this.description, this.specialDayCode});
+
+  factory SpecialDayPriceListModel.fromJson(Map<String, dynamic>? json) => SpecialDayPriceListModel(
+    startDay: json?["startDay"],
+    startMonth: json?["startMonth"],
+    endDay: json?["endDay"],
+    endMonth: json?["endMonth"],
+    description: json?["description"],
+    specialDayCode: json?["specialDayCode"]
+  );
+}
+
 class HomestayModel {
-  var id;
-  var name;
-  var description;
-  var owner;
-  var address;
-  var numberOfRoom;
-  var city;
-  int? price;
-  var checkInTime;
-  var checkOutTime;
-  var convenientPoint;
-  var securityPoint;
-  var positionPoint;
-  var averagePoint;
-  var numberOfFinishedBooking;
+  dynamic id;
+  dynamic name;
+  dynamic description;
+  dynamic owner;
+  dynamic address;
+  dynamic numberOfRoom;
+  dynamic city;
+  dynamic checkInTime;
+  dynamic checkOutTime;
+  dynamic convenientPoint;
+  dynamic securityPoint;
+  dynamic positionPoint;
+  dynamic averagePoint;
+  dynamic numberOfFinishedBooking;
   List<HomestayImageModel> homestayImages;
   List<HomestayServiceModel> homestayServices;
-  List<HomestayFacilityModel> homestayFacilities;
+  List<HomestayCommonFacilityModel> homestayCommonFacilities;
+  List<HomestayAdditionalFacilityModel> homestayAdditionalFacilities;
+  List<HomestayPriceListModel> homestayPriceLists;
 
   HomestayModel({
     this.id, 
@@ -72,8 +123,7 @@ class HomestayModel {
     this.description,
     this.owner,
     this.address, 
-    this.city, 
-    this.price,
+    this.city,
     this.numberOfRoom,
     this.checkInTime,
     this.checkOutTime,
@@ -82,9 +132,11 @@ class HomestayModel {
     this.positionPoint,
     this.averagePoint,
     this.numberOfFinishedBooking,
-    this.homestayFacilities = const [],
+    this.homestayCommonFacilities = const [],
+    this.homestayAdditionalFacilities = const [],
     this.homestayImages = const [],
-    this.homestayServices = const []
+    this.homestayServices = const [],
+    this.homestayPriceLists = const []
   });
 
   factory HomestayModel.fromJson(Map<String, dynamic> json) => HomestayModel(
@@ -92,7 +144,6 @@ class HomestayModel {
     name: json["name"],
     description: json["description"],
     owner: json["owner"],
-    price: json["price"],
     numberOfRoom: json["numberOfRoom"],
     checkInTime: json["checkInTime"],
     checkOutTime: json["checkOutTime"],
@@ -103,8 +154,11 @@ class HomestayModel {
     positionPoint: json["positionPoint"],
     averagePoint: json["average"],
     numberOfFinishedBooking: json["numberOfFinishedBooking"],
-    homestayFacilities: List<HomestayFacilityModel>.from(json["homestayFacilities"].map((element) => HomestayFacilityModel.fromJson(element))),
+      homestayCommonFacilities: List<HomestayCommonFacilityModel>.from(json["homestayCommonFacilities"].map((element) => HomestayCommonFacilityModel.fromJson(element))),
     homestayImages: List<HomestayImageModel>.from(json["homestayImages"].map((element) => HomestayImageModel.fromJson(element))),
-    homestayServices: List<HomestayServiceModel>.from(json["homestayServices"].map((element) => HomestayServiceModel.fromJson(element)))
+    homestayServices: List<HomestayServiceModel>.from(json["homestayServices"].map((element) => HomestayServiceModel.fromJson(element))),
+    homestayAdditionalFacilities: List<HomestayAdditionalFacilityModel>.from(json["homestayAdditionalFacilities"].map((element) => HomestayAdditionalFacilityModel.fromJson(element))),
+    homestayPriceLists: List<HomestayPriceListModel>.from(json["homestayPriceList"].map((element) => HomestayPriceListModel.fromJson(element))),
+
   );
 }
