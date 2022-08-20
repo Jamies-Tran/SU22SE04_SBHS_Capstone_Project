@@ -24,7 +24,7 @@
                     <mat-form-field appearance="outline">
                       <mat-label>Day</mat-label>
                       <mat-select value="1" [(ngModel)]="startDay"
-                        *ngIf="startMonth =='1' || startMonth =='1' || startMonth =='5' || startMonth =='7' ||startMonth =='8' ||startMonth =='10' || startMonth =='12'">
+                        *ngIf="startMonth =='1' || startMonth =='3' || startMonth =='5' || startMonth =='7' ||startMonth =='8' ||startMonth =='10' || startMonth =='12'">
                         <mat-option *ngFor="let item of valueday31" value="{{item}}">{{item}}</mat-option>
                       </mat-select>
                       <mat-select value="1" [(ngModel)]="startDay"
@@ -35,6 +35,7 @@
                         <mat-option *ngFor="let item of valueday28" value="{{item}}">{{item}}</mat-option>
                       </mat-select>
                     </mat-form-field>
+
                     <mat-form-field appearance="outline">
                       <mat-label>Month</mat-label>
                       <mat-select value="1" [(ngModel)]="startMonth">
@@ -54,7 +55,7 @@
                   <div class="day">
                     <mat-form-field appearance="outline">
                       <mat-select value="1" [(ngModel)]="endDay"
-                        *ngIf="endMonth =='1' || endMonth =='1' || endMonth =='5' || endMonth =='7' ||endMonth =='8' ||endMonth =='10' || endMonth =='12'">
+                        *ngIf="endMonth =='1' || endMonth =='3' || endMonth =='5' || endMonth =='7' ||endMonth =='8' ||endMonth =='10' || endMonth =='12'">
                         <mat-option *ngFor="let item of valueday31" value="{{item}}">{{item}}</mat-option>
                       </mat-select>
                       <mat-select value="1" [(ngModel)]="endDay"
@@ -94,7 +95,7 @@
 
       <!-- Add Facility -->
 
-      <!-- 
+
       <h1>Additional Special Day</h1>
       <div class="row">
         <div class="col ">
@@ -133,7 +134,7 @@
         </div>
 
 
-      </div> -->
+      </div>
 
       <div class="add-btn">
 

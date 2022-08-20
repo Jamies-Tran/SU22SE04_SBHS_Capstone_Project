@@ -53,7 +53,6 @@
                       placeholder="StaywithMe Homestay"
                       formControlName="city" required
                       formControlName="city"> -->
-
                     <mat-select placeholder="TP.HCM" name="city" formControlName="city">
                       <mat-option *ngFor="let city of cities" [value]="city.value"> {{city.value}}</mat-option>
                     </mat-select>
@@ -65,8 +64,6 @@
                     <input id="checkout" type="time" matInput required formControlName="checkOutTime">
                   </mat-form-field>
                 </div>
-
-
               </div>
             </div>
             <div class="col">
@@ -86,176 +83,85 @@
                     formControlName="price">
                 </mat-form-field>
               </div>
-              <!-- Price special day-->
-              <div class="special">
-                <mat-accordion class="example-headers-align">
-
-                  <mat-expansion-panel class="panel-special">
-                    <!-- header -->
-                    <mat-expansion-panel-header class="panel-header-special">
-                      <mat-panel-title>
-                        Special day
-                      </mat-panel-title>
-                      <mat-panel-description>
-                        Type your price of special day
-                        <mat-icon>paid</mat-icon>
-                      </mat-panel-description>
-                    </mat-expansion-panel-header>
-
-                    <!-- collapse -->
-                    <div *ngFor="let item of ListSpecialDay">
-                      <mat-checkbox class="chb-special" color="primary" >
-                        {{item.description}}
-                      </mat-checkbox>
-                      <div>
-                        <!-- day -->
-                        <div class="row">
-                          <!-- Start -->
-                          <div class="col left">
-                            <div>
-                              Start day
-                            </div>
-                            <!-- day / month -->
-                            <div class="start-day">
-                              <mat-form-field appearance="outline">
-                                <mat-label>Day</mat-label>
-                                <mat-select value="1">
-                                  <mat-option value="1">{{item.startDay}}</mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                              <mat-form-field appearance="outline">
-                                <mat-label>Month</mat-label>
-                                <mat-select value="1">
-                                  <mat-option value="1">Junuary</mat-option>
-                                  <mat-option value="2">February</mat-option>
-                                  <mat-option value="3">March</mat-option>
-                                  <mat-option value="4">April</mat-option>
-                                </mat-select>
-                              </mat-form-field>
-
-                            </div>
-                          </div>
-                          <p class="line-"> - </p>
-                          <div class="col right">
-                            <div>
-                              End day
-                            </div>
-                            <!-- day / month -->
-                            <div>
-                              <mat-form-field appearance="outline">
-                                <mat-label>Day</mat-label>
-                                <mat-select value="1">
-                                  <mat-option value="1" disabled>{{item.endDay}}</mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                              <mat-form-field appearance="outline">
-
-                              </mat-form-field>
-                            </div>
-                          </div>
-                          <!-- price -->
-                          <div class="col price">
-                            <div>
-                              Price
-                            </div>
-                            <mat-form-field appearance="outline">
-                              <mat-label>Price (VND)</mat-label>
-                              <input name="price" id="price" type="number" matInput placeholder="1000000" required>
-                            </mat-form-field>
-                          </div>
-                        </div>
-
-
-                      </div>
-                    </div>
-                    <!-- collapse -->
-                    <div>
-
-                        <mat-checkbox class="chb-special" color="primary" >
-                          Tet Nguyen Dan
+              <form>
+                <!-- Price special day-->
+                <div class="special">
+                  <mat-accordion class="example-headers-align">
+                    <mat-expansion-panel class="panel-special">
+                      <!-- header -->
+                      <mat-expansion-panel-header class="panel-header-special">
+                        <mat-panel-title>
+                          Special day
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          Type your price of special day
+                          <mat-icon>paid</mat-icon>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <!-- collapse -->
+                      <div *ngFor="let item of ListSpecialDay ">
+                        <mat-checkbox class="chb-special" color="primary" [(ngModel)]="item.status" name="status">
+                          {{item.description}}
                         </mat-checkbox>
-
-
-
-
-                      <div>
-                        <!-- day -->
-                        <div class="row">
-                          <!-- Start -->
-                          <div class="col left">
-                            <div>
-                              Start day
+                        <div>
+                          <!-- day -->
+                          <div class="row">
+                            <!-- Start -->
+                            <div class="col left">
+                              <div>
+                                Start day
+                              </div>
+                              <!-- day / month -->
+                              <div class="start-day">
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Day</mat-label>
+                                  <input type="text" matInput [value]="item.startDay" readonly style="cursor:unset">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Month</mat-label>
+                                  <input type="text" matInput [value]="item.startMonth" readonly style="cursor:unset">
+                                </mat-form-field>
+                              </div>
                             </div>
-                            <!-- day / month -->
-                            <div class="start-day">
-                              <mat-form-field appearance="outline">
-                                <mat-label>Day</mat-label>
-                                <mat-select value="1">
-                                  <mat-option value="1">1</mat-option>
-                                  <mat-option value="2">2</mat-option>
-                                  <mat-option value="3">3</mat-option>
-                                  <mat-option value="4">4</mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                              <mat-form-field appearance="outline">
-                                <mat-label>Month</mat-label>
-                                <mat-select value="1">
-                                  <mat-option value="1">Junuary</mat-option>
-                                  <mat-option value="2">February</mat-option>
-                                  <mat-option value="3">March</mat-option>
-                                  <mat-option value="4">April</mat-option>
-                                </mat-select>
-                              </mat-form-field>
-
+                            <p class="line-"> - </p>
+                            <div class="col right">
+                              <div>
+                                End day
+                              </div>
+                              <!-- day / month -->
+                              <div>
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Day</mat-label>
+                                  <input type="text" matInput [value]="item.endDay" readonly style="cursor:unset">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Month</mat-label>
+                                  <input type="text" matInput [value]="item.endMonth" readonly style="cursor:unset">
+                                </mat-form-field>
+                              </div>
                             </div>
-                          </div>
-                          <p class="line-"> - </p>
-                          <div class="col right">
-                            <div>
-                              End day
-                            </div>
-                            <!-- day / month -->
-                            <div>
+                            <!-- price -->
+                            <div class="col price">
+                              <div>
+                                Price
+                              </div>
                               <mat-form-field appearance="outline">
-                                <mat-label>Day</mat-label>
-                                <mat-select value="1">
-                                  <mat-option value="1">1</mat-option>
-                                  <mat-option value="2">2</mat-option>
-                                  <mat-option value="3">3</mat-option>
-                                  <mat-option value="4">4</mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                              <mat-form-field appearance="outline">
-                                <mat-label>Month</mat-label>
-                                <mat-select value="1">
-                                  <mat-option value="1">Junuary</mat-option>
-                                  <mat-option value="2">February</mat-option>
-                                  <mat-option value="3">March</mat-option>
-                                  <mat-option value="4">April</mat-option>
-                                </mat-select>
+                                <mat-label>Price (VND)</mat-label>
+                                <input [disabled]="!item.status" name="price" id="price" type="number" matInput
+                                  placeholder="1000000" required [ngModel]="item.price">
                               </mat-form-field>
                             </div>
                           </div>
-                          <!-- price -->
-                          <div class="col price">
-                            <div>
-                              Price
-                            </div>
-                            <mat-form-field appearance="outline">
-                              <mat-label>Price (VND)</mat-label>
-                              <input name="price" id="price" type="number" matInput placeholder="1000000" required>
-                            </mat-form-field>
-                          </div>
+
+
                         </div>
-
-
                       </div>
-                    </div>
 
-                  </mat-expansion-panel>
-                </mat-accordion>
+                    </mat-expansion-panel>
+                  </mat-accordion>
 
-              </div>
+                </div>
+              </form>
               <!-- address -->
               <div>
                 <mat-form-field class="fill" appearance="legacy">

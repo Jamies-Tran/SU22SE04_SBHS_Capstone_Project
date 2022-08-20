@@ -285,12 +285,16 @@ export class RegisterHomestayComponent implements OnInit {
     private storage: AngularFireStorage,
     private db: AngularFirestore
   ) {}
-    ListSpecialDay :any
+    ListSpecialDay :any[] = [];
   ngOnInit(): void {
     this.editor = new Editor();
     this.http.getSpecialDay().subscribe((data =>{
-      this.ListSpecialDay = data
-      console.log(data)
+      for(let items of data){
+        this.ListSpecialDay.push({description:items.description, endDay:items.endDay, endMonth:items.endMonth, id:items.id , specialDayCode:items.specialDayCode, startDay:items.startDay, startMonth:items.startMonth, status:false});
+      }
+      // this.ListSpecialDay = data
+      // console.log(this.ListSpecialDay)
+
     }))
   }
 
