@@ -8,8 +8,10 @@
       <div *ngIf="Error != null">
         <h1 style="color: red; text-align: center;">{{Error}}</h1>
       </div>
+      <h1>Additional Special Day</h1>
       <div class="special">
         <div class="panel-special">
+
           <div>
             <div>
               <!-- day -->
@@ -84,6 +86,7 @@
                     <input id="description" type="text" [(ngModel)]="description" matInput required>
                   </mat-form-field>
                 </div>
+
               </div>
 
 
@@ -95,46 +98,103 @@
 
       <!-- Add Facility -->
 
+      <div class="special">
+        <div class="panel-special">
+          <div class="row">
+            <div class="col ">
+              <div *ngFor="let value of newSpecialDay; let i = index">
+                <div class="row">
+                  <!-- Start -->
+                  <div class="col left">
+                    <div>
+                      Start day
+                    </div>
+                    <!-- day / month -->
+                    <div class="day">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Day</mat-label>
+                        <mat-select value="1" [(ngModel)]="value.startDay"
+                          *ngIf="value.startMonth =='1' || value.startMonth =='3' || value.startMonth =='5' || value.startMonth =='7' ||value.startMonth =='8' ||value.startMonth =='10' || value.startMonth =='12'">
+                          <mat-option *ngFor="let item of valueday31" value="{{item}}">{{item}}</mat-option>
+                        </mat-select>
+                        <mat-select value="1" [(ngModel)]="value.startDay"
+                          *ngIf="value.startMonth =='4' || value.startMonth =='6' || value.startMonth =='9' || value.startMonth =='11'">
+                          <mat-option *ngFor="let item of valueday30" value="{{item}}">{{item}}</mat-option>
+                        </mat-select>
+                        <mat-select value="1" [(ngModel)]="value.startDay" *ngIf="value.startMonth =='2'">
+                          <mat-option *ngFor="let item of valueday28" value="{{item}}">{{item}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
 
-      <h1>Additional Special Day</h1>
-      <div class="row">
-        <div class="col ">
-          <div *ngFor="let value of newSpecialDay; let i = index">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Month</mat-label>
+                        <mat-select value="1" [(ngModel)]="value.startMonth">
+                          <mat-option *ngFor="let name of valueMonthName; let i = index" value="{{i+1}}">{{name}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
 
-            <div class=" row-fill ">
-              <div class=" icon"><i class="fa-solid fa-plus"></i></div>
-              <div class=" input">
-                <div class=" col-input add">
-                  <input type="text" [(ngModel)]="value.name" autocomplete="off" name="value{{i}}"
-                    placeholder="New Facility" class="col-input-amount value-name" matInput />
+                    </div>
+                  </div>
+                  <p class="line-"> - </p>
+                  <div class="col right">
+                    <div>
+                      End day
+                    </div>
+                    <!-- day / month -->
+                    <div class="day">
+                      <mat-form-field appearance="outline">
+                        <mat-select value="1" [(ngModel)]="value.endDay"
+                          *ngIf="value.endMonth =='1' || value.endMonth =='3' || value.endMonth =='5' || value.endMonth =='7' ||value.endMonth =='8' ||value.endMonth =='10' || value.endMonth =='12'">
+                          <mat-option *ngFor="let item of valueday31" value="{{item}}">{{item}}</mat-option>
+                        </mat-select>
+                        <mat-select value="1" [(ngModel)]="value.endDay"
+                          *ngIf="value.endMonth =='4' || value.endMonth =='6' || value.endMonth =='9' || value.endMonth =='11'">
+                          <mat-option *ngFor="let item of valueday30" value="{{item}}">{{item}}</mat-option>
+                        </mat-select>
+                        <mat-select value="1" [(ngModel)]="value.endDay" *ngIf="value.endMonth =='2'">
+                          <mat-option *ngFor="let item of valueday28" value="{{item}}">{{item}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Month</mat-label>
+                        <mat-select value="1" [(ngModel)]="value.endMonth">
+                          <mat-option *ngFor="let name of valueMonthName; let i = index" value="{{i+1}}">{{name}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col price">
+                    <div>
+                      Description
+                    </div>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Tet Nguyen Dan</mat-label>
+                      <input id="description" type="text" [(ngModel)]="value.description" matInput required>
+                    </mat-form-field>
+                  </div>
+                  <div class="icon-x" matRipple>
+                    <i class="fa-solid fa-xmark" (click)="removeSpecialDay(i)"></i>
+                  </div>
+                </div>
+
+              </div>
+              <div class="click row-fill" matRipple (click)="addSpecialDay()">
+                <div class=" icon"><i class="fa-solid fa-plus"></i></div>
+                <div class=" text">
+                  <p>Add SpecialDay</p>
                 </div>
               </div>
-              <div class=" checkbox">
-                <mat-checkbox color="primary" [(ngModel)]="value.status">
-                </mat-checkbox>
-              </div>
-              <div class=" input">
-                <div class="col-input">
-                  <input type="number" min="0" [disabled]="!value.status" [(ngModel)]="value.amount" autocomplete="off"
-                    name="value{{i}}" class="col-input-amount" matInput placeholder="Amount" />
-                </div>
-              </div>
-              <div class="icon-x" matRipple>
-                <i class="fa-solid fa-xmark" (click)="removeSpecialDay(i)"></i>
-              </div>
+            </div>
 
-            </div>
-          </div>
-          <div class="click row-fill" matRipple (click)="addSpecialDay()">
-            <div class=" icon"><i class="fa-solid fa-plus"></i></div>
-            <div class=" text">
-              <p>Add SpecialDay</p>
-            </div>
+
           </div>
         </div>
-
-
       </div>
+
+
+
 
       <div class="add-btn">
 

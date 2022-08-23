@@ -2,7 +2,7 @@
   min-height: 89vh;
 
   .input-content {
-    width: 99%;
+    width: 100%;
 
     .add-input {
       background: rgba(29, 36, 46, 0.08);
@@ -22,15 +22,30 @@
 
 
       .special {
-        width: 94%;
+        width: 96%;
         margin-left: 3%;
         padding-top: 3%;
 
         .panel-special {
 
-          .row{
+          .row {
             align-items: flex-end;
           }
+
+          .icon-x {
+            max-width: 7%;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            min-width: 20px;
+            cursor: pointer;
+            border-radius: 1rem;
+            line-height: 30px;
+            margin-bottom: 33px;
+            padding-top: 1px;
+            padding-left: 9px;
+          }
+
           .panel-header-special {
             font-size: large;
             padding-left: 10px;
@@ -50,7 +65,7 @@
 
           .right {
             padding-left: 0%;
-            max-width: 38%;
+            max-width: 37%;
 
             .mat-form-field {
               width: 48.5%;
@@ -60,7 +75,7 @@
 
           .left {
             padding-right: 0%;
-            max-width: 40%;
+            max-width: 37%;
 
 
             .mat-form-field {
@@ -80,7 +95,7 @@
 
 
           .price {
-            max-width: 20%;
+            max-width: 19%;
 
             .mat-form-field {
               width: 100%;
@@ -182,19 +197,7 @@
           float: left;
         }
 
-        .icon-x {
-          width: 22px;
-          height: 22px;
-          font-size: 20px;
-          min-width: 20px;
-          float: left;
-          margin-left: 4%;
-          cursor: pointer;
-          text-align: center;
-          border-radius: 1rem;
-          line-height: 22px;
-          margin-top: 5%;
-        }
+
 
 
 
