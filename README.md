@@ -6,3 +6,5 @@
 # npm i @angular-material-components/file-input
 # npm i ngx-pagination
 # npm install ngx-editor --save
+# npm install echarts 
+# npm install ngx-echarts 
