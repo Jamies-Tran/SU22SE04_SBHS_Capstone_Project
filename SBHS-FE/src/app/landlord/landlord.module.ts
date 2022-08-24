@@ -22,6 +22,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { enviroment } from 'src/enviroment/enviroment';
 import { initializeApp } from 'firebase/app';
@@ -63,7 +64,8 @@ import { NgxEditorModule } from 'ngx-editor';
     NgxPaginationModule,
     MatExpansionModule,
     MatIconModule,
-    NgxEditorModule
+    NgxEditorModule,
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
   ]
 })
 export class LandlordModule { }

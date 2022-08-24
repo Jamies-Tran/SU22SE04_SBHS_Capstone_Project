@@ -1,4 +1,3 @@
-
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,14 +17,14 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { enviroment } from 'src/enviroment/enviroment';
-import {MatSelectModule} from '@angular/material/select';
-import {MatRippleModule} from '@angular/material/core';
-import {MatIconModule} from '@angular/material/icon';
-import {NgxMatFileInputModule} from '@angular-material-components/file-input';
-import {MatTableModule} from '@angular/material/table';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRippleModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxEditorModule } from 'ngx-editor';
-
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -35,8 +34,6 @@ import { LandlordComponent } from './landlord/landlord.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { AdminComponent } from './admin/admin.component';
 import { Page1Component } from './page1/page1.component';
-
-
 
 @NgModule({
   declarations: [
@@ -66,7 +63,7 @@ import { Page1Component } from './page1/page1.component';
     MatCheckboxModule,
     MatRadioModule,
     AngularFireModule,
-    AngularFireModule.initializeApp(enviroment.firebaseConfig) ,
+    AngularFireModule.initializeApp(enviroment.firebaseConfig),
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     AngularFirestoreModule,
@@ -76,8 +73,8 @@ import { Page1Component } from './page1/page1.component';
     NgxMatFileInputModule,
     MatTableModule,
     MatExpansionModule,
-    NgxEditorModule
-
+    NgxEditorModule,
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
   ],
   providers: [],
   bootstrap: [AppComponent],
