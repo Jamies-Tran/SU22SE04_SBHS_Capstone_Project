@@ -18,7 +18,9 @@ public interface IBookingService {
 	
 	BookingEntity confirmBooking(Long BookingId, boolean isAccepted, @Nullable String rejectMessage);
 	
-	BookingEntity verifyBookingCheckIn(Long bookingId, String bookingOtp);
+	BookingEntity checkInByPassengerOrLandlord(Long bookingId, String bookingOtp);
+	
+	BookingEntity checkInByPassengerRelative(Long bookingId, String bookingOtp);
 	
 	BookingEntity checkOutRequest(Long bookingId, String paymentMethod);
 	

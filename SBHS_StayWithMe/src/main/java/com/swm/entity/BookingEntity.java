@@ -78,6 +78,7 @@ public class BookingEntity extends BaseEntity {
 	@JoinColumn(name = "passenger_id", referencedColumnName = "Id")
 	@Setter
 	private PassengerEntity bookingCreator;
+	
 
 	@OneToOne(mappedBy = "bookingContainer", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.REMOVE })

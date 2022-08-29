@@ -37,6 +37,7 @@ public class PassengerEntity extends BaseEntity {
 	@OneToMany(mappedBy = "bookingCreator", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	@Setter
 	private List<BookingEntity> booking;
+	
 
 	@OneToOne(mappedBy = "wishlistCreator", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	@Setter

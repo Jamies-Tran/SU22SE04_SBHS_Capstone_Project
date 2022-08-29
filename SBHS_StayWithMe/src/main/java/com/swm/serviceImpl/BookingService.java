@@ -144,8 +144,9 @@ public class BookingService implements IBookingService {
 
 	@Transactional
 	@Override
-	public BookingEntity verifyBookingCheckIn(Long bookingId, String bookingOtp) {
+	public BookingEntity checkInByPassengerOrLandlord(Long bookingId, String bookingOtp) {
 		String msg = "";
+		String bookingStatus = "";
 		BookingEntity bookingEntity = this.findBookingById(bookingId);
 		BookingOtpEntity bookingOtpEntity = bookingEntity.getBookingOtp();
 		HomestayEntity homestayEntity = bookingEntity.getBookingHomestay();
@@ -154,38 +155,43 @@ public class BookingService implements IBookingService {
 		UserEntity bookingUserEntity = bookingEntity.getBookingCreator().getPassengerAccount();
 		UserEntity homestayOwnerEntity = homestayEntity.getLandlordOwner().getLandlordAccount();
 		if (!bookingEntity.getStatus().equals(BookingStatus.BOOKING_PENDING_CHECKIN.name())) {
-			throw new ResourceNotAllowException("You haven't pay deposit yet");
+			throw new ResourceNotAllowException("Check-in not availanle due to landlord haven't apporove your booking request");
 		}
 		
 		if (checkInUserEntity.getUsername().equals(homestayOwnerEntity.getUsername())) {
 			// chủ homestay check-in cho khách
 			msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity,
 					bookingEntity, AccountRole.LANDLORD.name());
-			bookingEntity.setStatus(BookingStatus.BOOKING_CONFIRM_CHECKIN.name());
+			bookingStatus = BookingStatus.BOOKING_CHECKIN_BY_LANDLORD.name();
+			bookingEntity.setStatus(bookingStatus);
 			bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
+			bookingEntity.setModifiedBy(checkInUserEntity.getUsername());
+			bookingEntity.setModifiedDate(currentDate);
 			sendMailService.sendMail(bookingUserEntity.getUsername(), msg, "Booking confirm");
 			return bookingEntity;
-		} else if (bookingOtpEntity.getCode().equals(bookingOtp)) {
-			if (!checkInUserEntity.getUsername().equals(bookingUserEntity.getUsername())) {
-				if (!checkInUserEntity.getUsername().equals(bookingUserEntity.getUsername())) {
-					// người quen của passenger người có otp code
-					msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity,
-							bookingEntity, AccountRole.PASSENGER.name());
-					bookingEntity.setStatus(BookingStatus.BOOKING_CONFIRM_CHECKIN.name());
-					bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
-					sendMailService.sendMail(bookingUserEntity.getUsername(), msg, "Booking confirm");
-				}
-			} else {
-				// người đặt check-in
-				bookingEntity.setStatus(BookingStatus.BOOKING_CONFIRM_CHECKIN.name());
-				bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
-
-			}
-			return bookingEntity;
 		} else {
-			throw new ResourceNotFoundException(bookingOtp, "Booking otp not correct");
-		}
+			
+			if(bookingEntity.getBookingCreator().getPassengerAccount().getUsername().equals(checkInUserEntity.getUsername())) {
+				bookingStatus = BookingStatus.BOOKING_CONFIRM_CHECKIN.name();
+			} else {
+				bookingStatus = BookingStatus.BOOKING_CHECKIN_BY_PASSENGER_RELATIVE.name();
+			}
+			if(bookingOtpEntity.getCode().equals(bookingOtp)) {
+				
+				// người đặt check-in
+				bookingEntity.setStatus(bookingStatus);
+				bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
+				bookingEntity.setModifiedBy(checkInUserEntity.getUsername());
+				bookingEntity.setModifiedDate(currentDate);
+				return bookingEntity;
+			} else {
+				throw new ResourceNotFoundException(bookingOtp, "Booking otp not correct");
+			}
+			
+		} 
 	}
+	
+	
 
 	@Transactional
 	@Override
@@ -195,7 +201,7 @@ public class BookingService implements IBookingService {
 		LandlordEntity landlordEntity = homestayEntity.getLandlordOwner();
 		PassengerEntity passengerEntity = bookingEntity.getBookingCreator();
 		if (isAccepted) {
-			bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_DEPOSIT.name());
+			bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_CHECKIN.name());
 			bookingEntity.setModifiedBy(landlordEntity.getLandlordAccount().getUsername());
 			bookingEntity.setModifiedDate(currentDate);
 			String message = ApplicationSendMailUtil.generateAcceptBookingMessage(bookingEntity);
@@ -249,16 +255,14 @@ public class BookingService implements IBookingService {
 		BookingDepositEntity bookingDepositEntity = bookingEntity.getBookingPaidDeposit();
 		PassengerEntity passengerEntity = bookingEntity.getBookingCreator();
 		PassengerWalletEntity passengerWalletEntity = passengerEntity.getWallet();
-		if (!bookingEntity.getStatus().equals(BookingStatus.BOOKING_PENDING_DEPOSIT.name())) {
-			throw new ResourceNotAllowException("Landlord haven't confirm booking yet");
-		} else if (amount.longValue() > passengerWalletEntity.getBalance().longValue()) {
+		if (amount.longValue() > passengerWalletEntity.getBalance().longValue()) {
 			throw new InvalidBalanceException("Wallet ballance is not enough to make a transaction");
 		} else if (!bookingEntity.getDeposit().equals(amount)) {
 			throw new InvalidBalanceException("The amount must be equal to booking deposit");
 		}
 		Long newPassengerWalletBalance = passengerWalletEntity.getBalance() - amount;
 		passengerWalletEntity.setBalance(newPassengerWalletBalance);
-		bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_CHECKIN.name());
+		bookingEntity.setStatus(BookingStatus.BOOKING_PENDING.name());
 		bookingDepositEntity.setDepositPaidAmount(amount);
 
 		return bookingDepositEntity;
@@ -350,6 +354,30 @@ public class BookingService implements IBookingService {
 		}
 
 		return bookingEntityList;
+	}
+
+	@Override
+	@Transactional
+	public BookingEntity checkInByPassengerRelative(Long bookingId, String bookingOtp) {
+		UserEntity userCheckIn = (UserEntity)authenticationService.getAuthenticatedUser();
+		BookingEntity bookingEntity = this.findBookingById(bookingId);
+		if(bookingEntity != null && userCheckIn != null) {
+			if(userCheckIn.getUsername().equals(bookingEntity.getBookingCreator().getPassengerAccount().getUsername())) {
+				return this.checkInByPassengerOrLandlord(bookingId, bookingOtp);
+			} else {
+				if(bookingOtp.equals(bookingEntity.getBookingOtp().getCode())) {
+					bookingEntity.setStatus(BookingStatus.BOOKING_CHECKIN_BY_PASSENGER_RELATIVE.name());
+					bookingEntity.setCheckInBy(userCheckIn.getUsername());
+					bookingEntity.setModifiedBy(userCheckIn.getUsername());
+					bookingEntity.setModifiedDate(currentDate);
+					return bookingEntity;
+				} else {
+					throw new ResourceNotFoundException(bookingOtp, "Booking otp not correct");
+				}
+			}
+		} else {
+			throw new ResourceNotFoundException("Booking or username not found");
+		}
 	}
 
 }

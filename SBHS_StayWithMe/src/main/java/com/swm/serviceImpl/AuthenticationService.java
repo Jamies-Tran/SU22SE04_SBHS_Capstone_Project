@@ -51,6 +51,9 @@ public class AuthenticationService implements IAuthenticationService {
 
 	@Override
 	public UserDetails getAuthenticatedUser() {
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof String && SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+			throw new UsernamePasswordNotCorrectException("Access denied");
+		}
 		UserDetails authenticatedUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
 

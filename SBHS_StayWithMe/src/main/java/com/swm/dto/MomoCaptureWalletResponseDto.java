@@ -17,5 +17,6 @@ public class MomoCaptureWalletResponseDto {
 	private Long responseTime;
 	private String message;
 	private Integer resultCode;
+	private String deeplink;
 	private String payUrl;
 }

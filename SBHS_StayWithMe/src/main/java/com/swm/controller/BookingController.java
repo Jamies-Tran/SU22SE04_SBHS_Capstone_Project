@@ -117,7 +117,7 @@ public class BookingController {
 	@PostMapping("/checkin")
 	@PreAuthorize("hasAuthority('booking:update')")
 	public ResponseEntity<?> checkInHomestay(@RequestBody CheckIn checkIn) {
-		BookingEntity bookingEntity = bookingService.verifyBookingCheckIn(checkIn.getBookingId(),
+		BookingEntity bookingEntity = bookingService.checkInByPassengerOrLandlord(checkIn.getBookingId(),
 				checkIn.getBookingOtp());
 		BookingResponseDto bookingResponseDto = bookingConvert.bookingToDto(bookingEntity);
 

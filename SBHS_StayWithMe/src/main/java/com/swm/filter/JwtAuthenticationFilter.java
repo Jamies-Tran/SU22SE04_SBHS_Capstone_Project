@@ -17,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.swm.exception.JwtTokenException;
 import com.swm.exception.ResourceNotAllowException;
+import com.swm.exception.UsernamePasswordNotCorrectException;
 import com.swm.security.token.JwtTokenUtil;
 
 
@@ -46,6 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			}
 		} catch (JwtTokenException e) {
 			System.err.println(e.getMessage());
+			SecurityContextHolder.clearContext();
 		}
 		
 		filterChain.doFilter(request, response);
