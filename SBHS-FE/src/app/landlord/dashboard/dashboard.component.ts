@@ -87,6 +87,7 @@ export class DashboardComponent implements OnInit {
           focus: 'series',
         },
 
+
         data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230],
       },
     ],

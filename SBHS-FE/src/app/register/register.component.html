@@ -51,15 +51,16 @@
               </div>
 
               <!-- email -->
-              <div *ngIf="validMail === false" style="color: red;text-align: left;margin-left: 14%;">Wrong Email Format</div>
-              <div class="register-text">
-                <mat-form-field appearance="outline">
+               <div class="register-text">
+                <mat-form-field appearance="outline" class="email-field">
                   <mat-label>Email</mat-label>
                   <input type="mail" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" matInput
                     placeholder="Email@mail.com" required>
                   <mat-icon matPrefix><i class="fa-regular fa-envelope"></i></mat-icon>
 
                 </mat-form-field>
+                <div *ngIf="validMail === false" style="color: red;text-align: left;margin-left: 14%;margin-top: -13px;">Wrong Email Format</div>
+
 
               </div>
               <!-- password -->
@@ -190,7 +191,7 @@
           <button type="submit" mat-button class="btn-register" name="btnRegister">Register</button>
           <div class="register">
             Already have an account?
-            <a routerLink="/Landlord/Dashboard" routerLinkActive="active">Log in</a>
+            <a routerLink="/Login" routerLinkActive="active">Log in</a>
           </div>
         </form>
       </div>

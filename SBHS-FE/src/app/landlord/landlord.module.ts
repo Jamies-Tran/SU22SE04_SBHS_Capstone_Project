@@ -29,6 +29,7 @@ import { initializeApp } from 'firebase/app';
 import { BookingComponent } from './booking/booking.component';
 import { BookingDetailComponent } from './booking/booking-detail/booking-detail.component';
 import { NgxEditorModule } from 'ngx-editor';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 
 
@@ -66,6 +67,7 @@ import { NgxEditorModule } from 'ngx-editor';
     MatIconModule,
     NgxEditorModule,
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
+    GooglePlaceModule
   ]
 })
 export class LandlordModule { }

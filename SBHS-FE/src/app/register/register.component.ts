@@ -103,7 +103,7 @@ export class RegisterComponent implements OnInit {
           },
           (error) => {
             if (error['status'] == 500) {
-              this.registerError = 'please check your phone number!';
+              this.registerError = error;
             } else this.registerError = error['message'];
           }
         );

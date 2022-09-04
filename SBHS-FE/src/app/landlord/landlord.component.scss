@@ -6,13 +6,19 @@
 .sidenav {
   background-color: #283342;
   transition: all .5s ease;
-  // position: fixed;
+
   z-index: 1;
   top: 0;
   left: 0;
   width: 256px;
   min-height: 100vh;
-  box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
+
+  .hr-line{
+    width: calc(100% - 30px);
+    margin: 0 0 10px 15px;
+    background-color: white;
+
+  }
 
 }
 
@@ -21,8 +27,8 @@
   align-items: center;
   padding: 0;
   width: 100%;
-  height: 60px;
-  background-color: navy;
+  height: 74px;
+
 
   .logo {
     background-color: white;
@@ -183,7 +189,8 @@
       color: white;
     }
   }
-  .btn-profile:hover{
+
+  .btn-profile:hover {
     background-color: #009099;
     color: white;
   }
@@ -267,64 +274,23 @@
 .body {
 
   min-height: 100vh;
-  width: 100vw;
-  margin-left: 10px;
+  // width: 100vw;
+  width: -webkit-fill-available;
   z-index: 0;
   position: relative;
   top: 0;
   transition: #f4f7fa;
   word-break: break-all;
-  width: npx;
+  width: calc(100% - 256px);
+  background-color: white;
 
 
-  .search {
-    background-color: #d6d4d4;
-    margin-top: 16px;
-    margin-left: 24px;
-    margin-right: 20px;
-    margin-bottom: 2px;
-    position: relative;
-    box-shadow: 0 0 40px rgba(51, 51, 51, .1);
-    align-items: center;
-    display: flex;
-    justify-content: center;
+  .header {
 
-    //
-
-
-    input {
-
-      height: 60px;
-      text-indent: 25px;
-      border: 2px solid #d6d4d4;
-      width: -webkit-fill-available;
-      padding-left: 18px;
-      font-size: 18px;
-      color: #898989;
-    }
-
-
-     input:focus {
-      box-shadow: none;
-      border: 2px solid blue;
-    }
-
-    .search-icon {
-      position: absolute;
-      top: 20px;
-      left: 16px;
-    }
-
-     .btn {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      height: 50px;
-      width: 110px;
-      background: blue;
-      color: white;
-      font-size: 18px;
-    }
+    // height: 61px;
+    // background-color: white;
+    // border-bottom: 1px solid gray;
+    min-height: 75px;
   }
 }
 
@@ -350,11 +316,7 @@ body {
 
 }
 
-@media (max-width:1500px) {
-  .body {
-    max-width: 80%;
-  }
-}
+
 
 @media (max-width: 768px) {
   .sidenav {
@@ -422,8 +384,5 @@ body {
     }
   }
 
-  .body {
-    max-width: 85%;
-  }
-}
 
+}

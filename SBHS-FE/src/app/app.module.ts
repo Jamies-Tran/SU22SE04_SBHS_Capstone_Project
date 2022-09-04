@@ -25,6 +25,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxEditorModule } from 'ngx-editor';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -34,6 +36,7 @@ import { LandlordComponent } from './landlord/landlord.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { AdminComponent } from './admin/admin.component';
 import { Page1Component } from './page1/page1.component';
+
 
 @NgModule({
   declarations: [
@@ -75,6 +78,7 @@ import { Page1Component } from './page1/page1.component';
     MatExpansionModule,
     NgxEditorModule,
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
+    GooglePlaceModule
   ],
   providers: [],
   bootstrap: [AppComponent],

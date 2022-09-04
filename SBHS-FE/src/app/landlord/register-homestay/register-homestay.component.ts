@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import {
@@ -12,6 +12,7 @@ import { ServerHttpService } from 'src/app/services/register-homestay.service';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
 interface City {
   value: string;
@@ -33,6 +34,21 @@ export class RegisterHomestayComponent implements OnInit {
 
   newServices: any[] = [];
   newFacility: any[] = [];
+
+  // API Google Map
+
+  formattedaddress = ' ';
+  options = {
+    types: ['address'],
+    componentRestrictions: {
+      country: ['VN'],
+    },
+  } as unknown as Options;
+  public handleAddressChange(address: any) {
+    //setting address from API to local variable
+    this.formattedaddress = address.formatted_address;
+    console.log('address' , address);
+  }
 
   // richtext
   editor!: Editor;
@@ -57,7 +73,7 @@ export class RegisterHomestayComponent implements OnInit {
 
   removeFacility(i: any) {
     this.newFacility.splice(i, 1);
-    console.log('delete',this.newFacility.length + i);
+    console.log('delete', this.newFacility.length + i);
   }
 
   resetFacility(): void {
@@ -187,9 +203,6 @@ export class RegisterHomestayComponent implements OnInit {
     }
   }
 
-
-
-
   serviceFormGroup = this._formBuilder.group({
     wifi: false,
     wifiPrice: [{ value: '', disabled: true }],
@@ -273,7 +286,6 @@ export class RegisterHomestayComponent implements OnInit {
     }
   }
 
-
   paymentFormGroup = this._formBuilder.group({});
   registerError: string = '';
 
@@ -285,17 +297,26 @@ export class RegisterHomestayComponent implements OnInit {
     private storage: AngularFireStorage,
     private db: AngularFirestore
   ) {}
-    ListSpecialDay :any[] = [];
+  ListSpecialDay: any[] = [];
   ngOnInit(): void {
     this.editor = new Editor();
-    this.http.getSpecialDay().subscribe((data =>{
-      for(let items of data){
-        this.ListSpecialDay.push({description:items.description, endDay:items.endDay, endMonth:items.endMonth, id:items.id , specialDayCode:items.specialDayCode, startDay:items.startDay, startMonth:items.startMonth, status:false});
+    this.http.getSpecialDay().subscribe((data) => {
+      for (let items of data) {
+        this.ListSpecialDay.push({
+          description: items.description,
+          endDay: items.endDay,
+          endMonth: items.endMonth,
+          id: items.id,
+          specialDayCode: items.specialDayCode,
+          startDay: items.startDay,
+          startMonth: items.startMonth,
+          status: false,
+        });
       }
       // this.ListSpecialDay = data
       // console.log(this.ListSpecialDay)
+    });
 
-    }))
   }
 
   ngOnDestroy(): void {

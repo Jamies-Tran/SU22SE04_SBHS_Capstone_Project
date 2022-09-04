@@ -122,17 +122,22 @@
           .register-col {
 
             .register-text {
-              .blank {
-                height: 77.88px;
-              }
+              height: 77.88px;
+              // .blank {
+              //   height: 77.88px;
+              // }
 
               .mat-form-field {
                 width: 75%;
+
 
                 .mat-icon {
                   margin-right: 3px;
                 }
 
+              }
+              .email-field{
+                height: 70.88px;
               }
             }
 
