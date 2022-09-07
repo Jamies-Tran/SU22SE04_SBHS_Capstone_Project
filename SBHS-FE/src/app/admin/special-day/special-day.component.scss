@@ -5,9 +5,7 @@
     width: 100%;
 
     .add-input {
-      background: rgba(29, 36, 46, 0.08);
-      border-radius: 30px;
-      padding-bottom: 3rem;
+
       margin-bottom: 2%;
 
 
@@ -302,6 +300,9 @@
         font-weight: 500;
         background-color: rgb(248, 33, 119);
       }
+      .submit{
+        width: 88px;
+      }
 
       .btn-back,
       .btn-reset {
@@ -313,4 +314,8 @@
       }
     }
   }
+}
+.card{
+  box-shadow: 0 0 5px #c4cacc;
+  padding:0 1% ;
 }

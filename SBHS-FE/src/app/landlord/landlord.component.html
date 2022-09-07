@@ -111,21 +111,41 @@
   <div class="body">
     <!-- header search -->
 
-    <div class="header navbar navbar-top border-bottom">
-      <div class="container-fluid"></div>
-      <div class="row user">
-        <div class="icon navbar-brand">
+    <div class="header navbar navbar-top border-bottom ">
+      <div class="container-fluid">
+        <div class="row user ">
+          <div class="col icon ">
+           <img [src]="avatarUrl" class="rounded-pill avatar">
+          </div>
+          <div class="col username">
+            <div class="name">{{username}} </div>
+            <div class="roles">Landlord</div>
+          </div>
+          <div class="col collapse-avatar">
+            <button mat-icon-button [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu" class="btn-collapse-avatar">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <a mat-menu-item routerLink="/Landlord/Profile">
+                <mat-icon>account_circle</mat-icon>
+                <span>Profile</span>
+              </a>
+              <button mat-menu-item (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
+              </button>
 
-          <i class="fa fa-house-chimney-user rounded-pill"></i>
-
+            </mat-menu>
+          </div>
+          <div class="col logout">
+            <button mat-icon-button (click)="logout()" class="btn-logout">
+              <i class="fa fa-sign-out"></i>
+            </button>
+          </div>
         </div>
-        <div class="col username">
-          <div class="name">{{username}}</div>
-          <div class="roles">Landlord</div>
-        </div>
-        <div class="collapse-avatar"></div>
-        <div class="logout"></div>
       </div>
+
     </div>
 
     <!-- Body page -->
@@ -143,3 +163,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+<!-- GOONG MAP -->
+<script src="https://cdn.jsdelivr.net/npm/@goongmaps/goong-geocoder@1.1.1/dist/goong-geocoder.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@goongmaps/goong-geocoder@1.1.1/dist/goong-geocoder.css" rel="stylesheet"
+  type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>

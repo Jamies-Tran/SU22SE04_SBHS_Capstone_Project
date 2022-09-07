@@ -15,7 +15,7 @@ export class BookingComponent implements OnInit {
   POST:any;
   page: number = 1;
   count: number=0;
-  tableSize: number =5;
+  tableSize: number = 5;
   tableSizes: any= [5,10,15,20];
   values : any;
 
@@ -28,7 +28,7 @@ export class BookingComponent implements OnInit {
   registerError: string ="";
   constructor(private http: ServerHttpService) { }
 
- 
+
   ngOnInit(): void {
     this.getRequestBookingByName();
     this.getHomestayName()

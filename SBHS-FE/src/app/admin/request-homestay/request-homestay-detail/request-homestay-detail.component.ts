@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerHttpService } from 'src/app/services/verify-homestay.service';
 import { ImageService } from '../../../services/image.service';
+import { Editor, Toolbar } from 'ngx-editor';
+
 
 @Component({
   selector: 'app-request-homestay-detail',
@@ -32,7 +34,22 @@ export class RequestHomestayDetailComponent implements OnInit {
   registerError: string ="";
   constructor(private http: ServerHttpService,private image: ImageService) { }
 
+  // richtext
+  editor!: Editor;
+  html!: '';
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+
   ngOnInit(): void {
+    this.editor = new Editor();
     this.http.getRequestHomestayDetail().subscribe(async (data) =>{
       this.createdBy = data["createdBy"]
       this.homestayName = data["homestayName"]

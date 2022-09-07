@@ -97,10 +97,16 @@
             <div class="fill-text">
               <p>Description:</p>
             </div>
-            <div class="fill-input-address">
+            <!-- <div class="fill-input-address">
               <textarea readonly>{{description}}</textarea>
-            </div>
+            </div> -->
+
           </div>
+        </div>
+        <div class="editor fill-input-address">
+          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+          <ngx-editor readonly class="edit-text" [editor]="editor" >{{description}}
+          </ngx-editor>
         </div>
       </div>
 
@@ -199,7 +205,8 @@
     </div>
   </div>
   <div class="button">
-    <button class="btn-accept" mat-raised-button (click)="accept()">Accept</button>
-    <button class="btn-denied" mat-raised-button (click)="reject()">Denied</button>
+     <button class="btn-denied" mat-raised-button (click)="reject()">Denied</button>
+     <button class="btn-accept" mat-raised-button (click)="accept()">Accept</button>
+
   </div>
 </div>

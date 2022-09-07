@@ -23,6 +23,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import { NgxEchartsModule } from 'ngx-echarts';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { enviroment } from 'src/enviroment/enviroment';
 import { initializeApp } from 'firebase/app';
@@ -67,7 +68,8 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     MatIconModule,
     NgxEditorModule,
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
-    GooglePlaceModule
+    GooglePlaceModule,
+    MatMenuModule
   ]
 })
 export class LandlordModule { }

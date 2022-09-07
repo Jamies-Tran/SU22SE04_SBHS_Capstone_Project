@@ -2,7 +2,7 @@
   <div class="header">
     <h1>Request List</h1>
   </div>
-  <div class="body">
+  <div class="body card">
     <div *ngIf="registerError != null">
       <h1 style="color: red;">{{registerError}}</h1>
     </div>
@@ -15,14 +15,7 @@
           <option>Reject</option>
         </select>
       </div>
-      <div>
-        Choose item in page:
-        <select (change)="onTableSizeChange($event)">
-          <option *ngFor="let size of tableSizes">
-            {{size}}
-          </option>
-        </select>
-      </div>
+
 
     </div>
 
@@ -62,9 +55,22 @@
         </tr>
       </tbody>
     </table>
-    <div>
-      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+    <div class="row">
+      <div class="col-sm-9">
+        <div >
+          choose item in page:
+          <select (change)="onTableSizeChange($event)">
+            <option *ngFor="let size of tableSizes">
+              {{size}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
       </pagination-controls>
+      </div>
+
     </div>
   </div>
 </div>

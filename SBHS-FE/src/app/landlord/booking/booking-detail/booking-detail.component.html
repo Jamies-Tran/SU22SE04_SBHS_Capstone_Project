@@ -1,324 +1,243 @@
 <div class="wrapper">
-  <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div>
-  <!-- <div class="card">
-    <h1>Passenger Information</h1>
-    <div class="landlord">
-      <div class="avatar">
-        <div class="avatar-image">
-          <img src="/assets/image/avatar.jpg" alt="avatar">
+  <div class="container-fluid">
+    <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div>
+    <div class="header">
+      <h1>Booking Information</h1>
+    </div>
+
+    <div class="card">
+
+      <div class="card-image">
+        <div class="image">
+          <img src="/assets/image/1.jpg">
+        </div>
+        <div class="image">
+          <img src="/assets/image/1.jpg">
+        </div>
+        <div class="image">
+          <img src="/assets/image/1.jpg">
         </div>
       </div>
-      <div class="infor">
-        <div class="infor-row">
-          <div class="infor-col"> -->
-            <!-- Full name -->
-            <!-- <div class="fill">
-              <div class="fill-text">
-                <p>Name:</p>
-              </div>
-              <div class="fill-input">
-                <p>Nguyen Phuong Quansd Quaasdasdasdng Quanasdasdg</p>
-              </div>
-            </div> -->
-            <!-- email -->
-            <!-- <div class="fill">
-              <div class="fill-text">
-                <p>Email:</p>
-              </div>
-              <div class="fill-input">
-                <p>quang@gmail.com</p>
-              </div>
-            </div> -->
-            <!-- Day of birth -->
-            <!-- <div class="fill">
-              <div class="fill-text">
-                <p>Day of Birth:</p>
-              </div>
-              <div class="fill-input">
-                <p>01/01/1999</p>
-              </div>
-            </div> -->
+      <div class="card-homestay">
 
-            <!-- Address -->
-            <!-- <div class="fill">
-              <div class="fill-text">
-                <p>Address:</p>
+        <div class="homestay">
+          <div class="infor">
+            <div class="infor-row">
+              <div class="infor-col">
+                <!-- Full name -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Booker:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{passengerName}}</p>
+                  </div>
+                </div>
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Email:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{passengerEmail}}</p>
+                  </div>
+                </div>
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Phone:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{passengerPhone}}</p>
+                  </div>
+                </div>
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Homestay Name:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{homestayName}}</p>
+                  </div>
+                </div>
+                <!-- Price -->
+                <!-- <div class="fill">
+                  <div class="fill-text">
+                    <p>Price:</p>
+                  </div>
+                  <div class="fill-input price">
+                    <p>{{price}}</p>
+                  </div>
+                </div> -->
+                <!-- Check-in time -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Check-in: </p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{checkIn}}</p>
+                  </div>
+                </div>
+                <!-- Address -->
+                <div class="fill address">
+                  <div class="fill-text">
+                    <p>Address:</p>
+                  </div>
+                  <div class="fill-input-address">
+                    <p>{{homestayLocation}}</p>
+                  </div>
+                </div>
               </div>
-              <div class="fill-input-address">
-                <p>123 Pham Van Dong q. Thu duc 123 Pham Van Dong q. Thu duc</p>
+              <div class="infor-col">
+                <!-- Number of room -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Number of room:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>3</p>
+                  </div>
+                </div>
+                <!-- Gender -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>City:</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{homestayCity}}</p>
+                  </div>
+                </div>
+                <!-- Check-out time -->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p>Check-out: </p>
+                  </div>
+                  <div class="fill-input">
+                    <p>{{checkOut}}</p>
+                  </div>
+                </div>
+                <!-- blank-->
+                <div class="fill">
+                  <div class="fill-text">
+                    <p></p>
+                  </div>
+                  <div class="fill-input">
+                    <p></p>
+                  </div>
+                </div>
+
+
               </div>
             </div>
+            <div class="infor-row day-night">
 
-          </div>
-          <div class="infor-col"> -->
-            <!-- Role -->
-            <!-- <div class="fill">
-              <div class="fill-text">
-                <p>Role:</p>
-              </div>
-              <div class="fill-input">
-                <p>Passenger</p>
-              </div>
-            </div> -->
-            <!-- Gender -->
-            <!-- <div class="fill">
-              <div class="fill-text">
-                <p>Gender:</p>
-              </div>
-              <div class="fill-input">
-                <p>Male</p>
-              </div>
-            </div> -->
-            <!-- Phone -->
-            <!-- <div class="fill">
-              <div class="fill-text">
-                <p>Phone:</p>
-              </div>
-              <div class="fill-input">
-                <p>09123456789</p>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-
-<!-- 
-      </div>
-
-    </div> -->
-
-  <!-- </div> -->
-  <div class="card">
-    <h1>Booking Information</h1>
-    <div class="card-image">
-      <div class="image">
-        <img src="/assets/image/1.jpg">
-      </div>
-      <div class="image">
-        <img src="/assets/image/1.jpg">
-      </div>
-      <div class="image">
-        <img src="/assets/image/1.jpg">
-      </div>
-    </div>
-    <div class="card-homestay">
-
-      <div class="homestay">
-        <div class="infor">
-          <div class="infor-row">
-            <div class="infor-col">
-              <!-- Full name -->
-              <div class="fill">
-                <div class="fill-text">
-                  <p>Booker:</p>
-                </div>
-                <div class="fill-input">
-                  <p>{{passengerName}}</p>
+              <div class="infor-col">
+                <div class="fill ">
+                  <div class="fill-text">
+                    <p>1 Homestay</p>
+                  </div>
                 </div>
               </div>
-              <div class="fill">
-                <div class="fill-text">
-                  <p>Email:</p>
-                </div>
-                <div class="fill-input">
-                  <p>{{passengerEmail}}</p>
-                </div>
-              </div>
-              <div class="fill">
-                <div class="fill-text">
-                  <p>Phone:</p>
-                </div>
-                <div class="fill-input">
-                  <p>{{passengerPhone}}</p>
-                </div>
-              </div>
-              <div class="fill">
-                <div class="fill-text">
-                  <p>Homestay Name:</p>
-                </div>
-                <div class="fill-input">
-                  <p>{{homestayName}}</p>
-                </div>
-              </div>
-              <!-- Price -->
-              <!-- <div class="fill">
-                <div class="fill-text">
-                  <p>Price:</p>
-                </div>
-                <div class="fill-input price">
-                  <p>{{price}}</p>
-                </div>
-              </div> -->
-              <!-- Check-in time -->
-              <div class="fill">
-                <div class="fill-text">
-                  <p>Check-in: </p>
-                </div>
-                <div class="fill-input">
-                  <p>{{checkIn}}</p>
-                </div>
-              </div>
-              <!-- Address -->
-              <div class="fill address">
-                <div class="fill-text">
-                  <p>Address:</p>
-                </div>
-                <div class="fill-input-address">
-                  <p>{{homestayLocation}}</p>
-                </div>
-              </div>
-            </div>
-            <div class="infor-col">
-              <!-- Number of room -->
-              <div class="fill">
-                <div class="fill-text">
-                  <p>Number of room:</p>
-                </div>
-                <div class="fill-input">
-                  <p>3</p>
-                </div>
-              </div>
-              <!-- Gender -->
-              <div class="fill">
-                <div class="fill-text">
-                  <p>City:</p>
-                </div>
-                <div class="fill-input">
-                  <p>{{homestayCity}}</p>
-                </div>
-              </div>
-              <!-- Check-out time -->
-              <div class="fill">
-                <div class="fill-text">
-                  <p>Check-out: </p>
-                </div>
-                <div class="fill-input">
-                  <p>{{checkOut}}</p>
-                </div>
-              </div>
-              <!-- blank-->
-              <div class="fill">
-                <div class="fill-text">
-                  <p></p>
-                </div>
-                <div class="fill-input">
-                  <p></p>
-                </div>
-              </div>
-
-
-            </div>
-          </div>
-          <div class="infor-row day-night">
-
-            <div class="infor-col">
-              <div class="fill ">
-                <div class="fill-text">
-                  <p>1 Homestay</p>
-                </div>
-              </div>
-            </div>
-            <!-- <div class="infor-col">
-              <div class="fill ">
-                <div class="fill-text money">
-                  <p>$100.000</p>
-                </div>
-              </div>
-            </div> -->
-
-          </div>
-          <hr>
-          <div class="infor-row serv-faci">
-            <div class="infor-col">
-
-              <!-- Service -->
-              <div class="fill ">
-                <div class="fill-text">
-                  <h2>Service</h2>
-                </div>
-                <div class="fill-input">
-                  <p> </p>
-                </div>
-              </div>
-
-              <!-- Service 1 -->
-              <div class="fill" *ngFor="let item of homestayServiceList">
-                <div class="fill-text">
-                  <p>{{item.name}}</p>
-                </div>
-                <div class="fill-input">
-                  <p> {{item.price}}</p>
-                </div>
-              </div>
-              <!-- <div class="fill day-night">
-                <div class="fill-text">
-                  <p>Service</p>
-                </div>
-                <div class="fill-text money">
-                  <p>$100.000</p>
-                </div>
-              </div> -->
-            </div>
-
-
-
-            <div class="infor-col">
-              <!-- Facility -->
-              <!-- <div class="fill ">
-                <div class="fill-text">
-                  <h2>Facility</h2>
-                </div>
-                <div class="fill-input">
-                  <p> </p>
-                </div>
-              </div> -->
-              <!-- No1 -->
-              <!-- <div class="fill ">
-                <div class="fill-text">
-                  <p>No.1 Facility</p>
-                </div>
-                <div class="fill-input">
-                  <p>amount: 1 </p>
-                </div>
-              </div> -->
-              <!-- No1 -->
-              <!-- <div class="fill ">
-                <div class="fill-text">
-                  <p>No.1 Facility</p>
-                </div>
-                <div class="fill-input">
-                  <p>amount: 1 </p>
-                </div>
-              </div> -->
-              <!-- No1 -->
-              <!-- <div class="fill ">
-                <div class="fill-text">
-                  <p>No.1 Facility</p>
-                </div>
-                <div class="fill-input">
-                  <p>amount: 1 </p>
+              <!-- <div class="infor-col">
+                <div class="fill ">
+                  <div class="fill-text money">
+                    <p>$100.000</p>
+                  </div>
                 </div>
               </div> -->
 
-
             </div>
-          </div>
-          <hr>
-          <div class="infor-row day-night">
+            <hr>
+            <div class="infor-row serv-faci">
+              <div class="infor-col">
 
-            <div class="infor-col">
-              <div class="fill ">
-                <div class="fill-text">
-                  <p>Total</p>
+                <!-- Service -->
+                <div class="fill ">
+                  <div class="fill-text">
+                    <h2>Service</h2>
+                  </div>
+                  <div class="fill-input">
+                    <p> </p>
+                  </div>
                 </div>
+
+                <!-- Service 1 -->
+                <div class="fill" *ngFor="let item of homestayServiceList">
+                  <div class="fill-text">
+                    <p>{{item.name}}</p>
+                  </div>
+                  <div class="fill-input">
+                    <p> {{item.price}}</p>
+                  </div>
+                </div>
+                <!-- <div class="fill day-night">
+                  <div class="fill-text">
+                    <p>Service</p>
+                  </div>
+                  <div class="fill-text money">
+                    <p>$100.000</p>
+                  </div>
+                </div> -->
+              </div>
+
+
+
+              <div class="infor-col">
+                <!-- Facility -->
+                <!-- <div class="fill ">
+                  <div class="fill-text">
+                    <h2>Facility</h2>
+                  </div>
+                  <div class="fill-input">
+                    <p> </p>
+                  </div>
+                </div> -->
+                <!-- No1 -->
+                <!-- <div class="fill ">
+                  <div class="fill-text">
+                    <p>No.1 Facility</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>amount: 1 </p>
+                  </div>
+                </div> -->
+                <!-- No1 -->
+                <!-- <div class="fill ">
+                  <div class="fill-text">
+                    <p>No.1 Facility</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>amount: 1 </p>
+                  </div>
+                </div> -->
+                <!-- No1 -->
+                <!-- <div class="fill ">
+                  <div class="fill-text">
+                    <p>No.1 Facility</p>
+                  </div>
+                  <div class="fill-input">
+                    <p>amount: 1 </p>
+                  </div>
+                </div> -->
+
+
               </div>
             </div>
-            <div class="infor-col">
-              <div class="fill ">
-                <div class="fill-text money">
-                  <p>{{totalPrice}}</p>
+            <hr>
+            <div class="infor-row day-night">
+
+              <div class="infor-col">
+                <div class="fill ">
+                  <div class="fill-text">
+                    <p>Total</p>
+                  </div>
                 </div>
               </div>
+              <div class="infor-col">
+                <div class="fill ">
+                  <div class="fill-text money">
+                    <p>{{totalPrice}}</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -326,12 +245,13 @@
         </div>
 
       </div>
+    </div>
+    <div class="button">
+      <button class="btn-denied" mat-raised-button (click)="reject()">Denied</button>
+      <button class="btn-accept" mat-raised-button (click)="accept()">Accept</button>
+
 
     </div>
   </div>
-  <div class="button">
-    <button class="btn-accept" mat-raised-button (click)="accept()">Accept</button>
-    <button class="btn-denied" mat-raised-button (click)="reject()">Denied</button>
-    
-  </div>
+
 </div>

@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatRippleModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-
+    NgxEditorModule,
     MatCheckboxModule,
     MatRadioModule,
   ],

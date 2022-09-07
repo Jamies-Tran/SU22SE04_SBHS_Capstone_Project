@@ -5,7 +5,7 @@
   <div class="header">
     <h1>Request List</h1>
   </div>
-  <div class="body">
+  <div class="body card">
     <div class="body-container">
       <div style="float:left; margin-right:15px;">
         <select [(ngModel)]="status" (click)="getStatusHomestay()">
@@ -15,14 +15,7 @@
           <option>Reject</option>
         </select>
       </div>
-      <div>
-        Choose item in page:
-        <select (change)="onTableSizeChange($event)">
-          <option *ngFor="let size of tableSizes">
-            {{size}}
-          </option>
-        </select>
-      </div>
+
 
     </div>
     <table class="table table-striped">
@@ -37,7 +30,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let post of values">
+        <tr *ngFor="let post of values| paginate:{
+          itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems: count
+        };
+        let i = index">
           <td>{{post.id}}</td>
           <td>{{post.createdBy}}</td>
           <td>{{post.createdDate}}</td>
@@ -56,9 +54,22 @@
         </tr>
       </tbody>
     </table>
-    <div>
-      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+    <div class="row">
+      <div class="col-sm-9">
+        <div >
+          choose item in page:
+          <select (change)="onTableSizeChange($event)">
+            <option *ngFor="let size of tableSizes">
+              {{size}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
       </pagination-controls>
+      </div>
+
     </div>
   </div>
 </div>

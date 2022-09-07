@@ -4,9 +4,9 @@
     <div class="body-container">
       <div class="row-avatar-infor">
 
-        <div class="avatar">
+        <div class="avatar card">
           <div class="div-avatar">
-            <img [src]="avatarUrl" alt="avatar"></div>
+            <img [src]="avatarUrl" ></div>
 
           <div class="balance">
 
@@ -61,8 +61,8 @@
 
 
         <!-- Edit Information -->
-        <div class="infor">
-          <div class="card-col">
+        <div class="infor ">
+          <div class="card-col card">
 
             <div class="car-header">
               <h1>Profile</h1>
@@ -97,15 +97,7 @@
                     <p>{{gender}}</p>
                   </div>
                 </div>
-                <!-- Address -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Address:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{address}}</p>
-                  </div>
-                </div>
+
 
 
               </div>
@@ -141,10 +133,22 @@
                 </div>
               </div>
             </div>
+            <!-- Address -->
+            <div class="address">
+              <div class="fill">
+              <div class="fill-text">
+                <p>Address:</p>
+              </div>
+              <div class="fill-input">
+                <p>{{address}}</p>
+              </div>
+            </div>
+            </div>
+
           </div>
 
           <!-- Add Balance -->
-          <div class="card-col" *ngIf="showDiv.addBalance">
+          <div class="card-col card" *ngIf="showDiv.addBalance">
 
             <div class="car-header">
               <h1>Add Balance</h1>
@@ -177,7 +181,7 @@
           </div>
 
           <!-- Cash Out -->
-          <div class="card-col" *ngIf="showDiv.cashOut">
+          <div class="card-col card" *ngIf="showDiv.cashOut">
             <div class="car-header">
               <h1>Cash Out</h1>
             </div>
@@ -262,7 +266,7 @@
 
           </div>
           <!-- Change Password -->
-          <div class="card-col" *ngIf="showDiv.changePass">
+          <div class="card-col card" *ngIf="showDiv.changePass">
 
             <div class="car-header">
               <h1>Change Password</h1>

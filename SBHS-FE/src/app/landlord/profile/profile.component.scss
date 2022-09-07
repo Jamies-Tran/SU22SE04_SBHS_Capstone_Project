@@ -8,20 +8,18 @@
     margin-top: 1%;
 
     .body-container {
-      // background-color: rgba(29, 36, 46, 0.08);
-      // border-radius: 30px;
-      // display: flex;
+
       flex-direction: column;
       margin-left: 1%;
       padding: 1%;
+      margin-right: 1%;
 
       .row-avatar-infor {
         // display: flex;
 
 
         .avatar {
-          background-color: rgba(29, 36, 46, 0.08);
-          border-radius: 20px;
+
           margin-left: 0;
           width: 270px;
           text-align: center;
@@ -62,7 +60,7 @@
             }
 
             .box-title {
-              background: rgb(237 238 239) none repeat scroll 0 0;
+              background: rgb(255 255 255) none repeat scroll 0 0;
               display: inline-block;
               padding: 0 4px;
               text-align: center;
@@ -85,7 +83,6 @@
                 font-size: 16px;
                 font-weight: 500;
                 // background-color: rgb(248, 33, 119);
-                background-color: #D9D9D9;
                 margin-bottom: 5px;
                 box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
                 cursor: pointer;
@@ -102,16 +99,7 @@
 
               }
 
-              .btn-out {
-                padding: 0%;
-                width: 100%;
-                border-radius: 1rem;
-                background-color: #D9D9D9;
-                margin: 0;
-                font-size: 14px;
-                font-weight: 500;
-                margin-bottom: 5px;
-              }
+
             }
 
             .box-contents {
@@ -135,8 +123,7 @@
           flex-direction: column;
 
           .card-col {
-            background-color: rgba(29, 36, 46, 0.08);
-            border-radius: 20px;
+
             margin: 0 1.5%;
             width: 100%;
             padding: 2% 2%;
@@ -253,11 +240,43 @@
     }
   }
 }
+.address{
+  .fill {
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 2.5%;
+    display: flex;
+    margin-bottom: 40px;
+
+    .fill-text {
+      float: left;
+      width: 128px;
+      overflow: hidden;
+      height: 26px;
+      padding-top: 8px;
+    }
+
+    .fill-input {
+      float: left;
+      width: 85%;
+      border-bottom: 1px solid black;
+      padding-left: 18px;
+      height: 25px;
+      overflow: hidden;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+}
 
 // .active {
 //   background-color: rgb(248, 33, 119) !important;
 // }
 
 .default {
-  background-color: #D9D9D9 !important;
+  background-color: #ffffff !important;
+}
+.card{
+  box-shadow: 0 0 5px #c4cacc;
+  padding:0 1% ;
 }

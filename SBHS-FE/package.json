@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
+    "@goongmaps/goong-geocoder": "^1.1.1",
     "@syncfusion/ej2-angular-richtexteditor": "^20.2.43",
     "angular-base64": "^2.0.5",
     "echarts": "^5.3.3",

@@ -4,16 +4,19 @@
 }
 
 .sidenav {
-  background-color: #283342;
+  background-color: #051e34;
+  background-image: url("https://www.gstatic.com/mobilesdk/190424_mobilesdk/nav_nachos@2x.png");
   transition: all .5s ease;
-
+  background-position: left 0 bottom 0;
+  background-repeat: no-repeat;
   z-index: 1;
   top: 0;
   left: 0;
   width: 256px;
   min-height: 100vh;
+  background-size: contain;
 
-  .hr-line{
+  .hr-line {
     width: calc(100% - 30px);
     margin: 0 0 10px 15px;
     background-color: white;
@@ -57,7 +60,7 @@
 
 
 .sidenav-container {
-  background-color: #283342;
+
 
   .profile-name {
     display: flex;
@@ -152,7 +155,7 @@
     // height: calc(100% - 3.65rem);
     height: 40px;
     cursor: pointer;
-    background-color: #283342;
+
 
     .sidenav-nav-item {
       width: 100%;
@@ -203,7 +206,7 @@
     align-items: center;
     // height: calc(100% - 3.65rem);
     height: 40px;
-    background-color: #283342;
+
 
     .sidenav-nav-no-item {
       width: 100%;
@@ -241,7 +244,8 @@
     .sublevel-nav-item {
 
       .sublevel-nav-link {
-        background-color: #1C2531;
+        // background-color: #1C2531;
+        background-color: rgb(0 0 0 / 20%);
         display: flex;
         align-items: center;
         height: 3rem;
@@ -272,9 +276,7 @@
 }
 
 .body {
-
   min-height: 100vh;
-  // width: 100vw;
   width: -webkit-fill-available;
   z-index: 0;
   position: relative;
@@ -282,15 +284,62 @@
   transition: #f4f7fa;
   word-break: break-all;
   width: calc(100% - 256px);
-  background-color: white;
+  background-color: #f4f6fb;
 
 
   .header {
 
-    // height: 61px;
-    // background-color: white;
-    // border-bottom: 1px solid gray;
+    padding: 0%;
     min-height: 75px;
+
+    .container-fluid {
+      flex-direction: row-reverse;
+    }
+
+    .user {
+      align-content: center;
+      align-items: center;
+
+      .icon {
+        .avatar {
+          width: 40px;
+        }
+      }
+
+      .username {
+        width: fit-content;
+
+        .name {
+          white-space: nowrap;
+          font-size: 18px;
+          font-weight: 500;
+          text-overflow: hide;
+          min-height: 19px;
+          line-height: 18px;
+        }
+
+        .roles {
+          font-size: 12px;
+          font-weight: 400;
+          white-space: nowrap;
+
+        }
+      }
+      .collapse-avatar{
+        padding-right: 0%;
+        .btn-collapse-avatar{
+          font-size: 20px;
+
+        }
+      }
+      .logout{
+        .btn-logout{
+
+          font-size: 20px;
+          color: #9a9a9a;
+        }
+      }
+    }
   }
 }
 
@@ -311,10 +360,7 @@
   box-sizing: border-box;
 }
 
-body {
-  position: relative;
 
-}
 
 
 

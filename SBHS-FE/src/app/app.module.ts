@@ -25,7 +25,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxEditorModule } from 'ngx-editor';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 
 import { AppComponent } from './app.component';
@@ -78,7 +79,8 @@ import { Page1Component } from './page1/page1.component';
     MatExpansionModule,
     NgxEditorModule,
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
-    GooglePlaceModule
+    MatMenuModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

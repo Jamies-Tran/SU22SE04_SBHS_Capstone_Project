@@ -10,9 +10,9 @@
       </button>
       <div class="logo-text" ng-if="collapsed">Stay With Me</div>
     </div>
-
+    <hr class="hr-line">
     <div class="sidenav-container">
-      <div class="profile">
+      <!-- <div class="profile">
         <div class="profile-name">
           <div class="logo">
             <i class="fa fa-house-chimney-user"></i>
@@ -27,20 +27,12 @@
         </div>
 
         <div class="row profile-icon">
-          <a class="col-sm-3 btn-profile">
-            <!-- <i class="fa fa-user"></i> -->
-          </a>
-          <a class="col-sm-3 btn-profile">
-            <!-- <i class="fa fa-user"></i> -->
-          </a>
-          <a class="col-sm-3 btn-profile">
-            <!-- <i class="fa fa-user"></i> -->
-          </a>
+
           <a class="col-sm-3 btn-profile" (click)="logout()">
             <i class="fa fa-sign-out"></i>
           </a>
         </div>
-      </div>
+      </div> -->
 
       <!-- chon -->
       <!-- Request Landlord -->
@@ -126,17 +118,46 @@
   <div class="body">
     <!-- header search -->
 
-    <div class="search">
-      <i class="search-icon fas fa-search"></i>
-      <input type="text" class="form-control " placeholder="Search now" />
-      <button class="btn btn-primary">Search</button>
+    <div class="header navbar navbar-top border-bottom ">
+      <div class="container-fluid">
+        <div class="row user ">
+          <div class="col icon ">
+           <img [src]="avatarUrl" class="rounded-pill avatar">
+          </div>
+          <div class="col username">
+            <div class="name">{{username}} </div>
+            <div class="roles">Admin</div>
+          </div>
+          <div class="col collapse-avatar">
+            <button mat-icon-button [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu" class="btn-collapse-avatar">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <a mat-menu-item routerLink="/Landlord/Profile">
+                <mat-icon>account_circle</mat-icon>
+                <span>Profile</span>
+              </a>
+              <button mat-menu-item (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
+              </button>
+
+            </mat-menu>
+          </div>
+          <div class="col logout">
+            <button mat-icon-button (click)="logout()" class="btn-logout">
+              <i class="fa fa-sign-out"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Body page -->
-    <div class="body-page">
-      <router-outlet></router-outlet>
-    </div>
 
+    <router-outlet></router-outlet>
   </div>
 </div>
 
