@@ -33,7 +33,7 @@ class _GoogleSignInNavigatorState extends State<GoogleSignInNavigator> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _passengerService.signUpWithGoogleAccount(widget!.passengerModel!, widget!.googleSignInAccount!),
+        future: _passengerService.signUpWithGoogleAccount(widget.passengerModel!, widget.googleSignInAccount!),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const SpinKitComponent();

@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:capstoneproject2/constants.dart';
 import 'package:capstoneproject2/services/api_url_provider/api_url_provider.dart';
 import 'package:capstoneproject2/services/booking_service.dart';
+import 'package:capstoneproject2/services/firebase_service/firebase_auth_service.dart';
 import 'package:capstoneproject2/services/firebase_service/firebase_clound_firestore_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:capstoneproject2/services/model/auth_model.dart';
+import 'package:capstoneproject2/services/model/cancel_booking_ticket_model.dart';
 import 'package:capstoneproject2/services/model/error_handler_model.dart';
 import 'package:capstoneproject2/services/model/homestay_model.dart';
 import 'package:capstoneproject2/services/model/wallet_model.dart';
@@ -17,28 +19,40 @@ import '../services/model/booking_model.dart';
 
 class BookingServiceImpl extends IBookingService {
 
-  final GET_BOOKING_HOMESTAY_LIST_URL = "$BOOKING_API_URL/permit-all/booking-list";
+  final getBookingHomestayListUrl = "$BOOKING_API_URL/permit-all/booking-list";
 
-  final GET_USER_BOOKING_LIST_URL = "$BOOKING_API_URL/booking-list";
+  final getUserBookingListUrl = "$BOOKING_API_URL/booking-list";
 
-  final BOOKING_HOMESTAY_URL = BOOKING_API_URL;
+  final bookingHomestayUrl = BOOKING_API_URL;
 
-  final PAY_BOOKING_DEPOSIT = "$BOOKING_API_URL/deposit/payment";
+  final payBookingDepositUrl = "$BOOKING_API_URL/deposit/payment";
 
-  final GET_BOOKING_BY_ID = "$BOOKING_API_URL/permit-all/get";
+  final getBookingByIdUrl = "$BOOKING_API_URL/permit-all/get";
 
-  final CHECK_IN = "$BOOKING_API_URL/checkin";
+  final checkInUrl = "$BOOKING_API_URL/checkin";
+
+  final checkOutUrl = "$BOOKING_API_URL/check-out";
+
+  final checkInByRelativeUrl = "$BOOKING_API_URL/relative-checkin";
+
+  final getBookingByOtpUrl = "$BOOKING_API_URL/booking-otp";
+
+  final getCancelBookingTicketUrl = "$BOOKING_API_URL/cancel-ticket";
+
+  final cancelBookingUrl = "$BOOKING_API_URL/passenger-cancel";
 
   final passengerService = locator.get<IPassengerService>();
 
   final firebaseFirestoreService = locator.get<ICloudFirestoreService>();
+
+  final firebaseAuthService = locator.get<IFirebaseAuthenticateService>();
 
   final formatDate = DateFormat("yyyy-MM-dd");
 
   @override
   Future getHomestayBookingList(String homestayName, String status) async {
     var client = http.Client();
-    var url = Uri.parse("$GET_BOOKING_HOMESTAY_LIST_URL/$homestayName?status=$status");
+    var url = Uri.parse("$getBookingHomestayListUrl/$homestayName?status=$status");
     var response = await client.get(url, headers: {"content-type" : "application/json"}).timeout(const Duration(seconds: 5));
     var responseData = json.decode(response.body);
     if(response.statusCode == 200) {
@@ -55,23 +69,30 @@ class BookingServiceImpl extends IBookingService {
   Future<String> configureHomestayDetailBooking(String? username, String homestayName) async {
     String configuration = "BOOKING_AVAILABLE";
     if(username != null) {
-      WalletModel walletModel = await passengerService.getUserWallet(username);
+      var walletModel = await passengerService.getUserWallet(username);
       var userBookingList = await getUserBookingList(username, bookingStatus["all"]!);
-      if(walletModel.balance == 0) {
+      if(walletModel is WalletModel && walletModel.balance == 0 && (walletModel.balance! - walletModel.futurePay!) == 0) {
         configuration = "INSUFFICIENT_BALANCE";
-      } else {
+      } else if(walletModel is ErrorHandlerModel && walletModel.statusCode == 403) {
+        await firebaseAuthService.forgetGoogleSignIn(username);
+        configuration = "ACCESS_DENIED";
+      }else {
         if(userBookingList is List<BookingModel>) {
-          userBookingList.forEach((element) {
+          for (var element in userBookingList) {
             if(element.homestayName.compareTo(homestayName) == 0 &&
-                !(element.status.compareTo(bookingStatus["pending"]) == 0) &&
+                !(element.status.compareTo(bookingStatus["pending"]) == 0 || element.status.compareTo(bookingStatus["pending_alert_sent"]) == 0) &&
                 !(element.status.compareTo(bookingStatus["rejected"]) == 0) &&
                 !(element.status.compareTo(bookingStatus["canceled"]) == 0) &&
-                !(element.status.compareTo(bookingStatus["check_out"]) == 0) &&
+                !(element.status.compareTo(bookingStatus["check_out"]) == 0 || element.status.compareTo(bookingStatus["landlord_check_out"]) == 0 || element.status.compareTo(bookingStatus["relative_check_out"]) == 0) &&
                 !(element.status.compareTo(bookingStatus["finish"]) == 0)
             ) {
+
               configuration = "BOOKING_PROGRESS";
             }
-          });
+          }
+        } else if(userBookingList is ErrorHandlerModel && userBookingList.statusCode == 403) {
+          await firebaseAuthService.forgetGoogleSignIn(username);
+          configuration = "ACCESS_DENIED";
         }
       }
 
@@ -84,7 +105,7 @@ class BookingServiceImpl extends IBookingService {
     final user = await firebaseFirestoreService.findUserFireStore(username);
     if(user is AuthenticateModel) {
       final client = http.Client();
-      final url = Uri.parse("$GET_USER_BOOKING_LIST_URL/$username?status=$status");
+      final url = Uri.parse("$getUserBookingListUrl?status=$status");
       final response = await client.get(
         url,
         headers: {"content-type":"application/json", "Authorization":"Bearer ${user.accessToken}"}
@@ -95,6 +116,9 @@ class BookingServiceImpl extends IBookingService {
         final bookingList = List<BookingModel>.from(responseBody.map((element) => BookingModel.fromJson(element)));
         return bookingList;
       } else {
+        if(response.statusCode == 403) {
+          await firebaseAuthService.forgetGoogleSignIn(username!);
+        }
         final responseBody =json.decode(response.body);
         final errorHandlerModel = ErrorHandlerModel.fromJson(responseBody);
         return errorHandlerModel;
@@ -107,7 +131,7 @@ class BookingServiceImpl extends IBookingService {
     final user = await firebaseFirestoreService.findUserFireStore(username);
     if(user is AuthenticateModel) {
       final client = http.Client();
-      final url = Uri.parse(BOOKING_HOMESTAY_URL);
+      final url = Uri.parse(bookingHomestayUrl);
       final response = await client.post(
         url,
         headers: {"content-type":"application/json", "Authorization":"Bearer ${user.accessToken}"},
@@ -130,7 +154,7 @@ class BookingServiceImpl extends IBookingService {
     final user = await firebaseFirestoreService.findUserFireStore(username);
     if(user is AuthenticateModel) {
       final client = http.Client();
-      final url = Uri.parse("$PAY_BOOKING_DEPOSIT/$bookingId");
+      final url = Uri.parse("$payBookingDepositUrl/$bookingId");
       Map<String, dynamic> requestBody = {"amount": "$amount"};
       final response = await client.post(
           url,
@@ -152,7 +176,7 @@ class BookingServiceImpl extends IBookingService {
   @override
   Future findBookingById(int bookingId) async {
     final client = http.Client();
-    final url = Uri.parse("$GET_BOOKING_BY_ID/$bookingId");
+    final url = Uri.parse("$getBookingByIdUrl/$bookingId");
     final response = await client.get(
         url,
         headers: {"content-type":"application/json"}
@@ -171,7 +195,7 @@ class BookingServiceImpl extends IBookingService {
     final user = await firebaseFirestoreService.findUserFireStore(username);
     if(user is AuthenticateModel) {
       final client = http.Client();
-      final url = Uri.parse(CHECK_IN);
+      final url = Uri.parse(checkInUrl);
       Map<String,dynamic> requestBody = {"bookingOtp":checkInOtp, "bookingId":bookingId};
       final response = await client.post(
           url,
@@ -198,6 +222,139 @@ class BookingServiceImpl extends IBookingService {
             .where((element) => formatDate.parse(element.checkIn).difference(DateTime.now()).inDays < 7)
             .first;
         return bookingModel;
+      }
+    }
+  }
+
+  @override
+  Future checkInByRelative(String? username, String checkInOtp) async {
+    if(username != null) {
+      var user = await firebaseFirestoreService.findUserFireStore(username);
+      if(user is AuthenticateModel) {
+        final client = http.Client();
+        final url = Uri.parse(checkInByRelativeUrl);
+        final requestBody = {"bookingOtp" : checkInOtp};
+        final response = await client.post(
+            url,
+            headers: {"content-type" : "application/json", "Authorization" : "Bearer ${user.accessToken}"},
+            body: json.encode(requestBody)
+        );
+        if(response.statusCode == 200) {
+          final bookingModelJson = json.decode(response.body);
+          final bookingModel = BookingModel.fromJson(bookingModelJson);
+          return bookingModel;
+        } else {
+          if(response.statusCode == 403) {
+            await firebaseAuthService.forgetGoogleSignIn(username);
+          }
+          final errorHandlerModelJson = json.decode(response.body);
+          final errorHandlerModel = ErrorHandlerModel.fromJson(errorHandlerModelJson);
+          return errorHandlerModel;
+        }
+      }
+    }
+  }
+
+  @override
+  Future findBookingByOtp(String? username, String checkInOtp) async {
+    if(username != null) {
+      final user = await firebaseFirestoreService.findUserFireStore(username);
+      if(user is AuthenticateModel) {
+        final client = http.Client();
+        final url = Uri.parse("$getBookingByOtpUrl/$checkInOtp");
+        final response = await client.get(
+            url,
+            headers: {"content-type" : "application/json", "Authorization" : "Bearer ${user.accessToken}"}
+        );
+        if(response.statusCode == 200) {
+          final bookingModelJson = json.decode(response.body);
+          final bookingModel = BookingModel.fromJson(bookingModelJson);
+          return bookingModel;
+        } else {
+          if(response.statusCode == 403) {
+            await firebaseAuthService.forgetGoogleSignIn(username);
+          }
+          final errorHandlerModelJson = json.decode(response.body);
+          final errorHandlerModel = ErrorHandlerModel.fromJson(errorHandlerModelJson);
+          return errorHandlerModel;
+        }
+      }
+    }
+  }
+
+  @override
+  Future checkOut(String? username, int bookingId) async {
+    final user = await firebaseFirestoreService.findUserFireStore(username!);
+    if(user is AuthenticateModel) {
+      final client = http.Client();
+      final url = Uri.parse(checkOutUrl);
+      final requestBody = {"bookingId" : bookingId};
+      final response = await client.post(
+          url,
+          headers: {"content-type" : "application/json", "Authorization" : "Bearer ${user.accessToken}"},
+          body: json.encode(requestBody)
+      );
+      if(response.statusCode == 200) {
+        final bookingModelJson = json.decode(response.body);
+        final bookingModel = BookingModel.fromJson(bookingModelJson);
+        return bookingModel;
+      } else {
+        if(response.statusCode == 403) {
+          await firebaseAuthService.forgetGoogleSignIn(username);
+        }
+        final errorHandlerModelJson = json.decode(response.body);
+        final errorHandlerModel = ErrorHandlerModel.fromJson(errorHandlerModelJson);
+        return errorHandlerModel;
+      }
+    }
+  }
+
+  @override
+  Future cancelBooking(String? username, int bookingId) async {
+    final user = await firebaseFirestoreService.findUserFireStore(username!);
+    if(user is AuthenticateModel) {
+      final client = http.Client();
+      final url = Uri.parse("$cancelBookingUrl/$bookingId");
+      final response = await client.patch(
+        url,
+        headers: {"content-type" : "application/json", "Authorization" : "Bearer ${user.accessToken}"},
+      );
+      if(response.statusCode == 200) {
+        final bookingModelJson = json.decode(response.body);
+        final bookingModel = BookingModel.fromJson(bookingModelJson);
+        return bookingModel;
+      } else {
+        if(response.statusCode == 403) {
+          await firebaseAuthService.forgetGoogleSignIn(username);
+        }
+        final errorHandlerModelJson = json.decode(response.body);
+        final errorHandlerModel = ErrorHandlerModel.fromJson(errorHandlerModelJson);
+        return errorHandlerModel;
+      }
+    }
+  }
+
+  @override
+  Future findPassengerCancelBookingTicket(String? username, int bookingId) async {
+    final user = await firebaseFirestoreService.findUserFireStore(username!);
+    if(user is AuthenticateModel) {
+      final client = http.Client();
+      final url = Uri.parse("$getCancelBookingTicketUrl/$bookingId");
+      final response = await client.get(
+        url,
+        headers: {"content-type" : "application/json", "Authorization" : "Bearer ${user.accessToken}"}
+      );
+      if(response.statusCode == 200) {
+        final cancelBookingTicketModelJson = json.decode(response.body);
+        final cancelBookingTicketModel = CancelBookingTicketModel.fromJson(cancelBookingTicketModelJson);
+        return cancelBookingTicketModel;
+      } else {
+        if(response.statusCode == 403) {
+          await firebaseAuthService.forgetGoogleSignIn(username);
+        }
+        final errorHandlerModelJson = json.decode(response.body);
+        final errorHandlerModel = ErrorHandlerModel.fromJson(errorHandlerModelJson);
+        return errorHandlerModel;
       }
     }
   }

@@ -136,7 +136,7 @@ class _ChooseServiceComponentState extends State<ChooseServiceComponent> {
                 ),
                 onPressed: () {
                   if(widget!.balance! >= getTotalPhasePrice()) {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingScreen(
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => BookingScreen(
                         homestayModel: widget.homestayModel,
                         chooseCheckOutPhase: false,
                         chooseCheckInPhase: false,
@@ -144,7 +144,8 @@ class _ChooseServiceComponentState extends State<ChooseServiceComponent> {
                         finishingPhase: true,
                         checkInDate: widget.checkIn,
                         checkOutDate: widget.checkOut,
-                        homestayServiceList: homestayServices
+                        homestayServiceList: homestayServices,
+                        totalPriceOfBookingDays: widget.totalPriceOfBookingDays,
                     ),));
                   }
 
@@ -157,7 +158,8 @@ class _ChooseServiceComponentState extends State<ChooseServiceComponent> {
                 minimumSize: const Size(200, 56),
               ),
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingScreen(
+                widget.totalPriceOfBookingDays?.totalPrice = getTotalPhasePrice();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => BookingScreen(
                     homestayModel: widget.homestayModel,
                     chooseCheckOutPhase: false,
                     chooseCheckInPhase: false,
@@ -165,6 +167,7 @@ class _ChooseServiceComponentState extends State<ChooseServiceComponent> {
                     finishingPhase: true,
                     checkInDate: widget.checkIn,
                     checkOutDate: widget.checkOut,
+                    totalPriceOfBookingDays: widget.totalPriceOfBookingDays,
                     homestayServiceList: homestayServices
                 ),));
               },

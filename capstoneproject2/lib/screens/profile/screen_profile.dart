@@ -59,7 +59,7 @@ class MobileProfileInforScreen extends StatelessWidget {
       children: <Widget>[
         ProfileEditScreenTopImage(user: user),
         const SizedBox(height: 30,),
-        const ProfileOption(),
+        ProfileOption(username: user!.displayName),
         const SizedBox(height: 40,),
         ElevatedButton(
           style: ElevatedButton.styleFrom(

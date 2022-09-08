@@ -1,6 +1,6 @@
 import 'package:capstoneproject2/Screens/Profile/screen_profile.dart';
 import 'package:capstoneproject2/constants.dart';
-import 'package:capstoneproject2/screens/home_page/views/booking_screen.dart';
+import 'package:capstoneproject2/screens/home_page/views/booking_history_screen.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:capstoneproject2/services/model/passenger_model.dart';
 import 'package:capstoneproject2/services/passenger_service.dart';
@@ -25,7 +25,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     ViewHomestayScreen(),
 
-    BookingScreen(),
+    BookingHistoryScreen(),
 
     Wrapper(),
   ];

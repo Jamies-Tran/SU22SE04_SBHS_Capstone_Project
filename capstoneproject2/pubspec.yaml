@@ -52,6 +52,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   font_awesome_flutter: ^10.1.0
   syncfusion_flutter_calendar: ^20.2.40
+  url_launcher: ^6.1.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

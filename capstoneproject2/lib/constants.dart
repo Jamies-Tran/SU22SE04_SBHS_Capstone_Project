@@ -8,16 +8,21 @@ const double defaultPadding = 16.0;
 const bookingStatus = {
   "all" : "all",
   "pending" : "BOOKING_PENDING",
+  "pending_alert_sent" : "BOOKING_PENDING_ALERT_SENT",
   "deposit" : "BOOKING_PENDING_DEPOSIT",
   "accepted" : "BOOKING_ACCEPTED",
   "rejected" : "BOOKING_REJECTED",
   "canceled" : "BOOKING_CANCELED",
   "pending_check_in" : "BOOKING_PENDING_CHECKIN",
+  "pending_check_in_remain_sent" : "BOOKING_PENDING_CHECKIN_REMAIN_SENT",
+  "pending_check_in_appointment_sent" : "BOOKING_PENDING_CHECKIN_APPOINTMENT_SENT",
   "check_in" : "BOOKING_CONFIRM_CHECKIN",
   "relative_check_in" : "BOOKING_CHECKIN_BY_PASSENGER_RELATIVE",
   "landlord_check_in" : "BOOKING_CHECKIN_BY_LANDLORD",
   "pending_check_out" : "BOOKING_PENDING_CHECKOUT",
   "check_out" : "BOOKING_CONFIRM_CHECKOUT",
+  "landlord_check_out" : "BOOKING_CHECKOUT_BY_LANDLORD",
+  "relative_check_out" : "BOOKING_CHECKOUT_BY_PASSENGER_RELATIVE",
    "finish" : "BOOKING_FINISHED"
 };
 

@@ -36,7 +36,7 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
 
   @override
   void initState() {
-    _mailTextEditingController.text = widget.googleSignInAccount!.email!;
+    _mailTextEditingController.text = widget.googleSignInAccount!.email;
     _usernameTextEditingController.text = widget.googleSignInAccount!.displayName!;
     super.initState();
   }
@@ -208,7 +208,7 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
                   avatarUrl: widget.googleSignInAccount!.photoUrl
                 );
 
-                Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleSignInNavigator(googleSignInAccount: widget!.googleSignInAccount, passengerModel: passengerModel,homestayName: widget.homestayName, isSignInFromBookingScreen: widget.isSignInFromBookingScreen),));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleSignInNavigator(googleSignInAccount: widget.googleSignInAccount, passengerModel: passengerModel,homestayName: widget.homestayName, isSignInFromBookingScreen: widget.isSignInFromBookingScreen),));
               },
               child: Text("Complete Sign Up".toUpperCase()),
             ),

@@ -42,7 +42,7 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
   var checkOutDate;
   var firstPickUpCheckInDate;
   var showAlert = false;
-  var alertMessage;
+  //var alertMessage;
   var now = DateTime.now();
 
   @override
@@ -63,8 +63,8 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
 
       if(widget.chosenCheckInDate != null && widget.chosenCheckInDate != "") {
         sources.add(Appointment(
-            startTime: formatDate.parse(widget!.chosenCheckInDate!),
-            endTime: formatDate.parse(widget!.chosenCheckInDate!),
+            startTime: formatDate.parse(widget.chosenCheckInDate!),
+            endTime: formatDate.parse(widget.chosenCheckInDate!),
             color: Colors.green,
             isAllDay: true,
             notes: "picked"
@@ -78,7 +78,7 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
         // if(now.month == 4 && now.day == 30) {
         //   sources.add(Appointment(startTime: formatDate.parse(now.toString()), endTime: formatDate.parse(now.toString()), color: Colors.amber, isAllDay: true,notes: "special"));
         // }
-        for (var element in widget.homestayModel!.homestayPriceLists) {
+        for (var element in widget.homestayModel!.homestayPriceLists!) {
           if(element.type.compareTo("special") == 0) {
             if(now.day == element.specialDayPriceList!.startDay && now.month == element.specialDayPriceList!.startMonth) {
               DateTime specialStartTime = DateTime(now.year, element.specialDayPriceList!.startMonth, element.specialDayPriceList!.startDay, 0 ,0 ,0, 0, 0);
@@ -106,13 +106,13 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
 
     bool isThroughBusyDay(DateTime checkIn, DateTime checkOut, List<Appointment> source) {
       bool result = false;
-      source.forEach((element) {
+      for (var element in source) {
         if(element.notes!.compareTo("busy") == 0) {
           if(element.startTime.isAfter(checkIn) && element.endTime.isBefore(checkOut)) {
             result = true;
           }
         }
-      });
+      }
 
       return result;
     }
@@ -125,21 +125,21 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
       DateTime observeCurrentDate = checkIn;
       while(checkOut.difference(observeCurrentDate).inDays >= 0) {
         if(src.where((element) => observeCurrentDate.difference(element.startTime).inDays >= 0 && observeCurrentDate.difference(element.endTime).inDays <= 0).isEmpty) {
-          if(widget.homestayModel!.homestayPriceLists.where((element) => element.type.compareTo("weekend") == 0).isNotEmpty
+          if(widget.homestayModel!.homestayPriceLists!.where((element) => element.type.compareTo("weekend") == 0).isNotEmpty
               && (observeCurrentDate.weekday == DateTime.saturday || observeCurrentDate.weekday == DateTime.sunday)) {
 
-            total = total + widget.homestayModel!.homestayPriceLists
+            total = total + widget.homestayModel!.homestayPriceLists!
                 .where((priceListElement) => priceListElement.type.compareTo("weekend") == 0).single.price as int;
 
             weekendList.add(observeCurrentDate);
           } else {
-            total = total + widget.homestayModel!.homestayPriceLists.where((element) => element.type.compareTo("normal") == 0).single.price as int;
+            total = total + widget.homestayModel!.homestayPriceLists!.where((element) => element.type.compareTo("normal") == 0).single.price as int;
             normalDayList.add(observeCurrentDate);
           }
         } else {
           src.where((element) => observeCurrentDate.difference(element.startTime).inDays >= 0 && observeCurrentDate.difference(element.endTime).inDays <= 0)
               .forEach((element) {
-                total = total + widget.homestayModel!.homestayPriceLists
+                total = total + widget.homestayModel!.homestayPriceLists!
                     .where((priceListElement) => priceListElement.type.compareTo("special") == 0 && priceListElement.specialDayPriceList!.specialDayCode.compareTo(element.notes!.split("_").last) == 0).single.price as int;
           });
           specialDayList.add(observeCurrentDate);
@@ -151,7 +151,6 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
       
       return totalPriceOfBookingDays;
     }
-
 
     return FutureBuilder(
       future: homestayBookingListConfiguration(),
@@ -178,11 +177,11 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
                   onTap:(calendarTapDetails) {
 
                     if(widget.isUpdateCheckInDate || widget.isUpdateCheckOutDate) {
-                      var date = formatDate.format( calendarTapDetails!.date!);
+                      var date = formatDate.format( calendarTapDetails.date!);
                       Navigator.pop(context, date);
                     }
                     // check out
-                    if(widget!.chooseCheckOutDate! == true && widget!.chooseCheckInDate! == false && widget!.chosenCheckInDate != null) {
+                    if(widget.chooseCheckOutDate! == true && widget.chooseCheckInDate! == false && widget.chosenCheckInDate != null) {
                       List<Appointment> specialDayList = snapshotData.where((element) => element.notes!.contains("special")).toList();
                       //widget!.chosenCheckInDate != null  ? print("Total: ${totalPricesOfBookingDays(formatDate.parse(widget!.chosenCheckInDate!), formatDate.parse(calendarTapDetails!.date!.toString()), specialDayList).totalPrice}") : print("not thing here");
                       TotalPriceOfBookingDays totalPriceBookingDays = totalPricesOfBookingDays(formatDate.parse(widget!.chosenCheckInDate!), formatDate.parse(calendarTapDetails!.date!.toString()), specialDayList);
@@ -190,7 +189,7 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
                         context: context,
                         builder: (context) => AlertDialog(
                           title: const Center(child: Text("Overview"),),
-                          content: Container(
+                          content: SizedBox(
                             height: 400,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -208,7 +207,7 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                        formatDate.format(formatDate.parse(widget!.chosenCheckInDate!)), style: const TextStyle(
+                                        formatDate.format(formatDate.parse(widget.chosenCheckInDate!)), style: const TextStyle(
                                       fontSize: 14,
                                       fontFamily: 'OpenSans',
                                       letterSpacing: 1.0,
@@ -218,7 +217,7 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
                                     const Icon(Icons.forward, color: kPrimaryLightColor, size: 13,),
                                     const SizedBox(width: 5,),
                                     Text(
-                                        formatDate.format(calendarTapDetails!.date!), style: const TextStyle(
+                                        formatDate.format(calendarTapDetails.date!), style: const TextStyle(
                                       fontSize: 14,
                                       fontFamily: 'OpenSans',
                                       letterSpacing: 1.0,
@@ -230,140 +229,8 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
                                   width: 100,
                                   child: Divider(color: Colors.black, indent: 1.0, endIndent: 1.0, thickness: 1.0, height: 30,),
                                 ),
-                                // const Text("Overview", style: TextStyle(
-                                //     fontSize: 15,
-                                //     fontFamily: 'OpenSans',
-                                //     letterSpacing: 3.0,
-                                //     color: Colors.black87,
-                                //     fontWeight: FontWeight.bold
-                                // )),
+
                                 const SizedBox(height: 5),
-                                // special day
-                                // totalPriceBookingDays.specialDayList!.isNotEmpty ? Text("${ totalPriceBookingDays.specialDayList!.length} special day:") : SizedBox(),
-                                // const SizedBox(height: 5,),
-                                // totalPriceBookingDays.specialDayList!.isNotEmpty ? SizedBox(
-                                //   height: 120,
-                                //   width: 200,
-                                //   child: SingleChildScrollView(
-                                //       scrollDirection: Axis.vertical,
-                                //       physics: const AlwaysScrollableScrollPhysics(),
-                                //       child: Column(
-                                //         mainAxisAlignment: MainAxisAlignment.start,
-                                //         crossAxisAlignment: CrossAxisAlignment.start,
-                                //         children: [
-                                //           SizedBox(
-                                //             child: ListView.builder(
-                                //               itemCount: totalPriceBookingDays.specialDayList!.length,
-                                //               shrinkWrap: true,
-                                //               scrollDirection: Axis.vertical,
-                                //               physics: const NeverScrollableScrollPhysics(),
-                                //               itemBuilder: (context, index) {
-                                //                 return Container(
-                                //                   margin: const EdgeInsets.only(bottom: 20),
-                                //                   height: 50,
-                                //                   child: ListTile(
-                                //                     title: Text(formatDate.format(totalPriceBookingDays.specialDayList![index])),
-                                //                     subtitle: Text("${widget.homestayModel!.homestayPriceLists.where((element) => element.type.compareTo("special") == 0 && formatDate.parse(DateTime(now.year, element.specialDayPriceList!.startMonth, element.specialDayPriceList!.startDay, 0, 0, 0, 0, 0).toString()).difference(formatDate.parse(totalPriceBookingDays.specialDayList![index].toString())).inDays <= 0
-                                //                         && formatDate.parse(DateTime(now.year, element.specialDayPriceList!.endMonth, element.specialDayPriceList!.endDay, 0, 0, 0, 0, 0).toString()).difference(formatDate.parse(totalPriceBookingDays.specialDayList![index].toString())).inDays >=0).single.specialDayPriceList!.description} - ${currencyFormat.format(widget.homestayModel!.homestayPriceLists.where((element) => element.type.compareTo("special") == 0 && formatDate.parse(DateTime(now.year, element.specialDayPriceList!.startMonth, element.specialDayPriceList!.startDay, 0, 0, 0, 0, 0).toString()).difference(formatDate.parse(totalPriceBookingDays.specialDayList![index].toString())).inDays <= 0
-                                //                         && formatDate.parse(DateTime(now.year, element.specialDayPriceList!.endMonth, element.specialDayPriceList!.endDay, 0, 0, 0, 0, 0).toString()).difference(formatDate.parse(totalPriceBookingDays.specialDayList![index].toString())).inDays >=0).single.price)}", style: const TextStyle(
-                                //
-                                //                       fontFamily: 'OpenSans',
-                                //                       letterSpacing: 1.0,
-                                //                       color: Colors.green,
-                                //                     )),
-                                //                   ),
-                                //                 );
-                                //               },
-                                //             ),
-                                //           )
-                                //         ],
-                                //       )
-                                //   ),
-                                // ) : const SizedBox(),
-                                // const SizedBox(height: 20,),
-                                // // weekend
-                                // totalPriceBookingDays.weekendList!.isNotEmpty ? Text("${ totalPriceBookingDays.weekendList!.length} Weekend:") : SizedBox(),
-                                // const SizedBox(height: 5,),
-                                // totalPriceBookingDays.weekendList!.isNotEmpty ? SizedBox(
-                                //   height: 120,
-                                //   width: 200,
-                                //   child: SingleChildScrollView(
-                                //       scrollDirection: Axis.vertical,
-                                //       physics: const AlwaysScrollableScrollPhysics(),
-                                //       child: Column(
-                                //         mainAxisAlignment: MainAxisAlignment.start,
-                                //         crossAxisAlignment: CrossAxisAlignment.start,
-                                //         children: [
-                                //           SizedBox(
-                                //             child: ListView.builder(
-                                //               itemCount: totalPriceBookingDays.weekendList!.length,
-                                //               shrinkWrap: true,
-                                //               scrollDirection: Axis.vertical,
-                                //               physics: const NeverScrollableScrollPhysics(),
-                                //               itemBuilder: (context, index) {
-                                //                 return Container(
-                                //                   margin: const EdgeInsets.only(bottom: 5),
-                                //                   height: 50,
-                                //                   child: ListTile(
-                                //                     title: Text(formatDate.format(totalPriceBookingDays.weekendList![index])),
-                                //                     subtitle: Text("Weekend - ${widget.homestayModel!.homestayPriceLists.where((element) => element.type.compareTo("weekend") == 0).single.price}", style: const TextStyle(
-                                //                       fontFamily: 'OpenSans',
-                                //                       letterSpacing: 1.0,
-                                //                       color: Colors.green,
-                                //                     )),
-                                //                   ),
-                                //                 );
-                                //               },
-                                //             ),
-                                //           )
-                                //         ],
-                                //       )
-                                //   ),
-                                // ) : const SizedBox(),
-                                // const SizedBox(height: 20,),
-                                // // normal day
-                                // totalPriceBookingDays.normalDayList!.isNotEmpty ? Text("${totalPriceBookingDays.normalDayList!.length} normal day: ") : const SizedBox(),
-                                // const SizedBox(height: 5,),
-                                // totalPriceBookingDays.normalDayList!.isNotEmpty ? SizedBox(
-                                //   height: 120,
-                                //   width: 200,
-                                //   child: Scrollbar(
-                                //     thickness: 2.0,
-                                //     child: SingleChildScrollView(
-                                //         scrollDirection: Axis.vertical,
-                                //         physics: const AlwaysScrollableScrollPhysics(),
-                                //         child: Column(
-                                //           mainAxisAlignment: MainAxisAlignment.center,
-                                //           children: [
-                                //             SizedBox(
-                                //               child: ListView.builder(
-                                //                 itemCount: totalPriceBookingDays.normalDayList!.length,
-                                //                 shrinkWrap: true,
-                                //                 scrollDirection: Axis.vertical,
-                                //                 physics: const NeverScrollableScrollPhysics(),
-                                //                 itemBuilder: (context, index) {
-                                //                   return Container(
-                                //                     margin: const EdgeInsets.only(bottom: 5),
-                                //                     height: 50,
-                                //                     child: ListTile(
-                                //                       title: Text(formatDate.format(totalPriceBookingDays.normalDayList![index])),
-                                //                       subtitle: Text("Normal day - ${currencyFormat.format(widget.homestayModel!.homestayPriceLists
-                                //                           .where((element) => element.type.compareTo("normal") == 0).single.price)}", style: const TextStyle(
-                                //                         fontSize: 13,
-                                //                         fontFamily: 'OpenSans',
-                                //                         letterSpacing: 1.0,
-                                //                         color: Colors.green,
-                                //                       )),
-                                //                     ),
-                                //                   );
-                                //                 },
-                                //               ),
-                                //             )
-                                //           ],
-                                //         )
-                                //     ),
-                                //   ),
-                                // ) : const SizedBox(),
                                 ListTile(
                                   title: const Text("Special day"),
                                   subtitle: totalPriceBookingDays.specialDayList!.isNotEmpty ? Text(totalPriceBookingDays.specialDayList!.length == 1 ? "${totalPriceBookingDays.specialDayList!.length} day selected" : "${totalPriceBookingDays.specialDayList!.length} days selected",
@@ -390,7 +257,7 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
                                 Text("Total: ${currencyFormat.format(totalPriceBookingDays.totalPrice)} VND", style: TextStyle(
                                   fontFamily: 'OpenSans',
                                   letterSpacing: 1.0,
-                                  color: widget!.balance! < totalPriceBookingDays!.totalPrice! ? Colors.redAccent : Colors.green,
+                                  color: widget.balance! < totalPriceBookingDays.totalPrice! ? Colors.redAccent : Colors.green,
                                 ))
                               ],
                             ),
@@ -411,93 +278,71 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
 
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: isThroughBusyDay(formatDate.parse(widget!.chosenCheckInDate!), calendarTapDetails!.date!, snapshotData) ? Colors.grey : widget!.balance! < totalPriceBookingDays!.totalPrice! ? Colors.red : Colors.green,
+                                  primary: isThroughBusyDay(formatDate.parse(widget.chosenCheckInDate!), calendarTapDetails!.date!, snapshotData) ? Colors.grey : widget!.balance! < totalPriceBookingDays!.totalPrice! ? Colors.amber : Colors.green,
                                   shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
                                   maximumSize: const Size(150, 56),
                                   minimumSize: const Size(150, 56)
                               ),
                               onPressed: () {
-                                if(!isThroughBusyDay(formatDate.parse(widget!.chosenCheckInDate!), calendarTapDetails!.date!, snapshotData)) {
-                                  if(widget!.balance! >= totalPriceBookingDays!.totalPrice!) {
+                                if(!isThroughBusyDay(formatDate.parse(widget.chosenCheckInDate!), formatDate.parse(calendarTapDetails.date!.toString()), snapshotData) || calendarTapDetails.appointments!.where((element) => element.notes.compareTo("busy") == 0).isEmpty) {
+                                  if(widget.balance! >= totalPriceBookingDays.totalPrice!) {
                                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingScreen(
                                       homestayModel: widget.homestayModel,
                                       chooseCheckInPhase: false,
                                       chooseCheckOutPhase: false,
                                       chooseServicesPhase: true,
                                       checkInDate: widget.chosenCheckInDate,
-                                      checkOutDate: formatDate.format(calendarTapDetails!.date!),
+                                      checkOutDate: formatDate.format(calendarTapDetails.date!),
                                       totalPriceOfBookingDays: totalPriceBookingDays,
                                     ),));
                                   }
                                 }
                               },
-                              child: Text(isThroughBusyDay(formatDate.parse(widget!.chosenCheckInDate!),
-                                  calendarTapDetails!.date!, snapshotData) ? "Homestay busy".toUpperCase() : widget!.balance! < totalPriceBookingDays!.totalPrice! ? "Not enough balance".toUpperCase() : "Choose services".toUpperCase()),
+                              child: Text(isThroughBusyDay(formatDate.parse(widget.chosenCheckInDate!),
+                                  calendarTapDetails!.date!, snapshotData) || calendarTapDetails.appointments!.where((element) => element.notes.compareTo("busy") == 0).isNotEmpty ? "Homestay busy".toUpperCase() : widget!.balance! < totalPriceBookingDays!.totalPrice! ? "Not enough balance".toUpperCase() : "Choose services".toUpperCase()),
                             )
 
                           ],
                         ),
                       );
-                      // var checkIn = formatDate.parse(checkInDate);
-                      // if(isThroughBusyDay(checkIn, calendarTapDetails!.date!, snapshotData)) {
-                      //   setState(() {
-                      //     showAlert = true;
-                      //     alertMessage = "Through homestay busy date";
-                      //   });
-                      // } else {
-                      //   setState(() {
-                      //
-                      //     if(calendarTapDetails!.date!.isBefore(formatDate.parse(checkInDate))) {
-                      //       checkOutDate = checkInDate;
-                      //     }else {
-                      //       checkOutDate = formatDate.format(calendarTapDetails!.date!);
-                      //     }
-                      //
-                      //   });
-                      //
-                      //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingScreen(homestayModel: widget.homestayModel),));
-                      // }
-
                     } else {
-                      setState(() {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Center(child: Text("Overview"),),
-                            content: Container(
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text("Check-in: ", style: TextStyle(
-                                      fontFamily: 'OpenSans',
-                                      letterSpacing: 1.5,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                    )),
-                                    Text(
-                                        formatDate.format(calendarTapDetails!.date!), style: const TextStyle(
-                                        fontFamily: 'OpenSans',
-                                        letterSpacing: 1.5,
-                                        color: Colors.black,
-                                    ))
-                                  ],
-                              ),
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Center(child: Text("Overview"),),
+                          content: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Check-in: ", style: TextStyle(
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold
+                              )),
+                              Text(
+                                  formatDate.format(calendarTapDetails.date!), style: const TextStyle(
+                                fontFamily: 'OpenSans',
+                                letterSpacing: 1.5,
+                                color: Colors.black,
+                              ))
+                            ],
+                          ),
+                          actions: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.red,
+                                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                                    maximumSize: const Size(100, 56),
+                                    minimumSize: const Size(100, 56)
+                                ),
+                                child: const Text("Cancel")
                             ),
-                            actions: [
-                              ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.red,
-                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                                      maximumSize: const Size(100, 56),
-                                      minimumSize: const Size(100, 56)
-                                  ),
-                                  child: const Text("Cancel")
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {
+                            ElevatedButton(
+                                onPressed: () {
+                                  if(calendarTapDetails.appointments!.where((element) => element.notes.compareTo("busy") == 0).isEmpty) {
                                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingScreen(
                                       homestayModel: widget.homestayModel,
                                       checkInDate: formatDate.format(calendarTapDetails!.date!),
@@ -505,34 +350,36 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
                                       chooseCheckInPhase: false,
                                     ),
                                     ));
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.green,
-                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                                      maximumSize: const Size(150, 56),
-                                      minimumSize: const Size(150, 56)
-                                  ),
-                                  child: const Text("Choose check-out")
-                              ),
-                            ],
-                          ),
-                        );
-                      });
+                                  } else {
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: calendarTapDetails.appointments!.where((element) => element.notes.compareTo("busy") == 0).isEmpty ? Colors.green : Colors.amber,
+                                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                                    maximumSize: const Size(150, 56),
+                                    minimumSize: const Size(150, 56)
+                                ),
+                                child:  Text(calendarTapDetails.appointments!.where((element) => element.notes.compareTo("busy") == 0).isEmpty ? "Choose check-out" : "homestay busy")
+                            ),
+                          ],
+                        ),
+                      );
                     }
                   },
                   dataSource: BookingScheduleSource(snapshotData),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Center(
-                      child: showAlert ? Container(
-                        margin: const EdgeInsets.only(bottom: 20),
-                        child: Text(alertMessage),
-                      ) : Container()
-                    )
-                  ],
-                )
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     Center(
+                //       child: showAlert ? Container(
+                //         margin: const EdgeInsets.only(bottom: 20),
+                //         child: Text(alertMessage),
+                //       ) : Container()
+                //     )
+                //   ],
+                // )
               ],
             ),
           );
@@ -552,7 +399,7 @@ class BookingScheduleSource extends CalendarDataSource {
 }
 
 class TotalPriceOfBookingDays {
-  final int? totalPrice;
+  int? totalPrice;
   final List<DateTime>? normalDayList;
   final List<DateTime>? specialDayList;
   final List<DateTime>? weekendList;

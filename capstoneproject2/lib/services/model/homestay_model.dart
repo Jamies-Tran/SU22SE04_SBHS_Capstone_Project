@@ -1,5 +1,3 @@
-
-
 class HomestayImageModel {
   dynamic id;
   dynamic url;
@@ -72,7 +70,7 @@ class HomestayPriceListModel {
     id: json["Id"],
     price: json["price"],
     type: json["type"],
-    specialDayPriceList: SpecialDayPriceListModel.fromJson(json["specialDayList"])
+    specialDayPriceList: json["specialDayList"] != null ? SpecialDayPriceListModel.fromJson(json["specialDayList"]) : null
   );
 }
 
@@ -87,12 +85,12 @@ class SpecialDayPriceListModel {
   SpecialDayPriceListModel({this.startDay, this.startMonth, this.endDay, this.endMonth, this.description, this.specialDayCode});
 
   factory SpecialDayPriceListModel.fromJson(Map<String, dynamic>? json) => SpecialDayPriceListModel(
-    startDay: json?["startDay"],
-    startMonth: json?["startMonth"],
-    endDay: json?["endDay"],
-    endMonth: json?["endMonth"],
-    description: json?["description"],
-    specialDayCode: json?["specialDayCode"]
+      startDay: json?["startDay"],
+      startMonth: json?["startMonth"],
+      endDay: json?["endDay"],
+      endMonth: json?["endMonth"],
+      description: json?["description"],
+      specialDayCode: json?["specialDayCode"]
   );
 }
 
@@ -115,7 +113,7 @@ class HomestayModel {
   List<HomestayServiceModel> homestayServices;
   List<HomestayCommonFacilityModel> homestayCommonFacilities;
   List<HomestayAdditionalFacilityModel> homestayAdditionalFacilities;
-  List<HomestayPriceListModel> homestayPriceLists;
+  List<HomestayPriceListModel>? homestayPriceLists;
 
   HomestayModel({
     this.id, 

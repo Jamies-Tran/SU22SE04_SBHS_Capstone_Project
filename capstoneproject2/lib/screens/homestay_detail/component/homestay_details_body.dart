@@ -5,8 +5,11 @@ import 'package:capstoneproject2/screens/booking/booking_list_screen.dart';
 import 'package:capstoneproject2/screens/booking/booking_screen.dart';
 import 'package:capstoneproject2/screens/home_page/components/rating_component.dart';
 import 'package:capstoneproject2/screens/booking/component/booking_schedule_component.dart';
+import 'package:capstoneproject2/screens/login/login_screen.dart';
 import 'package:capstoneproject2/screens/welcome/welcome_screen.dart';
+import 'package:capstoneproject2/services/auth_service.dart';
 import 'package:capstoneproject2/services/booking_service.dart';
+import 'package:capstoneproject2/services/firebase_service/firebase_auth_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:capstoneproject2/services/model/booking_model.dart';
 import 'package:capstoneproject2/services/model/error_handler_model.dart';
@@ -15,6 +18,7 @@ import 'package:capstoneproject2/services/passenger_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 
 import '../../../services/model/homestay_model.dart';
@@ -31,11 +35,74 @@ class HomestayDetailsBody extends StatelessWidget {
     final formatDate = DateFormat("yyyy-MM-dd");
     final userService = locator.get<IPassengerService>();
     final bookingService = locator.get<IBookingService>();
-    var rows = <TableRow>[];
-    //print("is homestayPriceList empty: ${homestayModel!.homestayPriceLists.isEmpty}");
+    const Color propertiesExistColor = Colors.green;
+    const Color propertiesNonExistColor = Colors.red;
+    var homestayServiceRows = <TableRow>[];
+    var homestayNormalAndWeekendPriceListRows = <TableRow>[];
+    var homestaySpecialPriceListRows = <TableRow>[];
 
+    homestayModel?.homestayPriceLists!.where((element) => element.type.compareTo("normal") == 0 || element.type.compareTo("weekend") == 0).forEach((element) {
+      homestayNormalAndWeekendPriceListRows.add(TableRow(
+          children: [
+            TableCell(
+                child: Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.all(15),
+                  child: Text(element.type.compareTo("normal") == 0 ? "Normal day" : "Weekend", style: const TextStyle(
+                      fontSize: 17,
+                      fontFamily: 'OpenSans',
+                      letterSpacing: 3.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold
+                  ),),
+                )),
+            TableCell(
+                child: Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  child: Text("${currencyFormat.format(element.price)} / vnd", style: const TextStyle(
+                    fontSize: 17,
+                    fontFamily: 'OpenSans',
+                    letterSpacing: 3.0,
+                    color: Colors.black,
+                  ),),
+                )
+            )
+          ]
+      ));
+    });
+
+    homestayModel?.homestayPriceLists!.where((element) => element.type.compareTo("special") == 0).forEach((element) {
+      homestaySpecialPriceListRows.add(TableRow(
+          children: [
+            TableCell(
+                child: Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.all(10),
+                  child: Text("${element.specialDayPriceList!.description}", style: const TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'OpenSans',
+                      letterSpacing: 3.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold
+                  ),),
+                )),
+            TableCell(
+                child: Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  child: Text("${currencyFormat.format(element.price)} / vnd", style: const TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'OpenSans',
+                    letterSpacing: 3.0,
+                    color: Colors.black,
+                  ),),
+                )
+            )
+          ]
+      ));
+    });
+    
     homestayModel?.homestayServices.forEach((element) {
-      rows.add(TableRow(
+      homestayServiceRows.add(TableRow(
         children: [
           TableCell(
               child: Container(
@@ -93,7 +160,7 @@ class HomestayDetailsBody extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(Icons.attach_money, color: Colors.green),
-                      Text  ("${currencyFormat.format(homestayModel?.homestayPriceLists.first.price)} ~ ${currencyFormat.format(homestayModel?.homestayPriceLists.last.price)}/day", style: const TextStyle(
+                      Text  ("${currencyFormat.format(homestayModel?.homestayPriceLists!.first.price)} ~ ${currencyFormat.format(homestayModel?.homestayPriceLists!.last.price)}/day", style: const TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
                           letterSpacing: 2.0,
@@ -141,14 +208,18 @@ class HomestayDetailsBody extends StatelessWidget {
 
                 if(snapshotData is BookingModel) {
                   int remainDate = formatDate.parse(snapshotData.checkIn).difference(DateTime.now()).inDays;
-                  final msg = remainDate == 0 ? "today" : remainDate == 1 ? "tomorrow" : "within $remainDate";
-                  return Center(child: Text("You have appointment $msg", style: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'OpenSans',
-                      letterSpacing: 1.0,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold
-                  ),));
+                  if(remainDate > 0) {
+                    final msg = remainDate == 0 ? "today" : remainDate == 1 ? "tomorrow" : "within $remainDate";
+                    return Center(child: Text("You have appointment $msg", style: const TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'OpenSans',
+                        letterSpacing: 1.0,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold
+                    ),));
+                  } else {
+                    return const SizedBox();
+                  }
                 }
               }else if(snapshot.hasError) {
 
@@ -165,15 +236,7 @@ class HomestayDetailsBody extends StatelessWidget {
             future: bookingService.configureHomestayDetailBooking(firebaseAuth.currentUser?.displayName, homestayModel!.name!),
             builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting) {
-                return ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.grey, elevation: 0),
-                  child: const Text(
-                    "Waiting",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                );
+                return const SizedBox();
               } else if(snapshot.hasData) {
                 String configuration = snapshot.data as String;
               // : configuration.compareTo("BOOKING_PROGRESS") == 0
@@ -183,9 +246,11 @@ class HomestayDetailsBody extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         if(firebaseAuth.currentUser == null) {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen(homestayName: homestayModel!.name, isSignInFromBookingScreen: true),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(homestayName: homestayModel!.name, isSignInFromBookingScreen: true),));
                         } else if(configuration.compareTo("INSUFFICIENT_BALANCE") == 0) {
 
+                        } else if(configuration.compareTo("ACCESS_DENIED") == 0) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(homestayName: homestayModel!.name, isSignInFromBookingScreen: true),));
                         } else {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => BookingScreen(homestayModel: homestayModel, chooseCheckInPhase: true)));
                         }
@@ -200,7 +265,8 @@ class HomestayDetailsBody extends StatelessWidget {
                         firebaseAuth.currentUser == null
                             ? "Sign Up For Booking".toUpperCase()
                             : configuration.compareTo("INSUFFICIENT_BALANCE") == 0 ? "Insufficient balance".toUpperCase()
-                            : "Book".toUpperCase(),
+                            : configuration.compareTo("ACCESS_DENIED") == 0 ? "Pre-login".toUpperCase()
+                  : "Book".toUpperCase(),
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -212,7 +278,7 @@ class HomestayDetailsBody extends StatelessWidget {
                         const SizedBox(height: 5,),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => BookingListScreen(homestayName: homestayModel!.name,),));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => BookingListScreen(homestayName: homestayModel!.name,username: firebaseAuth.currentUser!.displayName),));
                           },
                           style: ElevatedButton.styleFrom(
                             primary: Colors.green,
@@ -298,7 +364,7 @@ class HomestayDetailsBody extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15,),
-              RatingComponent(size: 30.0 , point: homestayModel!.securityPoint),
+              RatingComponent(size: 30.0 , point: double.parse(homestayModel!.securityPoint.toStringAsFixed(1))),
               const SizedBox(height: 15,),
               const Text(
                 "Convenient: ",
@@ -311,7 +377,7 @@ class HomestayDetailsBody extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15,),
-              RatingComponent(size: 30.0 , point: homestayModel!.convenientPoint),
+              RatingComponent(size: 30.0 , point: double.parse(homestayModel!.convenientPoint.toStringAsFixed(1))),
               const SizedBox(height: 15,),
               const Text(
                 "Position: ",
@@ -324,7 +390,7 @@ class HomestayDetailsBody extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15,),
-              RatingComponent(size: 30.0 , point: homestayModel!.positionPoint),
+              RatingComponent(size: 30.0 , point: double.parse(homestayModel!.positionPoint.toStringAsFixed(1))),
               const SizedBox(height: 15,),
               const Divider(color: Colors.black,thickness: 0.5,),
               const SizedBox(height: 15,),
@@ -339,7 +405,7 @@ class HomestayDetailsBody extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15,),
-              RatingComponent(size: 30.0 , point: homestayModel!.averagePoint),
+              RatingComponent(size: 30.0 , point: double.parse(homestayModel!.averagePoint.toStringAsFixed(1))),
             ],
           ),
         ),
@@ -366,7 +432,7 @@ class HomestayDetailsBody extends StatelessWidget {
                   2 : IntrinsicColumnWidth()
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: rows
+                children: homestayServiceRows
             ),
           ) : const Text("Landlord didn't register any service",style: TextStyle(
               fontSize: 17,
@@ -375,6 +441,60 @@ class HomestayDetailsBody extends StatelessWidget {
               color: Colors.black,
               fontWeight: FontWeight.bold
           )),
+        ),
+
+        Container(
+          margin: const EdgeInsets.only(bottom: 10, top: 20),
+          child: const Text(
+            "Normal day price list: ",
+            style: TextStyle(
+                fontSize: 25,
+                fontFamily: 'OpenSans',
+                letterSpacing: 3.0,
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+        Center(
+          child: SizedBox(
+            width: 300,
+            child: Table(
+                border: TableBorder.all(color: Colors.black54.withOpacity(0.2)),
+                columnWidths: const {
+                  0 : IntrinsicColumnWidth(),
+                  2 : IntrinsicColumnWidth()
+                },
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                children: homestayNormalAndWeekendPriceListRows
+            ),
+          )
+        ),
+
+        Container(
+          margin: const EdgeInsets.only(bottom: 10, top: 20),
+          child: const Text(
+            "Special day price list: ",
+            style: TextStyle(
+                fontSize: 25,
+                fontFamily: 'OpenSans',
+                letterSpacing: 3.0,
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 400,
+          child: Table(
+              border: TableBorder.all(color: Colors.black54.withOpacity(0.2)),
+              columnWidths: const {
+                0 : IntrinsicColumnWidth(),
+                2 : IntrinsicColumnWidth()
+              },
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              children: homestaySpecialPriceListRows
+          ),
         ),
 
         Container(
@@ -395,6 +515,7 @@ class HomestayDetailsBody extends StatelessWidget {
         ? SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Container(
+            margin: const EdgeInsets.only(left: 10),
             child: Row(
               children: [
 
@@ -403,7 +524,7 @@ class HomestayDetailsBody extends StatelessWidget {
                   children: [
                     homestayFacility("tv") != null ? Row(
                       children: [
-                        const Icon(Icons.tv, color: kPrimaryColor),
+                        const Icon(Icons.tv, color: propertiesExistColor),
                         Text("${homestayFacility("tv")!.name} - ${homestayFacility("tv")!.amount} / units",style: const TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
@@ -413,7 +534,7 @@ class HomestayDetailsBody extends StatelessWidget {
                       ],
                     ) : Row(
                       children: const [
-                        Icon(Icons.tv, color: Colors.red),
+                        Icon(Icons.tv, color: propertiesNonExistColor),
                         Text("TV - none",style: TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
@@ -427,7 +548,7 @@ class HomestayDetailsBody extends StatelessWidget {
 
                     homestayFacility("kitchen") != null ? Row(
                       children: [
-                        const Icon(Icons.kitchen, color: kPrimaryColor),
+                        const Icon(Icons.kitchen, color: propertiesExistColor),
                         Text("${homestayFacility("kitchen")!.name} - ${homestayFacility("kitchen")!.amount} / units",style: const TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
@@ -437,7 +558,7 @@ class HomestayDetailsBody extends StatelessWidget {
                       ],
                     ) : Row(
                       children: const [
-                        Icon(Icons.kitchen, color: Colors.red),
+                        Icon(Icons.kitchen, color: propertiesNonExistColor),
                         Text("Kitchen - none",style: TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
@@ -451,7 +572,7 @@ class HomestayDetailsBody extends StatelessWidget {
 
                     homestayFacility("kitchen") != null ? Row(
                       children: [
-                        const Icon(Icons.bed, color: kPrimaryColor),
+                        const Icon(Icons.bed, color: propertiesExistColor),
                         Text("${homestayFacility("bed")!.name} - ${homestayFacility("bed")!.amount} / units",style: const TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
@@ -461,7 +582,7 @@ class HomestayDetailsBody extends StatelessWidget {
                       ],
                     ) : Row(
                       children: const [
-                        Icon(Icons.bed, color: Colors.red),
+                        Icon(Icons.bed, color: propertiesNonExistColor),
                         Text("Bed - none",style: TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
@@ -475,7 +596,7 @@ class HomestayDetailsBody extends StatelessWidget {
 
                     homestayFacility("shower") != null ? Row(
                       children: [
-                        const Icon(Icons.shower_outlined, color: kPrimaryColor),
+                        const Icon(Icons.shower_outlined, color: propertiesExistColor),
                         Text("${homestayFacility("shower")!.name} - ${homestayFacility("shower")!.amount} / units",style: const TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
@@ -485,7 +606,7 @@ class HomestayDetailsBody extends StatelessWidget {
                       ],
                     ) : Row(
                       children: const [
-                        Icon(Icons.shower_outlined, color: Colors.red),
+                        Icon(Icons.shower_outlined, color: propertiesNonExistColor),
                         Text("Shower - none",style: TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
@@ -504,7 +625,7 @@ class HomestayDetailsBody extends StatelessWidget {
                   children: [
                     homestayFacility("sofa") != null ? Row(
                       children: [
-                        const Icon(Icons.chair_outlined, color: kPrimaryColor),
+                        const Icon(Icons.chair_outlined, color: propertiesExistColor),
                         Text("${homestayFacility("sofa")!.name} - ${homestayFacility("sofa")!.amount} / units",style: const TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
@@ -514,7 +635,7 @@ class HomestayDetailsBody extends StatelessWidget {
                       ],
                     ) : Row(
                       children: const [
-                        Icon(Icons.chair_outlined, color: Colors.red),
+                        Icon(Icons.chair_outlined, color: propertiesNonExistColor),
                         Text("Sofa - none",style: TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
@@ -622,31 +743,35 @@ class HomestayDetailsBody extends StatelessWidget {
         ),
 
         homestayModel!.homestayAdditionalFacilities.isNotEmpty
-        ? SizedBox(
-          height: 150,
+        ? Container(
+          height: homestayModel!.homestayAdditionalFacilities.length == 1 ? 50 : homestayModel!.homestayAdditionalFacilities.length < 5 ? 70 : 100,
+          margin: const EdgeInsets.only(left: 10),
           child: ListView.builder(
               itemCount: homestayModel!.homestayAdditionalFacilities.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
-                return Row(
-                  children: [
-                    Text("${homestayModel!.homestayAdditionalFacilities[index].name}", style: const TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'OpenSans',
-                      letterSpacing: 2.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold
-                    ),),
-                    const SizedBox(width: 5,),
-                    const Text("-"),
-                    const SizedBox(width: 5,),
-                    Text("${homestayModel!.homestayAdditionalFacilities[index].amount} / unit", style: const TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'OpenSans',
-                      letterSpacing: 2.0,
-                      color: Colors.black,
-                    ),),
-                  ],
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    children: [
+                      Text("${homestayModel!.homestayAdditionalFacilities[index].name}", style: const TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'OpenSans',
+                          letterSpacing: 2.0,
+                          color: propertiesExistColor,
+                          fontWeight: FontWeight.bold
+                      ),),
+                      const SizedBox(width: 5,),
+                      const Text("-"),
+                      const SizedBox(width: 5,),
+                      Text("${homestayModel!.homestayAdditionalFacilities[index].amount} / unit", style: const TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'OpenSans',
+                        letterSpacing: 2.0,
+                        color: Colors.black,
+                      ),),
+                    ],
+                  ),
                 );
               },
           ),

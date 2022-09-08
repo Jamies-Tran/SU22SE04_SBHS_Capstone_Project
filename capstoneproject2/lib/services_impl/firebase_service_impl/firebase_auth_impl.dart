@@ -17,35 +17,24 @@ class FirebaseAuthServiceImpl extends IFirebaseAuthenticateService {
   final _googleSignIn = GoogleSignIn();
   final _firebaseAuth = FirebaseAuth.instance;
 
-  @override
-  Future<dynamic> getGoogleSignInAccount() async {
-    final googleSignInAccount = await _googleSignIn.signIn();
-    if(googleSignInAccount != null) {
-      // final googleSignIn = await _authService.loginByGoogleAccount(googleSignInAccount);
-    }
-    return googleSignInAccount;
-  }
+  // @override
+  // Future<dynamic> getGoogleSignInAccount() async {
+  //   final googleSignInAccount = await _googleSignIn.signIn();
+  //   if(googleSignInAccount != null) {
+  //     // final googleSignIn = await _authService.loginByGoogleAccount(googleSignInAccount);
+  //   }
+  //   return googleSignInAccount;
+  // }
 
 
 
   @override
   Future forgetGoogleSignIn(String? username) async {
-   await _googleSignIn.disconnect();
+   await _googleSignIn.disconnect().timeout(const Duration(seconds: 20));
    await _firebaseAuth.signOut();
    if(username != null) {
      await _firebaseFirestore.deleteUserWhenSignOut(username!);
    }
-  }
-
-  @override
-  Future confirmBrandNewAccount(GoogleSignInAccount? googleSignInAccount) async {
-    // final isAccountBrandNew = await _passengerService.checkEmailExistOnSystem(googleSignInAccount?.email);
-    // // account đã tồn tại trên hệ thống
-    // if(isAccountBrandNew is ErrorHandlerModel) {
-    //  await _authService.loginByGoogleAccount();
-    // }
-    // return googleSignInAccount;
-
   }
 
 }

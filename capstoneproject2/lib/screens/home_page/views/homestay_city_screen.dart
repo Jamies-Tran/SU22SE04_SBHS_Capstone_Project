@@ -132,7 +132,7 @@ class _HomestayFromCityScreenState extends State<HomestayFromCityScreen> {
                                   Row(
                                     children: [
                                       const Icon(Icons.attach_money, color: Colors.green),
-                                      Text("${currencyFormat.format(snapshotData[index].homestayPriceLists.first)} ~ ${currencyFormat.format(snapshotData[index].homestayPriceLists.last)}/day", style: const TextStyle(
+                                      Text("${currencyFormat.format(snapshotData[index].homestayPriceLists!.first)} ~ ${currencyFormat.format(snapshotData[index].homestayPriceLists!.last)}/day", style: const TextStyle(
                                           fontSize: 20,
                                           fontFamily: 'OpenSans',
                                           letterSpacing: 3.0,

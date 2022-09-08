@@ -1,4 +1,4 @@
-import 'package:capstoneproject2/screens/booking/booking_summary_screen.dart';
+import 'package:capstoneproject2/screens/booking/booking_detail_screen.dart';
 import 'package:capstoneproject2/services/booking_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:capstoneproject2/services/model/booking_model.dart';
@@ -28,7 +28,7 @@ class BookingCheckInNavigator extends StatelessWidget {
             } else if(snapshot.hasData) {
               final snapshotData = snapshot.data;
               if(snapshotData is BookingModel) {
-                return BookingSummaryScreen(bookingId: snapshotData.id,);
+                return BookingDetailsScreen(bookingId: snapshotData.id,username: username, homestayName: snapshotData.homestayName,);
               } else if(snapshotData is ErrorHandlerModel) {
                 return Center(child: Text("Error occur ${snapshotData.message}"),);
               }

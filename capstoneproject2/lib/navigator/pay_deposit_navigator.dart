@@ -1,4 +1,4 @@
-import 'package:capstoneproject2/screens/booking/booking_summary_screen.dart';
+import 'package:capstoneproject2/screens/booking/booking_detail_screen.dart';
 import 'package:capstoneproject2/services/model/booking_model.dart';
 import 'package:capstoneproject2/services/model/error_handler_model.dart';
 import 'package:capstoneproject2/services_impl/booking_service_impl.dart';
@@ -30,13 +30,13 @@ class DepositPaymentNavigator extends StatelessWidget {
             return Container(
               color: Colors.white,
               child: const Center(
-                child: Text("Processing your payment..."),
+                child: Text("almost done"),
               ),
             );
           } else if(snapshot.hasData) {
             final snapshotData = snapshot.data;
             if(snapshotData is DepositAmount) {
-              return BookingSummaryScreen(bookingId: bookingModel!.id);
+              return BookingDetailsScreen(bookingId: bookingModel!.id, homestayName: bookingModel!.homestayName, username: username,);
             } else if(snapshotData is ErrorHandlerModel) {
               return Container(
                 color: Colors.white,

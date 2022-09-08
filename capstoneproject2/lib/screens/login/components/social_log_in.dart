@@ -23,12 +23,12 @@ class SocialLogin extends StatelessWidget {
             SocalIcon(
               iconSrc: "assets/icons/gmail.svg",
               press: () async {
-                dynamic getGoogleSignInAccount =  await _firebaseAuth.getGoogleSignInAccount();
-                if(getGoogleSignInAccount is GoogleSignInAccount) {
-                  print(getGoogleSignInAccount.email);
-                } else if(getGoogleSignInAccount is ErrorHandlerModel){
-                  print(getGoogleSignInAccount.message);
-                }
+              //   dynamic getGoogleSignInAccount =  await _firebaseAuth.getGoogleSignInAccount();
+              //   if(getGoogleSignInAccount is GoogleSignInAccount) {
+              //     print(getGoogleSignInAccount.email);
+              //   } else if(getGoogleSignInAccount is ErrorHandlerModel){
+              //     print(getGoogleSignInAccount.message);
+              //   }
               },
 
             ),

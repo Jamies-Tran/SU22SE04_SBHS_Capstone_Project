@@ -7,6 +7,9 @@ import 'package:capstoneproject2/services/model/wallet_model.dart';
 import 'package:capstoneproject2/services/passenger_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+const url = "https://test-payment.momo.vn/v2/gateway/pay?t=TU9NTzNJMEgyMDIyMDcwNXw3MDUyNDk3Yy1iNjdjLTQ3ZWMtYmEwNy00NjBlM2M1ZDg0NGI=";
 
 class WalletManagementScreen extends StatefulWidget {
   const WalletManagementScreen({Key? key}) : super(key: key);
@@ -18,6 +21,7 @@ class WalletManagementScreen extends StatefulWidget {
 class _WalletManagementScreenState extends State<WalletManagementScreen> {
   final passengerService = locator.get<IPassengerService>();
   final firebaseAuth = FirebaseAuth.instance;
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,19 @@ class _WalletManagementScreenState extends State<WalletManagementScreen> {
           } else if(snapshot.hasData) {
             final snapshotData = snapshot.data;
             if(snapshotData is WalletModel) {
-              return Center(child: Text("${snapshotData.balance}"),);
+              return Column(
+                children: [
+                  Center(child: Text("${snapshotData.balance}"),),
+                  const SizedBox(
+                    height: 100,
+                    width: 200,
+                    child: ElevatedButton(
+                      onPressed: openLink,
+                      child: Text("Test"),
+                    ),
+                  ),
+                ],
+              );
             } else if(snapshotData is ErrorHandlerModel) {
               return DialogComponent(message: snapshotData.message, eventHandler: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => HomePageScreen(),)),);
@@ -48,5 +64,10 @@ class _WalletManagementScreenState extends State<WalletManagementScreen> {
         },
       ),
     );
+  }
+}
+Future<void> openLink() async {
+  if(await launchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url), mode: LaunchMode.inAppWebView);
   }
 }

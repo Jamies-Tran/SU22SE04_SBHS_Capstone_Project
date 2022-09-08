@@ -14,8 +14,8 @@ class BookingModel {
   List<HomestayServiceModel> homestayServiceList;
   var checkIn;
   var checkOut;
-  var totalPrice;
-  var deposit;
+  int? totalPrice;
+  int? deposit;
   var status;
   var bookingOtp;
 

@@ -49,7 +49,7 @@ class HomestayOfTheYearListView extends StatelessWidget {
                                   ),
                                   builder: (context, coverSnapshot) {
                                     if(coverSnapshot.connectionState == ConnectionState.waiting) {
-                                      return SpinKitComponent();
+                                      return const SpinKitComponent();
                                     } else if(coverSnapshot.hasData) {
                                       String url = coverSnapshot.data as String;
                                       return Container(
@@ -91,7 +91,7 @@ class HomestayOfTheYearListView extends StatelessWidget {
                                           color: Colors.grey,
                                           borderRadius: BorderRadius.all(Radius.circular(20))
                                       ),
-                                      child: Text("${snapshotData[index].averagePoint} / 5.0", style: const TextStyle(
+                                      child: Text("${snapshotData[index].averagePoint.toStringAsFixed(1)} / 5.0", style: const TextStyle(
                                           fontSize: 15,
                                           fontFamily: 'OpenSans',
                                           letterSpacing: 1.5,
@@ -99,14 +99,14 @@ class HomestayOfTheYearListView extends StatelessWidget {
                                           fontWeight: FontWeight.bold
                                       ))
                                   ),
-                                  RatingComponent(point: snapshotData[index].averagePoint,)
+                                  RatingComponent(point: double.parse(snapshotData[index].averagePoint.toStringAsFixed(1)),)
                                 ],
                               ),
                               const SizedBox(height: 10),
                               Row(
                                 children: [
                                   const Icon(Icons.attach_money, color: Colors.green),
-                                  Text("${currencyFormat.format(snapshotData[index].homestayPriceLists.first.price)} ~ ${currencyFormat.format(snapshotData[index].homestayPriceLists.last.price)}/day", style: const TextStyle(
+                                  Text("${currencyFormat.format(snapshotData[index].homestayPriceLists!.first.price)} ~ ${currencyFormat.format(snapshotData[index].homestayPriceLists!.last.price)}/day", style: const TextStyle(
                                       fontSize: 15,
                                       fontFamily: 'OpenSans',
                                       letterSpacing: 3.0,

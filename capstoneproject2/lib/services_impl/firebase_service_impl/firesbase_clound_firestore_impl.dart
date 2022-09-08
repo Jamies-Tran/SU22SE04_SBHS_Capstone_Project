@@ -21,7 +21,7 @@ class CloudFireStoreServiceImpl extends ICloudFirestoreService {
 
   @override
   Future findUserFireStore(String username) async {
-    final result = await _systemUserCollection.where("username", isEqualTo: username).get().timeout(const Duration(seconds: 20));
+    final result = await _systemUserCollection.where("username", isEqualTo: username).get();
     if(result.docs.isNotEmpty) {
       AuthenticateModel authenticateModel = AuthenticateModel(
           username: result.docs[0].data()["username"],

@@ -1,6 +1,6 @@
 import 'package:capstoneproject2/components/spinkit_component.dart';
 import 'package:capstoneproject2/constants.dart';
-import 'package:capstoneproject2/screens/booking/booking_summary_screen.dart';
+import 'package:capstoneproject2/screens/booking/booking_detail_screen.dart';
 import 'package:capstoneproject2/services/booking_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:capstoneproject2/services/model/booking_model.dart';
@@ -10,9 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class HomestayBookingListComponent extends StatelessWidget {
-  const HomestayBookingListComponent({Key? key, this.homestayName, this.status}) : super(key: key);
+  const HomestayBookingListComponent({
+    Key? key,
+    this.homestayName,
+    this.status,
+    this.username
+  }) : super(key: key);
   final String? homestayName;
   final String? status;
+  final String? username;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,7 @@ class HomestayBookingListComponent extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () => {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookingSummaryScreen(bookingId: getBookingListOfUser[index].id),))
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailsScreen(bookingId: getBookingListOfUser[index].id, username: username),))
                       },
                       child: Container(
                         height: 170,
