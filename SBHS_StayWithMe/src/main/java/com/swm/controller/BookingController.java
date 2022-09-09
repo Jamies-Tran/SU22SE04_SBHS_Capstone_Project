@@ -21,13 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.BookingConverter;
 import com.swm.converter.HomestayConverter;
+import com.swm.converter.PassengerCancelBookingTicketConverter;
 import com.swm.dto.BookingRequestDto;
 import com.swm.dto.BookingResponseDto;
 import com.swm.dto.RequestConfirmationDto;
 import com.swm.dto.HomestayResponseDto;
+import com.swm.dto.PassengerCancelBookingTicketDto;
 import com.swm.entity.BookingDepositEntity;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.HomestayEntity;
+import com.swm.entity.PassengerCancelBookingTicketEntity;
 import com.swm.service.IBookingService;
 
 import lombok.AllArgsConstructor;
@@ -46,6 +49,22 @@ public class BookingController {
 	public static class CheckIn {
 		private String bookingOtp;
 		private Long bookingId;
+	}
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class CheckOut {
+		private Long bookingId;
+	}
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class CheckInByPassengerRelative {
+		private String bookingOtp;
 	}
 
 	@AllArgsConstructor
@@ -73,8 +92,38 @@ public class BookingController {
 
 	@Autowired
 	private HomestayConverter homestayConverter;
+	
+	@Autowired
+	private PassengerCancelBookingTicketConverter cancelBookingTicketConverter;
 
 	private Logger log = LoggerFactory.getLogger(BookingController.class);
+	
+	@GetMapping("/booking-otp/{bookingOtp}")
+	@PreAuthorize("hasRole('ROLE_PASSENGER')")
+	public ResponseEntity<?> findBookingByOtp(@PathVariable("bookingOtp") String otp) {
+		BookingEntity bookingEntity = bookingService.findBookingByOtp(otp);
+		BookingResponseDto bookingResponseDtp = bookingConvert.bookingToDto(bookingEntity);
+		
+		return new ResponseEntity<>(bookingResponseDtp, HttpStatus.OK);
+	}
+	
+	@GetMapping("/get")
+	@PreAuthorize("hasRole('ROLE_LANDLORD')")
+	public ResponseEntity<?> getBookingPendingListHaveSameCheckInDate(@RequestParam("check-in") String checkIn) {
+		List<BookingEntity> getBookingEntityList = bookingService.getBookingPendingListHaveSameCheckInDate(checkIn);
+		List<BookingResponseDto> bookingResponseDtoList = getBookingEntityList.stream().map(b -> bookingConvert.bookingToDto(b)).collect(Collectors.toList());
+		
+		return new ResponseEntity<>(bookingResponseDtoList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/cancel-ticket/{bookingId}")
+	@PreAuthorize("hasRole('ROLE_PASSENGER')")
+	public ResponseEntity<?> findBookingCancelTicket(@PathVariable("bookingId") Long bookingId) {
+		PassengerCancelBookingTicketEntity cancelBookingTicketEntity = bookingService.findPassengerCancelBookingTicketByBookingId(bookingId);
+		PassengerCancelBookingTicketDto cancelBookingTicketResponseDto = cancelBookingTicketConverter.cancelBookingToDto(cancelBookingTicketEntity);
+		
+		return new ResponseEntity<>(cancelBookingTicketResponseDto, HttpStatus.OK);
+	}
 
 	@PostMapping
 	@PreAuthorize("hasRole('ROLE_PASSENGER')")
@@ -123,15 +172,34 @@ public class BookingController {
 
 		return new ResponseEntity<>(bookingResponseDto, HttpStatus.OK);
 	}
+	
+	@PostMapping("/relative-checkin")
+	@PreAuthorize("hasAuthority('booking:update')")
+	public ResponseEntity<?> checkInHomestayByPassengerRelative(@RequestBody CheckInByPassengerRelative checkIn) {
+		BookingEntity bookingEntity = bookingService.checkInByPassengerRelative(checkIn.getBookingOtp());
+		BookingResponseDto bookingResponseDto = bookingConvert.bookingToDto(bookingEntity);
 
-	@PatchMapping("/checkin-confirm/{bookingId}")
-	@PreAuthorize("hasRole('ROLE_LANDLORD')")
-	public ResponseEntity<?> confirmCheckInHomestay(@PathVariable("bookingId") Long bookingId,
-			@RequestBody RequestConfirmationDto confirmRequestDto) {
-		bookingService.confirmCheckIn(bookingId, confirmRequestDto.getIsAccepted());
-
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(bookingResponseDto, HttpStatus.OK);
 	}
+	
+	@PostMapping("/check-out")
+	@PreAuthorize("hasAuthority('booking:update')")
+	public ResponseEntity<?> checkOutHomestay(@RequestBody CheckOut checkOut) {
+		BookingEntity bookingEntity = bookingService.checkOutRequest(checkOut.getBookingId());
+		BookingResponseDto bookingResponseDto = bookingConvert.bookingToDto(bookingEntity);
+		
+		return new ResponseEntity<>(bookingResponseDto, HttpStatus.OK);
+				
+	}
+
+//	@PatchMapping("/checkin-confirm/{bookingId}")
+//	@PreAuthorize("hasRole('ROLE_LANDLORD')")
+//	public ResponseEntity<?> confirmCheckInHomestay(@PathVariable("bookingId") Long bookingId,
+//			@RequestBody RequestConfirmationDto confirmRequestDto) {
+//		bookingService.confirmCheckIn(bookingId, confirmRequestDto.getIsAccepted());
+//
+//		return new ResponseEntity<>(HttpStatus.OK);
+//	}
 
 	@PatchMapping("/passenger-cancel/{bookingId}")
 	@PreAuthorize("hasRole('ROLE_PASSENGER')")
@@ -161,10 +229,10 @@ public class BookingController {
 		return new ResponseEntity<>(homestayBookingResponseList, HttpStatus.OK);
 	}
 
-	@GetMapping("/booking-list/{username}")
+	@GetMapping("/booking-list")
 	@PreAuthorize("hasRole('ROLE_PASSENGER')")
-	public ResponseEntity<?> getUserBookingList(@PathVariable("username") String username, @RequestParam String status) {
-		List<BookingEntity> bookingEntityList = bookingService.getUserBookingList(username, status);
+	public ResponseEntity<?> getUserBookingList(@RequestParam String status) {
+		List<BookingEntity> bookingEntityList = bookingService.getUserBookingList(status);
 		List<BookingResponseDto> bookingResponseList = bookingEntityList.stream()
 				.map(b -> bookingConvert.bookingToDto(b)).collect(Collectors.toList());
 		

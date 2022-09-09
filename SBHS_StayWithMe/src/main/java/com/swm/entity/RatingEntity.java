@@ -24,7 +24,7 @@ public class RatingEntity extends BaseEntity {
 	
 	/**
 	 * 
-	 */
+	 */ 
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,18 +34,16 @@ public class RatingEntity extends BaseEntity {
 	
 	@Column(name = "convenient_point")
 	@Setter
-	private double convenient = 0.0;
+	private double convenientPoint = 0.0;
 	
 	@Column(name = "position_point")
 	@Setter
-	private double position = 0.0;
+	private double positionPoint = 0.0;
 	
 	@Column(name = "security_point")
 	@Setter
-	private double security = 0.0;
+	private double securityPoint = 0.0;
 	
-	@Column(name = "average_point")
-	private double average = (position + security + convenient) / 3;
 	
 	// rating properties - end
 	

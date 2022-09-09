@@ -8,6 +8,6 @@ import com.swm.entity.BookingOtpEntity;
 
 public interface IBookingOtpRepository extends JpaRepository<BookingOtpEntity, Long> {
 	
-	@Query(value = "select * from booking_otp bo where bo.passengerName = :passengerName", nativeQuery = true)
+	@Query(value = "select bo from BookingOtpEntity bo where bo.passengerName = :passengerName")
 	BookingOtpEntity findBookingOtpByPassengerName(@Param("passengerName") String passengerName);
 }

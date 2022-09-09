@@ -15,6 +15,6 @@ public class BaseWalletEntity extends BaseEntity{
 	
 	@Setter
 	@Getter
-	private Long balance = 1000000L;
+	private Long balance = 100000L;
 
 }

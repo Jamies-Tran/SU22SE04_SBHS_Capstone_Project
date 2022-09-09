@@ -128,16 +128,22 @@ public class PaymentService implements IPaymentService {
 	@Transactional
 	@Override
 	public MomoPaymentEntity paymentResultHandling(MomoPaymentEntity momoPaymentEntity) {
-
+		System.out.println(momoPaymentEntity.getOrderInfo());
 		MomoPaymentEntity momoPersisted;
+		System.out.println(momoPaymentEntity.getOrderInfo());
 		Long currentBalance;
 		String userName = new String(Base64.getDecoder().decode(momoPaymentEntity.getExtraData()));
+		
 		UsernameMapper usernameMapper = usenameMapperFromJson(userName);
 		UserEntity userEntity = userService.findUserByUserInfo(usernameMapper.getUsername());
+		System.out.println(userEntity.getUsername());
 		if (!userEntity.getStatus().equalsIgnoreCase(UserStatus.ACTIVE.name())) {
 			throw new ResourceNotAllowException(userName, "account not active");
 		}
+		
 		momoPersisted = momoProcessRepo.save(momoPaymentEntity);
+		
+		System.out.println(WalletType.valueOf(momoPaymentEntity.getOrderInfo()).name());
 		WalletType walletType = WalletType.valueOf(momoPaymentEntity.getOrderInfo());
 		switch (walletType) {
 		case LANDLORD_WALLET:			

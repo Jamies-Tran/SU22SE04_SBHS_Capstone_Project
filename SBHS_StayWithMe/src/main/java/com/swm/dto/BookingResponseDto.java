@@ -19,6 +19,7 @@ public class BookingResponseDto {
 	private String homestayName;
 	private String homestayLocation;
 	private String homestayCity;
+	private Double homestayAverageRating;
 	private String homestayOwner;
 	private String homestayOwnerPhone;
 	private String homestayOwnerEmail;

@@ -26,6 +26,7 @@ import com.swm.dto.PasswordModificationDto;
 import com.swm.dto.UserDto;
 import com.swm.dto.UserOtpDto;
 import com.swm.entity.BaseWalletEntity;
+import com.swm.entity.PassengerWalletEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
 import com.swm.security.token.JwtTokenUtil;
@@ -72,6 +73,7 @@ public class UserController {
 	@Setter
 	public static class WalletReponseDto {
 		private Long balance;
+		private Long futurePay;
 		private String owner;
 
 	}
@@ -216,6 +218,9 @@ public class UserController {
 		WalletReponseDto walletResponseDto = new WalletReponseDto();
 		walletResponseDto.setOwner(baseWalletEntity.getCreatedBy());
 		walletResponseDto.setBalance(baseWalletEntity.getBalance());
+		if(baseWalletEntity instanceof PassengerWalletEntity) {
+			walletResponseDto.setFuturePay(((PassengerWalletEntity) baseWalletEntity).getFuturePay());
+		}
 
 		return new ResponseEntity<>(walletResponseDto, HttpStatus.OK);
 

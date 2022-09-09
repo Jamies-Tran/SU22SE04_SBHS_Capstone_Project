@@ -15,6 +15,7 @@ import com.swm.dto.BookingResponseDto;
 import com.swm.dto.HomestayAftercareDto;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.HomestayAftercareEntity;
+import com.swm.entity.HomestayEntity;
 import com.swm.exception.ParseDateException;
 import com.swm.service.IHomestayService;
 import com.swm.service.IUserService;
@@ -41,7 +42,8 @@ public class BookingConverter {
 	
 	public BookingEntity bookingToEntity(BookingRequestDto bookingDto) {
 		BookingEntity bookingEntity = new BookingEntity();
-		bookingEntity.setBookingHomestay(homestayService.findHomestayByName(bookingDto.getHomestayName()));
+		HomestayEntity homestayEntity = homestayService.findHomestayByName(bookingDto.getHomestayName());
+		bookingEntity.setBookingHomestay(homestayEntity);
 		bookingEntity.setTotalPrice(bookingDto.getTotalPrice());
 		bookingEntity.setDeposit(bookingDto.getDeposit());
 		if(bookingDto.getHomestayServiceList() != null) {
@@ -71,6 +73,7 @@ public class BookingConverter {
 		bookingDto.setHomestayName(bookingEntity.getBookingHomestay().getName());
 		bookingDto.setHomestayLocation(bookingEntity.getBookingHomestay().getAddress());
 		bookingDto.setHomestayCity(bookingEntity.getBookingHomestay().getCity());
+		bookingDto.setHomestayAverageRating(bookingEntity.getBookingHomestay().getAverage());
 		bookingDto.setHomestayOwner(bookingEntity.getBookingHomestay().getLandlordOwner().getLandlordAccount().getUsername());
 		bookingDto.setHomestayOwnerPhone(bookingEntity.getBookingHomestay().getLandlordOwner().getLandlordAccount().getPhone());
 		bookingDto.setHomestayOwnerEmail(bookingEntity.getBookingHomestay().getLandlordOwner().getLandlordAccount().getEmail());

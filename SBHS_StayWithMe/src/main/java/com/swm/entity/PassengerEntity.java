@@ -60,9 +60,9 @@ public class PassengerEntity extends BaseEntity {
 	@Setter
 	private List<HomestayEntity> royalBadgeList;
 	
-	@OneToMany(mappedBy = "passengerOwnerOfShield", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToMany(mappedBy = "passengerOwnerOfTicket", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@Setter
-	private List<PassengerShieldCancelBookingEntity>  shieldList;
+	private List<PassengerCancelBookingTicketEntity>  cancelTicketList;
 	
 	@OneToOne(mappedBy = "owner" ,cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@Setter

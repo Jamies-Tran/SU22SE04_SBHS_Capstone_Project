@@ -1,11 +1,17 @@
 package com.swm.serviceImpl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,14 +23,13 @@ import com.swm.entity.BookingOtpEntity;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.LandlordEntity;
 import com.swm.entity.LandlordWalletEntity;
+import com.swm.entity.PassengerCancelBookingTicketEntity;
 import com.swm.entity.PassengerEntity;
-import com.swm.entity.PassengerShieldCancelBookingEntity;
 import com.swm.entity.PassengerWalletEntity;
 import com.swm.entity.UserEntity;
 import com.swm.enums.AccountRole;
 import com.swm.enums.BookingStatus;
 import com.swm.enums.HomestayStatus;
-import com.swm.exception.InvalidBalanceException;
 import com.swm.exception.ResourceNotAllowException;
 import com.swm.exception.ResourceNotFoundException;
 import com.swm.repository.IBookingRepository;
@@ -61,11 +66,24 @@ public class BookingService implements IBookingService {
 	@Autowired
 	private IPassengerShieldCancelBookingRepository passengerShieldCancelBookingRepository;
 
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 	private Date currentDate = new Date();
 
-	// private Logger log = LoggerFactory.getLogger(BookingService.class);
+	private Logger log = LoggerFactory.getLogger(BookingService.class);
 
-	//private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	// private SimpleDateFormat simpleDateFormat = new
+	// SimpleDateFormat("yyyy-MM-dd");
+
+	private Date formatDateTime(Date dateFormat) {
+		try {
+			currentDate = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+			return currentDate;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	@Override
 	public BookingEntity createBooking(BookingEntity bookingEntity) {
@@ -74,6 +92,7 @@ public class BookingService implements IBookingService {
 		PassengerEntity passengerEntity = userEntity.getPassenger();
 		passengerEntity.setBooking(List.of(bookingEntity));
 		HomestayEntity homestayEntity = bookingEntity.getBookingHomestay();
+		currentDate = formatDateTime(currentDate);
 		if (!homestayEntity.getStatus().equalsIgnoreCase(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name())) {
 			throw new ResourceNotAllowException(homestayEntity.getName(), "Homestay not active");
 		}
@@ -91,19 +110,19 @@ public class BookingService implements IBookingService {
 		bookingOtpEntity.setBookingContainer(bookingEntity);
 		bookingOtpEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
 		bookingOtpEntity.setCreatedDate(currentDate);
-		PassengerShieldCancelBookingEntity passengerShiedCancelBookingEntity = homestayEntity
-				.getShieldForCancelBooking();
+		PassengerCancelBookingTicketEntity passengerShiedCancelBookingEntity = homestayEntity
+				.getTicketForCancelBooking();
 		if (passengerShiedCancelBookingEntity == null) {
-			passengerShiedCancelBookingEntity = new PassengerShieldCancelBookingEntity();
+			passengerShiedCancelBookingEntity = new PassengerCancelBookingTicketEntity();
 			passengerShiedCancelBookingEntity.setActiveDate(currentDate);
-			passengerShiedCancelBookingEntity.setPassengerOwnerOfShield(passengerEntity);
-			passengerShiedCancelBookingEntity.setHomestayShieldForCancel(homestayEntity);
-			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
-			homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
+			passengerShiedCancelBookingEntity.setPassengerOwnerOfTicket(passengerEntity);
+			passengerShiedCancelBookingEntity.setHomestayTicketForCancel(homestayEntity);
+			passengerEntity.setCancelTicketList(List.of(passengerShiedCancelBookingEntity));
+			homestayEntity.setTicketForCancelBooking(passengerShiedCancelBookingEntity);
 			passengerShiedCancelBookingEntity = passengerShieldCancelBookingRepository
 					.save(passengerShiedCancelBookingEntity);
-			passengerEntity.setShieldList(List.of(passengerShiedCancelBookingEntity));
-			homestayEntity.setShieldForCancelBooking(passengerShiedCancelBookingEntity);
+			passengerEntity.setCancelTicketList(List.of(passengerShiedCancelBookingEntity));
+			homestayEntity.setTicketForCancelBooking(passengerShiedCancelBookingEntity);
 		}
 		bookingEntity.setBookingCreator(passengerEntity);
 		bookingEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
@@ -154,10 +173,8 @@ public class BookingService implements IBookingService {
 				.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
 		UserEntity bookingUserEntity = bookingEntity.getBookingCreator().getPassengerAccount();
 		UserEntity homestayOwnerEntity = homestayEntity.getLandlordOwner().getLandlordAccount();
-		if (!bookingEntity.getStatus().equals(BookingStatus.BOOKING_PENDING_CHECKIN.name())) {
-			throw new ResourceNotAllowException("Check-in not availanle due to landlord haven't apporove your booking request");
-		}
-		
+		String subject = "Check-in confirm";
+
 		if (checkInUserEntity.getUsername().equals(homestayOwnerEntity.getUsername())) {
 			// chủ homestay check-in cho khách
 			msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity,
@@ -167,31 +184,26 @@ public class BookingService implements IBookingService {
 			bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
 			bookingEntity.setModifiedBy(checkInUserEntity.getUsername());
 			bookingEntity.setModifiedDate(currentDate);
-			sendMailService.sendMail(bookingUserEntity.getUsername(), msg, "Booking confirm");
+			sendMailService.sendMail(bookingUserEntity.getUsername(), msg, subject);
 			return bookingEntity;
 		} else {
-			
-			if(bookingEntity.getBookingCreator().getPassengerAccount().getUsername().equals(checkInUserEntity.getUsername())) {
-				bookingStatus = BookingStatus.BOOKING_CONFIRM_CHECKIN.name();
-			} else {
-				bookingStatus = BookingStatus.BOOKING_CHECKIN_BY_PASSENGER_RELATIVE.name();
-			}
-			if(bookingOtpEntity.getCode().equals(bookingOtp)) {
-				
+			bookingStatus = BookingStatus.BOOKING_CONFIRM_CHECKIN.name();
+			if (bookingOtpEntity.getCode().equals(bookingOtp)) {
 				// người đặt check-in
+				msg = ApplicationSendMailUtil.generateConfirmCheckInMessage(checkInUserEntity, homestayEntity,
+						bookingEntity, AccountRole.PASSENGER.name());
 				bookingEntity.setStatus(bookingStatus);
 				bookingEntity.setCheckInBy(checkInUserEntity.getUsername());
 				bookingEntity.setModifiedBy(checkInUserEntity.getUsername());
 				bookingEntity.setModifiedDate(currentDate);
+				sendMailService.sendMail(bookingUserEntity.getUsername(), msg, subject);
 				return bookingEntity;
 			} else {
 				throw new ResourceNotFoundException(bookingOtp, "Booking otp not correct");
 			}
-			
-		} 
+
+		}
 	}
-	
-	
 
 	@Transactional
 	@Override
@@ -204,6 +216,14 @@ public class BookingService implements IBookingService {
 			bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_CHECKIN.name());
 			bookingEntity.setModifiedBy(landlordEntity.getLandlordAccount().getUsername());
 			bookingEntity.setModifiedDate(currentDate);
+			List<BookingEntity> sameBookingsDay = bookingRepo.findAll().stream()
+					.filter(b -> b.getCheckIn().compareTo(bookingEntity.getCheckIn()) == 0
+							&& (b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
+									|| b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name())))
+					.collect(Collectors.toList());
+			sameBookingsDay.forEach(b -> {
+				confirmBooking(b.getId(), false, "Your booking has been denied");
+			});
 			String message = ApplicationSendMailUtil.generateAcceptBookingMessage(bookingEntity);
 			String subject = "Your booking has been approved";
 			sendMailService.sendMail(passengerEntity.getPassengerAccount().getUsername(), message, subject);
@@ -235,17 +255,55 @@ public class BookingService implements IBookingService {
 	}
 
 	@Override
-	public BookingEntity checkOutRequest(Long bookingId, String paymentMethod) {
+	@Transactional
+	public BookingEntity checkOutRequest(Long bookingId) {
 		BookingEntity bookingEntity = this.findBookingById(bookingId);
-		String checkOutUser = authenticationService.getAuthenticatedUser().getUsername();
-		PassengerEntity homestayBookingUser = bookingEntity.getBookingCreator();
+		PassengerEntity userBookingHomestay = bookingEntity.getBookingCreator();
+		BookingDepositEntity bookingDepositEntity = bookingEntity.getBookingPaidDeposit();
 		LandlordEntity homestayOwner = bookingEntity.getBookingHomestay().getLandlordOwner();
-		if (homestayBookingUser.getPassengerAccount().getUsername().equals(checkOutUser)
-				|| homestayOwner.getLandlordAccount().getUsername().equals(checkOutUser)) {
+		UserEntity userCheckOut = userService
+				.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
+		String status;
+		Long totalRemainAmount = bookingEntity.getTotalPrice() - bookingDepositEntity.getDepositPaidAmount();
+		Long currentPassengerWalletAmount = userBookingHomestay.getWallet().getBalance() - totalRemainAmount;
+		Long currentFuturePay = userBookingHomestay.getWallet().getFuturePay() - totalRemainAmount;
+		Long currentLandlordWalletAmount = homestayOwner.getWallet().getBalance() + totalRemainAmount
+				+ bookingDepositEntity.getDepositPaidAmount();
+
+		if (bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CONFIRM_CHECKIN.name())
+				|| bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CHECKIN_BY_LANDLORD.name())
+				|| bookingEntity.getStatus().equals(BookingStatus.BOOKING_CHECKIN_BY_PASSENGER_RELATIVE.name())) {
+
+			if (bookingEntity.getBookingCreator().getPassengerAccount().getUsername()
+					.equals(userCheckOut.getUsername())) {
+
+				status = BookingStatus.BOOKING_CONFIRM_CHECKOUT.name();
+
+			} else if (bookingEntity.getBookingHomestay().getLandlordOwner().getLandlordAccount().getUsername()
+					.equals(userCheckOut.getUsername())) {
+
+				status = BookingStatus.BOOKING_CHECKOUT_BY_LANDLORD.name();
+
+			} else {
+
+				status = BookingStatus.BOOKING_CHECKOUT_BY_PASSENGER_RELATIVE.name();
+
+			}
+			bookingEntity.setStatus(status);
+			bookingEntity.setCheckOutBy(userCheckOut.getUsername());
+			bookingEntity.setModifiedBy(userCheckOut.getUsername());
+			bookingEntity.setModifiedDate(currentDate);
+			userBookingHomestay.getWallet().setBalance(currentPassengerWalletAmount);
+			userBookingHomestay.getWallet().setFuturePay(currentFuturePay);
+			userBookingHomestay.getWallet().setModifiedBy(userBookingHomestay.getPassengerAccount().getUsername());
+			userBookingHomestay.getWallet().setModifiedDate(currentDate);
+			homestayOwner.getWallet().setBalance(currentLandlordWalletAmount);
+			homestayOwner.getWallet().setModifiedBy(userBookingHomestay.getPassengerAccount().getUsername());
+			homestayOwner.getWallet().setModifiedDate(currentDate);
 
 		}
 
-		return null;
+		return bookingEntity;
 	}
 
 	@Transactional
@@ -255,13 +313,12 @@ public class BookingService implements IBookingService {
 		BookingDepositEntity bookingDepositEntity = bookingEntity.getBookingPaidDeposit();
 		PassengerEntity passengerEntity = bookingEntity.getBookingCreator();
 		PassengerWalletEntity passengerWalletEntity = passengerEntity.getWallet();
-		if (amount.longValue() > passengerWalletEntity.getBalance().longValue()) {
-			throw new InvalidBalanceException("Wallet ballance is not enough to make a transaction");
-		} else if (!bookingEntity.getDeposit().equals(amount)) {
-			throw new InvalidBalanceException("The amount must be equal to booking deposit");
-		}
 		Long newPassengerWalletBalance = passengerWalletEntity.getBalance() - amount;
+		Long futurePayTotalAmount = passengerWalletEntity.getFuturePay() + (bookingEntity.getTotalPrice() - amount);
 		passengerWalletEntity.setBalance(newPassengerWalletBalance);
+		passengerWalletEntity.setFuturePay(futurePayTotalAmount);
+		passengerWalletEntity.setModifiedBy(passengerEntity.getPassengerAccount().getUsername());
+		passengerWalletEntity.setModifiedDate(currentDate);
 		bookingEntity.setStatus(BookingStatus.BOOKING_PENDING.name());
 		bookingDepositEntity.setDepositPaidAmount(amount);
 
@@ -274,56 +331,69 @@ public class BookingService implements IBookingService {
 		BookingEntity bookingEntity = this.findBookingById(bookingId);
 		PassengerEntity userCancelBooking = bookingEntity.getBookingCreator();
 		LandlordEntity homestayOwner = bookingEntity.getBookingHomestay().getLandlordOwner();
-		PassengerShieldCancelBookingEntity passengerShieldBookingEntity = userCancelBooking.getShieldList().stream()
-				.filter(s -> s.getHomestayShieldForCancel().getId().equals(bookingEntity.getBookingHomestay().getId()))
-				.findAny().orElseThrow(() -> new ResourceNotFoundException("Shield not found"));
+		PassengerCancelBookingTicketEntity passengerTicketCancelBookingEntity = this
+				.findPassengerCancelBookingTicketByBookingId(bookingId);
 		PassengerWalletEntity passengerWallet = userCancelBooking.getWallet();
 		LandlordWalletEntity landlordWallet = homestayOwner.getWallet();
 		BookingDepositEntity bookingDeposit = bookingEntity.getBookingPaidDeposit();
-		long depositAmount = bookingDeposit.getDepositPaidAmount();
-		long passengerWalletCurrentBalance = passengerWallet.getBalance();
-		long landlordWalletCurrentBalance = landlordWallet.getBalance();
+		Long depositAmount = bookingDeposit.getDepositPaidAmount();
+		Long futurePayTotalAmount = passengerWallet.getFuturePay()
+				- (bookingEntity.getTotalPrice() - bookingDeposit.getDepositPaidAmount());
+		Long passengerWalletCurrentBalance = passengerWallet.getBalance();
+		Long landlordWalletCurrentBalance = landlordWallet.getBalance();
 
-		if (!bookingEntity.getStatus().equals(BookingStatus.BOOKING_PENDING_CHECKIN.name())) {
-			throw new ResourceNotAllowException("Not avalable cancel request");
-		}
+//		if (!bookingEntity.getStatus().equals(BookingStatus.BOOKING_PENDING_CHECKIN.name())) {
+//			throw new ResourceNotAllowException("Not avalable cancel request");
+//		}
 
-		// 24h đầu tiên
-		if (!passengerShieldBookingEntity.getActiveDate().after(currentDate)) {
-			// hủy lần đầu
-			if (passengerShieldBookingEntity.getFirstTimeShieldActive()) {
-				passengerWalletCurrentBalance = passengerWalletCurrentBalance + depositAmount;
-				depositAmount = 0;
-				passengerWallet.setBalance(passengerWalletCurrentBalance);
-				bookingDeposit.setDepositPaidAmount(depositAmount);
-				passengerShieldBookingEntity.setFirstTimeShieldActive(false);
-				// hủy lần hai
-			} else if (passengerShieldBookingEntity.getSencondTimeShieldActive()) {
-				passengerWalletCurrentBalance = passengerWalletCurrentBalance + (depositAmount * 95) / 100;
-				landlordWalletCurrentBalance = landlordWalletCurrentBalance + (depositAmount * 5) / 100;
-				depositAmount = 0;
-				passengerWallet.setBalance(passengerWalletCurrentBalance);
-				landlordWallet.setBalance(landlordWalletCurrentBalance);
-				bookingDeposit.setDepositPaidAmount(depositAmount);
-				passengerShieldBookingEntity.setSencondTimeShieldActive(false);
-				// hủy lần 2 trở lên
+		// huy truoc khi landlord xac nhan booking
+		if (!(bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
+				|| bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name()))) {
+			// truoc 7 ngay
+			if (!this.isAfterSevenDay(passengerTicketCancelBookingEntity.getActiveDate(), bookingEntity.getCheckIn())) {
+				// hủy lần đầu
+				if (passengerTicketCancelBookingEntity.getFirstTimeCancelActive()) {
+					System.out.println("First cancel");
+					passengerWalletCurrentBalance = passengerWalletCurrentBalance + depositAmount;
+					passengerWallet.setBalance(passengerWalletCurrentBalance);
+					passengerWallet.setFuturePay(futurePayTotalAmount);
+					passengerTicketCancelBookingEntity.setFirstTimeCancelActive(false);
+					// hủy lần hai
+				} else if (passengerTicketCancelBookingEntity.getSecondTimeCancelActive()) {
+					System.out.println("Second cancel");
+					passengerWalletCurrentBalance = passengerWalletCurrentBalance + (depositAmount * 95) / 100;
+					landlordWalletCurrentBalance = landlordWalletCurrentBalance + (depositAmount * 5) / 100;
+					passengerWallet.setBalance(passengerWalletCurrentBalance);
+					passengerWallet.setFuturePay(futurePayTotalAmount);
+					landlordWallet.setBalance(landlordWalletCurrentBalance);
+					passengerTicketCancelBookingEntity.setSecondTimeCancelActive(false);
+					// hủy lần 2 trở lên
+				} else {
+					System.out.println("Above second cancel");
+					landlordWalletCurrentBalance = landlordWalletCurrentBalance + depositAmount;
+					passengerWallet.setFuturePay(futurePayTotalAmount);
+					landlordWallet.setBalance(landlordWalletCurrentBalance);
+				}
 			} else {
 				landlordWalletCurrentBalance = landlordWalletCurrentBalance + depositAmount;
-				depositAmount = 0;
+				passengerWallet.setFuturePay(futurePayTotalAmount);
 				landlordWallet.setBalance(landlordWalletCurrentBalance);
-				bookingDeposit.setDepositPaidAmount(depositAmount);
 			}
-			// sau 24h
 		} else {
-			landlordWalletCurrentBalance = landlordWalletCurrentBalance + depositAmount;
-			depositAmount = 0;
-			landlordWallet.setBalance(landlordWalletCurrentBalance);
-			bookingDeposit.setDepositPaidAmount(depositAmount);
+			passengerWalletCurrentBalance = passengerWalletCurrentBalance + depositAmount;
+			passengerWallet.setBalance(passengerWalletCurrentBalance);
+			passengerWallet.setFuturePay(futurePayTotalAmount);
 		}
 
-		bookingEntity.setStatus(BookingStatus.BOOKING_REJECTED.name());
+		bookingEntity.setStatus(BookingStatus.BOOKING_CANCELED.name());
 
 		return bookingEntity;
+	}
+
+	private boolean isAfterSevenDay(Date shieldBookingActiveDate, Date bookingCheckInDate) {
+		long differentInTime = bookingCheckInDate.getTime() - shieldBookingActiveDate.getTime();
+		long differentInDay = (differentInTime / (1000 * 60 * 60 * 24)) % 365;
+		return differentInDay <= 7;
 	}
 
 	@Override
@@ -340,43 +410,139 @@ public class BookingService implements IBookingService {
 	}
 
 	@Override
-	public List<BookingEntity> getUserBookingList(String username, String status) {
+	public List<BookingEntity> getUserBookingList(String status) {
+		UserEntity userEntity = userService
+				.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
+
 		List<BookingEntity> bookingEntityList = status.equals("all")
-				? bookingRepo.findAll().stream()
-						.filter(b -> b.getBookingCreator().getPassengerAccount().getUsername().equals(username))
+				? this.bookingRepo.findAll().stream()
+						.filter(b -> b.getBookingCreator().getPassengerAccount().getUsername()
+								.equals(userEntity.getUsername()))
 						.collect(Collectors.toList())
-				: bookingRepo.findAll().stream()
-						.filter(b -> b.getBookingCreator().getPassengerAccount().getUsername().equals(username)
-								&& b.getStatus().equalsIgnoreCase(status))
+				: userEntity.getPassenger().getBooking().stream().filter(b -> b.getStatus().equalsIgnoreCase(status))
 						.collect(Collectors.toList());
-		if (bookingEntityList.isEmpty()) {
-			throw new ResourceNotFoundException("There is no booking yet");
-		}
+
+//		if (bookingEntityList.isEmpty()) {
+//			throw new ResourceNotFoundException("There is no booking yet");
+//		}
 
 		return bookingEntityList;
 	}
 
 	@Override
 	@Transactional
-	public BookingEntity checkInByPassengerRelative(Long bookingId, String bookingOtp) {
-		UserEntity userCheckIn = (UserEntity)authenticationService.getAuthenticatedUser();
-		BookingEntity bookingEntity = this.findBookingById(bookingId);
-		if(bookingEntity != null && userCheckIn != null) {
-			if(userCheckIn.getUsername().equals(bookingEntity.getBookingCreator().getPassengerAccount().getUsername())) {
-				return this.checkInByPassengerOrLandlord(bookingId, bookingOtp);
-			} else {
-				if(bookingOtp.equals(bookingEntity.getBookingOtp().getCode())) {
-					bookingEntity.setStatus(BookingStatus.BOOKING_CHECKIN_BY_PASSENGER_RELATIVE.name());
-					bookingEntity.setCheckInBy(userCheckIn.getUsername());
-					bookingEntity.setModifiedBy(userCheckIn.getUsername());
-					bookingEntity.setModifiedDate(currentDate);
-					return bookingEntity;
-				} else {
-					throw new ResourceNotFoundException(bookingOtp, "Booking otp not correct");
-				}
-			}
+	public BookingEntity checkInByPassengerRelative(String bookingOtp) {
+		UserEntity userCheckIn = userService
+				.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
+		BookingEntity bookingEntity = this.findBookingByOtp(bookingOtp);
+		if (bookingEntity != null && userCheckIn != null) {
+			bookingEntity.setStatus(BookingStatus.BOOKING_CHECKIN_BY_PASSENGER_RELATIVE.name());
+			bookingEntity.setCheckInBy(userCheckIn.getUsername());
+			bookingEntity.setModifiedBy(userCheckIn.getUsername());
+			bookingEntity.setModifiedDate(currentDate);
+			return bookingEntity;
 		} else {
 			throw new ResourceNotFoundException("Booking or username not found");
+		}
+	}
+
+	@Override
+	public BookingEntity findBookingByOtp(String otp) {
+		BookingEntity bookingEntity = bookingRepo.findBookingByOtp(otp)
+				.orElseThrow(() -> new ResourceNotFoundException(otp, "Invalid booking otp"));
+
+		return bookingEntity;
+	}
+
+	@Override
+	public PassengerCancelBookingTicketEntity findPassengerCancelBookingTicketByBookingId(Long bookingId) {
+		BookingEntity bookingEntity = this.findBookingById(bookingId);
+		PassengerEntity userCancelBooking = bookingEntity.getBookingCreator();
+		PassengerCancelBookingTicketEntity passengerTicketCancelBookingEntity = userCancelBooking.getCancelTicketList()
+				.stream()
+				.filter(s -> s.getHomestayTicketForCancel().getId().equals(bookingEntity.getBookingHomestay().getId()))
+				.findAny().orElseThrow(() -> new ResourceNotFoundException("Shield not found"));
+
+		return passengerTicketCancelBookingEntity;
+	}
+
+	@Override
+	@Transactional
+	public void remindPassengerBookingDate() {
+		List<BookingEntity> bookingList = bookingRepo.findAll();
+		String subject = "Reminder";
+		for (BookingEntity bookingEntity : bookingList) {
+			if (differentFromCurrentDateToCheckInDate(bookingEntity.getCheckIn()) == 7
+					&& bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_CHECKIN.name())) {
+				log.info("mail send to passenger");
+				String msg = ApplicationSendMailUtil.generateBookingDayRemainPassenger(
+						differentFromCurrentDateToCheckInDate(bookingEntity.getCheckIn()),
+						simpleDateFormat.format(bookingEntity.getCheckIn()));
+				sendMailService.sendMail(bookingEntity.getBookingCreator().getPassengerAccount().getUsername(), msg,
+						subject);
+				bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_CHECKIN_REMAIN_SENT.name());
+			} else if (differentFromCurrentDateToCheckInDate(bookingEntity.getCheckIn()) == 7
+					&& bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())) {
+				log.info("mail send to landlord");
+				String msg = ApplicationSendMailUtil.generateBookingDayExpireLandlord(
+						differentFromCurrentDateToCheckInDate(bookingEntity.getCheckIn()),
+						simpleDateFormat.format(bookingEntity.getCheckIn()), bookingEntity.getId());
+				sendMailService.sendMail(
+						bookingEntity.getBookingHomestay().getLandlordOwner().getLandlordAccount().getUsername(), msg,
+						subject);
+				bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_ALERT_SENT.name());
+			} else if (differentFromCurrentDateToCheckInDate(bookingEntity.getCheckIn()) == 0
+					&& bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_CHECKIN.name())) {
+				log.info("mail send to passenger");
+				String msg = ApplicationSendMailUtil.generateStartBookingDatePassenger();
+				sendMailService.sendMail(bookingEntity.getBookingCreator().getPassengerAccount().getUsername(), msg,
+						subject);
+				bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_CHECKIN_APPOINTMENT_SENT.name());
+			} else if (differentFromCurrentDateToCheckInDate(bookingEntity.getCheckIn()) < 0
+					&& (bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_CHECKIN.name())
+							|| bookingEntity.getStatus()
+									.equalsIgnoreCase(BookingStatus.BOOKING_PENDING_CHECKIN_REMAIN_SENT.name())
+							|| bookingEntity.getStatus()
+									.equalsIgnoreCase(BookingStatus.BOOKING_PENDING_CHECKIN_APPOINTMENT_SENT.name()))) {
+				this.passengerCancelBooking(bookingEntity.getId());
+				String msg = ApplicationSendMailUtil.generateCancelBookingPassenger();
+				sendMailService.sendMail(bookingEntity.getBookingCreator().getPassengerAccount().getUsername(), msg,
+						subject);
+			}
+		}
+	}
+
+	private long differentFromCurrentDateToCheckInDate(Date checkIn) {
+		long differentInTime = checkIn.getTime() - currentDate.getTime();
+		long differentInDay = (differentInTime / (1000 * 60 * 60 * 24)) % 365;
+
+		return differentInDay;
+	}
+
+	@Override
+	public List<BookingEntity> getBookingPage(int page, int size) {
+		Pageable bookingPage = PageRequest.of(page, size);
+		List<BookingEntity> bookingList = bookingRepo.bookingPaging(bookingPage).getContent();
+
+		return bookingList;
+	}
+
+	@Override
+	public List<BookingEntity> getBookingPendingListHaveSameCheckInDate(String checkIn) {
+		Date checkInDate = parseDateTime(checkIn);
+		List<BookingEntity> bookingEntity = bookingRepo.findAll().stream().filter(b -> b.getCheckIn().equals(checkInDate) && (b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name()) || b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name())))
+				.collect(Collectors.toList());
+
+		return bookingEntity;
+	}
+	
+	private Date parseDateTime(String date) {
+		try {
+			Date parseDate = simpleDateFormat.parse(date);
+			return parseDate;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

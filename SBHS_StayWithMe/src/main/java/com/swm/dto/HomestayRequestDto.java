@@ -23,10 +23,6 @@ public class HomestayRequestDto {
 	private String checkOutTime;
 	private String payment;
 	private String status;
-	private Double convenientPoint;
-	private Double securityPoint;
-	private Double positionPoint;
-	private Double average;
 	private int numberOfFinishedBooking;
 	private HomestayLicenseDto homestayLicense;
 	private List<HomestayImageDto> homestayImages;

@@ -39,6 +39,9 @@ public class PassengerWalletEntity extends BaseWalletEntity {
 	@Setter
 	private PassengerEntity owner;
 	
+	@Setter
+	private Long futurePay = 0L;
+	
 	@OneToMany(mappedBy = "passengerWallet", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@Setter
 	private List<MomoPaymentEntity> momoPaymentList;

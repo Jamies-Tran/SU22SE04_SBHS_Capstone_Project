@@ -119,10 +119,10 @@ public class HomestayConverter {
 		homestayDto.setCheckInTime(homestayEntity.getCheckInTime());
 		homestayDto.setCheckOutTime(homestayEntity.getCheckOutTime());
 		homestayDto.setStatus(homestayEntity.getStatus());
-		homestayDto.setConvenientPoint(homestayEntity.getRating().getConvenient());
-		homestayDto.setSecurityPoint(homestayEntity.getRating().getSecurity());
-		homestayDto.setPositionPoint(homestayEntity.getRating().getPosition());
-		homestayDto.setAverage(homestayEntity.getRating().getAverage());
+		homestayDto.setConvenientPoint(homestayEntity.getConvenientPoint());
+		homestayDto.setSecurityPoint(homestayEntity.getSecurityPoint());
+		homestayDto.setPositionPoint(homestayEntity.getPositionPoint());
+		homestayDto.setAverage(homestayEntity.getAverage());
 		homestayDto.setHomestayLicense(homestayLicenseImageDto);
 		homestayDto.setHomestayImages(homestayImageList);
 		homestayDto.setHomestayServices(homestayServiceList);

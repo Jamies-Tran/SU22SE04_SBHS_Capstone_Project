@@ -16,12 +16,16 @@ public interface IHomestayService {
 	List<HomestayEntity> findHomestayBookingAvailableListByCity(String city);
 	
 	List<HomestayEntity> findHomestayListByOwnerName();
+	
+	List<HomestayEntity> getHomestayPage(int page, int size);
 
 	HomestayEntity createHomestay(HomestayEntity homestayEntity);
 	
 	List<SpecialDayPriceListEntity> addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList);
 	
 	List<SpecialDayPriceListEntity> getSpecialDayPriceList();
+	
+
 	
 	SpecialDayPriceListEntity findSpecialDayByCode(String code);
 	

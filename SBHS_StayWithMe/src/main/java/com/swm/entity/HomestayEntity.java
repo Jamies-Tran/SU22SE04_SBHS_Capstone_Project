@@ -56,6 +56,27 @@ public class HomestayEntity extends BaseEntity {
 	@Column(nullable = false)
 	@Setter
 	private double profit = 0.0;
+	
+	@Column(name = "convenient_point")
+	@Setter
+	private double convenientPoint = 0.0;
+	
+	@Column(name = "position_point")
+	@Setter
+	private double positionPoint = 0.0;
+	
+	@Column(name = "security_point")
+	@Setter
+	private double securityPoint = 0.0;
+	
+	@Column(name = "average_point")
+	@Setter
+	private double average = 0;
+	
+	@Column(name = "number_rating")
+	@Setter
+	private int numberOfRating = 0;
+	
 
 	@Setter
 	private int numberOfRoom;
@@ -70,10 +91,10 @@ public class HomestayEntity extends BaseEntity {
 	@Setter
 	private String status;
 
-	@OneToOne(mappedBy = "homestayShieldForCancel", cascade = { CascadeType.MERGE,
+	@OneToOne(mappedBy = "homestayTicketForCancel", cascade = { CascadeType.MERGE,
 			CascadeType.REFRESH }, orphanRemoval = true)
 	@Setter
-	private PassengerShieldCancelBookingEntity shieldForCancelBooking;
+	private PassengerCancelBookingTicketEntity ticketForCancelBooking;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id", referencedColumnName = "Id")

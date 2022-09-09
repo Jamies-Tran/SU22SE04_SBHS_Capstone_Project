@@ -57,15 +57,15 @@ public class ApplicationSendMailUtil {
 		if (homestayServiceList.isEmpty()) {
 			message = "<p>We please to send you your booking information:<p>\r\n"
 					+ "<p><span style='font-weight:bold'>Homestay:</span>" + homestayEntity.getName() + "</p>\r\n"
-					+ "<p><span style='font-weight:bold'>Booking otp:</span>" +bookingOtp + "</p>\r\n"
 					+ "<p><span style='font-weight:bold'>Check-in:</span>"
 					+ simpleDateFormat.format(bookingEntity.getCheckIn()) + "</p>\r\n"
 					+ "<p><span style='font-weight:bold'>Check-out:</span>"
 					+ simpleDateFormat.format(bookingEntity.getCheckOut()) + "</p>\r\n"
 					+ "<p><span style='font-weight:bold'>Total: </span>" + bookingEntity.getTotalPrice() + " VND</p>\r\n"
 					+ "<p><span style='font-weight:bold'>Deposit: </span>"
-					+ bookingEntity.getDeposit() + " VND</p>\r\n"
-					+ "<p>P.S: You must pay deposit to complete the booking.</p>\r\n"
+					+ bookingEntity.getDeposit() + " VND</p><br/>\r\n"
+					+ "<p><span style='font-weight:bold'>Booking otp:</span>" +bookingOtp + "</p>\r\n"
+					+ "<p>P.S: You have paid deposit for this booking.</p>\r\n"
 					+ "<p>We wish your journey safe and sound. Enjoy your time.</p>";
 		} else {
 			String serviceListString = "";
@@ -82,8 +82,9 @@ public class ApplicationSendMailUtil {
 					+ bookingEntity.getCheckOut() + "</p>\r\n"
 					+ "<p><span style='font-weight:bold'>Total: </span>" + bookingEntity.getTotalPrice() + "VND</p>\r\n"
 					+ "<p><span style='font-weight:bold'>Deposit: </span>"
-					+ bookingEntity.getDeposit() + "</p>\r\n"
-					+ "<p>P.S: You must pay deposit to complete the booking.</p>\r\n"
+					+ bookingEntity.getDeposit() + "</p><br/>\r\n"
+					+ "<p><span style='font-weight:bold'>Booking otp:</span>" +bookingOtp + "</p>\r\n"
+					+ "<p>P.S: You have paid deposit for this booking.</p>\r\n"
 					+ "<p>We wish your journey safe and sound. Enjoy your time.</p>";
 		}
 
@@ -133,7 +134,61 @@ public class ApplicationSendMailUtil {
 		return message;
 	}
 	
+	public static String generateBookingDayRemainPassenger(long remainDay, String appointmentStart) {
+		StringBuilder stringBuilder = new StringBuilder();
+		String remainDayStr = stringBuilder.append(remainDay).append("days till").toString();
+		message = "<center>\r\n"
+				+ "<image src=\"https://cdn-icons-png.flaticon.com/512/2038/2038136.png\"width=150 height=150 />\r\n"
+				+ "</center>\r\n"
+				+ "<center>\r\n"
+				+ "<h1 style=\"font-family:OpenSans;\"> " + remainDayStr + " your journey start</h1>\r\n"
+				+ "</center>"
+				+ "<center>\r\n"
+				+ "<p style=\"font-family:OpenSans;\">Your appointment with homestay homestay001 will start on " + appointmentStart + "</p>\r\n"
+				+ "</center>";
+		
+		return message;
+	}
 	
+	public static String generateBookingDayExpireLandlord(long remainDay, String appointmentStart, long bookingId) {
+		StringBuilder stringBuilder = new StringBuilder();
+		String remainDayStr = stringBuilder.append(remainDay).append("days till").toString();
+		message = "<center>\r\n"
+				+ "<image src=\"https://cdn-icons-png.flaticon.com/512/2038/2038136.png\"width=150 height=150 />\r\n"
+				+ "</center>\r\n"
+				+ "<center>\r\n"
+				+ "<h1 style=\"font-family:OpenSans;\"> " + remainDayStr + " your booking request(ID:#"+bookingId+") expire</h1>\r\n"
+				+ "</center>"
+				+ "<center>\r\n"
+				+ "<p style=\"font-family:OpenSans;\">Your booking request will expire on " + appointmentStart + "</p>\r\n"
+				+ "</center>";
+		
+		return message;
+	}
 	
+	public static String generateStartBookingDatePassenger() {
+		message = "<center>\r\n"
+				+ "<image src=\"https://cdn-icons-png.flaticon.com/512/2038/2038136.png\"width=150 height=150 />\r\n"
+				+ "</center>\r\n"
+				+ "<center>\r\n"
+				+ "<h1 style=\"font-family:OpenSans;\"> Your journey start today</h1>\r\n"
+				+ "</center>"
+				+ "<center>\r\n"
+				+ "<p style=\"font-family:OpenSans;\">Please enjoy your time.</p>\r\n"
+				+ "</center>";
+		
+		return message;
+	}
+	
+	public static String generateCancelBookingPassenger() {
+		message = "<center>\r\n"
+				+ "<image src=\"https://cdn-icons-png.flaticon.com/512/2038/2038136.png\"width=150 height=150 />\r\n"
+				+ "</center>\r\n"
+				+ "<center>\r\n"
+				+ "<h1 style=\"font-family:OpenSans;\">You've missed your check-in date</h1>\r\n"
+				+ "</center>";
+		
+		return message;
+	}
 	
 }

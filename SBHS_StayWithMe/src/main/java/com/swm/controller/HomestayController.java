@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.HomestayConverter;
@@ -202,5 +203,14 @@ public class HomestayController {
 		SpecialDayPriceListDto specialDayPriceListDto = homestayConvert.specialDayPriceListDtoConvert(specialDayPriceListEntity);
 		
 		return new ResponseEntity<>(specialDayPriceListDto, HttpStatus.OK);
+	}
+	
+	@GetMapping("/list")
+	@PreAuthorize("hasRole('ROLE_PASSENGER')")
+	public ResponseEntity<?> getHomestayPagination(@RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
+		List<HomestayEntity> homestayList = homestayService.getHomestayPage(page, size);
+		List<HomestayResponseDto> homestayResponseListDto = homestayList.stream().map(h -> homestayConvert.homestayResponseDtoConvert(h)).collect(Collectors.toList());
+		
+		return new ResponseEntity<>(homestayResponseListDto, HttpStatus.OK);
 	}
 }

@@ -19,21 +19,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "passenger_shield")
+@Table(name = "passenger_cancel_booking_ticket")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class PassengerShieldCancelBookingEntity {
+public class PassengerCancelBookingTicketEntity {
 	@Id
 	@SequenceGenerator(name = "shield_sequence", sequenceName = "shield_sequence", initialValue = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shield_sequence")
 	private Long Id;
 	
 	@Setter
-	private Boolean firstTimeShieldActive = true;
+	private Boolean firstTimeCancelActive = true;
 	
 	@Setter
-	private Boolean sencondTimeShieldActive = true;
+	private Boolean secondTimeCancelActive = true;
 	
 	@Setter
 	private Date activeDate;
@@ -41,10 +41,10 @@ public class PassengerShieldCancelBookingEntity {
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "passenger_id", referencedColumnName = "Id")
 	@Setter
-	private PassengerEntity passengerOwnerOfShield;
+	private PassengerEntity passengerOwnerOfTicket;
 	
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "homestay_Id", referencedColumnName = "Id")
 	@Setter
-	private HomestayEntity homestayShieldForCancel;
+	private HomestayEntity homestayTicketForCancel;
 }

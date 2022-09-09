@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "momo_order_processing")
+@Table(name = "momo_transaction")
 @NoArgsConstructor
 @Getter
 public class MomoPaymentEntity {

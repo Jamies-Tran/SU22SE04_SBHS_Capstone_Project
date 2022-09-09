@@ -49,9 +49,11 @@ public class ServerPageController {
 			@RequestParam String message, @RequestParam String payType, @RequestParam String extraData,
 			@RequestParam String signature, Model model) {
 		
+		
 		MomoPaymentDto momoPaymentDto = new MomoPaymentDto(
 				partnerCode, orderId, requestId, amount, orderInfo.toUpperCase(), orderType, transId, resultCode, message, payType, extraData, signature);
 		MomoPaymentEntity momoOrderProcessEntity = momoOrderProcessConvert.momoPaymentToEntity(momoPaymentDto);
+		
 		walletService.paymentResultHandling(momoOrderProcessEntity);
 
 		return "payment_success";

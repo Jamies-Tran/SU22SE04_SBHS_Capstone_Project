@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +17,6 @@ import com.swm.entity.BookingEntity;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.LandlordEntity;
-import com.swm.entity.RatingEntity;
 import com.swm.entity.SpecialDayPriceListEntity;
 import com.swm.entity.UserEntity;
 import com.swm.enums.BookingStatus;
@@ -135,10 +137,10 @@ public class HomestayService implements IHomestayService {
 		homestayEntity.getLicenseImage().setHomestayLicense(homestayEntity);
 		homestayEntity.getLicenseImage().setCreatedBy(accountPoster);
 		homestayEntity.getLicenseImage().setCreatedDate(currentDate);
-		RatingEntity rating = new RatingEntity();
-		rating.setCreatedDate(currentDate);
-		rating.setHomestayPoint(homestayEntity);
-		homestayEntity.setRating(rating);
+//		RatingEntity rating = new RatingEntity();
+//		rating.setCreatedDate(currentDate);
+//		rating.setHomestayPoint(homestayEntity);
+//		homestayEntity.setRating(rating);
 		homestayEntity.setStatus(HomestayStatus.HOMESTAY_REQUEST_PENDING.name());
 		HomestayPostingRequestEntity homestayPostingRequest = new HomestayPostingRequestEntity();
 		homestayPostingRequest.setCreatedBy(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
@@ -232,6 +234,15 @@ public class HomestayService implements IHomestayService {
 		List<SpecialDayPriceListEntity> specialPriceList = specialDayPriceListRepo.findAll();
 		
 		return specialPriceList;
+	}
+
+	@Override
+	public List<HomestayEntity> getHomestayPage(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<HomestayEntity> homestayPage = homestayRepo.homestayPageable(pageable);
+		List<HomestayEntity> homestayList = homestayPage.getContent();
+		
+		return homestayList;
 	}
 
 }
