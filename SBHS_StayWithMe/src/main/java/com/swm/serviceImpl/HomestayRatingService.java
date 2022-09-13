@@ -42,7 +42,7 @@ public class HomestayRatingService implements IHomestayRatingService {
 		HomestayEntity homestayEntity = homestayService.findHomestayByName(homestayName);
 		// save rating
 		RatingEntity ratingEntity = new RatingEntity();
-		System.out.println(ratingEntity != null);
+		long increasedTotalRatingTime = homestayEntity.getTotalRatingTime() + 1;
 		ratingEntity.setConvenientPoint(newConvenientPoint);
 		ratingEntity.setSecurityPoint(newSecurityPoint);
 		ratingEntity.setPositionPoint(newPositionPoint);
@@ -52,6 +52,7 @@ public class HomestayRatingService implements IHomestayRatingService {
 		ratingEntity.setHomestayPoint(homestayEntity);
 		userRating.getPassenger().setRating(ratingEntity);
 		homestayEntity.setRating(ratingEntity);
+		homestayEntity.setTotalRatingTime(increasedTotalRatingTime);
 		homestayRatingRepo.save(ratingEntity);
 		// first get current number of rating and the new one by increase the old by 1
 		int currentNumberOfRating = homestayEntity.getNumberOfRating();

@@ -1,13 +1,14 @@
 package com.swm.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -47,8 +48,7 @@ public class SpecialDayPriceListEntity {
 	@Setter
 	private String description;
 	
-	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	@JoinColumn(name = "price_list_id", referencedColumnName = "Id")
+	@OneToMany(mappedBy = "specialDayPriceList" ,cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@Setter
-	private HomestayPriceListEntity homestayPriceLst;
+	private List<HomestayPriceListEntity> homestayPriceLst;
 }

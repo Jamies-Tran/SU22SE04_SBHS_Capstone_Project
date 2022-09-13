@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.HomestayConverter;
 import com.swm.dto.HomestayAftercareDto;
+import com.swm.dto.HomestayFilterDto;
+import com.swm.dto.HomestayPagesResponseDto;
 import com.swm.dto.HomestayRequestDto;
 import com.swm.dto.HomestayResponseDto;
 import com.swm.dto.SpecialDayPriceListDto;
@@ -52,6 +54,14 @@ public class HomestayController {
 	@Setter
 	public static class SpecialDayListDto {
 		List<SpecialDayPriceListDto> specialDayList;
+	}
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	public static class HomestayListDto {
+		List<HomestayRequestDto> homestayRequestList;
 	}
 
 	@Autowired
@@ -185,6 +195,7 @@ public class HomestayController {
 
 		return new ResponseEntity<>(specialDayListDtoResponse, HttpStatus.OK);
 	}
+	
 
 	@GetMapping("/get/all/special-day")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_LANDLORD')")
@@ -205,12 +216,16 @@ public class HomestayController {
 		return new ResponseEntity<>(specialDayPriceListDto, HttpStatus.OK);
 	}
 	
-	@GetMapping("/list")
+	@PostMapping("/list")
 	@PreAuthorize("hasRole('ROLE_PASSENGER')")
-	public ResponseEntity<?> getHomestayPagination(@RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
-		List<HomestayEntity> homestayList = homestayService.getHomestayPage(page, size);
-		List<HomestayResponseDto> homestayResponseListDto = homestayList.stream().map(h -> homestayConvert.homestayResponseDtoConvert(h)).collect(Collectors.toList());
+	public ResponseEntity<?> getHomestayPagination(
+				@RequestParam(name = "page") int page, 
+				@RequestParam(name = "size") int size,
+				@RequestBody HomestayFilterDto filter
+			) {
 		
-		return new ResponseEntity<>(homestayResponseListDto, HttpStatus.OK);
+		HomestayPagesResponseDto homestayList = homestayService.getHomestayPage(filter, page, size);
+		
+		return new ResponseEntity<>(homestayList, HttpStatus.OK);
 	}
 }

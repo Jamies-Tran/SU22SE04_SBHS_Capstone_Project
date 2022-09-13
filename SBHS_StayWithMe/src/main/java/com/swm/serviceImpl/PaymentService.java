@@ -1,5 +1,6 @@
 package com.swm.serviceImpl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -30,6 +32,7 @@ import com.swm.exception.ParseJsonException;
 import com.swm.exception.ResourceNotAllowException;
 import com.swm.exception.ResourceNotFoundException;
 import com.swm.repository.IMomoProcessOrderRepository;
+import com.swm.service.IAuthenticationService;
 import com.swm.service.IPaymentService;
 import com.swm.service.IUserService;
 import com.swm.util.MomoInfoUtil;
@@ -51,6 +54,10 @@ public class PaymentService implements IPaymentService {
 
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	@Lazy
+	private IAuthenticationService authenticationService;
 
 //	@Autowired
 //	private IBookingService bookingService;
@@ -132,49 +139,53 @@ public class PaymentService implements IPaymentService {
 		MomoPaymentEntity momoPersisted;
 		System.out.println(momoPaymentEntity.getOrderInfo());
 		Long currentBalance;
-		String userName = new String(Base64.getDecoder().decode(momoPaymentEntity.getExtraData()));
-		
-		UsernameMapper usernameMapper = usenameMapperFromJson(userName);
-		UserEntity userEntity = userService.findUserByUserInfo(usernameMapper.getUsername());
-		System.out.println(userEntity.getUsername());
-		if (!userEntity.getStatus().equalsIgnoreCase(UserStatus.ACTIVE.name())) {
-			throw new ResourceNotAllowException(userName, "account not active");
+		String username;
+		try {
+			username = new String(Base64.getDecoder().decode(momoPaymentEntity.getExtraData()), "utf-8");
+			UsernameMapper usernameMapper = usenameMapperFromJson(username);
+			UserEntity userEntity = userService.findUserByUserInfo(usernameMapper.getUsername());
+			if (!userEntity.getStatus().equalsIgnoreCase(UserStatus.ACTIVE.name())) {
+				throw new ResourceNotAllowException(username, "account not active");
+			}
+			
+			momoPersisted = momoProcessRepo.save(momoPaymentEntity);
+			
+			System.out.println(WalletType.valueOf(momoPaymentEntity.getOrderInfo()).name());
+			WalletType walletType = WalletType.valueOf(momoPaymentEntity.getOrderInfo());
+			switch (walletType) {
+			case LANDLORD_WALLET:			
+				LandlordEntity landLordEntity = userEntity.getLandlord();
+				if(landLordEntity == null) {
+					throw new ResourceNotFoundException("Invalid payment request");
+				}
+				LandlordWalletEntity landlordWalletEntity = landLordEntity.getWallet();
+				currentBalance = landlordWalletEntity.getBalance();
+				currentBalance = currentBalance + momoPersisted.getAmount();
+				landlordWalletEntity.setBalance(currentBalance);
+				landlordWalletEntity.setMomoPaymentList(List.of(momoPersisted));
+				momoPersisted.setLandlordWallet(landlordWalletEntity);
+				log.error("Payment process for landlord wallet");
+				return momoPersisted;
+			case PASSENGER_WALLET:
+				PassengerEntity passengerEntity = userEntity.getPassenger();
+				if(passengerEntity == null) {
+					throw new ResourceNotFoundException("Invalid payment request");
+				}
+				PassengerWalletEntity passengerWalletEntity = passengerEntity.getWallet();
+				currentBalance = passengerWalletEntity.getBalance();
+				currentBalance = currentBalance + momoPersisted.getAmount();
+				passengerWalletEntity.setBalance(currentBalance);
+				passengerWalletEntity.setMomoPaymentList(List.of(momoPersisted));
+				momoPersisted.setPassengerWallet(passengerWalletEntity);
+				log.error("Payment procees for passenger wallet");
+				return momoPersisted;
+			default:
+				throw new ResourceNotFoundException("order info not found");
+			}
+		} catch (UnsupportedEncodingException e) {
+			throw new ResourceNotAllowException("Unsupport encoding");
 		}
 		
-		momoPersisted = momoProcessRepo.save(momoPaymentEntity);
-		
-		System.out.println(WalletType.valueOf(momoPaymentEntity.getOrderInfo()).name());
-		WalletType walletType = WalletType.valueOf(momoPaymentEntity.getOrderInfo());
-		switch (walletType) {
-		case LANDLORD_WALLET:			
-			LandlordEntity landLordEntity = userEntity.getLandlord();
-			if(landLordEntity == null) {
-				throw new ResourceNotFoundException("Invalid payment request");
-			}
-			LandlordWalletEntity landlordWalletEntity = landLordEntity.getWallet();
-			currentBalance = landlordWalletEntity.getBalance();
-			currentBalance = currentBalance + momoPersisted.getAmount();
-			landlordWalletEntity.setBalance(currentBalance);
-			landlordWalletEntity.setMomoPaymentList(List.of(momoPersisted));
-			momoPersisted.setLandlordWallet(landlordWalletEntity);
-			log.error("Payment process for landlord wallet");
-			return momoPersisted;
-		case PASSENGER_WALLET:
-			PassengerEntity passengerEntity = userEntity.getPassenger();
-			if(passengerEntity == null) {
-				throw new ResourceNotFoundException("Invalid payment request");
-			}
-			PassengerWalletEntity passengerWalletEntity = passengerEntity.getWallet();
-			currentBalance = passengerWalletEntity.getBalance();
-			currentBalance = currentBalance + momoPersisted.getAmount();
-			passengerWalletEntity.setBalance(currentBalance);
-			passengerWalletEntity.setMomoPaymentList(List.of(momoPersisted));
-			momoPersisted.setPassengerWallet(passengerWalletEntity);
-			log.error("Payment procees for passenger wallet");
-			return momoPersisted;
-		default:
-			throw new ResourceNotFoundException("order info not found");
-		}
 
 	}
 
@@ -186,6 +197,13 @@ public class PaymentService implements IPaymentService {
 		} catch (JsonProcessingException e) {
 			throw new ParseJsonException("Invalid orderInfo");
 		}
+	}
+
+	@Override
+	public MomoPaymentEntity findMomoPaymentById(Long Id) {
+		MomoPaymentEntity momoPaymentEntity = momoProcessRepo.findById(Id).orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
+		
+		return momoPaymentEntity;
 	}
 
 }

@@ -212,6 +212,7 @@ public class BookingService implements IBookingService {
 		HomestayEntity homestayEntity = bookingEntity.getBookingHomestay();
 		LandlordEntity landlordEntity = homestayEntity.getLandlordOwner();
 		PassengerEntity passengerEntity = bookingEntity.getBookingCreator();
+		long increasedTotalBookingTime = homestayEntity.getTotalBookingTime() + 1;
 		if (isAccepted) {
 			bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_CHECKIN.name());
 			bookingEntity.setModifiedBy(landlordEntity.getLandlordAccount().getUsername());
@@ -224,6 +225,7 @@ public class BookingService implements IBookingService {
 			sameBookingsDay.forEach(b -> {
 				confirmBooking(b.getId(), false, "Your booking has been denied");
 			});
+			homestayEntity.setTotalBookingTime(increasedTotalBookingTime);
 			String message = ApplicationSendMailUtil.generateAcceptBookingMessage(bookingEntity);
 			String subject = "Your booking has been approved";
 			sendMailService.sendMail(passengerEntity.getPassengerAccount().getUsername(), message, subject);
@@ -256,7 +258,7 @@ public class BookingService implements IBookingService {
 
 	@Override
 	@Transactional
-	public BookingEntity checkOutRequest(Long bookingId) {
+	public BookingEntity checkOut(Long bookingId) {
 		BookingEntity bookingEntity = this.findBookingById(bookingId);
 		PassengerEntity userBookingHomestay = bookingEntity.getBookingCreator();
 		BookingDepositEntity bookingDepositEntity = bookingEntity.getBookingPaidDeposit();

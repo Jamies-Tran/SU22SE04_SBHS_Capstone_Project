@@ -27,7 +27,8 @@ public class HomestayResponseDto implements Comparable<HomestayResponseDto>{
 	private Double securityPoint;
 	private Double positionPoint;
 	private Double average;
-	private int numberOfFinishedBooking;
+	private Long totalBookingTime;
+	private Long totalRatingTime;
 	private HomestayLicenseDto homestayLicense;
 	private List<HomestayImageDto> homestayImages;
 	private List<HomestayAftercareDto> homestayServices;

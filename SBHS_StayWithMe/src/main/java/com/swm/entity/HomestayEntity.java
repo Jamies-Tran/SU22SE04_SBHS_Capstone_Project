@@ -27,7 +27,7 @@ import lombok.Setter;
 @Table(name = "homestay")
 @NoArgsConstructor
 @Getter
-public class HomestayEntity extends BaseEntity {
+public class HomestayEntity extends BaseEntity implements Comparable<HomestayEntity> {
 	/**
 	 * 
 	 */
@@ -38,14 +38,15 @@ public class HomestayEntity extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "homestay_sequence")
 	private Long Id;
 
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false, columnDefinition = "nvarchar(MAX)")
 	@Setter
 	private String name;
 
+	@Column(columnDefinition = "nvarchar(MAX)")
 	@Setter
 	private String description;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "nvarchar(MAX)")
 	@Setter
 	private String address;
 
@@ -77,7 +78,6 @@ public class HomestayEntity extends BaseEntity {
 	@Setter
 	private int numberOfRating = 0;
 	
-
 	@Setter
 	private int numberOfRoom;
 
@@ -86,6 +86,12 @@ public class HomestayEntity extends BaseEntity {
 
 	@Setter
 	private String checkOutTime;
+	
+	@Setter
+	private long totalBookingTime = 0;
+	
+	@Setter
+	private long totalRatingTime = 0;
 
 	@Column(nullable = false)
 	@Setter
@@ -160,5 +166,17 @@ public class HomestayEntity extends BaseEntity {
 	@OneToMany(mappedBy = "homestayPriceList", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@Setter
 	private List<HomestayPriceListEntity> priceList;
+
+	@Override
+	public int compareTo(HomestayEntity o) {
+		if(this.getAverage() == o.getAverage()) {
+			return 0;
+		} else if(this.getAverage() > o.getAverage()) {
+			return 1;
+		} else {
+			return -1;
+		}
+		
+	}
 
 }

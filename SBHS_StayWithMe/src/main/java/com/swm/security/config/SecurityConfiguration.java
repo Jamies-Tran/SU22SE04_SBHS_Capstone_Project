@@ -62,8 +62,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		  		.antMatchers(
 		  				"/api/user/**", "/api/user/register/*", "/api/homestay/permit-all/**", "/api/booking/permit-all/**",
 		  				"/api/user/login/*", "/swagger-ui/*", "/v3/api-docs", "/v3/api-docs/swagger-config", 
-		  				"/api/payment", "/api/payment/**",
-		  				"/checkin/redirect/**", "/checkin/confirm", "/momo/redirect", "/background/*", 
+		  				"/api/payment", "/api/payment/**", "/passenger_payment_success",
+		  				"/checkin/redirect/**", "/checkin/confirm", "/momo/**", "/background/*", "/templates/*",
 		  				"/favicon.ico",  "/error", "/role").permitAll()
 		  		.anyRequest().authenticated();
 	}

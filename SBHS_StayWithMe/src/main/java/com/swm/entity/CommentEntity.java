@@ -42,7 +42,7 @@ public class CommentEntity extends BaseEntity {
 	// booking_otp properties - end
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	@JoinColumn(name = "homestay", referencedColumnName = "name")
+	@JoinColumn(name = "homestay_id", referencedColumnName = "Id")
 	@Setter
 	private HomestayEntity homestayComment;
 	

@@ -128,7 +128,8 @@ public class HomestayConverter {
 		homestayDto.setHomestayServices(homestayServiceList);
 		homestayDto.setHomestayCommonFacilities(homestayCommonFacilityList);
 		homestayDto.setHomestayAdditionalFacilities(homestayAdditionalFacilityList);
-		homestayDto.setNumberOfFinishedBooking(homestayService.numberOfFinishedBookingHomestay(homestayEntity.getId()));
+		homestayDto.setTotalBookingTime(homestayEntity.getTotalBookingTime());
+		homestayDto.setTotalRatingTime(homestayEntity.getTotalRatingTime());
 		
 		return homestayDto;
 	}
@@ -165,7 +166,7 @@ public class HomestayConverter {
 		HomestayPriceListEntity homestayPriceListEntity = new HomestayPriceListEntity();
 		if(homestayPriceListDto.getSpecialDayCode() != null) {
 			SpecialDayPriceListEntity specialDayPriceListEntity = homestayService.findSpecialDayByCode(homestayPriceListDto.getSpecialDayCode());
-			specialDayPriceListEntity.setHomestayPriceLst(homestayPriceListEntity);
+			specialDayPriceListEntity.setHomestayPriceLst(List.of(homestayPriceListEntity));
 			homestayPriceListEntity.setSpecialDayPriceList(specialDayPriceListEntity);
 		}
 		homestayPriceListEntity.setPrice(homestayPriceListDto.getPrice());

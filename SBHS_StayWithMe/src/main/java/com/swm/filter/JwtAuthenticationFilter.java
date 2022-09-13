@@ -32,6 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
+			
 			String getTokenString = jwtUtil.getJwtTokenStringFromRequestHeader(request);
 			String username = jwtUtil.getUsernameFromToken(getTokenString);
 			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -49,6 +50,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			SecurityContextHolder.clearContext();
 		}
 		
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF8");
 		filterChain.doFilter(request, response);
 	}
 

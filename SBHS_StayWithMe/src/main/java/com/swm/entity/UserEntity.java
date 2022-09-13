@@ -39,7 +39,7 @@ public class UserEntity extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_sequence") 
 	private Long Id;
 	
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false, columnDefinition = "nvarchar(MAX)")
 	@Setter
 	private String username;
 	
@@ -47,6 +47,7 @@ public class UserEntity extends BaseEntity {
 	private String password;
 	
 	@Setter
+	@Column(nullable = false, columnDefinition = "nvarchar(MAX)")
 	private String address;
 	
 	@Setter

@@ -33,7 +33,7 @@ public interface IBookingService {
 	
 	BookingEntity checkInByPassengerRelative(String bookingOtp);
 	
-	BookingEntity checkOutRequest(Long bookingId);
+	BookingEntity checkOut(Long bookingId);
 	
 	BookingDepositEntity payForBookingDeposit(Long bookingId, Long amount);
 	

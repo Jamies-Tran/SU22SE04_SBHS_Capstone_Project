@@ -2,6 +2,8 @@ package com.swm.service;
 
 import java.util.List;
 
+import com.swm.dto.HomestayFilterDto;
+import com.swm.dto.HomestayPagesResponseDto;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.SpecialDayPriceListEntity;
 
@@ -17,16 +19,14 @@ public interface IHomestayService {
 	
 	List<HomestayEntity> findHomestayListByOwnerName();
 	
-	List<HomestayEntity> getHomestayPage(int page, int size);
+	HomestayPagesResponseDto getHomestayPage(HomestayFilterDto filter, int page, int size);
 
 	HomestayEntity createHomestay(HomestayEntity homestayEntity);
 	
 	List<SpecialDayPriceListEntity> addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList);
 	
 	List<SpecialDayPriceListEntity> getSpecialDayPriceList();
-	
 
-	
 	SpecialDayPriceListEntity findSpecialDayByCode(String code);
 	
 	SpecialDayPriceListEntity deleteSpecialDayPriceList(String code);

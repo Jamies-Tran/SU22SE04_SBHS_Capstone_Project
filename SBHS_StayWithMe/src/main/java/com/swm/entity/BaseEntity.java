@@ -20,9 +20,11 @@ public class BaseEntity implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	@Column(columnDefinition = "nvarchar(MAX)")
 	protected String createdBy;
 	
+	@Column(columnDefinition = "nvarchar(MAX)")
 	protected String modifiedBy;
 	
 	@Temporal(TemporalType.DATE)

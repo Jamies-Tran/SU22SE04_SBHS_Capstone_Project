@@ -37,7 +37,7 @@ public class PaymentController {
 		momoCaptureRequestDto.setLang(MomoResponseLanguage.VI.name().toLowerCase());
 		MomoCaptureWalletResponseDto momoCaptureWalletResponseDto = moneyService.processPayment(momoCaptureRequestDto);
 		
-		return new ResponseEntity<>(momoCaptureWalletResponseDto, HttpStatus.OK);
+		return new ResponseEntity<>(momoCaptureWalletResponseDto, HttpStatus.CREATED);
 	}
 	
 }

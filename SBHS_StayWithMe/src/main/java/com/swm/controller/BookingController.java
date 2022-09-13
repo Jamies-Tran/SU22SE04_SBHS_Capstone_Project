@@ -185,7 +185,7 @@ public class BookingController {
 	@PostMapping("/check-out")
 	@PreAuthorize("hasAuthority('booking:update')")
 	public ResponseEntity<?> checkOutHomestay(@RequestBody CheckOut checkOut) {
-		BookingEntity bookingEntity = bookingService.checkOutRequest(checkOut.getBookingId());
+		BookingEntity bookingEntity = bookingService.checkOut(checkOut.getBookingId());
 		BookingResponseDto bookingResponseDto = bookingConvert.bookingToDto(bookingEntity);
 		
 		return new ResponseEntity<>(bookingResponseDto, HttpStatus.OK);

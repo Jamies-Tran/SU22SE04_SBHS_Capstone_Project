@@ -19,6 +19,6 @@ public interface IHomestayRepository extends JpaRepository<HomestayEntity, Long>
 	@Query(value = "select h from HomestayEntity h where h.homestayPostingRequest = :homestayPostingRequest")
 	Optional<HomestayEntity> findHomestayEntiyByRequestId(@Param("homestayPostingRequest") HomestayPostingRequestEntity request);
 
-	@Query(value = "select h from HomestayEntity h")
-	Page<HomestayEntity> homestayPageable(Pageable pageable);
+	@Query(value = "select h from HomestayEntity h where h.status = :status")
+	Page<HomestayEntity> homestayPageable(Pageable pageable, @Param("status") String status);
 }

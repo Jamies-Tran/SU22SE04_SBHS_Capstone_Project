@@ -1,5 +1,6 @@
 package com.swm.serviceImpl;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,15 +8,21 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.swm.converter.HomestayConverter;
+import com.swm.dto.HomestayFilterDto;
+import com.swm.dto.HomestayPagesResponseDto;
+import com.swm.dto.HomestayResponseDto;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.HomestayPostingRequestEntity;
+import com.swm.entity.HomestayPriceListEntity;
 import com.swm.entity.LandlordEntity;
 import com.swm.entity.SpecialDayPriceListEntity;
 import com.swm.entity.UserEntity;
@@ -48,6 +55,10 @@ public class HomestayService implements IHomestayService {
 
 	@Autowired
 	private ISpecialDayPriceListRepository specialDayPriceListRepo;
+	
+	@Autowired
+	@Lazy
+	private HomestayConverter homestayConvert;
 
 	private Date currentDate = new Date();
 
@@ -237,12 +248,61 @@ public class HomestayService implements IHomestayService {
 	}
 
 	@Override
-	public List<HomestayEntity> getHomestayPage(int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
-		Page<HomestayEntity> homestayPage = homestayRepo.homestayPageable(pageable);
-		List<HomestayEntity> homestayList = homestayPage.getContent();
+	public HomestayPagesResponseDto getHomestayPage(HomestayFilterDto filter, int page, int size) {
+		Page<HomestayEntity> homestayPages = this.homestayPagesNextOrPrevious(page, size);
+		List<HomestayEntity> homestayList = homestayPages.getContent();
 		
-		return homestayList;
+		if(!(filter.getFilterByStr().isBlank() || filter.getFilterByStr().isEmpty() || filter.getFilterByStr() == null)) {
+			homestayList = homestayPages.filter(h -> h.getName().contains(filter.getFilterByStr()) || h.getAddress().contains(filter.getFilterByStr()) || h.getLandlordOwner().getLandlordAccount().getUsername().contains(filter.getFilterByStr())).toList();
+		}
+		
+		if(filter.getFilterByHighestAveragePoint()) {
+			homestayList = homestayPages.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
+		} 
+		
+		if(filter.getLowestPrice() != null && filter.getHighestPrice() != null) {
+			homestayList = homestayPages.filter(h -> averageHomestayPrice(h) >= filter.getLowestPrice() && averageHomestayPrice(h) <= filter.getHighestPrice()).toList();
+		}
+		
+		if(filter.getFilterByNewestPublishedDate()) {
+			homestayList = homestayPages.filter(h -> differentFromCurrentDateToHomestayPublishedDate(h.getCreatedDate()) <= 30).toList();
+		}
+		
+		HomestayPagesResponseDto homestayPagesResponseDto = new HomestayPagesResponseDto();
+		List<HomestayResponseDto> homestayResponseListDto = homestayList.stream().map(h -> homestayConvert.homestayResponseDtoConvert(h)).collect(Collectors.toList());
+		homestayPagesResponseDto.setHomestayListDto(homestayResponseListDto);
+		homestayPagesResponseDto.setTotalPages(homestayPages.getTotalPages());
+		
+		return homestayPagesResponseDto;
 	}
+	
+	private long differentFromCurrentDateToHomestayPublishedDate(Date publishedDate) {
+		long differentInTime = currentDate.getTime() - publishedDate.getTime();
+		long differentInDay = (differentInTime / (1000 * 60 * 60 * 24)) % 365;
 
+		return differentInDay;
+	}
+	
+	private Page<HomestayEntity> homestayPagesNextOrPrevious(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<HomestayEntity> homestayPages = homestayRepo.homestayPageable(pageable, HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+		if(homestayPages.getTotalPages() <= page) {
+			int homestayLastPageNumber = homestayPages.getTotalPages() - 1;
+			homestayPages = homestayRepo.homestayPageable(PageRequest.of(homestayLastPageNumber, size), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+		} else if(homestayPages.getTotalPages() == page) {
+			homestayPages = homestayRepo.homestayPageable(PageRequest.of(0, size), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+		}
+		
+		return homestayPages;
+	}
+	
+	private Long averageHomestayPrice(HomestayEntity homestayEntity) {
+		long total = 0;
+		for (HomestayPriceListEntity homestayPriceList : homestayEntity.getPriceList()) {
+//			System.out.println("Price: " + homestayPriceList.getPrice() + " current total: " + total);
+			total = total + homestayPriceList.getPrice();
+		}
+		total = total / homestayEntity.getPriceList().size();
+		return total;
+	}
 }

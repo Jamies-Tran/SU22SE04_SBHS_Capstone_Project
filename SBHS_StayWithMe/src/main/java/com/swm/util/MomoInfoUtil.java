@@ -11,7 +11,8 @@ public class MomoInfoUtil {
 	public static final String requestType = "captureWallet";
 	public static final String MOMO_CREATE_ORDER_URL = "https://test-payment.momo.vn/v2/gateway/api/create";
 	public static final String MOMO_REFUND_URL = "https://test-payment.momo.vn/v2/gateway/api/refund";
-	public static final String MOMO_REDIRECT_URL = "http://localhost:8080/momo/redirect";
+//	public static final String MOMO_REDIRECT_URL = "http://localhost:8080/momo/redirect";
+	public static final String MOMO_REDIRECT_URL = "http://192.168.1.161:8080/momo/redirect";
 	public static final String MOMO_IPN_URL = "http://localhost:8080/momo/redirect";
 	
 }
