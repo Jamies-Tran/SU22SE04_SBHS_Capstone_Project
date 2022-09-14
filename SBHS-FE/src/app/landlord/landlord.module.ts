@@ -14,7 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatRippleModule} from '@angular/material/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RegisterHomestayComponent } from './register-homestay/register-homestay.component';
+import { RegisterHomestayComponent } from './homestay/register-homestay/register-homestay.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -31,6 +31,10 @@ import { BookingComponent } from './booking/booking.component';
 import { BookingDetailComponent } from './booking/booking-detail/booking-detail.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { HomestayComponent } from './homestay/homestay.component';
+
+import { DeleteHomestayComponent } from './homestay/delete-homestay/delete-homestay.component';
+import { HomestayDetailComponent } from './homestay/homestay-detail/homestay-detail.component';
 
 
 
@@ -41,6 +45,10 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     ProfileComponent,
     BookingComponent,
     BookingDetailComponent,
+    HomestayComponent,
+
+    DeleteHomestayComponent,
+    HomestayDetailComponent,
 
   ],
   imports: [

@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandlordComponent } from './landlord.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RegisterHomestayComponent } from './register-homestay/register-homestay.component';
+import { RegisterHomestayComponent } from './homestay/register-homestay/register-homestay.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BookingComponent } from './booking/booking.component';
 import { BookingDetailComponent } from './booking/booking-detail/booking-detail.component';
+import { HomestayComponent } from './homestay/homestay.component';
+import { DeleteHomestayComponent } from './homestay/delete-homestay/delete-homestay.component';
+import { HomestayDetailComponent } from './homestay/homestay-detail/homestay-detail.component';
 
 
 
@@ -16,11 +19,16 @@ const routes: Routes = [
     children: [
 
       { path: 'Dashboard', component: DashboardComponent },
-      { path: 'RegisterHomestay', component: RegisterHomestayComponent },
       { path: 'Profile', component: ProfileComponent },
       { path: 'Booking', component: BookingComponent },
       { path: 'Booking', children:[
         { path: 'BookingDetail', component: BookingDetailComponent },
+      ] },
+      { path: 'Homestay', component: HomestayComponent },
+      { path: 'Homestay', children:[
+        { path: 'RegisterHomestay', component: RegisterHomestayComponent },
+        { path: 'DeleteHomestay', component: DeleteHomestayComponent },
+        { path: 'HomestayDetail', component: HomestayDetailComponent },
       ] },
 
     ],
