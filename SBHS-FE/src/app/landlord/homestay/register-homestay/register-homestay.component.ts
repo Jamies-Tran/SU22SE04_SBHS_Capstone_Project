@@ -111,7 +111,8 @@ export class RegisterHomestayComponent implements OnInit {
     address: ['', Validators.required],
     checkInTime: ['', Validators.required],
     checkOutTime: ['', Validators.required],
-    price: ['', Validators.required],
+    priceNormalDay: ['', Validators.required],
+    priceWeekendDay: ['', Validators.required],
     number: ['', Validators.required],
     city: ['', Validators.required],
     description: [''],
@@ -440,7 +441,8 @@ export class RegisterHomestayComponent implements OnInit {
     // lay value
     const formInformationFormGroupValue = this.informationFormGroup.controls;
     let homestayName = formInformationFormGroupValue.homestayName.value!;
-    let price = formInformationFormGroupValue.price.value!;
+    let priceNormalDay = formInformationFormGroupValue.priceNormalDay.value!;
+    let priceWeekendDay = formInformationFormGroupValue.priceWeekendDay.value!;
     let address = formInformationFormGroupValue.address.value!;
     let city = formInformationFormGroupValue.city.value!;
     let checkInTime = formInformationFormGroupValue.checkInTime.value!;
@@ -612,7 +614,8 @@ export class RegisterHomestayComponent implements OnInit {
         description,
         address,
         city,
-        price,
+        priceNormalDay,
+        priceWeekendDay,
         numberOfRoom,
         checkInTime,
         checkOutTIme,

@@ -2,7 +2,8 @@
   <div *ngIf="registerError != null">
     <h1 style="color: red;">{{registerError}}</h1>
   </div>
-  <mat-stepper linear #stepper>
+  <mat-stepper #stepper>
+    <!-- <mat-stepper linear #stepper> -->
 
     <!-- Step 1 Information -->
     <mat-step [stepControl]="informationFormGroup">
@@ -72,7 +73,7 @@
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Normal day: Price (VND)</mat-label>
                   <input name="price" id="price" type="number" matInput placeholder="1000000" required
-                    formControlName="price">
+                    formControlName="priceNormalDay">
                 </mat-form-field>
               </div>
               <!-- Price weekend day-->
@@ -80,7 +81,7 @@
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Weekend: Price (VND)</mat-label>
                   <input name="price" id="price" type="number" matInput placeholder="1000000" required
-                    formControlName="price">
+                    formControlName="priceWeekendDay">
                 </mat-form-field>
               </div>
               <form>
@@ -703,26 +704,30 @@
             <h1> 1 - Basic Information</h1>
           </div>
           <div class="add-input">
+
             <div class="row">
               <div class="col left">
                 <!-- name -->
                 <div>
                   <mat-form-field class="fill fill-row-left" appearance="legacy">
                     <mat-label>Homestay's Name</mat-label>
-                    <input name="homestayname" matInput readonly formControlName="homestayName">
+                    <input name="homestayname" matInput readonly
+                      value="{{informationFormGroup.controls.homestayName.value}}">
                   </mat-form-field>
                 </div>
                 <!-- check in -->
                 <div>
                   <mat-form-field class="fill fill-row-left" appearance="legacy">
                     <mat-label>Check-in time</mat-label>
-                    <input id="check-in" type="time" matInput readonly formControlName="checkInTime">
+                    <input id="check-in" type="time" matInput readonly
+                      value="{{informationFormGroup.controls.checkInTime.value}}">
                   </mat-form-field>
                 </div>
                 <div>
                   <mat-form-field class="fill fill-row-left" appearance="legacy">
                     <mat-label>Number of Room</mat-label>
-                    <input id="number" type="number" readonly matInput formControlName="number">
+                    <input id="number" type="number" readonly matInput
+                      value="{{informationFormGroup.controls.number.value}}">
                   </mat-form-field>
                 </div>
               </div>
@@ -731,17 +736,16 @@
                 <div>
                   <mat-form-field class="fill fill-row-right" appearance="legacy">
                     <mat-label>City</mat-label>
-                    <input id="name" matInput formControlName="city" readonly>
+                    <input id="name" matInput readonly value="{{informationFormGroup.controls.city.value}}">
 
-                    <!-- <mat-select placeholder="TP.HCM" name="city" formControlName="city">
-                      <mat-option *ngFor="let city of cities" [value]="city.value"> {{city.value}}</mat-option>
-                    </mat-select> -->
+
                   </mat-form-field>
                 </div>
                 <div>
                   <mat-form-field class="fill fill-row-right" appearance="legacy">
                     <mat-label>Check-out time</mat-label>
-                    <input id="checkout" type="time" matInput readonly formControlName="checkOutTime">
+                    <input id="checkout" type="time" matInput readonly
+                      value="{{informationFormGroup.controls.checkOutTime.value}}">
                   </mat-form-field>
                 </div>
               </div>
@@ -751,14 +755,16 @@
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Normal day: Price (VND)</mat-label>
-                  <input name="price" id="price" type="number" matInput readonly formControlName="price">
+                  <input name="price" id="price" type="number" matInput readonly
+                    value="{{informationFormGroup.controls.priceNormalDay.value}}">
                 </mat-form-field>
               </div>
               <!-- Price weekend day-->
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Weekend: Price (VND)</mat-label>
-                  <input name="price" id="price" type="number" matInput readonly formControlName="price">
+                  <input name="price" id="price" type="number" matInput readonly
+                    value="{{informationFormGroup.controls.priceWeekendDay.value}}">
                 </mat-form-field>
               </div>
               <form>
@@ -812,7 +818,7 @@
                           </div>
                           <mat-form-field appearance="outline">
                             <mat-label>Price (VND)</mat-label>
-                            <input name="price" id="price" type="number" matInput readonly [ngModel]="item.price">
+                            <input name="price" id="price" type="number" matInput readonly [value]="item.price">
                           </mat-form-field>
                         </div>
                       </div>
@@ -826,7 +832,8 @@
                   <mat-label>Address</mat-label>
                   <input name="homestayaddress" type="text" matInput readonly formControlName="address"
                     ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places"
-                    (onAddressChange)="handleAddressChange($event)">
+                    (onAddressChange)="handleAddressChange($event)"
+                    value="{{informationFormGroup.controls.address.value}}">
                 </mat-form-field>
               </div>
               <!-- description -->
@@ -836,7 +843,7 @@
               </mat-form-field>
               <div class="editor">
                 <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
-                <ngx-editor id="edit-2" class="edit-text" formControlName="description">
+                <ngx-editor id="edit-2" class="edit-text">{{informationFormGroup.controls.description.value}}
                 </ngx-editor>
               </div>
             </div>
@@ -903,7 +910,7 @@
                   <div class=" input">
                     <div class="col-input">
                       <input name="amount" type="number" formControlName="inputTv" class="col-input-amount" readonly
-                        matInput />
+                        value="{{informationFormGroup.controls.homestayName.value}}" matInput />
                     </div>
                   </div>
                 </div>
@@ -920,7 +927,7 @@
                   <div class=" input">
                     <div class="col-input">
                       <input name="amount" type="number" formControlName="inputBed" class="col-input-amount" matInput
-                        readonly />
+                        value="{{informationFormGroup.controls.homestayName.value}}" readonly />
                     </div>
                   </div>
                 </div>
@@ -935,7 +942,7 @@
                   <div class="input">
                     <div class="col-input">
                       <input name="amount" type="number" formControlName="inputSofa" class="col-input-amount" matInput
-                        readonly />
+                        value="{{informationFormGroup.controls.homestayName.value}}" readonly />
                     </div>
                   </div>
                 </div>
@@ -950,7 +957,7 @@
                   <div class=" input">
                     <div class="col-input">
                       <input name="amount" type="number" formControlName="inputFan" class="col-input-amount" matInput
-                        readonly />
+                        value="{{informationFormGroup.controls.homestayName.value}}" readonly />
                     </div>
                   </div>
                 </div>
@@ -967,7 +974,7 @@
                   <div class=" input">
                     <div class="col-input">
                       <input name="amount" type="number" formControlName="inputCookingStove" class="col-input-amount"
-                        matInput readonly />
+                        value="{{informationFormGroup.controls.homestayName.value}}" matInput readonly />
                     </div>
                   </div>
                 </div>

@@ -15,12 +15,12 @@ export class ServerHttpService {
   public model: any = {};
   private REST_API_SERVER = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) { }
-  public registerLandlord(name:string,description:string, address:string,city:string, price:any, numberOfRoom: string, checkInTime: string,
+  public registerLandlord(name:string,description:string, address:string,city:string, priceNormalDay:any, priceWeekendDay:any, numberOfRoom: string, checkInTime: string,
      checkOutTIme: string, payment:string,homestayLicense: any,homestayImages:Array<any>,homestayServices: Array<any>,homestayFacilities:Array<any>) {
 
 
     var value = {
-      name,description,address,city,price,numberOfRoom,checkInTime,checkOutTIme,payment,homestayLicense,homestayImages,homestayServices,homestayFacilities
+      name,description,address,city,priceNormalDay, priceWeekendDay,numberOfRoom,checkInTime,checkOutTIme,payment,homestayLicense,homestayImages,homestayServices,homestayFacilities
     }
     console.log(value)
     const url = `${this.REST_API_SERVER}/api/homestay/register`;
