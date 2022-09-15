@@ -10,6 +10,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { RequestComponent } from './request/request.component';
 import { RequestAccountComponent } from './request/request-detail/request-account/request-account.component';
@@ -27,6 +28,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxEditorModule } from 'ngx-editor';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { NgxEditorModule } from 'ngx-editor';
     RequestHomestayComponent,
     RequestHomestayDetailComponent,
     SpecialDayComponent,
+    DashboardComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +63,7 @@ import { NgxEditorModule } from 'ngx-editor';
     NgxEditorModule,
     MatCheckboxModule,
     MatRadioModule,
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
   ],
 })
 export class AdminModule {}

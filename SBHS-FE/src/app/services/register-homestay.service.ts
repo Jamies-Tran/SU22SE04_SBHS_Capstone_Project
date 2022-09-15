@@ -6,10 +6,11 @@ import { catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ServerHttpService {
+  auheader = 'Bearer '+ localStorage.getItem('userToken');
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization' :  'Bearer '+ localStorage.getItem('userToken')
+      'Authorization' :  this.auheader
     })
   };
   public model: any = {};

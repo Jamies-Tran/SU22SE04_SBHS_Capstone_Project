@@ -10,7 +10,10 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 export class ServerHttpService {
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json ; charset=utf-8 ;charset=ISO-8859-1',
+      // "Accept": "application/json;charset=utf-8",
+      // 'Accept-Charset':'charset=utf-8',
+      'Content-Transfer-Encoding': 'utf-8',
       'Authorization' :  'Bearer '+ localStorage.getItem('userToken')
     })
   };

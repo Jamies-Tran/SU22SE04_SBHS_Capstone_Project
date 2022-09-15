@@ -12,34 +12,26 @@
     </div>
     <hr class="hr-line">
     <div class="sidenav-container">
-      <!-- <div class="profile">
-        <div class="profile-name">
-          <div class="logo">
-            <i class="fa fa-house-chimney-user"></i>
-          </div>
-          <div class="logo-text">
-            <div class="logo-text-name">{{username}}</div>
-            <div class="logo-text-role">Admin</div>
-          </div>
-          <button class="btn-ellipsis">
-            <i class="fa fa-ellipsis-vertical"></i>
-          </button>
-        </div>
 
-        <div class="row profile-icon">
 
-          <a class="col-sm-3 btn-profile" (click)="logout()">
-            <i class="fa fa-sign-out"></i>
+      <!-- chon -->
+      <!-- Dashboard -->
+      <ul class="sidenav-nav">
+        <li class="sidenav-nav-item">
+          <a class="sidenav-nav-link" routerLink="/Admin/Dashboard" routerLinkActive="active">
+            <i class="sidenav-link-icon fas fa-chart-line"></i>
+            <p class="sidenav-link-text" ng-if="collapsed">Dashboard</p>
           </a>
-        </div>
-      </div> -->
+        </li>
+      </ul>
 
       <!-- chon -->
       <!-- Request Landlord -->
       <ul class="sidenav-nav">
         <li class="sidenav-nav-item">
           <a class="sidenav-nav-link" routerLink="/Admin/Request" routerLinkActive="active">
-            <i class="sidenav-link-icon fas fa-chart-line"></i>
+
+            <mat-icon class="sidenav-link-icon">groups</mat-icon>
             <p class="sidenav-link-text" ng-if="collapsed">Request Landlord</p>
           </a>
         </li>
@@ -83,15 +75,7 @@
 
 
       <!-- chon -->
-      <!-- Booking -->
-      <ul class="sidenav-nav">
-        <li class="sidenav-nav-item">
-          <a class="sidenav-nav-link" routerLink="#" routerLinkActive="active">
-            <i class="sidenav-link-icon fas fa-calendar-alt"></i>
-            <p class="sidenav-link-text" ng-if="collapsed">Booking</p>
-          </a>
-        </li>
-      </ul>
+
 
       <!-- Special Day -->
       <ul class="sidenav-nav">

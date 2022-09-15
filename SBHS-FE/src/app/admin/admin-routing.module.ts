@@ -6,6 +6,7 @@ import { RequestAccountComponent } from './request/request-detail/request-accoun
 import { RequestHomestayComponent } from './request-homestay/request-homestay.component';
 import { RequestHomestayDetailComponent } from './request-homestay/request-homestay-detail/request-homestay-detail.component';
 import { SpecialDayComponent } from './special-day/special-day.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       ] },
 
       { path: 'SpecialDay', component: SpecialDayComponent },
+      { path: 'Dashboard', component: DashboardComponent },
     ],
   },
 ];

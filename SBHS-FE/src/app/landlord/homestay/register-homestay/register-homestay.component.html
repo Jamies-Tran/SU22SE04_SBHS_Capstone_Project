@@ -21,7 +21,7 @@
                 <div>
                   <mat-form-field class="fill fill-row-left" appearance="legacy">
                     <mat-label>Homestay's Name</mat-label>
-                    <input name="homestayname" matInput placeholder="StaywithMe Homestay" formControlName="homestayName"
+                    <input name="homestayname" matInput placeholder="StaywithMe Homestay"
                       required formControlName="homestayName">
                   </mat-form-field>
                 </div>
@@ -698,7 +698,7 @@
       <!--        -->
       <!-- Step 1 -->
       <!--        -->
-      <form [formGroup]="informationFormGroup">
+
         <div class="input-content card">
           <div class="header">
             <h1> 1 - Basic Information</h1>
@@ -830,7 +830,7 @@
               <div>
                 <mat-form-field class="fill" appearance="legacy">
                   <mat-label>Address</mat-label>
-                  <input name="homestayaddress" type="text" matInput readonly formControlName="address"
+                  <input name="homestayaddress" type="text" matInput readonly
                     ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places"
                     (onAddressChange)="handleAddressChange($event)"
                     value="{{informationFormGroup.controls.address.value}}">
@@ -884,7 +884,7 @@
             </div>
           </div>
         </div>
-      </form>
+
       <br>
       <!--        -->
       <!-- Step 2 -->
@@ -895,11 +895,11 @@
         </div>
         <div class="add-input ">
           <h1>Common Facility</h1>
-          <form [formGroup]="facilityFormGroup">
+
             <div class="row">
               <div class="col ">
                 <!-- ngFor -->
-                <div class="row-fill">
+                <div class="row-fill" *ngIf="facilityFormGroup.controls.inputTv.disabled == false">
                   <div class=" icon"><i class="fas fa-tv"></i></div>
                   <div class=" text">
                     <p>TV</p>
@@ -909,13 +909,13 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="inputTv" class="col-input-amount" readonly
-                        value="{{informationFormGroup.controls.homestayName.value}}" matInput />
+                      <input name="amount" type="number"  class="col-input-amount" readonly
+                        value="{{facilityFormGroup.controls.inputTv.value}}" matInput />
                     </div>
                   </div>
                 </div>
 
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="facilityFormGroup.controls.inputBed.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-bed"></i></div>
                   <div class="text">
                     <p>Bed</p>
@@ -926,12 +926,12 @@
 
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="inputBed" class="col-input-amount" matInput
-                        value="{{informationFormGroup.controls.homestayName.value}}" readonly />
+                      <input name="amount" type="number"  class="col-input-amount" matInput
+                        value="{{facilityFormGroup.controls.inputBed.value}}" readonly />
                     </div>
                   </div>
                 </div>
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="facilityFormGroup.controls.inputSofa.disabled == false">
                   <div class="icon"><i class="fa-solid fa-couch"></i></div>
                   <div class=" text">
                     <p>Sofa</p>
@@ -941,12 +941,12 @@
                   </div>
                   <div class="input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="inputSofa" class="col-input-amount" matInput
-                        value="{{informationFormGroup.controls.homestayName.value}}" readonly />
+                      <input name="amount" type="number"  class="col-input-amount" matInput
+                        value="{{facilityFormGroup.controls.inputSofa.value}}" readonly />
                     </div>
                   </div>
                 </div>
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="facilityFormGroup.controls.inputFan.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-fan"></i></div>
                   <div class=" text">
                     <p>Fan</p>
@@ -956,14 +956,14 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="inputFan" class="col-input-amount" matInput
-                        value="{{informationFormGroup.controls.homestayName.value}}" readonly />
+                      <input name="amount" type="number"  class="col-input-amount" matInput
+                        value="{{facilityFormGroup.controls.inputFan.value}}" readonly />
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col col-right-2">
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="facilityFormGroup.controls.inputCookingStove.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-fire-burner"></i></div>
                   <div class=" text">
                     <p>Cooking stove</p>
@@ -973,12 +973,12 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="inputCookingStove" class="col-input-amount"
-                        value="{{informationFormGroup.controls.homestayName.value}}" matInput readonly />
+                      <input name="amount" type="number"  class="col-input-amount"
+                        value="{{facilityFormGroup.controls.inputCookingStove.value}}" matInput readonly />
                     </div>
                   </div>
                 </div>
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="facilityFormGroup.controls.inputShower.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-shower"></i></div>
                   <div class=" text">
                     <p>Shower</p>
@@ -988,12 +988,12 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="inputShower" class="col-input-amount" matInput
-                        readonly />
+                      <input name="amount" type="number"  class="col-input-amount" matInput
+                        readonly value="{{facilityFormGroup.controls.inputShower.value}}" />
                     </div>
                   </div>
                 </div>
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="facilityFormGroup.controls.inputToilet.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-toilet"></i></div>
                   <div class=" text">
                     <p>Toilet</p>
@@ -1003,12 +1003,12 @@
                   </div>
                   <div class="co input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="inputToilet" class="col-input-amount" matInput
-                        readonly />
+                      <input name="amount" type="number"  class="col-input-amount" matInput
+                        readonly value="{{facilityFormGroup.controls.inputToilet.value}}" />
                     </div>
                   </div>
                 </div>
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="facilityFormGroup.controls.inputBathtub.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-bath"></i></div>
                   <div class=" text">
                     <p>Bathtub</p>
@@ -1018,14 +1018,13 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="inputBathtub" class="col-input-amount"
-                        matInput readonly />
+                      <input name="amount" type="number"  class="col-input-amount"
+                        matInput readonly value="{{facilityFormGroup.controls.inputBathtub.value}}" />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </form>
 
 
         </div>
@@ -1048,7 +1047,7 @@
                 </div>
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" formControlName="inputTv" class="col-input-amount" readonly
+                    <input name="amount" type="number"  class="col-input-amount" readonly
                       matInput />
                   </div>
                 </div>
@@ -1065,7 +1064,7 @@
 
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" formControlName="inputBed" class="col-input-amount" matInput
+                    <input name="amount" type="number"  class="col-input-amount" matInput
                       readonly />
                   </div>
                 </div>
@@ -1080,7 +1079,7 @@
                 </div>
                 <div class="input">
                   <div class="col-input">
-                    <input name="amount" type="number" formControlName="inputSofa" class="col-input-amount" matInput
+                    <input name="amount" type="number"  class="col-input-amount" matInput
                       readonly />
                   </div>
                 </div>
@@ -1095,7 +1094,7 @@
                 </div>
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" formControlName="inputFan" class="col-input-amount" matInput
+                    <input name="amount" type="number"  class="col-input-amount" matInput
                       readonly />
                   </div>
                 </div>
@@ -1112,7 +1111,7 @@
                 </div>
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" formControlName="inputCookingStove" class="col-input-amount"
+                    <input name="amount" type="number" class="col-input-amount"
                       matInput readonly />
                   </div>
                 </div>
@@ -1127,7 +1126,7 @@
                 </div>
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" formControlName="inputShower" class="col-input-amount" matInput
+                    <input name="amount" type="number"  class="col-input-amount" matInput
                       readonly />
                   </div>
                 </div>
@@ -1142,7 +1141,7 @@
                 </div>
                 <div class="co input">
                   <div class="col-input">
-                    <input name="amount" type="number" formControlName="inputToilet" class="col-input-amount" matInput
+                    <input name="amount" type="number"  class="col-input-amount" matInput
                       readonly />
                   </div>
                 </div>
@@ -1157,7 +1156,7 @@
                 </div>
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" formControlName="inputBathtub" class="col-input-amount" matInput
+                    <input name="amount" type="number"  class="col-input-amount" matInput
                       readonly />
                   </div>
                 </div>
@@ -1177,12 +1176,12 @@
             <h1> 3 - Service</h1>
           </div>
           <h1>Common Service</h1>
-          <form [formGroup]="serviceFormGroup">
+
 
             <div class="row">
 
               <div class="col ">
-                <div class="row-fill">
+                <div class="row-fill" *ngIf="serviceFormGroup.controls.wifiPrice.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-wifi"></i></div>
                   <div class=" text">
                     <p>Wireless internet</p>
@@ -1192,13 +1191,13 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="wifiPrice" class="col-input-amount" matInput
-                        readonly />
+                      <input name="amount" type="number"  class="col-input-amount" matInput
+                        readonly value="{{serviceFormGroup.controls.wifiPrice.value}}" />
                     </div>
                   </div>
                 </div>
 
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="serviceFormGroup.controls.foodPrice.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-pizza-slice"></i></div>
                   <div class="text">
                     <p>Food Service</p>
@@ -1208,13 +1207,13 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="foodPrice" class="col-input-amount"
-                        matInput />
+                      <input name="amount" type="number"  class="col-input-amount"
+                        matInput value="{{serviceFormGroup.controls.foodPrice.value}}" />
                     </div>
                   </div>
                 </div>
 
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="serviceFormGroup.controls.barPrice.disabled == false">
                   <div class="icon"><i class="fa-solid fa-martini-glass-citrus"></i></div>
                   <div class=" text">
                     <p>Bar Service</p>
@@ -1224,12 +1223,13 @@
                   </div>
                   <div class="input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="barPrice" class="col-input-amount" matInput />
+                      <input name="amount" type="number"  class="col-input-amount"
+                      matInput value="{{serviceFormGroup.controls.barPrice.value}}" />
                     </div>
                   </div>
                 </div>
 
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="serviceFormGroup.controls.swimmingPrice.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-person-swimming"></i></div>
                   <div class=" text">
                     <p>Swimming Service</p>
@@ -1239,8 +1239,8 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="swimmingPrice" class="col-input-amount"
-                        matInput />
+                      <input name="amount" type="number"  class="col-input-amount"
+                        matInput value="{{serviceFormGroup.controls.swimmingPrice.value}}"/>
                     </div>
                   </div>
                 </div>
@@ -1250,7 +1250,7 @@
               </div>
 
               <div class="col col-right-2">
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="serviceFormGroup.controls.spaPrice.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-spa"></i></div>
                   <div class=" text">
                     <p>Spa Service</p>
@@ -1260,12 +1260,13 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="spaPrice" class="col-input-amount" matInput />
+                      <input name="amount" type="number"  class="col-input-amount"
+                      matInput value="{{serviceFormGroup.controls.spaPrice.value}}" />
                     </div>
                   </div>
                 </div>
 
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="serviceFormGroup.controls.fishingPrice.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-fish"></i></div>
                   <div class=" text">
                     <p>Fishing Service</p>
@@ -1275,13 +1276,13 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="fishingPrice" class="col-input-amount"
-                        matInput />
+                      <input name="amount" type="number"  class="col-input-amount"
+                        matInput value="{{serviceFormGroup.controls.fishingPrice.value}}"/>
                     </div>
                   </div>
                 </div>
 
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="serviceFormGroup.controls.carRentalPrice.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-motorcycle"></i></div>
                   <div class=" text">
                     <p>Car Rental Service</p>
@@ -1291,13 +1292,13 @@
                   </div>
                   <div class="co input">
                     <div class="col-input">
-                      <input name="amount" type="number" formControlName="carRentalPrice" class="col-input-amount"
-                        matInput />
+                      <input name="amount" type="number"  class="col-input-amount"
+                        matInput value="{{serviceFormGroup.controls.carRentalPrice.value}}" />
                     </div>
                   </div>
                 </div>
 
-                <div class=" row-fill">
+                <div class=" row-fill" *ngIf="serviceFormGroup.controls.campfirePrice.disabled == false">
                   <div class=" icon"><i class="fa-solid fa-fire"></i></div>
                   <div class=" text">
                     <p>Campfire Service</p>
@@ -1307,8 +1308,8 @@
                   </div>
                   <div class=" input">
                     <div class="col-input">
-                      <input name="amount" type="number" min="0" formControlName="campfirePrice"
-                        class="col-input-amount" matInput />
+                      <input name="amount" type="number"
+                        class="col-input-amount" matInput  value="{{serviceFormGroup.controls.campfirePrice.value}}"/>
                     </div>
                   </div>
                 </div>
@@ -1335,7 +1336,7 @@
                     </div>
                     <div class=" input">
                       <div class="col-input">
-                        <input name="amount" type="number" formControlName="wifiPrice" class="col-input-amount" matInput
+                        <input name="amount" type="number"  class="col-input-amount" matInput
                           readonly />
                       </div>
                     </div>
@@ -1351,7 +1352,7 @@
                     </div>
                     <div class=" input">
                       <div class="col-input">
-                        <input name="amount" type="number" formControlName="foodPrice" class="col-input-amount"
+                        <input name="amount" type="number"  class="col-input-amount"
                           matInput />
                       </div>
                     </div>
@@ -1367,7 +1368,7 @@
                     </div>
                     <div class="input">
                       <div class="col-input">
-                        <input name="amount" type="number" formControlName="barPrice" class="col-input-amount"
+                        <input name="amount" type="number"  class="col-input-amount"
                           matInput />
                       </div>
                     </div>
@@ -1383,7 +1384,7 @@
                     </div>
                     <div class=" input">
                       <div class="col-input">
-                        <input name="amount" type="number" formControlName="swimmingPrice" class="col-input-amount"
+                        <input name="amount" type="number"  class="col-input-amount"
                           matInput />
                       </div>
                     </div>
@@ -1404,7 +1405,7 @@
                     </div>
                     <div class=" input">
                       <div class="col-input">
-                        <input name="amount" type="number" formControlName="spaPrice" class="col-input-amount"
+                        <input name="amount" type="number"  class="col-input-amount"
                           matInput />
                       </div>
                     </div>
@@ -1420,7 +1421,7 @@
                     </div>
                     <div class=" input">
                       <div class="col-input">
-                        <input name="amount" type="number" formControlName="fishingPrice" class="col-input-amount"
+                        <input name="amount" type="number"  class="col-input-amount"
                           matInput />
                       </div>
                     </div>
@@ -1436,7 +1437,7 @@
                     </div>
                     <div class="co input">
                       <div class="col-input">
-                        <input name="amount" type="number" formControlName="carRentalPrice" class="col-input-amount"
+                        <input name="amount" type="number"  class="col-input-amount"
                           matInput />
                       </div>
                     </div>
@@ -1452,7 +1453,7 @@
                     </div>
                     <div class=" input">
                       <div class="col-input">
-                        <input name="amount" type="number" min="0" formControlName="campfirePrice"
+                        <input name="amount" type="number"
                           class="col-input-amount" matInput />
                       </div>
                     </div>
@@ -1463,16 +1464,16 @@
 
               </div>
             </div>
-          </form>
+
         </div>
       </div>
 
-
+      <form [formGroup]="paymentFormGroup" (ngSubmit)="register()" #formfour="ngForm">
       <div class="add-btn">
         <button class="btn-back" mat-raised-button matStepperPrevious>Back</button>
         <button class="btn-next submit" mat-raised-button type="submit">Submit</button>
       </div>
-
+    </form>
 
 
     </mat-step>

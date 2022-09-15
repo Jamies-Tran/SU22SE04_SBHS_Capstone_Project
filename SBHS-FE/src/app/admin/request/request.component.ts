@@ -17,10 +17,12 @@ export class RequestComponent  implements OnInit{
   }
   ngOnInit(): void {
     this.getStatusLandlord();
+
   }
   public getStatusLandlord(){
     this.http.getLanlord(this.status).subscribe((data =>{
       this.values = data;
+      console.log('data', this.values);
     }),
     error =>{
       alert(error)
