@@ -47,7 +47,7 @@ export class RegisterHomestayComponent implements OnInit {
   public handleAddressChange(address: any) {
     //setting address from API to local variable
     this.formattedaddress = address.formatted_address;
-    console.log('address' , address);
+    console.log('address', address);
   }
 
   // richtext
@@ -317,7 +317,6 @@ export class RegisterHomestayComponent implements OnInit {
       // this.ListSpecialDay = data
       // console.log(this.ListSpecialDay)
     });
-
   }
 
   ngOnDestroy(): void {
@@ -450,6 +449,35 @@ export class RegisterHomestayComponent implements OnInit {
     let numberOfRoom = formInformationFormGroupValue.number.value!;
     let description = formInformationFormGroupValue.description.value!;
 
+    // price special day
+    type homestayPriceList = Array<{
+      price: string;
+      type: string;
+      specialDayCode: string;
+    }>;
+    const myHomestayPriceList: homestayPriceList = [];
+
+    myHomestayPriceList.push({
+      price: priceNormalDay,
+      type: 'normal',
+      specialDayCode: '',
+    });
+    myHomestayPriceList.push({
+      price: priceWeekendDay,
+      type: 'weekend',
+      specialDayCode: '',
+    });
+    for (let day of this.ListSpecialDay) {
+      if (day.status) {
+        myHomestayPriceList.push({
+          price: day.price,
+          type: 'special',
+          specialDayCode: day.specialDayCode,
+        });
+      }
+    }
+
+    // facility
     const facilityFormGroupValue = this.facilityFormGroup.controls;
     type homestayFacilities = Array<{ name: string; amount: string }>;
     const myhomestayFacilities: homestayFacilities = [];
@@ -598,7 +626,6 @@ export class RegisterHomestayComponent implements OnInit {
 
     type homestayImages = Array<{ url: string }>;
     const myHomestayimages: homestayImages = [];
-    //  =[{url:this.homestayImages}];
     for (let i of this.homestayImages) {
       myHomestayimages.push({ url: i.toString() });
       console.log('submit: ', i);
@@ -607,6 +634,7 @@ export class RegisterHomestayComponent implements OnInit {
     const myHomestayLicenses: homestayLicenses = { url: this.homestayLicense };
     console.log(this.homestayImages);
 
+    console.log('price', myHomestayPriceList);
     // api
     this.http
       .registerLandlord(
@@ -614,16 +642,14 @@ export class RegisterHomestayComponent implements OnInit {
         description,
         address,
         city,
-        priceNormalDay,
-        priceWeekendDay,
         numberOfRoom,
         checkInTime,
         checkOutTIme,
-        this.payment,
         myHomestayLicenses,
         myHomestayimages,
         myHomestayServices,
-        myhomestayFacilities
+        myhomestayFacilities,
+        myHomestayPriceList
       )
       .subscribe(
         (data) => {

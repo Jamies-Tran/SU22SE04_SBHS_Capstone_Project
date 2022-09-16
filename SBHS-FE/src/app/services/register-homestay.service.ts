@@ -1,35 +1,60 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ServerHttpService {
-  auheader = 'Bearer '+ localStorage.getItem('userToken');
+  auheader = 'Bearer ' + localStorage.getItem('userToken');
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization' :  this.auheader
-    })
+      Authorization: this.auheader,
+    }),
   };
   public model: any = {};
   private REST_API_SERVER = 'http://localhost:8080';
-  constructor(private httpClient: HttpClient) { }
-  public registerLandlord(name:string,description:string, address:string,city:string, priceNormalDay:any, priceWeekendDay:any, numberOfRoom: string, checkInTime: string,
-     checkOutTIme: string, payment:string,homestayLicense: any,homestayImages:Array<any>,homestayServices: Array<any>,homestayFacilities:Array<any>) {
-
-
+  constructor(private httpClient: HttpClient) {}
+  public registerLandlord(
+    name: string,
+    description: string,
+    address: string,
+    city: string,
+    numberOfRoom: string,
+    checkInTime: string,
+    checkOutTIme: string,
+    homestayLicense: any,
+    homestayImages: Array<any>,
+    homestayServices: Array<any>,
+    homestayFacilities: Array<any>,
+    homestayPriceList: Array<any>
+  ) {
     var value = {
-      name,description,address,city,priceNormalDay, priceWeekendDay,numberOfRoom,checkInTime,checkOutTIme,payment,homestayLicense,homestayImages,homestayServices,homestayFacilities
-    }
-    console.log(value)
+      name,
+      description,
+      address,
+      city,
+      numberOfRoom,
+      checkInTime,
+      checkOutTIme,
+      homestayLicense,
+      homestayImages,
+      homestayServices,
+      homestayFacilities,
+      homestayPriceList,
+    };
+    console.log(value);
     const url = `${this.REST_API_SERVER}/api/homestay/register`;
     return this.httpClient
       .post<any>(url, value, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
-  public getSpecialDay(){
+  public getSpecialDay() {
     const url = `${this.REST_API_SERVER}/api/homestay/get/all/special-day`;
     return this.httpClient
       .get<any>(url, this.httpOptions)
@@ -47,7 +72,6 @@ export class ServerHttpService {
     //     `body was: ${error.error}`);
     // }
     // // return an observable with a user-facing error message
-    return throwError(
-      error.error["message"]);
-  };
+    return throwError(error.error['message']);
+  }
 }
