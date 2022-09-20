@@ -8,3 +8,4 @@
 # npm install ngx-editor --save
 # npm install echarts 
 # npm install ngx-echarts 
+$ npm i @angular/material-moment-adapter --save
