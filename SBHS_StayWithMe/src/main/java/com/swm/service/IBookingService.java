@@ -8,8 +8,8 @@ import com.swm.entity.BookingDepositEntity;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.PassengerCancelBookingTicketEntity;
 
+
 public interface IBookingService {
-	
 	
 	BookingEntity createBooking(BookingEntity bookingEntity);
 	
@@ -24,8 +24,6 @@ public interface IBookingService {
 	List<BookingEntity> getUserBookingList(String status);
 	
 	List<BookingEntity> getBookingPage(int page, int size);
-	
-	List<BookingEntity> getBookingPendingListHaveSameCheckInDate(String checkIn);
 	
 	BookingEntity confirmBooking(Long BookingId, boolean isAccepted, @Nullable String rejectMessage);
 	

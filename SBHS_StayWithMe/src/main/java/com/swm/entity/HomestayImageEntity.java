@@ -39,4 +39,8 @@ public class HomestayImageEntity extends BaseEntity {
 	@JoinColumn(name = "homestay_id", referencedColumnName = "Id")
 	@Setter
 	private HomestayEntity homestayImage;
+	
+	@ManyToOne
+	@Setter
+	private HomestayUpdateRequestEntity homestayImageUpdateRequest;
 }

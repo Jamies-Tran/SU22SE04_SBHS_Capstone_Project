@@ -60,5 +60,12 @@ public class LandlordEntity extends BaseEntity {
 	@Setter
 	private List<CitizenIdentificationEntity> citizenIdentificationUrl;
 	
+	@OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.REMOVE})
+	@Setter
+	private LandlordBalanceWithdrawalRequestEntity withdrawalRequest;
+	
+	@OneToMany(mappedBy = "landlordStatistic", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.REMOVE})
+	@Setter
+	private List<LandlordStatisticEntity> statistic;
 	
 }

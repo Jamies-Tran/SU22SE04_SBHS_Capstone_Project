@@ -9,9 +9,7 @@ public class ParseDateException extends RuntimeException {
 
 	public ParseDateException(String date) {
 		super(String.format("[%s] : not a valid date.", date));
-
 	}
-	
 	
 
 }

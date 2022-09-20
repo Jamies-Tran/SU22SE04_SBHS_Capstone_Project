@@ -107,14 +107,14 @@ public class BookingController {
 		return new ResponseEntity<>(bookingResponseDtp, HttpStatus.OK);
 	}
 	
-	@GetMapping("/get")
-	@PreAuthorize("hasRole('ROLE_LANDLORD')")
-	public ResponseEntity<?> getBookingPendingListHaveSameCheckInDate(@RequestParam("check-in") String checkIn) {
-		List<BookingEntity> getBookingEntityList = bookingService.getBookingPendingListHaveSameCheckInDate(checkIn);
-		List<BookingResponseDto> bookingResponseDtoList = getBookingEntityList.stream().map(b -> bookingConvert.bookingToDto(b)).collect(Collectors.toList());
-		
-		return new ResponseEntity<>(bookingResponseDtoList, HttpStatus.OK);
-	}
+//	@GetMapping("/get")
+//	@PreAuthorize("hasRole('ROLE_LANDLORD')")
+//	public ResponseEntity<?> getBookingPendingListHaveSameCheckInDate(@RequestParam("check-in") String checkIn, @RequestParam("check-out") String checkOut) {
+//		List<BookingEntity> getBookingEntityList = bookingService.getBookingPendingListHaveSameCheckInDate(checkIn, checkOut);
+//		List<BookingResponseDto> bookingResponseDtoList = getBookingEntityList.stream().map(b -> bookingConvert.bookingToDto(b)).collect(Collectors.toList());
+//		
+//		return new ResponseEntity<>(bookingResponseDtoList, HttpStatus.OK);
+//	}
 	
 	@GetMapping("/cancel-ticket/{bookingId}")
 	@PreAuthorize("hasRole('ROLE_PASSENGER')")

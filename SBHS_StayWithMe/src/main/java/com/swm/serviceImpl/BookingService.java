@@ -22,10 +22,12 @@ import com.swm.entity.BookingEntity;
 import com.swm.entity.BookingOtpEntity;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.LandlordEntity;
+import com.swm.entity.LandlordStatisticEntity;
 import com.swm.entity.LandlordWalletEntity;
 import com.swm.entity.PassengerCancelBookingTicketEntity;
 import com.swm.entity.PassengerEntity;
 import com.swm.entity.PassengerWalletEntity;
+import com.swm.entity.SystemStatisticEntity;
 import com.swm.entity.UserEntity;
 import com.swm.enums.AccountRole;
 import com.swm.enums.BookingStatus;
@@ -37,9 +39,12 @@ import com.swm.repository.IPassengerShieldCancelBookingRepository;
 import com.swm.service.IAuthenticationService;
 import com.swm.service.IBookingService;
 import com.swm.service.IHomestayService;
+import com.swm.service.ILandlordStatisticService;
 import com.swm.service.ISendMailService;
+import com.swm.service.ISystemStatisticService;
 import com.swm.service.IUserService;
 import com.swm.util.ApplicationSendMailUtil;
+import com.swm.util.DateParsingUtil;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -62,6 +67,12 @@ public class BookingService implements IBookingService {
 
 	@Autowired
 	private IAuthenticationService authenticationService;
+	
+	@Autowired
+	private ISystemStatisticService systemStatisticService;
+	
+	@Autowired
+	private ILandlordStatisticService landlordStatisticService;
 
 	@Autowired
 	private IPassengerShieldCancelBookingRepository passengerShieldCancelBookingRepository;
@@ -110,20 +121,34 @@ public class BookingService implements IBookingService {
 		bookingOtpEntity.setBookingContainer(bookingEntity);
 		bookingOtpEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
 		bookingOtpEntity.setCreatedDate(currentDate);
-		PassengerCancelBookingTicketEntity passengerShiedCancelBookingEntity = homestayEntity
+		List<PassengerCancelBookingTicketEntity> passengerShiedCancelBookingList = homestayEntity
 				.getTicketForCancelBooking();
-		if (passengerShiedCancelBookingEntity == null) {
-			passengerShiedCancelBookingEntity = new PassengerCancelBookingTicketEntity();
+		if(passengerShiedCancelBookingList.isEmpty()) {
+			PassengerCancelBookingTicketEntity passengerShiedCancelBookingEntity = new PassengerCancelBookingTicketEntity();
 			passengerShiedCancelBookingEntity.setActiveDate(currentDate);
 			passengerShiedCancelBookingEntity.setPassengerOwnerOfTicket(passengerEntity);
 			passengerShiedCancelBookingEntity.setHomestayTicketForCancel(homestayEntity);
-			passengerEntity.setCancelTicketList(List.of(passengerShiedCancelBookingEntity));
-			homestayEntity.setTicketForCancelBooking(passengerShiedCancelBookingEntity);
+			if(passengerEntity.getCancelTicketList().isEmpty()) {
+				passengerEntity.setCancelTicketList(List.of(passengerShiedCancelBookingEntity));
+			} else {
+				passengerEntity.getCancelTicketList().add(passengerShiedCancelBookingEntity);
+			}
+			
+			homestayEntity.setTicketForCancelBooking(List.of(passengerShiedCancelBookingEntity));
 			passengerShiedCancelBookingEntity = passengerShieldCancelBookingRepository
 					.save(passengerShiedCancelBookingEntity);
-			passengerEntity.setCancelTicketList(List.of(passengerShiedCancelBookingEntity));
-			homestayEntity.setTicketForCancelBooking(passengerShiedCancelBookingEntity);
-		}
+		} else {
+			if(!passengerShiedCancelBookingList.stream().anyMatch(t -> t.getPassengerOwnerOfTicket().getPassengerAccount().getUsername().equals(passengerEntity.getPassengerAccount().getUsername()))) {
+				PassengerCancelBookingTicketEntity passengerShiedCancelBookingEntity = new PassengerCancelBookingTicketEntity();
+				passengerShiedCancelBookingEntity.setActiveDate(currentDate);
+				passengerShiedCancelBookingEntity.setPassengerOwnerOfTicket(passengerEntity);
+				passengerShiedCancelBookingEntity.setHomestayTicketForCancel(homestayEntity);
+				passengerEntity.getCancelTicketList().add(passengerShiedCancelBookingEntity);
+				passengerShiedCancelBookingEntity = passengerShieldCancelBookingRepository
+						.save(passengerShiedCancelBookingEntity);
+			}
+		} 
+		
 		bookingEntity.setBookingCreator(passengerEntity);
 		bookingEntity.setCreatedBy(passengerEntity.getPassengerAccount().getUsername());
 		bookingEntity.setCreatedDate(currentDate);
@@ -217,14 +242,6 @@ public class BookingService implements IBookingService {
 			bookingEntity.setStatus(BookingStatus.BOOKING_PENDING_CHECKIN.name());
 			bookingEntity.setModifiedBy(landlordEntity.getLandlordAccount().getUsername());
 			bookingEntity.setModifiedDate(currentDate);
-			List<BookingEntity> sameBookingsDay = bookingRepo.findAll().stream()
-					.filter(b -> b.getCheckIn().compareTo(bookingEntity.getCheckIn()) == 0
-							&& (b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
-									|| b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name())))
-					.collect(Collectors.toList());
-			sameBookingsDay.forEach(b -> {
-				confirmBooking(b.getId(), false, "Your booking has been denied");
-			});
 			homestayEntity.setTotalBookingTime(increasedTotalBookingTime);
 			String message = ApplicationSendMailUtil.generateAcceptBookingMessage(bookingEntity);
 			String subject = "Your booking has been approved";
@@ -233,6 +250,14 @@ public class BookingService implements IBookingService {
 			if (!StringUtils.hasLength(rejectMessage)) {
 				throw new ResourceNotFoundException("Reject message empty");
 			}
+			long bookingDeposit = bookingEntity.getBookingPaidDeposit().getDepositPaidAmount();
+			long totalBookingPrice = bookingEntity.getTotalPrice();
+			long passengerWalletCurrentBalance = passengerEntity.getWallet().getBalance();
+			long passengerWalletCurrentFuturePay = passengerEntity.getWallet().getFuturePay();
+			long passengerTotalBalanceAfterDepositRetur = passengerWalletCurrentBalance + bookingDeposit;
+			long passengerTotalFuturePayAfterDecrease = passengerWalletCurrentFuturePay - (totalBookingPrice - bookingDeposit);
+			passengerEntity.getWallet().setBalance(passengerTotalBalanceAfterDepositRetur);
+			passengerEntity.getWallet().setFuturePay(passengerTotalFuturePayAfterDecrease);
 			bookingEntity.setStatus(BookingStatus.BOOKING_REJECTED.name());
 			bookingEntity.setModifiedBy(landlordEntity.getLandlordAccount().getUsername());
 			bookingEntity.setModifiedDate(currentDate);
@@ -265,12 +290,21 @@ public class BookingService implements IBookingService {
 		LandlordEntity homestayOwner = bookingEntity.getBookingHomestay().getLandlordOwner();
 		UserEntity userCheckOut = userService
 				.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
+		SystemStatisticEntity systemStatistic = this.systemStatisticService.findSystemStatisticByTime(DateParsingUtil.statisticYearMonthTime(bookingEntity.getCreatedDate()));
+		LandlordStatisticEntity landlordStatistic = this.landlordStatisticService.findLandlordStatisticByTime(DateParsingUtil.statisticYearMonthTime(bookingEntity.getCreatedDate()));
 		String status;
 		Long totalRemainAmount = bookingEntity.getTotalPrice() - bookingDepositEntity.getDepositPaidAmount();
 		Long currentPassengerWalletAmount = userBookingHomestay.getWallet().getBalance() - totalRemainAmount;
 		Long currentFuturePay = userBookingHomestay.getWallet().getFuturePay() - totalRemainAmount;
-		Long currentLandlordWalletAmount = homestayOwner.getWallet().getBalance() + totalRemainAmount
-				+ bookingDepositEntity.getDepositPaidAmount();
+		Long totalSystemCommission = (bookingEntity.getTotalPrice() * 10) / 100;
+		Long totalLandlordProfit = bookingEntity.getTotalPrice() - totalSystemCommission;
+		Long landlordWalletBalanceAfterBookingSuccess = homestayOwner.getWallet().getBalance() + totalLandlordProfit;
+		
+		Long systemTotalProfitAfterBookingSuccess = systemStatistic.getTotalProfit() + totalSystemCommission;
+		
+		Long landlordTotalSuccessBooking = landlordStatistic.getTotalSuccessBooking() + 1;
+		Long landlordTotalProfitAfterSuccessBooking = landlordStatistic.getTotalProfit() + totalLandlordProfit;
+		Long landlordTotalCommissionAfterSuccessBooking = landlordStatistic.getTotalCommissionProfit() + totalSystemCommission;
 
 		if (bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CONFIRM_CHECKIN.name())
 				|| bookingEntity.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CHECKIN_BY_LANDLORD.name())
@@ -299,10 +333,13 @@ public class BookingService implements IBookingService {
 			userBookingHomestay.getWallet().setFuturePay(currentFuturePay);
 			userBookingHomestay.getWallet().setModifiedBy(userBookingHomestay.getPassengerAccount().getUsername());
 			userBookingHomestay.getWallet().setModifiedDate(currentDate);
-			homestayOwner.getWallet().setBalance(currentLandlordWalletAmount);
+			homestayOwner.getWallet().setBalance(landlordWalletBalanceAfterBookingSuccess);
 			homestayOwner.getWallet().setModifiedBy(userBookingHomestay.getPassengerAccount().getUsername());
 			homestayOwner.getWallet().setModifiedDate(currentDate);
-
+			systemStatistic.setTotalProfit(systemTotalProfitAfterBookingSuccess);
+			landlordStatistic.setTotalSuccessBooking(landlordTotalSuccessBooking);
+			landlordStatistic.setTotalProfit(landlordTotalProfitAfterSuccessBooking);
+			landlordStatistic.setTotalCommissionProfit(landlordTotalCommissionAfterSuccessBooking);
 		}
 
 		return bookingEntity;
@@ -333,6 +370,7 @@ public class BookingService implements IBookingService {
 		BookingEntity bookingEntity = this.findBookingById(bookingId);
 		PassengerEntity userCancelBooking = bookingEntity.getBookingCreator();
 		LandlordEntity homestayOwner = bookingEntity.getBookingHomestay().getLandlordOwner();
+		LandlordStatisticEntity landlordStatistic = this.landlordStatisticService.findLandlordStatisticByTime(DateParsingUtil.statisticYearMonthTime(currentDate));
 		PassengerCancelBookingTicketEntity passengerTicketCancelBookingEntity = this
 				.findPassengerCancelBookingTicketByBookingId(bookingId);
 		PassengerWalletEntity passengerWallet = userCancelBooking.getWallet();
@@ -343,6 +381,8 @@ public class BookingService implements IBookingService {
 				- (bookingEntity.getTotalPrice() - bookingDeposit.getDepositPaidAmount());
 		Long passengerWalletCurrentBalance = passengerWallet.getBalance();
 		Long landlordWalletCurrentBalance = landlordWallet.getBalance();
+		
+		Long totalCancelBooking = landlordStatistic.getTotalCancelBooking() + 1;
 
 //		if (!bookingEntity.getStatus().equals(BookingStatus.BOOKING_PENDING_CHECKIN.name())) {
 //			throw new ResourceNotAllowException("Not avalable cancel request");
@@ -386,6 +426,8 @@ public class BookingService implements IBookingService {
 			passengerWallet.setBalance(passengerWalletCurrentBalance);
 			passengerWallet.setFuturePay(futurePayTotalAmount);
 		}
+		
+		landlordStatistic.setTotalCancelBooking(totalCancelBooking);
 
 		bookingEntity.setStatus(BookingStatus.BOOKING_CANCELED.name());
 
@@ -528,24 +570,5 @@ public class BookingService implements IBookingService {
 
 		return bookingList;
 	}
-
-	@Override
-	public List<BookingEntity> getBookingPendingListHaveSameCheckInDate(String checkIn) {
-		Date checkInDate = parseDateTime(checkIn);
-		List<BookingEntity> bookingEntity = bookingRepo.findAll().stream().filter(b -> b.getCheckIn().equals(checkInDate) && (b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name()) || b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name())))
-				.collect(Collectors.toList());
-
-		return bookingEntity;
-	}
 	
-	private Date parseDateTime(String date) {
-		try {
-			Date parseDate = simpleDateFormat.parse(date);
-			return parseDate;
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
 }

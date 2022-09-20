@@ -52,6 +52,10 @@ public class HomestayAftercareEntity extends BaseEntity {
 	@ManyToMany(mappedBy = "homestayServiceBooking", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@Setter
 	private List<BookingEntity> bookingService;
+	
+	@ManyToOne
+	@Setter
+	private HomestayUpdateRequestEntity homestayServiceUpdateRequest;
 
 	public HomestayAftercareEntity(String serviceName, long price, HomestayEntity homestayServiceContainer) {
 		super();

@@ -10,7 +10,7 @@ public interface IHomestayAftercareService {
 	
 	HomestayEntity addNewHomestayServiceList(String homestayName, List<HomestayAftercareEntity> newHomestayServiceList);
 	
-	HomestayAftercareEntity findHomestayServiceByName(String name);
+	HomestayAftercareEntity findHomestayServiceByName(String name, String homestayName);
 	
 	HomestayAftercareEntity findHomestayServiceById(Long Id);
 	

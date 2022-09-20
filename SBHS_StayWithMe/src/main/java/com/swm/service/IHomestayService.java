@@ -12,7 +12,7 @@ public interface IHomestayService {
 	HomestayEntity findHomestayByName(String name);
 	
 	HomestayEntity findHomestayById(Long Id);
-
+	
 	List<HomestayEntity> getHomestayBookingAvailableList();
 	
 	List<HomestayEntity> findHomestayBookingAvailableListByCity(String city);
@@ -31,7 +31,7 @@ public interface IHomestayService {
 	
 	SpecialDayPriceListEntity deleteSpecialDayPriceList(String code);
 	
-	HomestayEntity deleteHomestayById(Long Id);
+	HomestayEntity setDeleteStatusForHomestayById(Long Id, boolean confirmCancelAndDelete);
 	
 	Integer numberOfFinishedBookingHomestay(Long homestayId);
 

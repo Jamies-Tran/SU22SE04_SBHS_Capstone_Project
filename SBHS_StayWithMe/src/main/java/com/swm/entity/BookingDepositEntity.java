@@ -22,7 +22,6 @@ public class BookingDepositEntity {
 	@Id
 	@SequenceGenerator(name = "deposit_sequence", sequenceName = "deposit_sequence", initialValue = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deposit_sequence")
-	@Setter
 	private Long Id;
 	
 	@Setter

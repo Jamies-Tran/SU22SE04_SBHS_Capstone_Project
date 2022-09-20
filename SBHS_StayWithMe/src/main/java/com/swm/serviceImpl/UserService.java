@@ -17,9 +17,11 @@ import com.swm.entity.BaseWalletEntity;
 import com.swm.entity.CitizenIdentificationEntity;
 import com.swm.entity.LandlordAccountRequestEntity;
 import com.swm.entity.LandlordEntity;
+import com.swm.entity.LandlordStatisticEntity;
 import com.swm.entity.LandlordWalletEntity;
 import com.swm.entity.PassengerEntity;
 import com.swm.entity.PassengerWalletEntity;
+import com.swm.entity.SystemStatisticEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
 import com.swm.entity.VoucherWalletEntity;
@@ -34,7 +36,9 @@ import com.swm.repository.IUserOtpRepository;
 import com.swm.repository.IUserRepository;
 import com.swm.service.IAuthenticationService;
 import com.swm.service.ISendMailService;
+import com.swm.service.ISystemStatisticService;
 import com.swm.service.IUserService;
+import com.swm.util.DateParsingUtil;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -49,6 +53,9 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private ISendMailService sendMailService;
+	
+	@Autowired
+	private ISystemStatisticService sysemStatisticService;
 
 	@Autowired
 	@Lazy
@@ -118,7 +125,8 @@ public class UserService implements IUserService {
 
 		return userPersisted;
 	}
-
+	
+	@Transactional
 	@Override
 	public UserEntity createLandlordUser(UserEntity userEntity, String citizenIdentificationUrlFront,
 			String citizenIdentificationUrlBack) {
@@ -160,6 +168,11 @@ public class UserService implements IUserService {
 		wallet.setCreatedDate(currentDate);
 		wallet.setCreatedBy(userEntity.getUsername());
 		landlordAccount.setWallet(wallet);
+		// statistic
+		LandlordStatisticEntity landlordStatistic = new LandlordStatisticEntity();
+		landlordStatistic.setStatisticTime(DateParsingUtil.statisticYearMonthTime(currentDate));
+		landlordStatistic.setLandlordStatistic(landlordAccount);
+		landlordAccount.setStatistic(List.of(landlordStatistic));
 		// create landlord account request
 		LandlordAccountRequestEntity landlordAccountRequest = new LandlordAccountRequestEntity();
 		landlordAccountRequest.setCreatedBy(userEntity.getUsername());
@@ -174,6 +187,9 @@ public class UserService implements IUserService {
 		userEntity.setStatus(UserStatus.PENDING.name());
 		userEntity.setAvatar(avatarEntity);
 		UserEntity userPersisted = userRepo.save(userEntity);
+		SystemStatisticEntity systemStatistic = this.sysemStatisticService.findSystemStatisticByTime(DateParsingUtil.statisticYearMonthTime(landlordAccountRequest.getCreatedDate()));
+		Long totalLandlordRequest = systemStatistic.getTotalLandlordRequest() + 1;
+		systemStatistic.setTotalLandlordRequest(totalLandlordRequest);
 
 		return userPersisted;
 	}

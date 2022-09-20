@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.swm.converter.HomestayConverter;
 import com.swm.dto.HomestayFilterDto;
@@ -25,6 +28,7 @@ import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.HomestayPriceListEntity;
 import com.swm.entity.LandlordEntity;
 import com.swm.entity.SpecialDayPriceListEntity;
+import com.swm.entity.SystemStatisticEntity;
 import com.swm.entity.UserEntity;
 import com.swm.enums.BookingStatus;
 import com.swm.enums.HomestayStatus;
@@ -38,8 +42,11 @@ import com.swm.exception.ResourceNotFoundException;
 import com.swm.repository.IHomestayRepository;
 import com.swm.repository.ISpecialDayPriceListRepository;
 import com.swm.service.IAuthenticationService;
+import com.swm.service.IBookingService;
 import com.swm.service.IHomestayService;
+import com.swm.service.ISystemStatisticService;
 import com.swm.service.IUserService;
+import com.swm.util.DateParsingUtil;
 
 @Service
 public class HomestayService implements IHomestayService {
@@ -54,8 +61,17 @@ public class HomestayService implements IHomestayService {
 	private IAuthenticationService authenticationService;
 
 	@Autowired
+	@Lazy
+	private IBookingService bookingService;
+
+	@Autowired
+	@Lazy
+	private ISystemStatisticService systemStatisticService;
+	
+	@Autowired
 	private ISpecialDayPriceListRepository specialDayPriceListRepo;
 	
+
 	@Autowired
 	@Lazy
 	private HomestayConverter homestayConvert;
@@ -81,21 +97,41 @@ public class HomestayService implements IHomestayService {
 		return homestayList;
 	}
 
+	@Transactional
 	@Override
-	public HomestayEntity deleteHomestayById(Long Id) {
-		UserEntity userEntity = userService
-				.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
-
+	public HomestayEntity setDeleteStatusForHomestayById(Long Id, boolean confirmCancelAndDelete) {
+		UserEntity user = userService.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
 		HomestayEntity homestayEntity = homestayRepo.findById(Id)
 				.orElseThrow(() -> new ResourceNotFoundException(Id.toString(), "Homestay id not found"));
-		if (!userEntity.getLandlord().getHomestayOwned().contains(homestayEntity)) {
-			throw new ResourceNotFoundException(homestayEntity.getName(), "You do not owned this homestay");
+		
+		if (confirmCancelAndDelete) {
+			if (homestayEntity.getBooking().isEmpty()) {
+				homestayEntity.setStatus(HomestayStatus.HOMESTAY_DELETE.name());
+				homestayEntity.setModifiedBy(user.getUsername());
+				homestayEntity.setModifiedDate(DateParsingUtil.formatDateTime(currentDate));
+			} else {
+				if (homestayEntity.getBooking().stream()
+						.anyMatch(h -> h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
+								|| h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name()))) {
+					homestayEntity.getBooking().stream()
+					.filter(h -> h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
+							|| h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name()))
+					.collect(Collectors.toList()).forEach(h -> {
+						bookingService.confirmBooking(h.getId(), false,
+								"Homestay has been removed by landlord");
+					});
+				}
+				homestayEntity.setStatus(HomestayStatus.HOMESTAY_PENDING_DELETE.name());
+				homestayEntity.setModifiedBy(user.getUsername());
+				homestayEntity.setModifiedDate(DateParsingUtil.formatDateTime(currentDate));
+			}
 		}
-		homestayRepo.delete(homestayEntity);
+		
 
 		return homestayEntity;
 	}
 
+	@Transactional
 	@Override
 	public HomestayEntity createHomestay(HomestayEntity homestayEntity) {
 
@@ -161,6 +197,9 @@ public class HomestayService implements IHomestayService {
 		homestayPostingRequest.setRequestHomestay(homestayEntity);
 		homestayEntity.setHomestayPostingRequest(homestayPostingRequest);
 		HomestayEntity homestayPersisted = homestayRepo.save(homestayEntity);
+		SystemStatisticEntity systemStatistic = this.systemStatisticService.findSystemStatisticByTime(DateParsingUtil.statisticYearMonthTime(homestayPostingRequest.getCreatedDate()));
+		Long totalHomestayRequest = systemStatistic.getTotalHomestayRequest() + 1;
+		systemStatistic.setTotalHomestayRequest(totalHomestayRequest);
 
 		return homestayPersisted;
 	}
@@ -225,17 +264,17 @@ public class HomestayService implements IHomestayService {
 	public SpecialDayPriceListEntity findSpecialDayByCode(String code) {
 		SpecialDayPriceListEntity specialDayPriceListEntity = specialDayPriceListRepo.findSpecialDayByCode(code)
 				.orElseThrow(() -> new ResourceNotFoundException("Can't find special day code"));
-		
+
 		return specialDayPriceListEntity;
 	}
 
 	@Override
 	public SpecialDayPriceListEntity deleteSpecialDayPriceList(String code) {
 		SpecialDayPriceListEntity specialDayPriceList = this.findSpecialDayByCode(code);
-		if(specialDayPriceList.getHomestayPriceLst() != null) {
+		if (specialDayPriceList.getHomestayPriceLst() != null) {
 			throw new ResourceNotAllowException("Can't delete special day with code " + code);
 		}
-		
+
 		specialDayPriceListRepo.delete(specialDayPriceList);
 		return specialDayPriceList;
 	}
@@ -243,7 +282,7 @@ public class HomestayService implements IHomestayService {
 	@Override
 	public List<SpecialDayPriceListEntity> getSpecialDayPriceList() {
 		List<SpecialDayPriceListEntity> specialPriceList = specialDayPriceListRepo.findAll();
-		
+
 		return specialPriceList;
 	}
 
@@ -251,51 +290,60 @@ public class HomestayService implements IHomestayService {
 	public HomestayPagesResponseDto getHomestayPage(HomestayFilterDto filter, int page, int size) {
 		Page<HomestayEntity> homestayPages = this.homestayPagesNextOrPrevious(page, size);
 		List<HomestayEntity> homestayList = homestayPages.getContent();
-		
-		if(!(filter.getFilterByStr().isBlank() || filter.getFilterByStr().isEmpty() || filter.getFilterByStr() == null)) {
-			homestayList = homestayPages.filter(h -> h.getName().contains(filter.getFilterByStr()) || h.getAddress().contains(filter.getFilterByStr()) || h.getLandlordOwner().getLandlordAccount().getUsername().contains(filter.getFilterByStr())).toList();
+
+		if (StringUtils.hasLength(filter.getFilterByStr())) {
+			homestayList = homestayPages.filter(h -> h.getName().contains(filter.getFilterByStr())
+					|| h.getAddress().contains(filter.getFilterByStr())
+					|| h.getLandlordOwner().getLandlordAccount().getUsername().contains(filter.getFilterByStr()))
+					.toList();
 		}
-		
-		if(filter.getFilterByHighestAveragePoint()) {
+
+		if (filter.getFilterByHighestAveragePoint() != null && filter.getFilterByHighestAveragePoint()) {
 			homestayList = homestayPages.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
-		} 
-		
-		if(filter.getLowestPrice() != null && filter.getHighestPrice() != null) {
-			homestayList = homestayPages.filter(h -> averageHomestayPrice(h) >= filter.getLowestPrice() && averageHomestayPrice(h) <= filter.getHighestPrice()).toList();
 		}
-		
-		if(filter.getFilterByNewestPublishedDate()) {
-			homestayList = homestayPages.filter(h -> differentFromCurrentDateToHomestayPublishedDate(h.getCreatedDate()) <= 30).toList();
+
+		if (filter.getLowestPrice() != null && filter.getHighestPrice() != null) {
+			homestayList = homestayPages.filter(h -> averageHomestayPrice(h) >= filter.getLowestPrice()
+					&& averageHomestayPrice(h) <= filter.getHighestPrice()).toList();
 		}
-		
+
+		if (filter.getFilterByNewestPublishedDate() != null && filter.getFilterByNewestPublishedDate()) {
+			homestayList = homestayPages
+					.filter(h -> differentFromCurrentDateToHomestayPublishedDate(h.getCreatedDate()) <= 30).toList();
+		}
+
 		HomestayPagesResponseDto homestayPagesResponseDto = new HomestayPagesResponseDto();
-		List<HomestayResponseDto> homestayResponseListDto = homestayList.stream().map(h -> homestayConvert.homestayResponseDtoConvert(h)).collect(Collectors.toList());
+		List<HomestayResponseDto> homestayResponseListDto = homestayList.stream()
+				.map(h -> homestayConvert.homestayResponseDtoConvert(h)).collect(Collectors.toList());
 		homestayPagesResponseDto.setHomestayListDto(homestayResponseListDto);
 		homestayPagesResponseDto.setTotalPages(homestayPages.getTotalPages());
-		
+
 		return homestayPagesResponseDto;
 	}
-	
+
 	private long differentFromCurrentDateToHomestayPublishedDate(Date publishedDate) {
 		long differentInTime = currentDate.getTime() - publishedDate.getTime();
 		long differentInDay = (differentInTime / (1000 * 60 * 60 * 24)) % 365;
 
 		return differentInDay;
 	}
-	
+
 	private Page<HomestayEntity> homestayPagesNextOrPrevious(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
-		Page<HomestayEntity> homestayPages = homestayRepo.homestayPageable(pageable, HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
-		if(homestayPages.getTotalPages() <= page) {
+		Page<HomestayEntity> homestayPages = homestayRepo.homestayPageable(pageable,
+				HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+		if (homestayPages.getTotalPages() <= page) {
 			int homestayLastPageNumber = homestayPages.getTotalPages() - 1;
-			homestayPages = homestayRepo.homestayPageable(PageRequest.of(homestayLastPageNumber, size), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
-		} else if(homestayPages.getTotalPages() == page) {
-			homestayPages = homestayRepo.homestayPageable(PageRequest.of(0, size), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+			homestayPages = homestayRepo.homestayPageable(PageRequest.of(homestayLastPageNumber, size),
+					HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+		} else if (homestayPages.getTotalPages() == page) {
+			homestayPages = homestayRepo.homestayPageable(PageRequest.of(0, size),
+					HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
 		}
-		
+
 		return homestayPages;
 	}
-	
+
 	private Long averageHomestayPrice(HomestayEntity homestayEntity) {
 		long total = 0;
 		for (HomestayPriceListEntity homestayPriceList : homestayEntity.getPriceList()) {
@@ -305,4 +353,5 @@ public class HomestayService implements IHomestayService {
 		total = total / homestayEntity.getPriceList().size();
 		return total;
 	}
+
 }

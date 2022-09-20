@@ -48,4 +48,8 @@ public class HomestayPriceListEntity extends BaseEntity {
 	@JoinColumn(name = "homestay_id", referencedColumnName = "Id")
 	@Setter
 	private HomestayEntity homestayPriceList;
+	
+	@ManyToOne
+	@Setter
+	private HomestayUpdateRequestEntity homestayPriceListUpdateRequest;
 }

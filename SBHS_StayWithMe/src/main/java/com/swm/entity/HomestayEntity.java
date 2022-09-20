@@ -50,7 +50,7 @@ public class HomestayEntity extends BaseEntity implements Comparable<HomestayEnt
 	@Setter
 	private String address;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "nvarchar(MAX)")
 	@Setter
 	private String city;
 
@@ -97,10 +97,10 @@ public class HomestayEntity extends BaseEntity implements Comparable<HomestayEnt
 	@Setter
 	private String status;
 
-	@OneToOne(mappedBy = "homestayTicketForCancel", cascade = { CascadeType.MERGE,
-			CascadeType.REFRESH }, orphanRemoval = true)
+	@OneToMany(mappedBy = "homestayTicketForCancel", cascade = { CascadeType.MERGE,
+			CascadeType.REFRESH })
 	@Setter
-	private PassengerCancelBookingTicketEntity ticketForCancelBooking;
+	private List<PassengerCancelBookingTicketEntity> ticketForCancelBooking;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id", referencedColumnName = "Id")
@@ -166,6 +166,7 @@ public class HomestayEntity extends BaseEntity implements Comparable<HomestayEnt
 	@OneToMany(mappedBy = "homestayPriceList", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@Setter
 	private List<HomestayPriceListEntity> priceList;
+	
 
 	@Override
 	public int compareTo(HomestayEntity o) {

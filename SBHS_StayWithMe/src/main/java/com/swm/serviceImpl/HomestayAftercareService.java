@@ -34,8 +34,8 @@ public class HomestayAftercareService implements IHomestayAftercareService {
 	private Date currentDate = new Date();
 
 	@Override
-	public HomestayAftercareEntity findHomestayServiceByName(String name) {
-		HomestayAftercareEntity homestayServiceEntity = homestayServiceRepo.findHomestayServiceByName(name)
+	public HomestayAftercareEntity findHomestayServiceByName(String name, String homestayName) {
+		HomestayAftercareEntity homestayServiceEntity = homestayServiceRepo.findHomestayServiceByName(name, homestayName)
 				.orElseThrow(() -> new ResourceNotFoundException(name, "Homestay not found"));
 
 		return homestayServiceEntity;

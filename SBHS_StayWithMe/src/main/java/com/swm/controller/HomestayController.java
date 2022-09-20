@@ -28,6 +28,8 @@ import com.swm.dto.SpecialDayPriceListDto;
 import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.SpecialDayPriceListEntity;
+import com.swm.enums.HomestayStatus;
+import com.swm.exception.ResourceNotAllowException;
 import com.swm.service.IHomestayAftercareService;
 import com.swm.service.IHomestayService;
 
@@ -106,13 +108,19 @@ public class HomestayController {
 
 		return new ResponseEntity<>(homestayResponseDto, HttpStatus.OK);
 	}
+	
 
 	@GetMapping("/permit-all/details/{name}")
 	public ResponseEntity<?> findHomestayByName(@PathVariable("name") String name) {
 		HomestayEntity homestay = homestayService.findHomestayByName(name);
 		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestay);
-
-		return new ResponseEntity<>(homestayResponseDto, HttpStatus.OK);
+		
+		if(homestayResponseDto.getStatus().equalsIgnoreCase(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name())) {
+			return new ResponseEntity<>(homestayResponseDto, HttpStatus.OK);
+		} else {
+			throw new ResourceNotAllowException("Homestay not available right now");
+		}
+		
 	}
 
 	@GetMapping("/permit-all/list/{location}")
@@ -161,8 +169,8 @@ public class HomestayController {
 
 	@DeleteMapping("/removal/{Id}")
 	@PreAuthorize("hasAuthority('homestay:delete')")
-	public ResponseEntity<?> deleteHomestayById(@PathVariable("Id") Long Id) {
-		HomestayEntity homestayEntity = homestayService.deleteHomestayById(Id);
+	public ResponseEntity<?> deleteHomestayById(@PathVariable("Id") Long Id, @RequestParam Boolean cancelConfirm) {
+		HomestayEntity homestayEntity = homestayService.setDeleteStatusForHomestayById(Id, cancelConfirm);
 		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestayEntity);
 
 		return new ResponseEntity<>(homestayResponseDto, HttpStatus.GONE);
@@ -216,14 +224,12 @@ public class HomestayController {
 		return new ResponseEntity<>(specialDayPriceListDto, HttpStatus.OK);
 	}
 	
-	@PostMapping("/list")
-	@PreAuthorize("hasRole('ROLE_PASSENGER')")
+	@PostMapping("/permit-all/list")
 	public ResponseEntity<?> getHomestayPagination(
 				@RequestParam(name = "page") int page, 
 				@RequestParam(name = "size") int size,
 				@RequestBody HomestayFilterDto filter
 			) {
-		
 		HomestayPagesResponseDto homestayList = homestayService.getHomestayPage(filter, page, size);
 		
 		return new ResponseEntity<>(homestayList, HttpStatus.OK);

@@ -12,4 +12,5 @@ public interface ISpecialDayPriceListRepository extends JpaRepository<SpecialDay
 	
 	@Query(value = "select s from SpecialDayPriceListEntity s where s.specialDayCode = :code")
 	Optional<SpecialDayPriceListEntity> findSpecialDayByCode(@Param("code") String specialDayCode);
+	
 }

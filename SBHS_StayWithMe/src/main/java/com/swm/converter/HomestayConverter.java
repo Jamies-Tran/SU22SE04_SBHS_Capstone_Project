@@ -150,7 +150,7 @@ public class HomestayConverter {
 		return homestayImageDto;
 	}
 	
-	private HomestayPriceListResponseDto homestayPriceListResponseDtoConvert(HomestayPriceListEntity homestayPriceListEntity) {
+	public HomestayPriceListResponseDto homestayPriceListResponseDtoConvert(HomestayPriceListEntity homestayPriceListEntity) {
 		HomestayPriceListResponseDto homestayPriceListDto = new HomestayPriceListResponseDto();
 		homestayPriceListDto.setId(homestayPriceListEntity.getId());
 		homestayPriceListDto.setPrice(homestayPriceListEntity.getPrice());
@@ -162,7 +162,7 @@ public class HomestayConverter {
 		return homestayPriceListDto;
 	}
 	
-	private HomestayPriceListEntity homestayPriceListEntityConvert(HomestayPriceListRequestDto homestayPriceListDto) {
+	public HomestayPriceListEntity homestayPriceListEntityConvert(HomestayPriceListRequestDto homestayPriceListDto) {
 		HomestayPriceListEntity homestayPriceListEntity = new HomestayPriceListEntity();
 		if(homestayPriceListDto.getSpecialDayCode() != null) {
 			SpecialDayPriceListEntity specialDayPriceListEntity = homestayService.findSpecialDayByCode(homestayPriceListDto.getSpecialDayCode());

@@ -14,8 +14,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BaseRequestEntity {
+	@Column(columnDefinition = "nvarchar(MAX)")
 	protected String createdBy;
 	
+	protected String createdByEmail;
+	
+	@Column(columnDefinition = "nvarchar(MAX)")
 	protected String verifiedBy;
 	
 	protected String requestType;

@@ -1,8 +1,6 @@
 package com.swm.converter;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,10 +14,10 @@ import com.swm.dto.HomestayAftercareDto;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;
-import com.swm.exception.ParseDateException;
 import com.swm.service.IHomestayService;
 import com.swm.service.IUserService;
 import com.swm.serviceImpl.HomestayAftercareService;
+import com.swm.util.DateParsingUtil;
 
 @Component
 public class BookingConverter {
@@ -48,18 +46,12 @@ public class BookingConverter {
 		bookingEntity.setDeposit(bookingDto.getDeposit());
 		if(bookingDto.getHomestayServiceList() != null) {
 			List<HomestayAftercareEntity> homestayServiceList = bookingDto.getHomestayServiceList().stream()
-					.map(s -> homestayAftercareService.findHomestayServiceByName(s.getName())).collect(Collectors.toList());
+					.map(s -> homestayAftercareService.findHomestayServiceByName(s.getName(), bookingDto.getHomestayName())).collect(Collectors.toList());
 			bookingEntity.setHomestayServiceBooking(homestayServiceList);
 		}
+		bookingEntity.setCheckIn(DateParsingUtil.parseDateTimeStr(bookingDto.getCheckIn()));
+		bookingEntity.setCheckOut(DateParsingUtil.parseDateTimeStr(bookingDto.getCheckOut()));
 		
-		try {
-			Date checkIn = simpleDateFormat.parse(bookingDto.getCheckIn());
-			bookingEntity.setCheckIn(checkIn);
-			Date checkOut = simpleDateFormat.parse(bookingDto.getCheckOut());
-			bookingEntity.setCheckOut(checkOut);
-		} catch (ParseException e) {
-			throw new ParseDateException(bookingDto.getCheckIn());
-		}
 
 		return bookingEntity;
 	}

@@ -46,4 +46,8 @@ public class HomestayCommonFacilityEntity extends BaseEntity {
 	@JoinColumn(name = "homestay_id", referencedColumnName = "Id")
 	@Setter
 	private HomestayEntity homestayCommonFacility;
+	
+	@ManyToOne
+	@Setter
+	private HomestayUpdateRequestEntity homestayCommonFacilityUpdateRequest;
 }
