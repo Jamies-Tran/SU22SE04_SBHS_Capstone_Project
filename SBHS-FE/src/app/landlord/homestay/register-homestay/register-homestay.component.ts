@@ -10,7 +10,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServerHttpService } from 'src/app/services/register-homestay.service';
 import { finalize } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { empty, Observable } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
@@ -31,6 +31,7 @@ export class RegisterHomestayComponent implements OnInit {
   public homestayLicense!: string;
   public homestayImages: string[] = [];
   readonly = false;
+
 
   newServices: any[] = [];
   newFacility: any[] = [];
@@ -142,6 +143,8 @@ export class RegisterHomestayComponent implements OnInit {
   enableInputTV() {
     if (this.facilityFormGroup.controls.tv.value === true) {
       this.facilityFormGroup.controls.inputTv.enable();
+      this.facilityFormGroup.controls.inputTv.setValue;
+
     } else {
       this.facilityFormGroup.controls.inputTv.disable();
       // this.facilityFormGroup.controls.inputTv.reset();
@@ -312,10 +315,11 @@ export class RegisterHomestayComponent implements OnInit {
           startDay: items.startDay,
           startMonth: items.startMonth,
           status: false,
+          price: ""
         });
       }
       // this.ListSpecialDay = data
-      // console.log(this.ListSpecialDay)
+      console.log(this.ListSpecialDay)
     });
   }
 
@@ -403,6 +407,9 @@ export class RegisterHomestayComponent implements OnInit {
     console.log(this.informationFormGroup.value);
     // console.log("homestay license", this.homestayLicense);
     console.log('homestay image', this.homestayImages);
+
+    console.log('lít special day', this.ListSpecialDay);
+
   }
   facilityForm() {
     console.log(this.facilityFormGroup.value);
@@ -445,7 +452,7 @@ export class RegisterHomestayComponent implements OnInit {
     let address = formInformationFormGroupValue.address.value!;
     let city = formInformationFormGroupValue.city.value!;
     let checkInTime = formInformationFormGroupValue.checkInTime.value!;
-    let checkOutTIme = formInformationFormGroupValue.checkOutTime.value!;
+    let checkOutTime = formInformationFormGroupValue.checkOutTime.value!;
     let numberOfRoom = formInformationFormGroupValue.number.value!;
     let description = formInformationFormGroupValue.description.value!;
 
@@ -453,19 +460,19 @@ export class RegisterHomestayComponent implements OnInit {
     type homestayPriceList = Array<{
       price: string;
       type: string;
-      specialDayCode: string;
+      specialDayCode: any;
     }>;
     const myHomestayPriceList: homestayPriceList = [];
 
     myHomestayPriceList.push({
       price: priceNormalDay,
       type: 'normal',
-      specialDayCode: '',
+      specialDayCode: undefined
     });
     myHomestayPriceList.push({
       price: priceWeekendDay,
       type: 'weekend',
-      specialDayCode: '',
+      specialDayCode: undefined
     });
     for (let day of this.ListSpecialDay) {
       if (day.status) {
@@ -479,78 +486,81 @@ export class RegisterHomestayComponent implements OnInit {
 
     // facility
     const facilityFormGroupValue = this.facilityFormGroup.controls;
-    type homestayFacilities = Array<{ name: string; amount: string }>;
-    const myhomestayFacilities: homestayFacilities = [];
+    type homestayCommonFacilities = Array<{ name: string; amount: string }>;
+    const myhomestayCommonFacilities: homestayCommonFacilities = [];
 
-    // Add new service
+    // Add new facility
+    type homestayAdditionFacilities = Array<{ name: string; amount: string }>;
+    const myhomestayAdditionFacilities: homestayAdditionFacilities = [];
+
     for (let value of this.newFacility) {
       if (value.status) {
         console.log('value facility true', value);
-        myhomestayFacilities.push({
+        myhomestayAdditionFacilities.push({
           name: value.name,
           amount: value.amount,
         });
-        console.log(' myHomestayFacility.push', myhomestayFacilities);
+        console.log(' myHomestayAdditionFacility.push', myhomestayAdditionFacilities);
       }
     }
 
     if (facilityFormGroupValue.tv.value == true) {
-      myhomestayFacilities.push({
+      myhomestayCommonFacilities.push({
         name: 'TV',
         amount: facilityFormGroupValue.inputTv.value + '',
       });
     }
 
     if (facilityFormGroupValue.cookingStove.value == true) {
-      myhomestayFacilities.push({
+      myhomestayCommonFacilities.push({
         name: 'cookingStove',
         amount: facilityFormGroupValue.inputCookingStove.value + '',
       });
     }
 
     if (facilityFormGroupValue.bed.value == true) {
-      myhomestayFacilities.push({
+      myhomestayCommonFacilities.push({
         name: 'bed',
         amount: facilityFormGroupValue.inputBed.value + '',
       });
     }
 
     if (facilityFormGroupValue.shower.value == true) {
-      myhomestayFacilities.push({
+      myhomestayCommonFacilities.push({
         name: 'shower',
         amount: facilityFormGroupValue.inputShower.value + '',
       });
     }
 
     if (facilityFormGroupValue.sofa.value == true) {
-      myhomestayFacilities.push({
+      myhomestayCommonFacilities.push({
         name: 'sofa',
         amount: facilityFormGroupValue.inputSofa.value + '',
       });
     }
 
     if (facilityFormGroupValue.toilet.value == true) {
-      myhomestayFacilities.push({
+      myhomestayCommonFacilities.push({
         name: 'toilet',
         amount: facilityFormGroupValue.inputToilet.value + '',
       });
     }
 
     if (facilityFormGroupValue.fan.value == true) {
-      myhomestayFacilities.push({
+      myhomestayCommonFacilities.push({
         name: 'fan',
         amount: facilityFormGroupValue.inputFan.value + '',
       });
     }
 
     if (facilityFormGroupValue.bathtub.value == true) {
-      myhomestayFacilities.push({
+      myhomestayCommonFacilities.push({
         name: 'bathtub',
         amount: facilityFormGroupValue.inputBathtub.value + '',
       });
     }
 
-    console.log(myhomestayFacilities);
+    console.log(myhomestayCommonFacilities);
 
     const serviceFormGroupValue = this.serviceFormGroup.controls;
     type homestayServices = Array<{ name: string; price: string }>;
@@ -633,6 +643,7 @@ export class RegisterHomestayComponent implements OnInit {
     type homestayLicenses = { url: string };
     const myHomestayLicenses: homestayLicenses = { url: this.homestayLicense };
     console.log(this.homestayImages);
+    console.log('check out', checkOutTime);
 
     console.log('price', myHomestayPriceList);
     // api
@@ -644,12 +655,13 @@ export class RegisterHomestayComponent implements OnInit {
         city,
         numberOfRoom,
         checkInTime,
-        checkOutTIme,
+        checkOutTime,
         myHomestayLicenses,
         myHomestayimages,
         myHomestayServices,
-        myhomestayFacilities,
-        myHomestayPriceList
+        myhomestayCommonFacilities,
+        myHomestayPriceList,
+        myhomestayAdditionFacilities
       )
       .subscribe(
         (data) => {

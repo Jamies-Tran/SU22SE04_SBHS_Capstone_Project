@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ServerHttpService } from '../services/register.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
 @Component({
   selector: 'app-register',
@@ -31,6 +32,20 @@ export class RegisterComponent implements OnInit {
   fileFont!:File;
   fileBack!:File;
 
+  // API Google Map
+
+  formattedaddress = ' ';
+  options = {
+    types: ['address'],
+    componentRestrictions: {
+      country: ['VN'],
+    },
+  } as unknown as Options;
+  public handleAddressChange(address: any) {
+    //setting address from API to local variable
+    this.formattedaddress = address.formatted_address;
+    console.log('address', address);
+  }
 
   public valid() {
     this.validPolice = this.polices;

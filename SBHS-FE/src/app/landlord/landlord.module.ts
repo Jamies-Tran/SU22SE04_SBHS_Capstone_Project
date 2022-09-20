@@ -25,6 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { NgxEchartsModule } from 'ngx-echarts';
 import {MatMenuModule} from '@angular/material/menu';
 
+
 import { enviroment } from 'src/enviroment/enviroment';
 import { initializeApp } from 'firebase/app';
 import { BookingComponent } from './booking/booking.component';
@@ -77,7 +78,8 @@ import { HomestayDetailComponent } from './homestay/homestay-detail/homestay-det
     NgxEditorModule,
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
     GooglePlaceModule,
-    MatMenuModule
+    MatMenuModule,
+
   ]
 })
 export class LandlordModule { }

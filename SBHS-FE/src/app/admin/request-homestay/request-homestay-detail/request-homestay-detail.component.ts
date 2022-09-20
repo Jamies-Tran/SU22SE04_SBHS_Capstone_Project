@@ -20,7 +20,7 @@ export class RequestHomestayDetailComponent implements OnInit {
   price :string =""
   city :string =""
   checkInTime :string =""
-  CheckOutTime :string =""
+  checkOutTime :string =""
   address :string =""
   description :string =""
   imageLicenseUrl :string =""
@@ -58,7 +58,7 @@ export class RequestHomestayDetailComponent implements OnInit {
       this.price = data["price"]
       this.city = data["city"]
       this.checkInTime = data["checkInTime"]
-      this.CheckOutTime = data["checkOutTime"]
+      this.checkOutTime = data["checkOutTime"]
       this.address = data["address"]
       this.description = data["description"]
 
@@ -75,6 +75,8 @@ export class RequestHomestayDetailComponent implements OnInit {
       this.homestayAftercareList = data["homestayAftercareList"]
       this.homestayFacilityList= data["homestayFacilityList"]
       console.log(data)
+      console.log('check out' , this.checkOutTime)
+      console.log('check in' , this.checkInTime)
     })
   }
 

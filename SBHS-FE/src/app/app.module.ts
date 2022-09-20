@@ -25,8 +25,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxEditorModule } from 'ngx-editor';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import {MatMenuModule} from '@angular/material/menu';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 import { AppComponent } from './app.component';
@@ -37,6 +38,9 @@ import { LandlordComponent } from './landlord/landlord.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { AdminComponent } from './admin/admin.component';
 import { Page1Component } from './page1/page1.component';
+import { MessageComponent } from './pop-up/message/message.component';
+import { DeleteHomestayDialogComponent } from './pop-up/delete-homestay-dialog/delete-homestay-dialog.component';
+
 
 
 @NgModule({
@@ -49,6 +53,8 @@ import { Page1Component } from './page1/page1.component';
     ForgetPasswordComponent,
     AdminComponent,
     Page1Component,
+    MessageComponent,
+    DeleteHomestayDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +86,8 @@ import { Page1Component } from './page1/page1.component';
     NgxEditorModule,
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
     MatMenuModule,
-
+    GooglePlaceModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -96,17 +96,19 @@
                     <mat-option value="Female">Female </mat-option>
                   </mat-select>
                 </mat-form-field>
-
               </div>
-
             </div>
             <!-- address -->
             <div class="register-col col">
               <div class="register-text">
                 <mat-form-field appearance="outline">
                   <mat-label>Address</mat-label>
-                  <input matInput [(ngModel)]="address" [ngModelOptions]="{standalone: true}"
-                    placeholder="123 Pham Van Dong, Thu Duc" class="input-username" required>
+                  <input name="address" type="text" matInput placeholder="123 Pham Van Dong, Thu Duc"
+                   [(ngModel)]="address" [ngModelOptions]="{standalone: true}"
+                     class="input-username" required
+                     ngx-google-places-autocomplete [options]="options"
+                    #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)">
+
                   <mat-icon matPrefix><i class="fa-solid fa-map-location-dot"></i></mat-icon>
                 </mat-form-field>
               </div>

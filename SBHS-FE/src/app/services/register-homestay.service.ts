@@ -27,12 +27,13 @@ export class ServerHttpService {
     city: string,
     numberOfRoom: string,
     checkInTime: string,
-    checkOutTIme: string,
+    checkOutTime: string,
     homestayLicense: any,
     homestayImages: Array<any>,
     homestayServices: Array<any>,
-    homestayFacilities: Array<any>,
-    homestayPriceList: Array<any>
+    homestayCommonFacilities: Array<any>,
+    homestayPriceList: Array<any>,
+    homestayAdditionalFacilities: Array<any>
   ) {
     var value = {
       name,
@@ -41,12 +42,13 @@ export class ServerHttpService {
       city,
       numberOfRoom,
       checkInTime,
-      checkOutTIme,
+      checkOutTime,
       homestayLicense,
       homestayImages,
       homestayServices,
-      homestayFacilities,
+      homestayCommonFacilities,
       homestayPriceList,
+      homestayAdditionalFacilities,
     };
     console.log(value);
     const url = `${this.REST_API_SERVER}/api/homestay/register`;
@@ -74,4 +76,5 @@ export class ServerHttpService {
     // // return an observable with a user-facing error message
     return throwError(error.error['message']);
   }
+
 }

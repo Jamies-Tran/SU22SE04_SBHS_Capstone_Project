@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import { DeleteHomestayDialogComponent } from '../../pop-up/delete-homestay-dialog/delete-homestay-dialog.component';
+
+
 
 @Component({
   selector: 'app-homestay',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomestayComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
+  openDialog() {
+    this.dialog.open(DeleteHomestayDialogComponent);
+  }
 }
+
+
