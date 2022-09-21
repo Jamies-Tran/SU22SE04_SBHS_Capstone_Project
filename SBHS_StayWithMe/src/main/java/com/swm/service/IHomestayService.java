@@ -2,8 +2,9 @@ package com.swm.service;
 
 import java.util.List;
 
-import com.swm.dto.HomestayFilterDto;
-import com.swm.dto.HomestayPagesResponseDto;
+import com.swm.dto.distance.matrix.response.DistanceMatrixResponseDto;
+import com.swm.dto.homestay.HomestayFilterDto;
+import com.swm.dto.homestay.HomestayPagesResponseDto;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.SpecialDayPriceListEntity;
 
@@ -33,6 +34,6 @@ public interface IHomestayService {
 	
 	HomestayEntity setDeleteStatusForHomestayById(Long Id, boolean confirmCancelAndDelete);
 	
-	Integer numberOfFinishedBookingHomestay(Long homestayId);
+	DistanceMatrixResponseDto getDistanceMatrixFromPlaces(String origin_address);
 
 }

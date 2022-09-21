@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.swm.dto.MomoCaptureWalletRequestDto;
-import com.swm.dto.MomoCaptureWalletResponseDto;
+import com.swm.dto.wallet.MomoCaptureWalletRequestDto;
+import com.swm.dto.wallet.MomoCaptureWalletResponseDto;
 import com.swm.enums.MomoResponseLanguage;
 import com.swm.service.IPaymentService;
 import com.swm.util.MomoInfoUtil;

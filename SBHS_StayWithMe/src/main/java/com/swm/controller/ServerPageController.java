@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swm.converter.MomoOrderProcessConverter;
-import com.swm.dto.MomoPaymentDto;
+import com.swm.dto.wallet.MomoPaymentDto;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.MomoPaymentEntity;
 import com.swm.entity.UserEntity;

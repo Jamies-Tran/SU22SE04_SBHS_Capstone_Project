@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,12 +18,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 
+import com.google.api.client.http.HttpHeaders;
 import com.swm.converter.HomestayConverter;
-import com.swm.dto.HomestayFilterDto;
-import com.swm.dto.HomestayPagesResponseDto;
-import com.swm.dto.HomestayResponseDto;
-import com.swm.entity.BookingEntity;
+import com.swm.dto.distance.matrix.response.DistanceMatrixResponseDto;
+import com.swm.dto.homestay.HomestayFilterDto;
+import com.swm.dto.homestay.HomestayPagesResponseDto;
+import com.swm.dto.homestay.HomestayResponseDto;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.HomestayPriceListEntity;
@@ -75,8 +78,13 @@ public class HomestayService implements IHomestayService {
 	@Autowired
 	@Lazy
 	private HomestayConverter homestayConvert;
+	
+	@Value("${google.api.key}")
+	private String apiKey;
 
 	private Date currentDate = new Date();
+	
+	private RestTemplate restTemplate = new RestTemplate();
 
 	Logger log = LoggerFactory.getLogger(HomestayService.class);
 
@@ -231,15 +239,7 @@ public class HomestayService implements IHomestayService {
 		return ownerHomestayList;
 	}
 
-	@Override
-	public Integer numberOfFinishedBookingHomestay(Long homestayId) {
-		HomestayEntity homestayEntity = this.findHomestayById(homestayId);
-		List<BookingEntity> succeedBookingList = homestayEntity.getBooking().stream()
-				.filter(b -> b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_FINISHED.name()))
-				.collect(Collectors.toList());
-
-		return succeedBookingList.size();
-	}
+	
 
 	@Override
 	public List<SpecialDayPriceListEntity> addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList) {
@@ -352,6 +352,36 @@ public class HomestayService implements IHomestayService {
 		}
 		total = total / homestayEntity.getPriceList().size();
 		return total;
+	}
+
+	@Override
+	public DistanceMatrixResponseDto getDistanceMatrixFromPlaces(String origin_address) {
+//		String Url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver%20BC%7CSeattle&destinations=San%20Francisco%7CVictoria%20BC&mode=bicycling&language=fr-FR&key=YOUR_API_KEY";
+		StringBuilder url = new StringBuilder();
+		StringBuilder destinationBuilder = new StringBuilder();
+		List<HomestayEntity> homestayList = this.homestayRepo.findAll();
+		if(homestayList.size() > 1) {
+			for(int i = 0; i < homestayList.size(); i++) {
+				if(i == 0) {
+					destinationBuilder.append(homestayList.get(i).getAddress().replace(" ", "%20"));
+				} else {
+					destinationBuilder.append("%7C").append(homestayList.get(i).getAddress().replace(" ", "%20"));
+				}
+			}
+		} else {
+			destinationBuilder.append(homestayList.get(0).getAddress());
+		}
+		url.append("https://maps.googleapis.com/maps/api/distancematrix/json?origins=").append(origin_address.replace(" ", "%20")).append("&destinations=").append(destinationBuilder.toString()).append("&key=").append(this.apiKey);
+		//String testUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=43 Phan Văn Trị, Phường 2, District 5, Ho Chi Minh City&destinations=413 Nguyễn Chí Thanh, Phường 15, District 5, Ho Chi Minh City&language=vi&key=AIzaSyBWOP0ACmQomYhf1CsV92Y3cjbj3HBV73U";
+		//System.out.println(testUrl);
+		System.out.println(url.toString());
+		
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType("text/plain");
+		//DistanceMatrixResponseDto distanceMatrixResponse = new DistanceMatrixResponseDto();
+		DistanceMatrixResponseDto distanceMatrixResponse = restTemplate.getForObject(url.toString(), DistanceMatrixResponseDto.class);
+		
+		return distanceMatrixResponse;
 	}
 
 }

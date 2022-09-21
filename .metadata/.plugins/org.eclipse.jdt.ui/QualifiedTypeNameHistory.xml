@@ -1,31 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.lang.Nullable"/>
-    <fullyQualifiedTypeName name="net.bytebuddy.agent.builder.ResettableClassFileTransformer.WithDelegation"/>
-    <fullyQualifiedTypeName name="com.swm.entity.LandlordWalletEntity"/>
-    <fullyQualifiedTypeName name="com.swm.dto.RequestDto"/>
-    <fullyQualifiedTypeName name="com.swm.dto.LandlordWithdrawalRequestDto"/>
-    <fullyQualifiedTypeName name="org.springframework.util.StringUtils"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
-    <fullyQualifiedTypeName name="com.swm.entity.LandlordBalanceWithdrawalRequestEntity"/>
-    <fullyQualifiedTypeName name="com.swm.dto.LandlordBalanceWithdrawalRequestDto"/>
-    <fullyQualifiedTypeName name="org.apache.http.protocol.HTTP"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
-    <fullyQualifiedTypeName name="com.swm.dto.RequestConfirmationDto"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PatchMapping"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
-    <fullyQualifiedTypeName name="com.swm.enums.RequestType"/>
-    <fullyQualifiedTypeName name="javax.persistence.Temporal"/>
     <fullyQualifiedTypeName name="javax.persistence.Column"/>
     <fullyQualifiedTypeName name="javax.persistence.Entity"/>
     <fullyQualifiedTypeName name="javax.persistence.Table"/>
-    <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
-    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
-    <fullyQualifiedTypeName name="lombok.Getter"/>
     <fullyQualifiedTypeName name="com.swm.entity.HomestayStatisticEntity"/>
     <fullyQualifiedTypeName name="javax.persistence.OneToOne"/>
-    <fullyQualifiedTypeName name="lombok.Setter"/>
     <fullyQualifiedTypeName name="com.swm.repository.ISystemStatisticRepository"/>
     <fullyQualifiedTypeName name="com.swm.serviceImpl.SystemStatisticService"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Lazy"/>
@@ -50,7 +29,6 @@
     <fullyQualifiedTypeName name="javax.persistence.JoinColumn"/>
     <fullyQualifiedTypeName name="com.swm.repository.ILandlordRepository"/>
     <fullyQualifiedTypeName name="com.swm.entity.LandlordEntity"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.swm.entity.SystemStatisticEntity"/>
     <fullyQualifiedTypeName name="javax.transaction.Transactional"/>
     <fullyQualifiedTypeName name="com.swm.service.ISystemStatisticService"/>
@@ -60,4 +38,26 @@
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="com.swm.entity.LandlordStatisticEntity"/>
     <fullyQualifiedTypeName name="com.swm.util.DateParsingUtil"/>
+    <fullyQualifiedTypeName name="com.swm.dto.homestay.HomestayAdditionalFacilityDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.homestay.HomestayCommonFacilityDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.homestay.HomestayImageDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.homestay.HomestayPriceListRequestDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.homestay.HomestayPriceListResponseDto"/>
+    <fullyQualifiedTypeName name="com.swm.converter.HomestayConverter"/>
+    <fullyQualifiedTypeName name="com.swm.dto.homestay.HomestayAftercareDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.wallet.MomoPaymentDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.request.HomestayPostingRequestDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.user.RoleDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.homestay.HomestayPagesResponseDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.wallet.MomoCaptureWalletRequestDto"/>
+    <fullyQualifiedTypeName name="java.lang.SuppressWarnings"/>
+    <fullyQualifiedTypeName name="lombok.Setter"/>
+    <fullyQualifiedTypeName name="lombok.Getter"/>
+    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
+    <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
+    <fullyQualifiedTypeName name="com.swm.dto.distance.matrix.response.TextValueObjectDto"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.swm.dto.distance.matrix.response.DistanceMatrixElementDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.distance.matrix.response.DistanceMatrixRowDto"/>
+    <fullyQualifiedTypeName name="com.swm.dto.distance.matrix.response.DistanceMatrixElementStatusDto"/>
 </qualifiedTypeNameHistroy>

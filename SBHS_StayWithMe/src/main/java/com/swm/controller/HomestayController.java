@@ -19,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.HomestayConverter;
-import com.swm.dto.HomestayAftercareDto;
-import com.swm.dto.HomestayFilterDto;
-import com.swm.dto.HomestayPagesResponseDto;
-import com.swm.dto.HomestayRequestDto;
-import com.swm.dto.HomestayResponseDto;
-import com.swm.dto.SpecialDayPriceListDto;
+import com.swm.dto.distance.matrix.response.DistanceMatrixResponseDto;
+import com.swm.dto.homestay.HomestayAftercareDto;
+import com.swm.dto.homestay.HomestayFilterDto;
+import com.swm.dto.homestay.HomestayPagesResponseDto;
+import com.swm.dto.homestay.HomestayRequestDto;
+import com.swm.dto.homestay.HomestayResponseDto;
+import com.swm.dto.homestay.SpecialDayPriceListDto;
 import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;
 import com.swm.entity.SpecialDayPriceListEntity;
@@ -233,5 +234,12 @@ public class HomestayController {
 		HomestayPagesResponseDto homestayList = homestayService.getHomestayPage(filter, page, size);
 		
 		return new ResponseEntity<>(homestayList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/permit-all/distance")
+	public ResponseEntity<?> getDistanceMatrix(@RequestParam String origin_address) {
+		DistanceMatrixResponseDto distanceMatrixResponse = this.homestayService.getDistanceMatrixFromPlaces(origin_address);
+		
+		return new ResponseEntity<>(distanceMatrixResponse, HttpStatus.OK);
 	}
 }

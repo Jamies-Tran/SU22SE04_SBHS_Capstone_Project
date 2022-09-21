@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.RatingConverter;
-import com.swm.dto.UserRatingDto;
+import com.swm.dto.user.UserRatingDto;
 import com.swm.entity.RatingEntity;
 import com.swm.service.IHomestayRatingService;
 

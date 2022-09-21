@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.swm.dto.AdminDto;
-import com.swm.dto.LandlordDto;
-import com.swm.dto.PassengerDto;
-import com.swm.dto.UserDto;
+import com.swm.dto.user.AdminDto;
+import com.swm.dto.user.LandlordDto;
+import com.swm.dto.user.PassengerDto;
+import com.swm.dto.user.UserDto;
 import com.swm.entity.AvatarEntity;
 import com.swm.entity.RoleEntity;
 import com.swm.entity.UserEntity;

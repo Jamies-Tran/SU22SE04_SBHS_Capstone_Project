@@ -2,7 +2,7 @@ package com.swm.converter;
 
 import org.springframework.stereotype.Component;
 
-import com.swm.dto.MomoPaymentDto;
+import com.swm.dto.wallet.MomoPaymentDto;
 import com.swm.entity.MomoPaymentEntity;
 
 @Component

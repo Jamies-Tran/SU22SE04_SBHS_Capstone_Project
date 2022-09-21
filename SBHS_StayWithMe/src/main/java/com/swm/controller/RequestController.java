@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.RequestConverter;
-import com.swm.dto.HomestayUpdateRequestDto;
-import com.swm.dto.LandlordBalanceWithdrawalRequestDto;
-import com.swm.dto.RequestConfirmationDto;
-import com.swm.dto.RequestDto;
+import com.swm.dto.request.HomestayUpdateRequestDto;
+import com.swm.dto.request.LandlordBalanceWithdrawalRequestDto;
+import com.swm.dto.request.RequestConfirmationDto;
+import com.swm.dto.request.RequestDto;
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.HomestayUpdateRequestEntity;
 import com.swm.entity.LandlordAccountRequestEntity;

@@ -2,7 +2,7 @@ package com.swm.converter;
 
 import org.springframework.stereotype.Component;
 
-import com.swm.dto.WalletDto;
+import com.swm.dto.wallet.WalletDto;
 import com.swm.entity.LandlordWalletEntity;
 
 @Component

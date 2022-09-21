@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 
 import org.springframework.stereotype.Component;
 
-import com.swm.dto.PassengerCancelBookingTicketDto;
+import com.swm.dto.booking.PassengerCancelBookingTicketDto;
 import com.swm.entity.PassengerCancelBookingTicketEntity;
 
 @Component

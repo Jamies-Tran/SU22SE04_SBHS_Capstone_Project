@@ -2,7 +2,7 @@ package com.swm.converter;
 
 import org.springframework.stereotype.Component;
 
-import com.swm.dto.UserRatingDto;
+import com.swm.dto.user.UserRatingDto;
 import com.swm.entity.RatingEntity;
 
 @Component

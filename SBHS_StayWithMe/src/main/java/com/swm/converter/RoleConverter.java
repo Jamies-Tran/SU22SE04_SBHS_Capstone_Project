@@ -2,7 +2,7 @@ package com.swm.converter;
 
 import org.springframework.stereotype.Component;
 
-import com.swm.dto.RoleDto;
+import com.swm.dto.user.RoleDto;
 import com.swm.entity.RoleEntity;
 import com.swm.enums.AccountRole;
 

@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import com.swm.dto.BookingRequestDto;
-import com.swm.dto.BookingResponseDto;
-import com.swm.dto.HomestayAftercareDto;
+import com.swm.dto.booking.BookingRequestDto;
+import com.swm.dto.booking.BookingResponseDto;
+import com.swm.dto.homestay.HomestayAftercareDto;
 import com.swm.entity.BookingEntity;
 import com.swm.entity.HomestayAftercareEntity;
 import com.swm.entity.HomestayEntity;

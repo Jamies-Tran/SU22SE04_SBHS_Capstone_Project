@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.RoleConverter;
-import com.swm.dto.RoleDto;
+import com.swm.dto.user.RoleDto;
 import com.swm.entity.RoleEntity;
 import com.swm.service.IRoleService;
 

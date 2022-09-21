@@ -18,8 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.swm.dto.MomoCaptureWalletRequestDto;
-import com.swm.dto.MomoCaptureWalletResponseDto;
+import com.swm.dto.wallet.MomoCaptureWalletRequestDto;
+import com.swm.dto.wallet.MomoCaptureWalletResponseDto;
 import com.swm.entity.LandlordEntity;
 import com.swm.entity.LandlordWalletEntity;
 import com.swm.entity.MomoPaymentEntity;
