@@ -48,6 +48,14 @@ export class SpecialDayComponent implements OnInit {
     for (let index = 1; index < 13; index++) {
       this.valueMonth.push(index);
     }
+    this.newSpecialDay.push({
+      starDay:this.startDay,
+      startMonth:this.startMonth,
+      endDay:this.endDay,
+      endMonth:this.endMonth,
+      description:this.description
+    }
+    );
   }
   addSpecialDay() {
     this.newSpecialDay.push({
@@ -59,11 +67,12 @@ export class SpecialDayComponent implements OnInit {
 
     });
     console.log('values', this.newSpecialDay);
-    console.log('size', this.newSpecialDay.length);
   }
+
   removeSpecialDay(i: any) {
     this.newSpecialDay.splice(i, 1);
     console.log('delete', this.newSpecialDay.length + i);
+    console.log('values', this.newSpecialDay);
   }
 
   resetSpecial(): void {
@@ -72,27 +81,18 @@ export class SpecialDayComponent implements OnInit {
   }
 
   public add() {
-    console.log(this.startMonth);
-    this.newSpecialDay.push(
-      this.startDay,
-      this.startMonth,
-      this.endDay,
-      this.endMonth,
-      this.description
-    );
-    console.log(this.newSpecialDay);
+    console.log( '1 new specialday', this.newSpecialDay);
+
+    console.log( '2 new specialday', this.newSpecialDay);
+
     this.http
       .addSpecialDay(
-        this.startDay,
-        this.startMonth,
-        this.endDay,
-        this.endMonth,
-        this.description
+       this.newSpecialDay
       )
       .subscribe(
         (data) => {
           this.flag = true;
-          console.log(data);
+          console.log('data', data);
         },
         (error) => {
           if (error['status'] == 500) {

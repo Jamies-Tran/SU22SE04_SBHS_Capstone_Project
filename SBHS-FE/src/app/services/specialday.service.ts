@@ -19,11 +19,11 @@ export class ServerHttpService {
   private REST_API_SERVER = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) { }
 
-  public addSpecialDay(startDay:string,startMonth:string,endDay:string,endMonth:string,description:string) {
-     var specialDayList =[{startDay,startMonth,endDay,endMonth,description}]
+  public addSpecialDay(specialDayList:Array<any>) {
+
      var value  = {
       specialDayList}
-     
+
     const url = `${this.REST_API_SERVER}/api/homestay/add/list/special-day`;
     return this.httpClient
       .post<any>(url, value, this.httpOptions)

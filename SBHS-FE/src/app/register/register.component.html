@@ -108,7 +108,6 @@
                      class="input-username" required
                      ngx-google-places-autocomplete [options]="options"
                     #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)">
-
                   <mat-icon matPrefix><i class="fa-solid fa-map-location-dot"></i></mat-icon>
                 </mat-form-field>
               </div>
@@ -120,7 +119,6 @@
                   <input matInput placeholder="123456789" [(ngModel)]="citizenIdentificationString"
                     [ngModelOptions]="{standalone: true}" required>
                   <mat-icon matPrefix><i class="fa-regular fa-address-card"></i></mat-icon>
-
                 </mat-form-field>
 
               </div>
@@ -131,7 +129,6 @@
                   <input matInput pattern="^[0]\d{9,12}$" type="tel" placeholder="09123456789" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}"
                     required>
                   <mat-icon matPrefix><i class="fa-solid fa-phone"></i></mat-icon>
-
                 </mat-form-field>
 
               </div>
@@ -142,21 +139,14 @@
                   <input matInput type="date" placeholder="01/01/2000" onfocus="(this.type='date')" id="date"
                     [(ngModel)]="dob" [ngModelOptions]="{standalone: true}" required>
                   <mat-icon matPrefix><i class="fa-solid fa-calendar-days"></i></mat-icon>
-
                 </mat-form-field>
 
               </div>
               <!-- Day of birth -->
               <div class="register-text">
                 <div class="blank"></div>
-
               </div>
-
-
-
             </div>
-
-
           </div>
           <div class="register-row row">
             <div class="register-col col">
