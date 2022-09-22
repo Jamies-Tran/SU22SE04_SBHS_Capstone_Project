@@ -18,7 +18,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { enviroment } from 'src/enviroment/enviroment';
 import { MatSelectModule } from '@angular/material/select';
-import { MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { MatTableModule } from '@angular/material/table';
@@ -28,7 +28,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -87,7 +88,10 @@ import { DeleteHomestayDialogComponent } from './pop-up/delete-homestay-dialog/d
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
     MatMenuModule,
     GooglePlaceModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule
   ],
   providers: [],
   bootstrap: [AppComponent],

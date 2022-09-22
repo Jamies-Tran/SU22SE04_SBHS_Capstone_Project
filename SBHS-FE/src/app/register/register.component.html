@@ -128,7 +128,7 @@
               <div class="register-text">
                 <mat-form-field appearance="outline">
                   <mat-label>Phone Number</mat-label>
-                  <input matInput placeholder="09123456789" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}"
+                  <input matInput pattern="^[0]\d{9,12}$" type="tel" placeholder="09123456789" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}"
                     required>
                   <mat-icon matPrefix><i class="fa-solid fa-phone"></i></mat-icon>
 

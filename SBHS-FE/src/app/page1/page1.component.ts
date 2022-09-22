@@ -8,9 +8,14 @@ import {MatAccordion} from '@angular/material/expansion';
 })
 export class Page1Component implements OnInit {
 
+  input !: any;
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.input)
+    this.input=1;
   }
+
 
 }

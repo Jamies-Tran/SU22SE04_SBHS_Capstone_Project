@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxEchartsModule } from 'ngx-echarts';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 import { RequestComponent } from './request/request.component';
 import { RequestAccountComponent } from './request/request-detail/request-account/request-account.component';
@@ -22,7 +24,7 @@ import { SpecialDayComponent } from './special-day/special-day.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
-import { MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
@@ -64,6 +66,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatCheckboxModule,
     MatRadioModule,
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule
   ],
 })
 export class AdminModule {}

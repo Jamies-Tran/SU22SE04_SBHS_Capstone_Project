@@ -6,7 +6,8 @@
 
         <div class="avatar card">
           <div class="div-avatar">
-            <img [src]="avatarUrl" ></div>
+            <img [src]="avatarUrl">
+          </div>
 
           <div class="balance">
 
@@ -29,27 +30,29 @@
             </aside>
             <div class="box-footer">
 
-              <div class="btn-add" matRipple
-                (click)="toggle.addBalance = !toggle.addBalance;showDiv.addBalance= !showDiv.addBalance;
-                showDiv.cashOut = false; showDiv.changePass= false;"
+              <div class="btn-add" matRipple (click)="toggle.addBalance = !toggle.addBalance;
+                showDiv.addBalance= !showDiv.addBalance;
+                showDiv.cashOut = false; showDiv.changePass= false;showDiv.editProfile= false;"
                 [ngClass]="{'active' : toggle.addBalance, 'default': !toggle.addBalance}">
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 Add Balance
               </div>
 
-              <div class="btn-add" matRipple
-                (click)="toggle.cashOut = !toggle.cashOut;showDiv.cashOut = !showDiv.cashOut;
-                showDiv.changePass= false; showDiv.addBalance = false"
+              <div class="btn-add" matRipple (click)="toggle.cashOut = !toggle.cashOut;
+                showDiv.cashOut = !showDiv.cashOut;
+                showDiv.changePass= false; showDiv.addBalance = false;showDiv.editProfile= false;"
                 [ngClass]="{'active' : toggle.cashOut, 'default': !toggle.cashOut}"> <i
                   class="fa-solid fa-arrow-right-from-bracket"></i> Cash Out </div>
 
-              <div class="btn-add" matRipple (click)="toggle.editProfile = !toggle.editProfile;"
+              <div class="btn-add" matRipple (click)="toggle.editProfile = !toggle.editProfile;
+              showDiv.editProfile = !showDiv.editProfile;
+              showDiv.addBalance=false;showDiv.cashOut = false;showDiv.changePass= false;"
                 [ngClass]="{'active' : toggle.editProfile, 'default': !toggle.editProfile}"> <i
-                  class="fa-solid fa-arrow-right-from-bracket"></i> Edit Profile </div>
+                  class="fa-solid fa-arrow-right-from-bracket"></i> Update Profile </div>
 
-              <div class="btn-add" matRipple
-                (click)="toggle.changePass = !toggle.changePass;showDiv.changePass =!showDiv.changePass;
-                showDiv.addBalance=false;showDiv.cashOut = false;"
+              <div class="btn-add" matRipple (click)="toggle.changePass = !toggle.changePass;
+                showDiv.changePass =!showDiv.changePass;
+                showDiv.addBalance=false;showDiv.cashOut = false;showDiv.editProfile= false;"
                 [ngClass]="{'active' : toggle.changePass, 'default': !toggle.changePass}"> <i
                   class="fa-solid fa-arrow-right-from-bracket"></i> Change Password
               </div>
@@ -62,10 +65,13 @@
 
         <!-- Edit Information -->
         <div class="infor ">
-          <div class="card-col card">
+          <div class="card-col card" *ngIf="showDiv.editProfile">
 
-            <div class="car-header">
+            <div class="card-header">
               <h1>Profile</h1>
+            </div>
+            <div class="posttitle">
+              <h2 class="posttitle-text">Update Profile</h2>
             </div>
             <div class="card-row">
               <div class="col-left">
@@ -74,18 +80,22 @@
                   <div class="fill-text">
                     <p>Username:</p>
                   </div>
-                  <div class="fill-input">
-                    <p>{{username}}</p>
-                  </div>
+
+                  <mat-form-field class="not-allow" appearance="legacy">
+                    <input disabled matInput [(ngModel)]="username">
+                  </mat-form-field>
+
+                  <!-- <p>{{username}}</p> -->
+
                 </div>
                 <!-- Email -->
                 <div class="fill">
                   <div class="fill-text">
                     <p>Email:</p>
                   </div>
-                  <div class="fill-input">
-                    <p>{{email}}</p>
-                  </div>
+                  <mat-form-field class="not-allow" appearance="legacy">
+                    <input disabled matInput [(ngModel)]="email">
+                  </mat-form-field>
                 </div>
 
                 <!-- Gender  -->
@@ -93,9 +103,12 @@
                   <div class="fill-text">
                     <p>Gender:</p>
                   </div>
-                  <div class="fill-input">
-                    <p>{{gender}}</p>
-                  </div>
+                  <mat-form-field appearance="legacy">
+                    <mat-select  [(ngModel)]="gender" [ngModelOptions]="{standalone: true}">
+                      <mat-option value="Male">Male </mat-option>
+                      <mat-option value="Female">Female </mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
 
 
@@ -108,9 +121,10 @@
                   <div class="fill-text">
                     <p>Day of Birth:</p>
                   </div>
-                  <div class="fill-input">
-                    <p>{{dob}}</p>
-                  </div>
+
+                  <mat-form-field appearance="legacy">
+                    <input class="date" type="date" [min]="minDate" [max]="maxDate" name="date" onfocus="(this.type='date')" matInput [(ngModel)]="dob">
+                  </mat-form-field>
                 </div>
 
                 <!-- ID -->
@@ -118,31 +132,37 @@
                   <div class="fill-text">
                     <p>Citizen ID:</p>
                   </div>
-                  <div class="fill-input">
-                    <p>{{citizenIdentificationString}}</p>
-                  </div>
+
+                  <mat-form-field class="not-allow" appearance="legacy">
+                    <input disabled matInput [(ngModel)]="citizenIdentificationString">
+                  </mat-form-field>
                 </div>
                 <!-- Phone -->
                 <div class="fill">
                   <div class="fill-text">
                     <p>Phone:</p>
                   </div>
-                  <div class="fill-input">
-                    <p>{{phone}}</p>
-                  </div>
+
+                  <mat-form-field appearance="legacy">
+                    <input name="phone" matInput [(ngModel)]="phone" pattern="^[0]\d{9,12}$" type="tel">
+                  </mat-form-field>
                 </div>
               </div>
             </div>
             <!-- Address -->
             <div class="address">
               <div class="fill">
-              <div class="fill-text">
-                <p>Address:</p>
-              </div>
-              <div class="fill-input">
-                <p>{{address}}</p>
+                <div class="fill-text">
+                  <p>Address:</p>
+                </div>
+
+                <mat-form-field class="not-allow" appearance="legacy">
+                  <input disabled matInput [(ngModel)]="address">
+                </mat-form-field>
               </div>
             </div>
+            <div class="button">
+              <button class="btn-accept" mat-raised-button>Update</button>
             </div>
 
           </div>
@@ -150,7 +170,7 @@
           <!-- Add Balance -->
           <div class="card-col card" *ngIf="showDiv.addBalance">
 
-            <div class="car-header">
+            <div class="card-header">
               <h1>Add Balance</h1>
             </div>
             <div class="card-row-addBalance">
@@ -163,12 +183,12 @@
               <div class="input-cash">
                 <mat-form-field class="cash-input" appearance="outline">
                   <mat-label>Cash</mat-label>
-                  <span matPrefix> <i class="fa-solid fa-dollar-sign"></i> &nbsp;</span>
+                  <span matPrefix> <i class="fa-solid fa-dong-sign"></i> &nbsp;</span>
                   <input type="number" matInput placeholder="1.000" [(ngModel)]="amount">
                 </mat-form-field>
               </div>
               <div class="total-cash">
-                <h2>Total: $</h2>
+                <h2>Total: {{amount | currency:'VND'}}</h2>
               </div>
 
 
@@ -182,172 +202,59 @@
 
           <!-- Cash Out -->
           <div class="card-col card" *ngIf="showDiv.cashOut">
-            <div class="car-header">
+            <div class="card-header">
               <h1>Cash Out</h1>
             </div>
-            <div class="card-row">
-              <div class="col-left">
-                <!-- Username -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Username:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{username}}</p>
-                  </div>
-                </div>
-                <!-- Email -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Email:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{email}}</p>
-                  </div>
-                </div>
 
-                <!-- Gender  -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Gender:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{gender}}</p>
-                  </div>
-                </div>
-                <!-- Address -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Address:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{address}}</p>
-                  </div>
-                </div>
-
-
-              </div>
-
-              <div class="col-right">
-                <!-- Dob  -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Day of Birth:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{dob}}</p>
-                  </div>
-                </div>
-
-                <!-- ID -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Citizen ID:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{citizenIdentificationString}}</p>
-                  </div>
-                </div>
-                <!-- Phone -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Phone:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{phone}}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="button">
-              <button class="btn-denied" mat-raised-button>Change Password</button>
-              <button class="btn-accept" mat-raised-button>Edit</button>
-            </div>
 
           </div>
           <!-- Change Password -->
           <div class="card-col card" *ngIf="showDiv.changePass">
 
-            <div class="car-header">
+            <div class="card-header">
               <h1>Change Password</h1>
             </div>
-            <div class="card-row">
-              <div class="col-left">
-                <!-- Username -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Username:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{username}}</p>
-                  </div>
-                </div>
-                <!-- Email -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Email:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{email}}</p>
-                  </div>
-                </div>
-
-                <!-- Gender  -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Gender:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{gender}}</p>
-                  </div>
-                </div>
-                <!-- Address -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Address:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{address}}</p>
-                  </div>
-                </div>
 
 
-              </div>
-
-              <div class="col-right">
-                <!-- Dob  -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Day of Birth:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{dob}}</p>
-                  </div>
+            <!-- Password -->
+            <div class="password">
+              <div class="fill">
+                <div class="fill-text">
+                  <p>Old Password:</p>
                 </div>
 
-                <!-- ID -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Citizen ID:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{citizenIdentificationString}}</p>
-                  </div>
-                </div>
-                <!-- Phone -->
-                <div class="fill">
-                  <div class="fill-text">
-                    <p>Phone:</p>
-                  </div>
-                  <div class="fill-input">
-                    <p>{{phone}}</p>
-                  </div>
-                </div>
+                <mat-form-field  appearance="legacy">
+                  <input type="password" required matInput [(ngModel)]="newPassword">
+                </mat-form-field>
               </div>
             </div>
-            <div class="button">
-              <button class="btn-denied" mat-raised-button>Change Password</button>
-              <button class="btn-accept" mat-raised-button>Edit</button>
+            <!-- Password -->
+            <div class="password">
+              <div class="fill">
+                <div class="fill-text">
+                  <p>New Password:</p>
+                </div>
+
+                <mat-form-field  appearance="legacy">
+                  <input type="password" required matInput [(ngModel)]="newPassword">
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- Password -->
+            <div class="password">
+              <div class="fill">
+                <div class="fill-text">
+                  <p>Comfirm Password:</p>
+                </div>
+
+                <mat-form-field  appearance="legacy">
+                  <input type="password" required matInput [(ngModel)]="newPassword">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="button password">
+              <button class="btn-accept" mat-raised-button>Change Password</button>
             </div>
           </div>
         </div>

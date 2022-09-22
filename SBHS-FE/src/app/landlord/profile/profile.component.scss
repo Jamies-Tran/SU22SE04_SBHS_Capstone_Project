@@ -129,6 +129,43 @@
             flex-direction: column;
             margin-bottom: 1.5%;
 
+            .card-header {
+              font-weight: 700;
+              text-transform: uppercase;
+              font-size: 22px;
+              line-height: 1.5;
+              margin-top: 0;
+              padding: 5px 2.5%;
+              background-color: unset;
+              border-bottom: unset;
+
+              h1:after {
+                content: '';
+                display: block;
+                width: 60px;
+                height: 3px;
+                background: #ee2c74;
+                margin-top: 5px;
+              }
+            }
+
+            .posttitle {
+              padding: 0;
+
+              .posttitle-text {
+                font-weight: 500;
+                border-left: 3px solid #ee2c74;
+                padding-left: 10px;
+                font-size: 20px;
+                line-height: 1.5;
+                margin: 0 0 20px;
+                min-height: 27px;
+                margin-left: 2.5%;
+              }
+
+
+            }
+
             .card-row {
               display: flex;
 
@@ -146,7 +183,7 @@
               }
 
               .fill {
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: 400;
                 margin-left: 5%;
                 display: flex;
@@ -168,6 +205,17 @@
                   height: 25px;
                   overflow: hidden;
                 }
+
+                .mat-form-field {
+                  padding: 0%;
+                  width: 70%;
+                  overflow: hidden;
+
+                  input {
+                    padding-left: 10px;
+                    width: 98%;
+                  }
+                }
               }
             }
 
@@ -186,12 +234,14 @@
                 margin-top: 10px;
                 margin-bottom: 5px;
               }
-              .input-cash{
 
-                .cash-input{
+              .input-cash {
+
+                .cash-input {
                   width: 45%;
                   font-size: 16px;
-                  .fa-dollar-sign{
+
+                  .fa-dollar-sign {
                     font-size: 21px;
                   }
                 }
@@ -238,7 +288,8 @@
     }
   }
 }
-.address{
+
+.address {
   .fill {
     font-size: 20px;
     font-weight: 400;
@@ -264,6 +315,59 @@
       white-space: nowrap;
       overflow: hidden;
     }
+
+    .mat-form-field {
+      padding: 0%;
+      width: 85.5%;
+      overflow: hidden;
+
+      input {
+        padding-left: 10px;
+        width: 98%;
+      }
+    }
+  }
+}
+.password {
+  .fill {
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 2.5%;
+    display: flex;
+    margin-bottom: 40px;
+
+    .fill-text {
+      float: left;
+      width: 230px;
+      overflow: hidden;
+      height: 26px;
+      padding-top: 8px;
+      text-align: end;
+      margin-right: 10px;
+    }
+
+
+
+    .mat-form-field {
+      padding: 0%;
+      width: 100%;
+      overflow: hidden;
+
+      input {
+        padding-left: 10px;
+        width: 98%;
+      }
+    }
+
+
+
+
+
+  }
+}
+.password  {
+  .btn-accept{
+    width: 165px !important;
   }
 }
 
@@ -274,13 +378,50 @@
 .default {
   background-color: #ffffff !important;
 }
-.card{
+
+.card {
   box-shadow: 0 0 5px #c4cacc;
-  padding:0 1% ;
+  padding: 0 1%;
 }
+
 input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+  border-top: unset !important;
+  padding-bottom: 2px;
+  padding-top: 1px;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+  position: unset !important;
+  background-color: black;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+  margin: 2px !important;
+  padding: 0;
+}
+ .not-allow {
+  input{
+    cursor: not-allowed;
   }
+
+}
+:host ::ng-deep .mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline{
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.50) 100%, transparent 0%);
+   background-size: unset;
+   background-repeat: unset;
+}
+.date::-webkit-calendar-picker-indicator,
+.date::-webkit-inner-spin-button {
+  // display: none;
+  font-size: 20px;
+}
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-prefix, .mat-form-field-appearance-outline .mat-form-field-suffix{
+  top:-4px;
+}

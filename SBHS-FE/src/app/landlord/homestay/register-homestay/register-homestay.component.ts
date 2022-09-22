@@ -32,7 +32,6 @@ export class RegisterHomestayComponent implements OnInit {
   public homestayImages: string[] = [];
   readonly = false;
 
-
   newServices: any[] = [];
   newFacility: any[] = [];
 
@@ -122,88 +121,103 @@ export class RegisterHomestayComponent implements OnInit {
   });
 
   facilityFormGroup = this._formBuilder.group({
-    tv: [false],
-    inputTv: [{ value: '', disabled: true }],
+    tv: false,
+    inputTv: [0],
     bed: false,
-    inputBed: [{ value: '', disabled: true }],
+    inputBed: [0],
     sofa: false,
-    inputSofa: [{ value: '', disabled: true }],
+    inputSofa: [0],
     fan: false,
-    inputFan: [{ value: '', disabled: true }],
+    inputFan: [0],
     cookingStove: false,
-    inputCookingStove: [{ value: '', disabled: true }],
+    inputCookingStove: [0],
     shower: false,
-    inputShower: [{ value: '', disabled: true }],
+    inputShower: [0],
     toilet: false,
-    inputToilet: [{ value: '', disabled: true }],
+    inputToilet: [0],
     bathtub: false,
-    inputBathtub: [{ value: '', disabled: true }],
+    inputBathtub: [0],
   });
 
   enableInputTV() {
     if (this.facilityFormGroup.controls.tv.value === true) {
       this.facilityFormGroup.controls.inputTv.enable();
-      this.facilityFormGroup.controls.inputTv.setValue;
-
+      this.facilityFormGroup.patchValue({
+        inputTv: 1,
+      });
+      console.log(this.facilityFormGroup.controls.inputTv.value);
     } else {
       this.facilityFormGroup.controls.inputTv.disable();
-      // this.facilityFormGroup.controls.inputTv.reset();
     }
   }
   enableInputBed() {
     if (this.facilityFormGroup.controls.bed.value === true) {
       this.facilityFormGroup.controls.inputBed.enable();
+      this.facilityFormGroup.patchValue({
+        inputBed: 1,
+      });
     } else {
       this.facilityFormGroup.controls.inputBed.disable();
-      // this.facilityFormGroup.controls.inputTv.reset();
     }
   }
   enableInputSofa() {
     if (this.facilityFormGroup.controls.sofa.value === true) {
       this.facilityFormGroup.controls.inputSofa.enable();
+      this.facilityFormGroup.patchValue({
+        inputSofa: 1,
+      });
     } else {
       this.facilityFormGroup.controls.inputSofa.disable();
-      // this.facilityFormGroup.controls.inputTv.reset();
     }
   }
   enableInputFan() {
     if (this.facilityFormGroup.controls.fan.value === true) {
       this.facilityFormGroup.controls.inputFan.enable();
+      this.facilityFormGroup.patchValue({
+        inputFan: 1,
+      });
     } else {
       this.facilityFormGroup.controls.inputFan.disable();
-      // this.facilityFormGroup.controls.inputTv.reset();
     }
   }
   enableInputCookingStove() {
     if (this.facilityFormGroup.controls.cookingStove.value === true) {
       this.facilityFormGroup.controls.inputCookingStove.enable();
+      this.facilityFormGroup.patchValue({
+        inputCookingStove: 1,
+      });
     } else {
       this.facilityFormGroup.controls.inputCookingStove.disable();
-      // this.facilityFormGroup.controls.inputTv.reset();
     }
   }
   enableInputShower() {
     if (this.facilityFormGroup.controls.shower.value === true) {
       this.facilityFormGroup.controls.inputShower.enable();
+      this.facilityFormGroup.patchValue({
+        inputShower: 1,
+      });
     } else {
       this.facilityFormGroup.controls.inputShower.disable();
-      // this.facilityFormGroup.controls.inputTv.reset();
     }
   }
   enableInputToilet() {
     if (this.facilityFormGroup.controls.toilet.value === true) {
       this.facilityFormGroup.controls.inputToilet.enable();
+      this.facilityFormGroup.patchValue({
+        inputToilet: 1,
+      });
     } else {
       this.facilityFormGroup.controls.inputToilet.disable();
-      // this.facilityFormGroup.controls.inputTv.reset();
     }
   }
   enableInputBathub() {
     if (this.facilityFormGroup.controls.bathtub.value === true) {
       this.facilityFormGroup.controls.inputBathtub.enable();
+      this.facilityFormGroup.patchValue({
+        inputBathtub: 1,
+      });
     } else {
       this.facilityFormGroup.controls.inputBathtub.disable();
-      // this.facilityFormGroup.controls.inputTv.reset();
     }
   }
 
@@ -315,12 +329,22 @@ export class RegisterHomestayComponent implements OnInit {
           startDay: items.startDay,
           startMonth: items.startMonth,
           status: false,
-          price: ""
+          price: '',
         });
       }
       // this.ListSpecialDay = data
-      console.log(this.ListSpecialDay)
+      console.log(this.ListSpecialDay);
     });
+    this.facilityFormGroup.reset();
+    this.facilityFormGroup.controls.inputTv.disable();
+    this.facilityFormGroup.controls.inputBed.disable();
+    this.facilityFormGroup.controls.inputSofa.disable();
+    this.facilityFormGroup.controls.inputFan.disable();
+    this.facilityFormGroup.controls.inputCookingStove.disable();
+    this.facilityFormGroup.controls.inputShower.disable();
+    this.facilityFormGroup.controls.inputToilet.disable();
+    this.facilityFormGroup.controls.inputBathtub.disable();
+
   }
 
   ngOnDestroy(): void {
@@ -409,7 +433,6 @@ export class RegisterHomestayComponent implements OnInit {
     console.log('homestay image', this.homestayImages);
 
     console.log('lít special day', this.ListSpecialDay);
-
   }
   facilityForm() {
     console.log(this.facilityFormGroup.value);
@@ -467,12 +490,12 @@ export class RegisterHomestayComponent implements OnInit {
     myHomestayPriceList.push({
       price: priceNormalDay,
       type: 'normal',
-      specialDayCode: undefined
+      specialDayCode: undefined,
     });
     myHomestayPriceList.push({
       price: priceWeekendDay,
       type: 'weekend',
-      specialDayCode: undefined
+      specialDayCode: undefined,
     });
     for (let day of this.ListSpecialDay) {
       if (day.status) {
@@ -500,7 +523,10 @@ export class RegisterHomestayComponent implements OnInit {
           name: value.name,
           amount: value.amount,
         });
-        console.log(' myHomestayAdditionFacility.push', myhomestayAdditionFacilities);
+        console.log(
+          ' myHomestayAdditionFacility.push',
+          myhomestayAdditionFacilities
+        );
       }
     }
 
