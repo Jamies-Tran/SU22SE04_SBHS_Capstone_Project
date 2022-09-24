@@ -20,5 +20,11 @@ public interface IHomestayRepository extends JpaRepository<HomestayEntity, Long>
 	Optional<HomestayEntity> findHomestayEntiyByRequestId(@Param("homestayPostingRequest") HomestayPostingRequestEntity request);
 
 	@Query(value = "select h from HomestayEntity h where h.status = :status")
-	Page<HomestayEntity> homestayPageable(Pageable pageable, @Param("status") String status);
+	Page<HomestayEntity> homestayPagination(Pageable pageable, @Param("status") String status);
+	
+	@Query(value = "select h from HomestayEntity h where h.averagePrice >= :lowestPrice and h.averagePrice <= :highestPrice")
+	Page<HomestayEntity> homestayFilterByPricePagination(Pageable pageable, @Param("lowestPrice") Long lowestPrice, @Param("highestPrice") Long highestPrice);
+	
+	@Query(value = "select h from HomestayEntity h where h.address = :address")
+	Optional<HomestayEntity> findHomestayByAddress(@Param("address") String address);
 }

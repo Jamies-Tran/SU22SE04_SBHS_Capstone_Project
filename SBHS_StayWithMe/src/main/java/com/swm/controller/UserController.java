@@ -140,6 +140,7 @@ public class UserController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> webAccountLogin(@RequestBody AuthenticationRequestDto userLogin) {
+		System.out.println(userLogin.getUserInfo());
 		UserDetails userDetails = authenticationService.loginAuthentication(userLogin.getUserInfo(),
 				userLogin.getPassword());
 

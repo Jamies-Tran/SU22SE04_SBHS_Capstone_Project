@@ -32,6 +32,12 @@ public class LandlordStatisticEntity {
 	private Long Id;
 	
 	@Setter
+	private Long totalPendingHomestay = 0L;
+	
+	@Setter
+	private Long totalActiveHomestay = 0L;
+	
+	@Setter
 	private Long totalSuccessBooking = 0L;
 	
 	@Setter

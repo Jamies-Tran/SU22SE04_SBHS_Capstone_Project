@@ -75,7 +75,7 @@ public class HomestayRatingService implements IHomestayRatingService {
 		homestayEntity.setConvenientPoint(convenientPoint);
 		homestayEntity.setSecurityPoint(securityPoint);
 		homestayEntity.setPositionPoint(positionPoint);
-		homestayEntity.setAverage(average);
+		homestayEntity.setAverageRatingPoint(average);
 		homestayEntity.setModifiedBy(userRating.getUsername());
 		homestayEntity.setModifiedDate(currentDate);
 		

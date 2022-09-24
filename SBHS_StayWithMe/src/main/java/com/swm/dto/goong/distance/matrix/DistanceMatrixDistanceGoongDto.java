@@ -1,4 +1,4 @@
-package com.swm.dto.distance.matrix.response;
+package com.swm.dto.goong.distance.matrix;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TextValueObjectDto {
+public class DistanceMatrixDistanceGoongDto {
 	private String text;
 	private int value;
 }

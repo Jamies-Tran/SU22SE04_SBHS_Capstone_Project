@@ -72,7 +72,7 @@ public class HomestayEntity extends BaseEntity implements Comparable<HomestayEnt
 	
 	@Column(name = "average_point")
 	@Setter
-	private double average = 0;
+	private double averageRatingPoint = 0;
 	
 	@Column(name = "number_rating")
 	@Setter
@@ -92,6 +92,9 @@ public class HomestayEntity extends BaseEntity implements Comparable<HomestayEnt
 	
 	@Setter
 	private long totalRatingTime = 0;
+	
+	@Setter
+	private long averagePrice = 0;
 
 	@Column(nullable = false)
 	@Setter
@@ -170,9 +173,9 @@ public class HomestayEntity extends BaseEntity implements Comparable<HomestayEnt
 
 	@Override
 	public int compareTo(HomestayEntity o) {
-		if(this.getAverage() == o.getAverage()) {
+		if(this.getAverageRatingPoint() == o.getAverageRatingPoint()) {
 			return 0;
-		} else if(this.getAverage() > o.getAverage()) {
+		} else if(this.getAverageRatingPoint() > o.getAverageRatingPoint()) {
 			return 1;
 		} else {
 			return -1;

@@ -1,4 +1,4 @@
-package com.swm.dto.distance.matrix.response;
+package com.swm.dto.google.distance.matrix;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DistanceMatrixResponseDto {
+public class DistanceMatrixResponseGoogleDto {
 	private List<String> destination_addresses;
 	private String error_message;
 	private List<String> origin_addresses;
-	private List<DistanceMatrixRowDto> rows;
-	private DistanceMatrixElementStatusDto status;
+	private List<DistanceMatrixRowGoogleDto> rows;
+	private DistanceMatrixElementStatusGoogleDto status;
 }

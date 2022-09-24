@@ -1,5 +1,6 @@
 package com.swm.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -14,15 +15,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import com.google.api.client.http.HttpHeaders;
 import com.swm.converter.HomestayConverter;
-import com.swm.dto.distance.matrix.response.DistanceMatrixResponseDto;
+import com.swm.dto.distance.LocationDistanceDto;
+import com.swm.dto.google.distance.matrix.DistanceMatrixResponseGoogleDto;
+import com.swm.dto.goong.distance.matrix.DistanceMatrixResponseGoongDto;
+import com.swm.dto.goong.geocoding.GeocodingGoongResponseDto;
 import com.swm.dto.homestay.HomestayFilterDto;
 import com.swm.dto.homestay.HomestayPagesResponseDto;
 import com.swm.dto.homestay.HomestayResponseDto;
@@ -30,6 +36,7 @@ import com.swm.entity.HomestayEntity;
 import com.swm.entity.HomestayPostingRequestEntity;
 import com.swm.entity.HomestayPriceListEntity;
 import com.swm.entity.LandlordEntity;
+import com.swm.entity.LandlordStatisticEntity;
 import com.swm.entity.SpecialDayPriceListEntity;
 import com.swm.entity.SystemStatisticEntity;
 import com.swm.entity.UserEntity;
@@ -47,13 +54,15 @@ import com.swm.repository.ISpecialDayPriceListRepository;
 import com.swm.service.IAuthenticationService;
 import com.swm.service.IBookingService;
 import com.swm.service.IHomestayService;
+import com.swm.service.ILandlordStatisticService;
 import com.swm.service.ISystemStatisticService;
 import com.swm.service.IUserService;
+import com.swm.util.CustomPage;
 import com.swm.util.DateParsingUtil;
 
 @Service
 public class HomestayService implements IHomestayService {
-
+	
 	@Autowired
 	private IHomestayRepository homestayRepo;
 
@@ -70,21 +79,30 @@ public class HomestayService implements IHomestayService {
 	@Autowired
 	@Lazy
 	private ISystemStatisticService systemStatisticService;
-	
+
+	@Autowired
+	private ILandlordStatisticService landlordStatisticService;
+
 	@Autowired
 	private ISpecialDayPriceListRepository specialDayPriceListRepo;
-	
 
 	@Autowired
 	@Lazy
 	private HomestayConverter homestayConvert;
-	
+
 	@Value("${google.api.key}")
-	private String apiKey;
+	private String googleApiKey;
+
+	@Value("${goong.api.key}")
+	private String goongApiKey;
 
 	private Date currentDate = new Date();
-	
+
 	private RestTemplate restTemplate = new RestTemplate();
+
+	private String GOONG_DISTANCE_MATRIX_API = "https://rsapi.goong.io/DistanceMatrix";
+
+	private String GOONG_GEOCODING_API = "https://rsapi.goong.io/geocode";
 
 	Logger log = LoggerFactory.getLogger(HomestayService.class);
 
@@ -111,7 +129,7 @@ public class HomestayService implements IHomestayService {
 		UserEntity user = userService.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
 		HomestayEntity homestayEntity = homestayRepo.findById(Id)
 				.orElseThrow(() -> new ResourceNotFoundException(Id.toString(), "Homestay id not found"));
-		
+
 		if (confirmCancelAndDelete) {
 			if (homestayEntity.getBooking().isEmpty()) {
 				homestayEntity.setStatus(HomestayStatus.HOMESTAY_DELETE.name());
@@ -122,19 +140,18 @@ public class HomestayService implements IHomestayService {
 						.anyMatch(h -> h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
 								|| h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name()))) {
 					homestayEntity.getBooking().stream()
-					.filter(h -> h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
-							|| h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name()))
-					.collect(Collectors.toList()).forEach(h -> {
-						bookingService.confirmBooking(h.getId(), false,
-								"Homestay has been removed by landlord");
-					});
+							.filter(h -> h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
+									|| h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name()))
+							.collect(Collectors.toList()).forEach(h -> {
+								bookingService.confirmBooking(h.getId(), false,
+										"Homestay has been removed by landlord");
+							});
 				}
 				homestayEntity.setStatus(HomestayStatus.HOMESTAY_PENDING_DELETE.name());
 				homestayEntity.setModifiedBy(user.getUsername());
 				homestayEntity.setModifiedDate(DateParsingUtil.formatDateTime(currentDate));
 			}
 		}
-		
 
 		return homestayEntity;
 	}
@@ -182,6 +199,7 @@ public class HomestayService implements IHomestayService {
 			p.setCreatedBy(accountPoster);
 			p.setCreatedDate(currentDate);
 		});
+		
 		UserEntity userEntity = userService.findUserByUserInfo(accountPoster);
 		LandlordEntity landlordEntity = userEntity.getLandlord();
 		if (landlordEntity.getWallet().getBalance() < 1000) {
@@ -205,9 +223,14 @@ public class HomestayService implements IHomestayService {
 		homestayPostingRequest.setRequestHomestay(homestayEntity);
 		homestayEntity.setHomestayPostingRequest(homestayPostingRequest);
 		HomestayEntity homestayPersisted = homestayRepo.save(homestayEntity);
-		SystemStatisticEntity systemStatistic = this.systemStatisticService.findSystemStatisticByTime(DateParsingUtil.statisticYearMonthTime(homestayPostingRequest.getCreatedDate()));
-		Long totalHomestayRequest = systemStatistic.getTotalHomestayRequest() + 1;
-		systemStatistic.setTotalHomestayRequest(totalHomestayRequest);
+		SystemStatisticEntity systemStatistic = this.systemStatisticService.findSystemStatisticByTime(
+				DateParsingUtil.statisticYearMonthTime(homestayPostingRequest.getCreatedDate()));
+		LandlordStatisticEntity landlordStatistic = this.landlordStatisticService.findLandlordStatisticByTime(
+				DateParsingUtil.statisticYearMonthTime(homestayPostingRequest.getCreatedDate()));
+		Long systemTotalHomestayRequest = systemStatistic.getTotalHomestayRequest() + 1;
+		Long landlordTotalPendingHomestay = landlordStatistic.getTotalPendingHomestay() + 1;
+		systemStatistic.setTotalHomestayRequest(systemTotalHomestayRequest);
+		landlordStatistic.setTotalPendingHomestay(landlordTotalPendingHomestay);
 
 		return homestayPersisted;
 	}
@@ -238,8 +261,6 @@ public class HomestayService implements IHomestayService {
 
 		return ownerHomestayList;
 	}
-
-	
 
 	@Override
 	public List<SpecialDayPriceListEntity> addSpecialDayPriceList(List<SpecialDayPriceListEntity> specialDayPriceList) {
@@ -288,10 +309,27 @@ public class HomestayService implements IHomestayService {
 
 	@Override
 	public HomestayPagesResponseDto getHomestayPage(HomestayFilterDto filter, int page, int size) {
-		Page<HomestayEntity> homestayPages = this.homestayPagesNextOrPrevious(page, size);
+		Page<HomestayEntity> homestayPages = this.homestayRepo.homestayPagination(PageRequest.of(page, size), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
 		List<HomestayEntity> homestayList = homestayPages.getContent();
+		
+		if (filter.getFilterByNearestPlace() != null && filter.getFilterByNearestPlace()) {
+			List<HomestayEntity> results = this.getNeareastLocationFromPlaces(filter.getFilterByStr()).stream()
+					.map(h -> this.findHomestayByAddress(h.getAddress())).collect(Collectors.toList());
+			CustomPage<HomestayEntity> homestayCustomPages = new CustomPage<HomestayEntity>(page, size, results);
+			homestayList = homestayCustomPages.of();
+			HomestayPagesResponseDto homestayPagesResponseDto = new HomestayPagesResponseDto();
+			List<HomestayResponseDto> homestayResponseListDto = homestayList.stream()
+					.map(h -> homestayConvert.homestayResponseDtoConvert(h)).collect(Collectors.toList());
+			homestayPagesResponseDto.setHomestayListDto(homestayResponseListDto);
+			homestayPagesResponseDto.setTotalPages(homestayCustomPages.totalPages());
+
+			return homestayPagesResponseDto;
+			
+		}
 
 		if (StringUtils.hasLength(filter.getFilterByStr())) {
+			homestayPages = this.homestayRepo.homestayPagination(PageRequest.of(page, size), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name()); 
+			homestayList = homestayPages.getContent();
 			homestayList = homestayPages.filter(h -> h.getName().contains(filter.getFilterByStr())
 					|| h.getAddress().contains(filter.getFilterByStr())
 					|| h.getLandlordOwner().getLandlordAccount().getUsername().contains(filter.getFilterByStr()))
@@ -299,18 +337,21 @@ public class HomestayService implements IHomestayService {
 		}
 
 		if (filter.getFilterByHighestAveragePoint() != null && filter.getFilterByHighestAveragePoint()) {
-			homestayList = homestayPages.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
+			homestayPages = this.homestayRepo.homestayPagination(PageRequest.of(page, size, Sort.by(Direction.DESC, "average")), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name()); 
+			homestayList = homestayPages.getContent();
 		}
 
 		if (filter.getLowestPrice() != null && filter.getHighestPrice() != null) {
+			homestayPages = this.homestayRepo.homestayFilterByPricePagination(PageRequest.of(page, size), filter.getLowestPrice(), filter.getHighestPrice());
 			homestayList = homestayPages.filter(h -> averageHomestayPrice(h) >= filter.getLowestPrice()
 					&& averageHomestayPrice(h) <= filter.getHighestPrice()).toList();
 		}
 
 		if (filter.getFilterByNewestPublishedDate() != null && filter.getFilterByNewestPublishedDate()) {
-			homestayList = homestayPages
-					.filter(h -> differentFromCurrentDateToHomestayPublishedDate(h.getCreatedDate()) <= 30).toList();
+			homestayPages = this.homestayRepo.homestayPagination(PageRequest.of(page, size, Sort.by(Direction.DESC, "createdDate")), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+			homestayList = homestayPages.getContent();
 		}
+
 
 		HomestayPagesResponseDto homestayPagesResponseDto = new HomestayPagesResponseDto();
 		List<HomestayResponseDto> homestayResponseListDto = homestayList.stream()
@@ -321,30 +362,16 @@ public class HomestayService implements IHomestayService {
 		return homestayPagesResponseDto;
 	}
 
-	private long differentFromCurrentDateToHomestayPublishedDate(Date publishedDate) {
-		long differentInTime = currentDate.getTime() - publishedDate.getTime();
-		long differentInDay = (differentInTime / (1000 * 60 * 60 * 24)) % 365;
+//	private long differentFromCurrentDateToHomestayPublishedDate(Date publishedDate) {
+//		long differentInTime = currentDate.getTime() - publishedDate.getTime();
+//		long differentInDay = (differentInTime / (1000 * 60 * 60 * 24)) % 365;
+//		System.out.println(differentInDay);
+//
+//		return differentInDay;
+//	}
 
-		return differentInDay;
-	}
-
-	private Page<HomestayEntity> homestayPagesNextOrPrevious(int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
-		Page<HomestayEntity> homestayPages = homestayRepo.homestayPageable(pageable,
-				HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
-		if (homestayPages.getTotalPages() <= page) {
-			int homestayLastPageNumber = homestayPages.getTotalPages() - 1;
-			homestayPages = homestayRepo.homestayPageable(PageRequest.of(homestayLastPageNumber, size),
-					HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
-		} else if (homestayPages.getTotalPages() == page) {
-			homestayPages = homestayRepo.homestayPageable(PageRequest.of(0, size),
-					HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
-		}
-
-		return homestayPages;
-	}
-
-	private Long averageHomestayPrice(HomestayEntity homestayEntity) {
+	@Override
+	public Long averageHomestayPrice(HomestayEntity homestayEntity) {
 		long total = 0;
 		for (HomestayPriceListEntity homestayPriceList : homestayEntity.getPriceList()) {
 //			System.out.println("Price: " + homestayPriceList.getPrice() + " current total: " + total);
@@ -355,7 +382,7 @@ public class HomestayService implements IHomestayService {
 	}
 
 	@Override
-	public DistanceMatrixResponseDto getDistanceMatrixFromPlaces(String origin_address) {
+	public DistanceMatrixResponseGoogleDto getDistanceMatrixFromPlaces(String origin_address) {
 //		String Url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver%20BC%7CSeattle&destinations=San%20Francisco%7CVictoria%20BC&mode=bicycling&language=fr-FR&key=YOUR_API_KEY";
 		StringBuilder url = new StringBuilder();
 		StringBuilder destinationBuilder = new StringBuilder();
@@ -363,25 +390,98 @@ public class HomestayService implements IHomestayService {
 		if(homestayList.size() > 1) {
 			for(int i = 0; i < homestayList.size(); i++) {
 				if(i == 0) {
-					destinationBuilder.append(homestayList.get(i).getAddress().replace(" ", "%20"));
+					destinationBuilder.append(homestayList.get(i).getAddress());
 				} else {
-					destinationBuilder.append("%7C").append(homestayList.get(i).getAddress().replace(" ", "%20"));
+					destinationBuilder.append("|").append(homestayList.get(i).getAddress());
 				}
 			}
 		} else {
 			destinationBuilder.append(homestayList.get(0).getAddress());
 		}
-		url.append("https://maps.googleapis.com/maps/api/distancematrix/json?origins=").append(origin_address.replace(" ", "%20")).append("&destinations=").append(destinationBuilder.toString()).append("&key=").append(this.apiKey);
-		//String testUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=43 Phan Văn Trị, Phường 2, District 5, Ho Chi Minh City&destinations=413 Nguyễn Chí Thanh, Phường 15, District 5, Ho Chi Minh City&language=vi&key=AIzaSyBWOP0ACmQomYhf1CsV92Y3cjbj3HBV73U";
-		//System.out.println(testUrl);
+		url.append("https://maps.googleapis.com/maps/api/distancematrix/json?origins=").append(origin_address).append("&destinations=").append(destinationBuilder.toString()).append("&key=").append(this.googleApiKey);
+		//url.append("https://rsapi.goong.io/DistanceMatrix?origins=").append(origin_address).append("&destinations=").append("10.845974116058448,106.71233014189893").append("&key=").append("BNftq2V1Va90QtjIOmWZSa8Mq0syezEDNWY6PVT4");
 		System.out.println(url.toString());
 		
 		HttpHeaders header = new HttpHeaders();
-		header.setContentType("text/plain");
+		header.setContentType(MediaType.TEXT_PLAIN);
+//		HttpEntity<DistanceMatrixResponseDto> httpEntity = new HttpEntity<DistanceMatrixResponseDto>(header);
 		//DistanceMatrixResponseDto distanceMatrixResponse = new DistanceMatrixResponseDto();
-		DistanceMatrixResponseDto distanceMatrixResponse = restTemplate.getForObject(url.toString(), DistanceMatrixResponseDto.class);
+		
+		DistanceMatrixResponseGoogleDto distanceMatrixResponse = restTemplate.getForObject(url.toString(), DistanceMatrixResponseGoogleDto.class, header);
+		//DistanceMatrixResponseGoogleDto distanceMatrixResponse = new DistanceMatrixResponseGoogleDto();
 		
 		return distanceMatrixResponse;
 	}
 
+	@Override
+	public List<LocationDistanceDto> getNeareastLocationFromPlaces(String origin_address) {
+//		String Url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver%20BC%7CSeattle&destinations=San%20Francisco%7CVictoria%20BC&mode=bicycling&language=fr-FR&key=YOUR_API_KEY";
+
+		StringBuilder url = new StringBuilder();
+		StringBuilder destinationBuilder = new StringBuilder();
+		List<String> addressList = new ArrayList<String>();
+		List<LocationDistanceDto> locationDistanceList = new ArrayList<LocationDistanceDto>();
+		List<HomestayEntity> homestayList = this.homestayRepo.findAll();
+		if (homestayList.size() > 1) {
+			for (int i = 0; i < homestayList.size(); i++) {
+				if (i == 0) {
+					GeocodingGoongResponseDto geometry = this.getLocationGeometry(homestayList.get(i).getAddress());
+					addressList.add(geometry.getResults().get(0).getFormatted_address());
+					destinationBuilder.append(geometry.getResults().get(0).getGeometry().getLocation().getLat())
+							.append(",").append(geometry.getResults().get(0).getGeometry().getLocation().getLng());
+				} else {
+					GeocodingGoongResponseDto geometry = this.getLocationGeometry(homestayList.get(i).getAddress());
+					addressList.add(geometry.getResults().get(0).getFormatted_address());
+					destinationBuilder.append("|")
+							.append(geometry.getResults().get(0).getGeometry().getLocation().getLat()).append(",")
+							.append(geometry.getResults().get(0).getGeometry().getLocation().getLng());
+				}
+			}
+		} else {
+			GeocodingGoongResponseDto geometry = this.getLocationGeometry(homestayList.get(0).getAddress());
+			addressList.add(geometry.getResults().get(0).getFormatted_address());
+			destinationBuilder.append(geometry.getResults().get(0).getGeometry().getLocation().getLat()).append(",")
+					.append(geometry.getResults().get(0).getGeometry().getLocation().getLng());
+		}
+		url.append(GOONG_DISTANCE_MATRIX_API).append("?origins=").append(origin_address).append("&destinations=")
+				.append(destinationBuilder.toString()).append("&api_key=").append(goongApiKey);
+		System.out.println(url.toString());
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(MediaType.APPLICATION_JSON);
+		DistanceMatrixResponseGoongDto distanceMatrixResponse = restTemplate.getForObject(url.toString(),
+				DistanceMatrixResponseGoongDto.class, header);
+		for (int i = 0; i < addressList.size(); i++) {
+			LocationDistanceDto locationDistanceDto = new LocationDistanceDto(addressList.get(i),
+					distanceMatrixResponse.getRows().get(0).getElements().get(i).getDistance().getValue());
+			locationDistanceList.add(locationDistanceDto);
+		}
+		locationDistanceList = locationDistanceList.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
+
+		return locationDistanceList;
+	}
+
+	@Override
+	public GeocodingGoongResponseDto getLocationGeometry(String address) {
+		StringBuilder url = new StringBuilder();
+		url.append(GOONG_GEOCODING_API).append("?address=").append(address).append("&api_key=").append(goongApiKey);
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(MediaType.APPLICATION_JSON);
+		GeocodingGoongResponseDto geoCodingResponse = restTemplate.getForObject(url.toString(),
+				GeocodingGoongResponseDto.class, header);
+
+
+		return geoCodingResponse;
+	}
+
+	@Override
+	public HomestayEntity findHomestayByAddress(String address) {
+		System.out.println(address);
+		HomestayEntity homestayEntity = homestayRepo.findHomestayByAddress(address)
+				.orElseThrow(() -> new ResourceNotFoundException("Homestay not found"));
+
+		return homestayEntity;
+	}
+
 }
+
+

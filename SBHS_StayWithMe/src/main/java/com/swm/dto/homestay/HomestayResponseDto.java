@@ -26,7 +26,8 @@ public class HomestayResponseDto implements Comparable<HomestayResponseDto>{
 	private Double convenientPoint;
 	private Double securityPoint;
 	private Double positionPoint;
-	private Double average;
+	private Double averageRatingPoint;
+	private Long averagePrice;
 	private Long totalBookingTime;
 	private Long totalRatingTime;
 	private HomestayLicenseDto homestayLicense;
@@ -39,9 +40,9 @@ public class HomestayResponseDto implements Comparable<HomestayResponseDto>{
 
 	@Override
 	public int compareTo(HomestayResponseDto o) {
-		if(this.average == o.average) {
+		if(this.averageRatingPoint == o.averageRatingPoint) {
 			return 0;
-		} else if(this.average < o.average) {
+		} else if(this.averageRatingPoint < o.averageRatingPoint) {
 			return -1;
 		} else {
 			return 1;

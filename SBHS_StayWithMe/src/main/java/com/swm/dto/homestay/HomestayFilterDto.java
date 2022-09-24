@@ -11,8 +11,10 @@ import lombok.Setter;
 @Setter
 public class HomestayFilterDto {
 	private String filterByStr;
-	private Boolean filterByNewestPublishedDate;
 	private Long lowestPrice;
 	private Long highestPrice;
+	private Boolean filterByTrending;
+	private Boolean filterByNewestPublishedDate;
 	private Boolean filterByHighestAveragePoint;
+	private Boolean filterByNearestPlace;
 }

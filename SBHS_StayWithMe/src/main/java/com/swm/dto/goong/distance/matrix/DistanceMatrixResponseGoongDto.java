@@ -1,4 +1,6 @@
-package com.swm.dto.distance.matrix.response;
+package com.swm.dto.goong.distance.matrix;
+
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DistanceMatrixElementStatusDto {
-	private String status;
+public class DistanceMatrixResponseGoongDto {
+	List<DistanceMatrixRowGoongDto> rows;
 }

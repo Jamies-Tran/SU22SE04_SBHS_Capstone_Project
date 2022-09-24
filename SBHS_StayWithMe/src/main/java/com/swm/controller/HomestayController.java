@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swm.converter.HomestayConverter;
-import com.swm.dto.distance.matrix.response.DistanceMatrixResponseDto;
+import com.swm.dto.goong.geocoding.GeocodingGoongResponseDto;
 import com.swm.dto.homestay.HomestayAftercareDto;
 import com.swm.dto.homestay.HomestayFilterDto;
 import com.swm.dto.homestay.HomestayPagesResponseDto;
@@ -238,8 +238,25 @@ public class HomestayController {
 	
 	@GetMapping("/permit-all/distance")
 	public ResponseEntity<?> getDistanceMatrix(@RequestParam String origin_address) {
-		DistanceMatrixResponseDto distanceMatrixResponse = this.homestayService.getDistanceMatrixFromPlaces(origin_address);
+//		DistanceMatrixResponseGoogleDto distanceMatrixResponse = this.homestayService.getDistanceMatrixFromPlaces(origin_address);
+		HomestayEntity distanceMatrixResponse = this.homestayService.findHomestayByAddress(origin_address);
+		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(distanceMatrixResponse);
 		
-		return new ResponseEntity<>(distanceMatrixResponse, HttpStatus.OK);
+		return new ResponseEntity<>(homestayResponseDto, HttpStatus.OK);
+	}
+	
+//	@GetMapping("/permit-all/google-distance")
+//	public ResponseEntity<?> getDistanceMatrixGoogle(@RequestParam String origin_address) {
+//		DistanceMatrixResponseGoogleDto distanceMatrixResponse = this.homestayService.getDistanceMatrixFromPlaces(origin_address);
+//		
+//		return new ResponseEntity<>(distanceMatrixResponse, HttpStatus.OK);
+//	}
+	
+	@GetMapping("/permit-all/geometry")
+	public ResponseEntity<?> getLocationGeoMetry(@RequestParam String address) {
+//		DistanceMatrixResponseGoogleDto distanceMatrixResponse = this.homestayService.getDistanceMatrixFromPlaces(origin_address);
+		GeocodingGoongResponseDto geoCodingResponse = this.homestayService.getLocationGeometry(address);
+		
+		return new ResponseEntity<>(geoCodingResponse, HttpStatus.OK);
 	}
 }

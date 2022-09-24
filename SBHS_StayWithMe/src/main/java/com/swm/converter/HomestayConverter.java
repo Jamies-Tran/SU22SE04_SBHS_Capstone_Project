@@ -45,6 +45,7 @@ public class HomestayConverter {
 		List<HomestayAftercareEntity> homestayServices = homestayDto.getHomestayServices().stream()
 				.map(s -> this.homestayAftercareEntityConvert(s)).collect(Collectors.toList());
 		HomestayLicenseImageEntity homestayLicenseImage = this.homestayLicenseEntityConvert(homestayDto.getHomestayLicense());
+		long averageHomestayPrice = 0;
 		
 		HomestayEntity homestayEntity = new HomestayEntity();
 		homestayEntity.setName(homestayDto.getName());
@@ -60,7 +61,8 @@ public class HomestayConverter {
 		homestayEntity.setCommonFacilities(homestayCommonFacilities);
 		homestayEntity.setImageList(homestayImages);
 		homestayEntity.setHomestayService(homestayServices);
-		
+		averageHomestayPrice = this.homestayService.averageHomestayPrice(homestayEntity);
+		homestayEntity.setAveragePrice(averageHomestayPrice);
 
 		return homestayEntity;
 	}
@@ -122,7 +124,8 @@ public class HomestayConverter {
 		homestayDto.setConvenientPoint(homestayEntity.getConvenientPoint());
 		homestayDto.setSecurityPoint(homestayEntity.getSecurityPoint());
 		homestayDto.setPositionPoint(homestayEntity.getPositionPoint());
-		homestayDto.setAverage(homestayEntity.getAverage());
+		homestayDto.setAverageRatingPoint(homestayEntity.getAverageRatingPoint());
+		homestayDto.setAveragePrice(homestayEntity.getAveragePrice());
 		homestayDto.setHomestayLicense(homestayLicenseImageDto);
 		homestayDto.setHomestayImages(homestayImageList);
 		homestayDto.setHomestayServices(homestayServiceList);
