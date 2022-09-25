@@ -125,10 +125,6 @@ public class HomestayEntity extends BaseEntity implements Comparable<HomestayEnt
 	@Setter
 	private RatingEntity rating;
 
-	@OneToMany(mappedBy = "homestayComment", cascade = { CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.REMOVE }, fetch = FetchType.LAZY)
-	@Setter
-	private List<CommentEntity> comment;
 
 	@OneToMany(mappedBy = "homestayCommonFacility", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REFRESH, CascadeType.REMOVE }, fetch = FetchType.LAZY)

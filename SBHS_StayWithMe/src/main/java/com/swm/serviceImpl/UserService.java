@@ -24,7 +24,6 @@ import com.swm.entity.PassengerWalletEntity;
 import com.swm.entity.SystemStatisticEntity;
 import com.swm.entity.UserEntity;
 import com.swm.entity.UserOtpEntity;
-import com.swm.entity.VoucherWalletEntity;
 import com.swm.enums.RequestStatus;
 import com.swm.enums.RequestType;
 import com.swm.enums.UserStatus;
@@ -107,16 +106,14 @@ public class UserService implements IUserService {
 		passengerAccount.setCreatedDate(currentDate);
 		passengerAccount.setCreatedBy(userEntity.getUsername());
 		passengerAccount.setPassengerAccount(userEntity);
-		VoucherWalletEntity voucherWallet = new VoucherWalletEntity();
-		voucherWallet.setVoucherWalletOwner(passengerAccount);
-		voucherWallet.setCreatedDate(currentDate);
-		voucherWallet.setCreatedBy(userEntity.getUsername());
+		
+		
 		PassengerWalletEntity passengerWalletEntity = new PassengerWalletEntity();
 		passengerWalletEntity.setOwner(passengerAccount);
 		passengerWalletEntity.setCreatedDate(currentDate);
 		passengerWalletEntity.setCreatedBy(userEntity.getUsername());
 		passengerAccount.setCreatedBy(userEntity.getUsername());
-		passengerAccount.setVoucherWallet(voucherWallet);
+		
 		passengerAccount.setWallet(passengerWalletEntity);
 		userEntity.setPassenger(passengerAccount);
 		userEntity.setStatus(UserStatus.ACTIVE.name());

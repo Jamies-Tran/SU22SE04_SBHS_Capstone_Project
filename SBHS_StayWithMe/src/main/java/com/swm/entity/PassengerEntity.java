@@ -47,14 +47,6 @@ public class PassengerEntity extends BaseEntity {
 	@Setter
 	private RatingEntity rating;
 
-	@OneToMany(mappedBy = "creator", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
-	@Setter
-	private List<CommentEntity> commentList;
-
-	@OneToOne(mappedBy = "voucherWalletOwner", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.REMOVE })
-	@Setter
-	private VoucherWalletEntity voucherWallet;
 
 	@ManyToMany(mappedBy = "regularHomestays", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	@Setter
