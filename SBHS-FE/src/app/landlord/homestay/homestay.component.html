@@ -13,14 +13,14 @@
             <a mat-raised-button routerLink="RegisterHomestay">Register</a>
           </div>
         </div>
-        <div class="row main-content">
+        <div class="row main-content" *ngFor="let item of value">
           <div class="col-sm-4">
             <div class="card">
               <div class="image">
                 <img src="" alt="">
               </div>
               <div class="name">
-                Homestay 1
+                {{item.name}}
               </div>
               <div class="button">
                 <a mat-raised-button color="warn" mat-button (click)="openDialog()">Delete</a>
