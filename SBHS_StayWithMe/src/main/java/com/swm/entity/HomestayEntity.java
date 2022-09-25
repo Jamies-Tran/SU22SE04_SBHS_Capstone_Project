@@ -53,10 +53,6 @@ public class HomestayEntity extends BaseEntity implements Comparable<HomestayEnt
 	@Column(nullable = false, columnDefinition = "nvarchar(MAX)")
 	@Setter
 	private String city;
-
-	@Column(nullable = false)
-	@Setter
-	private double profit = 0.0;
 	
 	@Column(name = "convenient_point")
 	@Setter
