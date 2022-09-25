@@ -328,12 +328,8 @@ public class HomestayService implements IHomestayService {
 		}
 
 		if (StringUtils.hasLength(filter.getFilterByStr())) {
-			homestayPages = this.homestayRepo.homestayPagination(PageRequest.of(page, size), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name()); 
+			homestayPages = this.homestayRepo.homestayFilterByStringPagination(PageRequest.of(page, size, Sort.by(Direction.DESC, "createdDate")), filter.getFilterByStr(), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name()); 
 			homestayList = homestayPages.getContent();
-			homestayList = homestayPages.filter(h -> h.getName().contains(filter.getFilterByStr())
-					|| h.getAddress().contains(filter.getFilterByStr())
-					|| h.getLandlordOwner().getLandlordAccount().getUsername().contains(filter.getFilterByStr()))
-					.toList();
 		}
 
 		if (filter.getFilterByHighestAveragePoint() != null && filter.getFilterByHighestAveragePoint()) {
@@ -352,6 +348,9 @@ public class HomestayService implements IHomestayService {
 			homestayList = homestayPages.getContent();
 		}
 
+		if(filter.getFilterByTrending() != null && filter.getFilterByTrending()) {
+			
+		}
 
 		HomestayPagesResponseDto homestayPagesResponseDto = new HomestayPagesResponseDto();
 		List<HomestayResponseDto> homestayResponseListDto = homestayList.stream()
@@ -455,7 +454,7 @@ public class HomestayService implements IHomestayService {
 					distanceMatrixResponse.getRows().get(0).getElements().get(i).getDistance().getValue());
 			locationDistanceList.add(locationDistanceDto);
 		}
-		locationDistanceList = locationDistanceList.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
+		locationDistanceList = locationDistanceList.stream().sorted().collect(Collectors.toList());
 
 		return locationDistanceList;
 	}

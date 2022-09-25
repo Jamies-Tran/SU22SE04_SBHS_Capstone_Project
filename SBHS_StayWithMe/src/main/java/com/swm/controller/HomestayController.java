@@ -134,7 +134,8 @@ public class HomestayController {
 		return new ResponseEntity<>(homestayResponseListDto, HttpStatus.OK);
 	}
 
-	@GetMapping("/permit-all/owner-list")
+	@GetMapping("/owner-list")
+	@PreAuthorize("hasRole('ROLE_LANDLORD')")
 	public ResponseEntity<?> getOwnerHomestayList() {
 		List<HomestayEntity> homestayEntityList = homestayService.findHomestayListByOwnerName();
 		List<HomestayResponseDto> homestayResponseListDto = homestayEntityList.stream()
