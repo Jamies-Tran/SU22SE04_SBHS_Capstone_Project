@@ -463,4 +463,17 @@ public class RequestService implements IRequestService {
 		return withdrawalRequestEntity;
 	}
 
+	@Override
+	public List<HomestayUpdateRequestEntity> findAllHomestayUpdateRequestByStatus(String status) {
+		List<HomestayUpdateRequestEntity> homestayEntityList;
+		if(status.equalsIgnoreCase("all")) {
+			homestayEntityList = homestayUpdateRequestRepo.findAll();
+		} else {
+			homestayEntityList = homestayUpdateRequestRepo.findAll().stream().filter(h -> h.getStatus().equalsIgnoreCase(status)).collect(Collectors.toList());
+		}
+		
+		
+		return homestayEntityList;
+	}
+
 }

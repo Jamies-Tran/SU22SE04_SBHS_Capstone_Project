@@ -32,8 +32,4 @@ public class BookingDepositEntity {
 	@Setter
 	private BookingEntity bookingDeposit;
 	
-	@OneToOne(mappedBy = "bookingDeposit", cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-	@Setter
-	private MomoPaymentEntity momoOrderProcess;
-	
 }

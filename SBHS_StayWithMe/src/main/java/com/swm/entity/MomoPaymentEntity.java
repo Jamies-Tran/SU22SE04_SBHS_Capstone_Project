@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -72,9 +71,4 @@ public class MomoPaymentEntity {
 	@JoinColumn(name = "passenger_wallet", referencedColumnName = "Id")
 	@Setter
 	private PassengerWalletEntity passengerWallet;
-	
-	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-	@JoinColumn(name = "deposit_id", referencedColumnName = "Id")
-	@Setter
-	private BookingDepositEntity bookingDeposit;
 }

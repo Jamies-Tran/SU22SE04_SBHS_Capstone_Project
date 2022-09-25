@@ -221,6 +221,7 @@ public class RequestConverter {
 		withdrawalRequestDto.setCreatedDate(DateParsingUtil.parseDateTimeToStr(withdrawalRequestEntity.getCreatedDate()));
 		withdrawalRequestDto.setStatus(withdrawalRequestEntity.getStatus());
 		withdrawalRequestDto.setAmount(withdrawalRequestEntity.getAmount());
+		withdrawalRequestDto.setLandlordPhone(withdrawalRequestEntity.getLandlordRequestWithdrawal().getLandlordAccount().getPhone());
 		if(StringUtils.hasLength(withdrawalRequestEntity.getVerifiedBy())) {
 			withdrawalRequestDto.setVerifyBy(withdrawalRequestEntity.getVerifiedBy());
 		}

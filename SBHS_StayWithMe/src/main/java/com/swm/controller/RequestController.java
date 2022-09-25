@@ -40,7 +40,8 @@ public class RequestController {
 	@GetMapping("/homestay/list/{status}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> getRequestList(@PathVariable("status") String status) {
-		List<HomestayPostingRequestEntity> requestEntityList = requestService.findAllHomestayPostingRequestByStatus(status);
+		List<HomestayPostingRequestEntity> requestEntityList = requestService
+				.findAllHomestayPostingRequestByStatus(status);
 		List<RequestDto> requestDtoList = requestEntityList.stream()
 				.map(r -> requestConvert.homestayPostingRequestDtoConvert(r)).collect(Collectors.toList());
 
@@ -60,8 +61,10 @@ public class RequestController {
 
 	@PatchMapping("/verification/landlord/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> verifyLandlordAccountRequest(@PathVariable("Id") Long Id, @RequestBody RequestConfirmationDto confirmRequest) {
-		LandlordAccountRequestEntity requestEntity = requestService.verifyLandlordAccountRequestById(Id, confirmRequest.getIsAccepted());
+	public ResponseEntity<?> verifyLandlordAccountRequest(@PathVariable("Id") Long Id,
+			@RequestBody RequestConfirmationDto confirmRequest) {
+		LandlordAccountRequestEntity requestEntity = requestService.verifyLandlordAccountRequestById(Id,
+				confirmRequest.getIsAccepted());
 		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity, requestEntity.getId());
 
 		return new ResponseEntity<>(requestResponse, HttpStatus.ACCEPTED);
@@ -69,8 +72,10 @@ public class RequestController {
 
 	@PatchMapping("/verification/homestay/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> verifyRequest(@PathVariable("Id") Long Id, @RequestBody RequestConfirmationDto confirmRequest) {
-		HomestayPostingRequestEntity requestEntity = requestService.verifyHomestayPostinRequest(Id, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
+	public ResponseEntity<?> verifyRequest(@PathVariable("Id") Long Id,
+			@RequestBody RequestConfirmationDto confirmRequest) {
+		HomestayPostingRequestEntity requestEntity = requestService.verifyHomestayPostinRequest(Id,
+				confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
 		RequestDto requestResponse = requestConvert.baseRequestDtoConvert(requestEntity, requestEntity.getId());
 
 		return new ResponseEntity<>(requestResponse, HttpStatus.ACCEPTED);
@@ -84,69 +89,93 @@ public class RequestController {
 
 		return new ResponseEntity<>(requestResponse, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/landlord/{status}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> findAllLandlordRequestByStatus(@PathVariable("status") String status) {
-		List<LandlordAccountRequestEntity> landlordAccountRequesEntitytList = requestService.findAllLandlordAccountRequestByStatus(status);
-		List<RequestDto> requestResponseDto = landlordAccountRequesEntitytList.stream().map(r -> requestConvert.baseRequestDtoConvert(r, r.getId())).collect(Collectors.toList());
-		
+		List<LandlordAccountRequestEntity> landlordAccountRequesEntitytList = requestService
+				.findAllLandlordAccountRequestByStatus(status);
+		List<RequestDto> requestResponseDto = landlordAccountRequesEntitytList.stream()
+				.map(r -> requestConvert.baseRequestDtoConvert(r, r.getId())).collect(Collectors.toList());
+
 		return new ResponseEntity<>(requestResponseDto, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/homestay-update")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LANDLORD')")
 	public ResponseEntity<?> findHomestayUpdateRequest(@RequestParam Long Id) {
 		HomestayUpdateRequestEntity homestayUpdateRequest = requestService.findHomestayUpdateRequest(Id);
-		HomestayUpdateRequestDto homestayUpdateRequestResponse = requestConvert.homestayUpdateRequestDtoConvert(homestayUpdateRequest);
-		
+		HomestayUpdateRequestDto homestayUpdateRequestResponse = requestConvert
+				.homestayUpdateRequestDtoConvert(homestayUpdateRequest);
+
 		return new ResponseEntity<>(homestayUpdateRequestResponse, HttpStatus.OK);
 	}
-	
+
+	@GetMapping("homestay-update/{status}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ResponseEntity<?> getHomestayUpdateRequestList(@PathVariable("status") String status) {
+		List<HomestayUpdateRequestEntity> homestayUpdateRequestList = requestService
+				.findAllHomestayUpdateRequestByStatus(status);
+		List<HomestayUpdateRequestDto> homestayUpdateRequestResponseList = homestayUpdateRequestList.stream()
+				.map(h -> requestConvert.homestayUpdateRequestDtoConvert(h)).collect(Collectors.toList());
+		
+		return new ResponseEntity<>(homestayUpdateRequestResponseList, HttpStatus.OK);
+	}
+
 	@PostMapping("/homestay-update")
 	@PreAuthorize("hasRole('ROLE_LANDLORD')")
-	public ResponseEntity<?> createHomestayUpdateRequest(@RequestBody HomestayUpdateRequestDto homestayUpdateRequestDto) {
-		HomestayUpdateRequestEntity homestayUpdateRequestEntity = requestConvert.homestayUpdateRequestEntityConvert(homestayUpdateRequestDto);
-		HomestayUpdateRequestEntity homestayUpdateRequestPersistence = requestService.createHomestayUpdateRequest(homestayUpdateRequestEntity);
-		HomestayUpdateRequestDto homestayUpdateRequestResponse = requestConvert.homestayUpdateRequestDtoConvert(homestayUpdateRequestPersistence);
-		
+	public ResponseEntity<?> createHomestayUpdateRequest(
+			@RequestBody HomestayUpdateRequestDto homestayUpdateRequestDto) {
+		HomestayUpdateRequestEntity homestayUpdateRequestEntity = requestConvert
+				.homestayUpdateRequestEntityConvert(homestayUpdateRequestDto);
+		HomestayUpdateRequestEntity homestayUpdateRequestPersistence = requestService
+				.createHomestayUpdateRequest(homestayUpdateRequestEntity);
+		HomestayUpdateRequestDto homestayUpdateRequestResponse = requestConvert
+				.homestayUpdateRequestDtoConvert(homestayUpdateRequestPersistence);
+
 		return new ResponseEntity<>(homestayUpdateRequestResponse, HttpStatus.CREATED);
 	}
-	
-	
+
 	@PostMapping("/withdraw-request")
 	@PreAuthorize("hasRole('ROLE_LANDLORD')")
-	public ResponseEntity<?> createWithdrawalRequest(@RequestBody LandlordBalanceWithdrawalRequestDto withdrawalRequest) {
-		LandlordBalanceWithdrawalRequestEntity withdrawalRequestEntity = requestConvert.withdrawalEntityConvert(withdrawalRequest);
-		LandlordBalanceWithdrawalRequestEntity withdrawalRequestPersistence = requestService.createBalanceWithdrawalRequest(withdrawalRequestEntity);
-		LandlordBalanceWithdrawalRequestDto withdrawalRequestResponse = requestConvert.withdrawalDtoConvert(withdrawalRequestPersistence);
-		
+	public ResponseEntity<?> createWithdrawalRequest(
+			@RequestBody LandlordBalanceWithdrawalRequestDto withdrawalRequest) {
+		LandlordBalanceWithdrawalRequestEntity withdrawalRequestEntity = requestConvert
+				.withdrawalEntityConvert(withdrawalRequest);
+		LandlordBalanceWithdrawalRequestEntity withdrawalRequestPersistence = requestService
+				.createBalanceWithdrawalRequest(withdrawalRequestEntity);
+		LandlordBalanceWithdrawalRequestDto withdrawalRequestResponse = requestConvert
+				.withdrawalDtoConvert(withdrawalRequestPersistence);
+
 		return new ResponseEntity<>(withdrawalRequestResponse, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/withdraw-request")
 	@PreAuthorize("hasAnyRole('ROLE_LANDLORD', 'ROLE_ADMIN')")
 	public ResponseEntity<?> findWithdrawRequest(@RequestParam Long Id) {
 		LandlordBalanceWithdrawalRequestEntity withdrawalRequestEntity = requestService.findWithdrawalRequestById(Id);
-		LandlordBalanceWithdrawalRequestDto withdrawalRequestResponseDto = requestConvert.withdrawalDtoConvert(withdrawalRequestEntity);
-		
+		LandlordBalanceWithdrawalRequestDto withdrawalRequestResponseDto = requestConvert
+				.withdrawalDtoConvert(withdrawalRequestEntity);
+
 		return new ResponseEntity<>(withdrawalRequestResponseDto, HttpStatus.OK);
 	}
-	
+
 	@PatchMapping("/verification/withdrawal-request/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> verifyWithdrawalRequest(@PathVariable("Id") Long Id, @RequestBody RequestConfirmationDto confirmRequest) {
+	public ResponseEntity<?> verifyWithdrawalRequest(@PathVariable("Id") Long Id,
+			@RequestBody RequestConfirmationDto confirmRequest) {
 		requestService.verifyWithdrawalRequest(Id, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
-		
+
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
-	
+
 	@PatchMapping("/verification/homestay-update/{Id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> verifyHomestayUpdateRequest(@PathVariable("Id") Long Id, @RequestBody RequestConfirmationDto confirmRequest) {
-		requestService.verifyHomestayUpdateRequest(Id, true, confirmRequest.getIsAccepted(), confirmRequest.getRejectMessage());
-		
+	public ResponseEntity<?> verifyHomestayUpdateRequest(@PathVariable("Id") Long Id,
+			@RequestBody RequestConfirmationDto confirmRequest) {
+		requestService.verifyHomestayUpdateRequest(Id, true, confirmRequest.getIsAccepted(),
+				confirmRequest.getRejectMessage());
+
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 

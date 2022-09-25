@@ -33,6 +33,8 @@ public interface IRequestService {
 	List<LandlordAccountRequestEntity> findAllLandlordAccountRequest();
 
 	List<HomestayPostingRequestEntity> findAllHomestayPostingRequestByStatus(String status);
+	
+	List<HomestayUpdateRequestEntity> findAllHomestayUpdateRequestByStatus(String status);
 
 	void verifyHomestayUpdateRequest(Long requestId, boolean isVerifyByAdmin, boolean isAccepted,
 			@Nullable String rejectMessage);
