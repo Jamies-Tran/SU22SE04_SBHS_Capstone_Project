@@ -6,10 +6,10 @@ class BookingListScreen extends StatelessWidget {
   const BookingListScreen({
     Key? key,
     this.homestayName,
-    this.username
+    this.email
   }) : super(key: key);
   final String? homestayName;
-  final String? username;
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class BookingListScreen extends StatelessWidget {
           children: [
             SizedBox(
               height: 700,
-              child: HomestayBookingListComponent(homestayName: homestayName!, status: bookingStatus["all"], username: username),
+              child: HomestayBookingListComponent(homestayName: homestayName!, status: bookingStatus["all"], email: email),
             )
           ],
         ),

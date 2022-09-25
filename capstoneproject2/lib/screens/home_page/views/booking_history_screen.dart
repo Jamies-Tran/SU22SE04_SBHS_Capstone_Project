@@ -38,7 +38,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
   Widget build(BuildContext context) {
     if(firebaseAuth.currentUser != null) {
       return FutureBuilder(
-        future: bookingService.getUserBookingList(firebaseAuth.currentUser!.displayName!, bookingStatus["all"]!),
+        future: bookingService.getUserBookingList(firebaseAuth.currentUser!.email!, bookingStatus["all"]!),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const SpinKitComponent();
@@ -262,7 +262,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () => {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailsScreen(bookingId: getBookingListOfUser[index].id, username: firebaseAuth.currentUser!.displayName,),))
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailsScreen(bookingId: getBookingListOfUser[index].id, email: firebaseAuth.currentUser!.email,),))
                                 },
                                 child: Container(
                                   height: 170,

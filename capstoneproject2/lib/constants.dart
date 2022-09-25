@@ -26,6 +26,8 @@ const bookingStatus = {
    "finish" : "BOOKING_FINISHED"
 };
 
+const homestayStatus = {};
+
 const bookingStatusDropdown = {
   "all" : "all",
   "pending" : "BOOKING_PENDING",

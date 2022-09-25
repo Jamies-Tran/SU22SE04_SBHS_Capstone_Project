@@ -7,11 +7,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class RatingHomestayScreen extends StatefulWidget {
   const RatingHomestayScreen({
     Key? key,
-    this.username,
+    this.email,
     this.homestayName,
     this.bookingId
   }) : super(key: key);
-  final String? username;
+  final String? email;
   final String? homestayName;
   final int? bookingId;
 
@@ -221,7 +221,7 @@ class _RatingHomestayScreenState extends State<RatingHomestayScreen> {
                         securityPoint: securityPoint,
                         positionPoint: positionPoint,
                       );
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RatingHomestayNavigator(username: widget.username, ratingModel: ratingModel, bookingId: widget.bookingId,)));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RatingHomestayNavigator(email: widget.email, ratingModel: ratingModel, bookingId: widget.bookingId,)));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -242,28 +242,6 @@ class _RatingHomestayScreenState extends State<RatingHomestayScreen> {
                     style: const TextStyle(),
                   )
               )
-              // const SizedBox(height: 20,),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     SizedBox(
-              //       width: 200,
-              //       height: 50,
-              //       child: ElevatedButton(
-              //           onPressed: () {
-              //             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingDetailsScreen(homestayName: snapshotData.homestayName, bookingId: snapshotData.id),));
-              //           },
-              //           child: Row(
-              //             mainAxisAlignment: MainAxisAlignment.center,
-              //             children: [
-              //               Text("booking details".toUpperCase()),
-              //               const Icon(Icons.arrow_forward_ios),
-              //             ],
-              //           )
-              //       ),
-              //     ),
-              //   ],
-              // )
             ],
           ),
         ),

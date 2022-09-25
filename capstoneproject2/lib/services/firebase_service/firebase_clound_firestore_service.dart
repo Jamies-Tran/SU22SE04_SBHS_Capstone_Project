@@ -7,7 +7,7 @@ abstract class ICloudFirestoreService {
 
   Future createUserSignIn(AuthenticateModel authenticateModel);
 
-  Future findUserFireStore(String username);
+  Future findUserFireStore(String email);
 
-  Future deleteUserWhenSignOut(String username);
+  Future deleteUserWhenSignOut(String email);
 }

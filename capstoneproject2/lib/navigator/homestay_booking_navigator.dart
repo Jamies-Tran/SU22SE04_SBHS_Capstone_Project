@@ -12,11 +12,11 @@ class HomestayBookingNavigator extends StatelessWidget {
   const HomestayBookingNavigator({
     Key? key,
     this.bookingModel,
-    this.username,
+    this.email,
     this.amount
   }) : super(key: key);
   final BookingModel? bookingModel;
-  final String? username;
+  final String? email;
   final int? amount;
 
 
@@ -27,29 +27,32 @@ class HomestayBookingNavigator extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder(
-        future: bookingService.bookingHomestay(bookingModel!, username!),
+        future: bookingService.bookingHomestay(bookingModel!, email!),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: Text("processing your booking"),);
           } else if(snapshot.hasData) {
             final snapshotData = snapshot.data;
             if(snapshotData is BookingModel) {
-              return DepositPaymentNavigator(bookingModel: snapshotData, amount: amount, username: username,);
+              return DepositPaymentNavigator(bookingModel: snapshotData, amount: amount, email: email,);
             } else if(snapshotData is ErrorHandlerModel) {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Center(child: Text("Error"),),
-                  content: Center(child: Text("${snapshotData.message}"),),
-                  actions: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text("Back")
-                    )
-                  ],
-                ),
+              // showDialog(
+              //   context: context,
+              //   builder: (context) => AlertDialog(
+              //     title: const Center(child: Text("Error"),),
+              //     content: Center(child: Text("${snapshotData.message}"),),
+              //     actions: [
+              //       ElevatedButton(
+              //           onPressed: () {
+              //             Navigator.pop(context);
+              //           },
+              //           child: const Text("Back")
+              //       )
+              //     ],
+              //   ),
+              // );
+              return Center(
+                child: Text("${snapshotData.description}"),
               );
             }
           }

@@ -53,6 +53,9 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   syncfusion_flutter_calendar: ^20.2.40
   url_launcher: ^6.1.5
+  geolocator: ^9.0.1
+  geocode: ^1.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

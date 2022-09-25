@@ -16,7 +16,7 @@ import 'package:http/http.dart' as http;
 
 class AuthenticateServiceImpl extends IAuthenticateService {
 
-  final _loginUrl = "$USER_API_URL/login";
+  final _loginUrl = "$userApiUrl/login";
 
   final _fireStore = locator.get<ICloudFirestoreService>();
 

@@ -10,7 +10,7 @@ import 'package:capstoneproject2/services/rating_service.dart';
 import 'package:http/http.dart' as http;
 
 class RatingServiceImpl extends IRatingService {
-  final ratingUrl = RATING_API_URL;
+  final ratingUrl = ratingApiUrl;
   final firebaseUserService = locator.get<ICloudFirestoreService>();
   final firebaseAuthService = locator.get<IFirebaseAuthenticateService>();
 

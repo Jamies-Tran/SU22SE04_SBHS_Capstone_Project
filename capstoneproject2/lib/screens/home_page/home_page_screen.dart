@@ -21,9 +21,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   static const TextStyle optionStyle = TextStyle(fontSize: 5);
 
-
   static const List<Widget> _widgetOptions = <Widget>[
-    ViewHomestayScreen(),
+    SizedBox(
+      height: 5000,
+      width: double.infinity,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: AlwaysScrollableScrollPhysics(),
+        child: ViewHomestayScreen(),
+      ),
+    ),
 
     BookingHistoryScreen(),
 
@@ -34,6 +41,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    final locatorPermission;
+    super.initState();
   }
 
   @override

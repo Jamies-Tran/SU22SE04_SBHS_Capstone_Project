@@ -1,9 +1,21 @@
-const USER_API_URL = "http://$EMULATOR_DOMAIN:8080/api/user";
+// const userApiUrl = "http://$emulatorDomain:8080/api/user";
+//
+// const homestayApiUrl = "http://$emulatorDomain:8080/api/homestay";
+//
+// const bookingApiUrl= "http://$emulatorDomain:8080/api/booking";
+//
+// const ratingApiUrl = "http://$emulatorDomain:8080/api/rating";
 
-const HOMESTAY_API_URL = "http://$EMULATOR_DOMAIN:8080/api/homestay";
+const userApiUrl = "http://$mobileDeviceDomain:8080/api/user";
 
-const BOOKING_API_URL= "http://$EMULATOR_DOMAIN:8080/api/booking";
+const homestayApiUrl = "http://$mobileDeviceDomain:8080/api/homestay";
 
-const RATING_API_URL = "http://$EMULATOR_DOMAIN:8080/api/rating";
+const bookingApiUrl= "http://$mobileDeviceDomain:8080/api/booking";
 
-const String EMULATOR_DOMAIN = "10.0.2.2";
+const ratingApiUrl = "http://$mobileDeviceDomain:8080/api/rating";
+
+const paymentApiUrl = "http://$mobileDeviceDomain:8080/api/payment";
+
+const String emulatorDomain = "10.0.2.2";
+
+const String mobileDeviceDomain = "192.168.1.132";

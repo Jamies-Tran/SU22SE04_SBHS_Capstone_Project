@@ -3,6 +3,8 @@ import 'package:capstoneproject2/screens/profile/wallet_screen.dart';
 import 'package:capstoneproject2/services/booking_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:geocode/geocode.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../../constants.dart';
 
@@ -72,10 +74,10 @@ import '../../../constants.dart';
 
 class ProfileOption extends StatefulWidget {
   const ProfileOption({
-    this.username,
+    this.email,
     Key? key
   }) : super(key: key);
-  final String? username;
+  final String? email;
 
   @override
   State<ProfileOption> createState() => _ProfileOptionState();
@@ -97,8 +99,6 @@ class _ProfileOptionState extends State<ProfileOption> {
 
   @override
   Widget build(BuildContext context) {
-
-
 
     return ListView(
       scrollDirection: Axis.vertical,
@@ -181,7 +181,7 @@ class _ProfileOptionState extends State<ProfileOption> {
                     width: 100,
                     child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CheckBookingOtpNavigator(username: widget.username, otp: otpTextFieldController.text),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CheckBookingOtpNavigator(email: widget.email, otp: otpTextFieldController.text),));
                         }, child: const Text("Submit")
                     ),
                   )
@@ -189,8 +189,57 @@ class _ProfileOptionState extends State<ProfileOption> {
               )
             ],
           )
-        ) : const SizedBox()
+        ) : const SizedBox(),
+        FutureBuilder(
+            future: determinePosition(),
+            builder: (context, snapshot) {
+
+              if(snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: Text("wait a minute..."),
+                );
+              } else if(snapshot.hasData) {
+                final address = snapshot.data;
+                if(address is Address) {
+                  return Text("${address.streetAddress}");
+                }
+              } else if(snapshot.hasError) {
+                return Center(
+                  child: Text(
+                      "${snapshot.error}"
+                  ),
+                );
+              }
+
+              return Container();
+            },
+        )
       ],
     );
   }
 }
+
+Future<Address> determinePosition() async {
+  bool isServiceEnabled;
+  LocationPermission permission;
+  isServiceEnabled = await Geolocator.isLocationServiceEnabled();
+  GeoCode geoCode = GeoCode(apiKey: "16604495097491160603x78472");
+  if(!isServiceEnabled) {
+    return Future.error("service not enable");
+  }
+  permission = await Geolocator.checkPermission();
+  if(permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if(permission == LocationPermission.denied) {
+      return Future.error("permission denied");
+    }
+  }
+  if(permission == LocationPermission.deniedForever) {
+    return Future.error("permission denied forever");
+  }
+  Position pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  // Coordinates coordinates = Coordinates(latitude: pos.latitude, longitude: pos.longitude);
+  return await geoCode.reverseGeocoding(latitude: pos.latitude, longitude: pos.longitude);
+}
+
+

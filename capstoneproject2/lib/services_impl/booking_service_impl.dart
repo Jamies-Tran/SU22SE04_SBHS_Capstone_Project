@@ -19,27 +19,27 @@ import '../services/model/booking_model.dart';
 
 class BookingServiceImpl extends IBookingService {
 
-  final getBookingHomestayListUrl = "$BOOKING_API_URL/permit-all/booking-list";
+  final getBookingHomestayListUrl = "$bookingApiUrl/permit-all/booking-list";
 
-  final getUserBookingListUrl = "$BOOKING_API_URL/booking-list";
+  final getUserBookingListUrl = "$bookingApiUrl/booking-list";
 
-  final bookingHomestayUrl = BOOKING_API_URL;
+  final bookingHomestayUrl = bookingApiUrl;
 
-  final payBookingDepositUrl = "$BOOKING_API_URL/deposit/payment";
+  final payBookingDepositUrl = "$bookingApiUrl/deposit/payment";
 
-  final getBookingByIdUrl = "$BOOKING_API_URL/permit-all/get";
+  final getBookingByIdUrl = "$bookingApiUrl/permit-all/get";
 
-  final checkInUrl = "$BOOKING_API_URL/checkin";
+  final checkInUrl = "$bookingApiUrl/checkin";
 
-  final checkOutUrl = "$BOOKING_API_URL/check-out";
+  final checkOutUrl = "$bookingApiUrl/check-out";
 
-  final checkInByRelativeUrl = "$BOOKING_API_URL/relative-checkin";
+  final checkInByRelativeUrl = "$bookingApiUrl/relative-checkin";
 
-  final getBookingByOtpUrl = "$BOOKING_API_URL/booking-otp";
+  final getBookingByOtpUrl = "$bookingApiUrl/booking-otp";
 
-  final getCancelBookingTicketUrl = "$BOOKING_API_URL/cancel-ticket";
+  final getCancelBookingTicketUrl = "$bookingApiUrl/cancel-ticket";
 
-  final cancelBookingUrl = "$BOOKING_API_URL/passenger-cancel";
+  final cancelBookingUrl = "$bookingApiUrl/passenger-cancel";
 
   final passengerService = locator.get<IPassengerService>();
 
@@ -66,15 +66,15 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future<String> configureHomestayDetailBooking(String? username, String homestayName) async {
+  Future<String> configureHomestayDetailBooking(String? email, String homestayName) async {
     String configuration = "BOOKING_AVAILABLE";
-    if(username != null) {
-      var walletModel = await passengerService.getUserWallet(username);
-      var userBookingList = await getUserBookingList(username, bookingStatus["all"]!);
+    if(email != null) {
+      var walletModel = await passengerService.getUserWallet(email);
+      var userBookingList = await getUserBookingList(email, bookingStatus["all"]!);
       if(walletModel is WalletModel && walletModel.balance == 0 && (walletModel.balance! - walletModel.futurePay!) == 0) {
         configuration = "INSUFFICIENT_BALANCE";
       } else if(walletModel is ErrorHandlerModel && walletModel.statusCode == 403) {
-        await firebaseAuthService.forgetGoogleSignIn(username);
+        await firebaseAuthService.forgetGoogleSignIn(email);
         configuration = "ACCESS_DENIED";
       }else {
         if(userBookingList is List<BookingModel>) {
@@ -91,7 +91,7 @@ class BookingServiceImpl extends IBookingService {
             }
           }
         } else if(userBookingList is ErrorHandlerModel && userBookingList.statusCode == 403) {
-          await firebaseAuthService.forgetGoogleSignIn(username);
+          await firebaseAuthService.forgetGoogleSignIn(email);
           configuration = "ACCESS_DENIED";
         }
       }
@@ -101,8 +101,8 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future getUserBookingList(String username, String status) async {
-    final user = await firebaseFirestoreService.findUserFireStore(username);
+  Future getUserBookingList(String email, String status) async {
+    final user = await firebaseFirestoreService.findUserFireStore(email);
     if(user is AuthenticateModel) {
       final client = http.Client();
       final url = Uri.parse("$getUserBookingListUrl?status=$status");
@@ -117,7 +117,7 @@ class BookingServiceImpl extends IBookingService {
         return bookingList;
       } else {
         if(response.statusCode == 403) {
-          await firebaseAuthService.forgetGoogleSignIn(username!);
+          await firebaseAuthService.forgetGoogleSignIn(email!);
         }
         final responseBody =json.decode(response.body);
         final errorHandlerModel = ErrorHandlerModel.fromJson(responseBody);
@@ -127,8 +127,8 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future bookingHomestay(BookingModel bookingModel, String username) async {
-    final user = await firebaseFirestoreService.findUserFireStore(username);
+  Future bookingHomestay(BookingModel bookingModel, String email) async {
+    final user = await firebaseFirestoreService.findUserFireStore(email);
     if(user is AuthenticateModel) {
       final client = http.Client();
       final url = Uri.parse(bookingHomestayUrl);
@@ -150,8 +150,8 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future payBookingDeposit(String username, int bookingId, int amount) async {
-    final user = await firebaseFirestoreService.findUserFireStore(username);
+  Future payBookingDeposit(String email, int bookingId, int amount) async {
+    final user = await firebaseFirestoreService.findUserFireStore(email);
     if(user is AuthenticateModel) {
       final client = http.Client();
       final url = Uri.parse("$payBookingDepositUrl/$bookingId");
@@ -191,8 +191,8 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future checkIn(String checkInOtp, int bookingId, String username) async {
-    final user = await firebaseFirestoreService.findUserFireStore(username);
+  Future checkIn(String checkInOtp, int bookingId, String email) async {
+    final user = await firebaseFirestoreService.findUserFireStore(email);
     if(user is AuthenticateModel) {
       final client = http.Client();
       final url = Uri.parse(checkInUrl);
@@ -213,9 +213,9 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future getNearestBookingDate(String? username, String homestayName) async {
-    if(username != null) {
-      var userBookingList = await getUserBookingList(username, bookingStatus["check_in"]!);
+  Future getNearestBookingDate(String? email, String homestayName) async {
+    if(email != null) {
+      var userBookingList = await getUserBookingList(email, bookingStatus["check_in"]!);
       if(userBookingList is List<BookingModel>) {
         final bookingModel = userBookingList
             .where((element) => element.homestayName.compareTo(homestayName) == 0)
@@ -227,9 +227,9 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future checkInByRelative(String? username, String checkInOtp) async {
-    if(username != null) {
-      var user = await firebaseFirestoreService.findUserFireStore(username);
+  Future checkInByRelative(String? email, String checkInOtp) async {
+    if(email != null) {
+      var user = await firebaseFirestoreService.findUserFireStore(email);
       if(user is AuthenticateModel) {
         final client = http.Client();
         final url = Uri.parse(checkInByRelativeUrl);
@@ -245,7 +245,7 @@ class BookingServiceImpl extends IBookingService {
           return bookingModel;
         } else {
           if(response.statusCode == 403) {
-            await firebaseAuthService.forgetGoogleSignIn(username);
+            await firebaseAuthService.forgetGoogleSignIn(email);
           }
           final errorHandlerModelJson = json.decode(response.body);
           final errorHandlerModel = ErrorHandlerModel.fromJson(errorHandlerModelJson);
@@ -256,9 +256,9 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future findBookingByOtp(String? username, String checkInOtp) async {
-    if(username != null) {
-      final user = await firebaseFirestoreService.findUserFireStore(username);
+  Future findBookingByOtp(String? email, String checkInOtp) async {
+    if(email != null) {
+      final user = await firebaseFirestoreService.findUserFireStore(email);
       if(user is AuthenticateModel) {
         final client = http.Client();
         final url = Uri.parse("$getBookingByOtpUrl/$checkInOtp");
@@ -272,7 +272,7 @@ class BookingServiceImpl extends IBookingService {
           return bookingModel;
         } else {
           if(response.statusCode == 403) {
-            await firebaseAuthService.forgetGoogleSignIn(username);
+            await firebaseAuthService.forgetGoogleSignIn(email);
           }
           final errorHandlerModelJson = json.decode(response.body);
           final errorHandlerModel = ErrorHandlerModel.fromJson(errorHandlerModelJson);
@@ -283,8 +283,8 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future checkOut(String? username, int bookingId) async {
-    final user = await firebaseFirestoreService.findUserFireStore(username!);
+  Future checkOut(String? email, int bookingId) async {
+    final user = await firebaseFirestoreService.findUserFireStore(email!);
     if(user is AuthenticateModel) {
       final client = http.Client();
       final url = Uri.parse(checkOutUrl);
@@ -300,7 +300,7 @@ class BookingServiceImpl extends IBookingService {
         return bookingModel;
       } else {
         if(response.statusCode == 403) {
-          await firebaseAuthService.forgetGoogleSignIn(username);
+          await firebaseAuthService.forgetGoogleSignIn(email);
         }
         final errorHandlerModelJson = json.decode(response.body);
         final errorHandlerModel = ErrorHandlerModel.fromJson(errorHandlerModelJson);
@@ -310,8 +310,8 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future cancelBooking(String? username, int bookingId) async {
-    final user = await firebaseFirestoreService.findUserFireStore(username!);
+  Future cancelBooking(String? email, int bookingId) async {
+    final user = await firebaseFirestoreService.findUserFireStore(email!);
     if(user is AuthenticateModel) {
       final client = http.Client();
       final url = Uri.parse("$cancelBookingUrl/$bookingId");
@@ -325,7 +325,7 @@ class BookingServiceImpl extends IBookingService {
         return bookingModel;
       } else {
         if(response.statusCode == 403) {
-          await firebaseAuthService.forgetGoogleSignIn(username);
+          await firebaseAuthService.forgetGoogleSignIn(email);
         }
         final errorHandlerModelJson = json.decode(response.body);
         final errorHandlerModel = ErrorHandlerModel.fromJson(errorHandlerModelJson);
@@ -335,8 +335,8 @@ class BookingServiceImpl extends IBookingService {
   }
 
   @override
-  Future findPassengerCancelBookingTicket(String? username, int bookingId) async {
-    final user = await firebaseFirestoreService.findUserFireStore(username!);
+  Future findPassengerCancelBookingTicket(String? email, int bookingId) async {
+    final user = await firebaseFirestoreService.findUserFireStore(email!);
     if(user is AuthenticateModel) {
       final client = http.Client();
       final url = Uri.parse("$getCancelBookingTicketUrl/$bookingId");
@@ -350,7 +350,7 @@ class BookingServiceImpl extends IBookingService {
         return cancelBookingTicketModel;
       } else {
         if(response.statusCode == 403) {
-          await firebaseAuthService.forgetGoogleSignIn(username);
+          await firebaseAuthService.forgetGoogleSignIn(email);
         }
         final errorHandlerModelJson = json.decode(response.body);
         final errorHandlerModel = ErrorHandlerModel.fromJson(errorHandlerModelJson);

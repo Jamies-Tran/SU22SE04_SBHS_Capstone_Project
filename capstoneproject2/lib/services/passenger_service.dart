@@ -13,5 +13,5 @@ abstract class IPassengerService {
 
   Future<dynamic> findUserByUsername(String username);
 
-  Future<dynamic> getUserWallet(String username);
+  Future<dynamic> getUserWallet(String email);
 }

@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 class RatingHomestayNavigator extends StatelessWidget {
   const RatingHomestayNavigator({
     Key? key,
-    this.username,
+    this.email,
     this.ratingModel,
     this.bookingId
   }) : super(key: key);
-  final String? username;
+  final String? email;
   final RatingModel? ratingModel;
   final int? bookingId;
 
@@ -22,7 +22,7 @@ class RatingHomestayNavigator extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder(
-        future: ratingService.ratingHomestay(username, ratingModel!),
+        future: ratingService.ratingHomestay(email, ratingModel!),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const SpinKitComponent();
@@ -74,7 +74,7 @@ class RatingHomestayNavigator extends StatelessWidget {
                             height: 50,
                             child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingDetailsScreen(homestayName: snapshotData.homestayName, bookingId: bookingId, username: username),));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingDetailsScreen(homestayName: snapshotData.homestayName, bookingId: bookingId, email: email),));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

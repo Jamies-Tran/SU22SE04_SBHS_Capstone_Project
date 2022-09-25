@@ -59,7 +59,7 @@ class MobileProfileInforScreen extends StatelessWidget {
       children: <Widget>[
         ProfileEditScreenTopImage(user: user),
         const SizedBox(height: 30,),
-        ProfileOption(username: user!.displayName),
+        ProfileOption(email: user!.email),
         const SizedBox(height: 40,),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -67,7 +67,7 @@ class MobileProfileInforScreen extends StatelessWidget {
             onPrimary: Colors.white
           ),
           onPressed: () async {
-            await firebaseAuth.forgetGoogleSignIn(user!.displayName!);
+            await firebaseAuth.forgetGoogleSignIn(user!.email!);
           },
           child: Text("Log Out".toUpperCase()),
         ),

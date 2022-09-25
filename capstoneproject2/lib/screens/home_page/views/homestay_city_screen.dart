@@ -27,7 +27,7 @@ class _HomestayFromCityScreenState extends State<HomestayFromCityScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: showSearchBar ? SearchBar() : null,
+        title: showSearchBar ? const SearchBar() : null,
         actions: [
           IconButton(
               onPressed: () {
@@ -145,7 +145,7 @@ class _HomestayFromCityScreenState extends State<HomestayFromCityScreen> {
                                   Row(
                                     children: [
                                       const Icon(Icons.people, color: kPrimaryColor),
-                                      Text("${snapshotData[index].numberOfFinishedBooking}", style: const TextStyle(
+                                      Text("${snapshotData[index].totalBookingTime}", style: const TextStyle(
                                           fontSize: 20,
                                           fontFamily: 'OpenSans',
                                           letterSpacing: 3.0,

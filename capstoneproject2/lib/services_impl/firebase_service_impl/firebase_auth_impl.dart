@@ -29,11 +29,11 @@ class FirebaseAuthServiceImpl extends IFirebaseAuthenticateService {
 
 
   @override
-  Future forgetGoogleSignIn(String? username) async {
+  Future forgetGoogleSignIn(String? email) async {
    await _googleSignIn.disconnect().timeout(const Duration(seconds: 20));
    await _firebaseAuth.signOut();
-   if(username != null) {
-     await _firebaseFirestore.deleteUserWhenSignOut(username!);
+   if(email != null) {
+     await _firebaseFirestore.deleteUserWhenSignOut(email!);
    }
   }
 

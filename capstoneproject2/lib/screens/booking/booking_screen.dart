@@ -106,7 +106,7 @@ class _BookingScreenState extends State<BookingScreen> {
     print("check-in: ${widget.checkInDate} ~ check-out: ${widget.checkOutDate}");
 
     return FutureBuilder(
-      future: passengerService.getUserWallet(firebaseAuth.currentUser!.displayName!),
+      future: passengerService.getUserWallet(firebaseAuth.currentUser!.email!),
       builder: (context, snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting) {
           return const SpinKitComponent();
@@ -120,26 +120,26 @@ class _BookingScreenState extends State<BookingScreen> {
               appBar: AppBar(
                 title: const Text("Booking"),
                 centerTitle: true,
-                actions: [
-                  IconButton(
-                    onPressed: () {
-                      // if(checkBalance) {
-                      //   BookingModel bookingModel = BookingModel(
-                      //       homestayName: widget.homestayModel!.name!,
-                      //       homestayServiceList: homestayChosenService,
-                      //       totalPrice: totalPrice,
-                      //       deposit: totalDeposit,
-                      //       checkIn: selectedCheckInDate,
-                      //       checkOut: selectedCheckOutDate
-                      //   );
-                      //
-                      //   Navigator.push(context, MaterialPageRoute(builder: (context) => HomestayBookingNavigator(bookingModel: bookingModel, username: firebaseAuth.currentUser!.displayName!),));
-                      // }
-                    },
-                    icon: const Icon(Icons.check),
-                    color: checkBalance ? Colors.white : Colors.grey,
-                  )
-                ],
+                // actions: [
+                //   IconButton(
+                //     onPressed: () {
+                //       // if(checkBalance) {
+                //       //   BookingModel bookingModel = BookingModel(
+                //       //       homestayName: widget.homestayModel!.name!,
+                //       //       homestayServiceList: homestayChosenService,
+                //       //       totalPrice: totalPrice,
+                //       //       deposit: totalDeposit,
+                //       //       checkIn: selectedCheckInDate,
+                //       //       checkOut: selectedCheckOutDate
+                //       //   );
+                //       //
+                //       //   Navigator.push(context, MaterialPageRoute(builder: (context) => HomestayBookingNavigator(bookingModel: bookingModel, username: firebaseAuth.currentUser!.displayName!),));
+                //       // }
+                //     },
+                //     icon: const Icon(Icons.check),
+                //     color: checkBalance ? Colors.white : Colors.grey,
+                //   )
+                // ],
               ),
               body: Column(
                 children: [
@@ -333,7 +333,7 @@ class _BookingScreenState extends State<BookingScreen> {
           }
 
         } else if(snapshot.hasError) {
-          return Center(child: Text("Something went wrong - ${snapshot.error.toString()}"),);
+          return Center(child: Text("${snapshot.error.toString()}"),);
         }
 
         return Center(child: Text("Something went wrong - ${snapshot.error.toString()}"),);

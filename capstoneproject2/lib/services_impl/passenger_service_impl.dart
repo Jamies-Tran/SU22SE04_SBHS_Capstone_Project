@@ -14,11 +14,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 class PassengerServiceImpl extends IPassengerService {
-  final _registerPassengerUrl = "$USER_API_URL/register/passenger";
+  final _registerPassengerUrl = "$userApiUrl/register/passenger";
 
-  final _getUserWalletUrl = "$USER_API_URL/get/wallet/passenger_wallet";
+  final _getUserWalletUrl = "$userApiUrl/get/wallet/passenger_wallet";
 
-  final _checkUserExistUrl = "$USER_API_URL/exist";
+  final _checkUserExistUrl = "$userApiUrl/exist";
   
   final _firebaseAuth = FirebaseAuth.instance;
 
@@ -109,7 +109,7 @@ class PassengerServiceImpl extends IPassengerService {
   @override
   Future findUserByUsername(String username) async {
     var client = http.Client();
-    final url = "$USER_API_URL/get/$username";
+    final url = "$userApiUrl/get/$username";
     final uri = Uri.parse(url);
     final response = await client.get(uri, headers: {"content-type" : "application/json"});
     if(response.statusCode == 200) {
@@ -124,8 +124,8 @@ class PassengerServiceImpl extends IPassengerService {
   }
 
   @override
-  Future getUserWallet(String username) async {
-    final user = await _firebaseFirestore.findUserFireStore(username);
+  Future getUserWallet(String email) async {
+    final user = await _firebaseFirestore.findUserFireStore(email);
     if(user is AuthenticateModel) {
       final client = http.Client();
       final url = Uri.parse(_getUserWalletUrl);

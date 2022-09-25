@@ -10,11 +10,11 @@ import '../services/locator/service_locator.dart';
 class DepositPaymentNavigator extends StatelessWidget {
   const DepositPaymentNavigator({
     Key? key,
-    this.username,
+    this.email,
     this.amount,
     this.bookingModel
   }) : super(key: key);
-  final String? username;
+  final String? email;
   final int? amount;
   final BookingModel? bookingModel;
 
@@ -24,7 +24,7 @@ class DepositPaymentNavigator extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder(
-        future: bookingService.payBookingDeposit(username!, bookingModel!.id!, amount!),
+        future: bookingService.payBookingDeposit(email!, bookingModel!.id!, amount!),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return Container(
@@ -36,7 +36,7 @@ class DepositPaymentNavigator extends StatelessWidget {
           } else if(snapshot.hasData) {
             final snapshotData = snapshot.data;
             if(snapshotData is DepositAmount) {
-              return BookingDetailsScreen(bookingId: bookingModel!.id, homestayName: bookingModel!.homestayName, username: username,);
+              return BookingDetailsScreen(bookingId: bookingModel!.id, homestayName: bookingModel!.homestayName, email: email,);
             } else if(snapshotData is ErrorHandlerModel) {
               return Container(
                 color: Colors.white,

@@ -197,43 +197,43 @@ class HomestayDetailsBody extends StatelessWidget {
         ),
         const SizedBox(height: 20),
 
-        firebaseAuth.currentUser != null
-        ? FutureBuilder(
-            future: bookingService.getNearestBookingDate(firebaseAuth.currentUser?.displayName, homestayModel!.name!),
-            builder: (context, snapshot) {
-              if(snapshot.connectionState == ConnectionState.waiting) {
-                return const SizedBox();
-              } else if(snapshot.hasData) {
-                final snapshotData = snapshot.data;
-
-                if(snapshotData is BookingModel) {
-                  int remainDate = formatDate.parse(snapshotData.checkIn).difference(DateTime.now()).inDays;
-                  if(remainDate > 0) {
-                    final msg = remainDate == 0 ? "today" : remainDate == 1 ? "tomorrow" : "within $remainDate";
-                    return Center(child: Text("You have appointment $msg", style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'OpenSans',
-                        letterSpacing: 1.0,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.bold
-                    ),));
-                  } else {
-                    return const SizedBox();
-                  }
-                }
-              }else if(snapshot.hasError) {
-
-                return const SizedBox();
-              }
-
-              return const SizedBox();
-            },
-        ) : Container(),
+        // firebaseAuth.currentUser != null
+        // ? FutureBuilder(
+        //     future: bookingService.getNearestBookingDate(firebaseAuth.currentUser?.email, homestayModel!.name!),
+        //     builder: (context, snapshot) {
+        //       if(snapshot.connectionState == ConnectionState.waiting) {
+        //         return const SizedBox();
+        //       } else if(snapshot.hasData) {
+        //         final snapshotData = snapshot.data;
+        //
+        //         if(snapshotData is BookingModel) {
+        //           int remainDate = formatDate.parse(snapshotData.checkIn).difference(DateTime.now()).inDays;
+        //           if(remainDate > 0) {
+        //             final msg = remainDate == 0 ? "today" : remainDate == 1 ? "tomorrow" : "within $remainDate";
+        //             return Center(child: Text("You have appointment $msg", style: const TextStyle(
+        //                 fontSize: 14,
+        //                 fontFamily: 'OpenSans',
+        //                 letterSpacing: 1.0,
+        //                 color: Colors.black87,
+        //                 fontWeight: FontWeight.bold
+        //             ),));
+        //           } else {
+        //             return const SizedBox();
+        //           }
+        //         }
+        //       }else if(snapshot.hasError) {
+        //
+        //         return const SizedBox();
+        //       }
+        //
+        //       return const SizedBox();
+        //     },
+        // ) : Container(),
 
         const SizedBox(height: 12,),
 
         FutureBuilder(
-            future: bookingService.configureHomestayDetailBooking(firebaseAuth.currentUser?.displayName, homestayModel!.name!),
+            future: bookingService.configureHomestayDetailBooking(firebaseAuth.currentUser?.email, homestayModel!.name!),
             builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting) {
                 return const SizedBox();
@@ -278,7 +278,7 @@ class HomestayDetailsBody extends StatelessWidget {
                         const SizedBox(height: 5,),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => BookingListScreen(homestayName: homestayModel!.name,username: firebaseAuth.currentUser!.displayName),));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => BookingListScreen(homestayName: homestayModel!.name,email: firebaseAuth.currentUser!.email),));
                           },
                           style: ElevatedButton.styleFrom(
                             primary: Colors.green,

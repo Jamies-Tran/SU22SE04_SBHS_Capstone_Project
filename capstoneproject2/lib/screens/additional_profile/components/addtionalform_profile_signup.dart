@@ -4,6 +4,7 @@ import 'package:capstoneproject2/navigator/google_sign_in_navigator.dart';
 import 'package:capstoneproject2/screens/home_page/home_page_screen.dart';
 
 import 'package:capstoneproject2/services/model/passenger_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -213,7 +214,9 @@ class _AdditionalProfileFormSignUpState extends State<AdditionalProfileFormSignU
               child: Text("Complete Sign Up".toUpperCase()),
             ),
             TextButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePageScreen())),
+                onPressed: () async {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePageScreen()));
+                },
                 child: const Text("Cancel", style: TextStyle(
                     fontSize: 10,
                     fontFamily: 'OpenSans',

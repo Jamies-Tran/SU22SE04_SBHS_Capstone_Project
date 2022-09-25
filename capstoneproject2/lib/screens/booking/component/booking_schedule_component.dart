@@ -38,11 +38,9 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
   final formatDate = DateFormat("yyyy-MM-dd");
   final currencyFormat = NumberFormat("#,##0");
   bool isSelectedCheckInDate = false;
-  var checkInDate;
-  var checkOutDate;
-  var firstPickUpCheckInDate;
-  var showAlert = false;
-  //var alertMessage;
+  dynamic checkInDate;
+  dynamic checkOutDate;
+  dynamic firstPickUpCheckInDate;
   var now = DateTime.now();
 
   @override
@@ -54,7 +52,6 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
       List<Appointment> sources = <Appointment>[];
       List<BookingModel> bookingList = await bookingService.getHomestayBookingList(widget.homestayModel!.name, bookingStatus["all"]!);
       bookingList = bookingList.where((element) =>
-                      !(element.status.compareTo(bookingStatus["pending"]) == 0) &&
                       !(element.status.compareTo(bookingStatus["rejected"]) == 0) &&
                       !(element.status.compareTo(bookingStatus["canceled"]) == 0) &&
                       !(element.status.compareTo(bookingStatus["check_out"]) == 0) &&
@@ -75,9 +72,6 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
 
         now = now.add(const Duration(days: 1));
 
-        // if(now.month == 4 && now.day == 30) {
-        //   sources.add(Appointment(startTime: formatDate.parse(now.toString()), endTime: formatDate.parse(now.toString()), color: Colors.amber, isAllDay: true,notes: "special"));
-        // }
         for (var element in widget.homestayModel!.homestayPriceLists!) {
           if(element.type.compareTo("special") == 0) {
             if(now.day == element.specialDayPriceList!.startDay && now.month == element.specialDayPriceList!.startMonth) {
@@ -160,12 +154,6 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
         } else if(snapshot.hasData) {
           var snapshotData = snapshot.data as List<Appointment>;
           return Scaffold(
-            // appBar: AppBar(
-            //   title: Text(
-            //       widget.isUpdateCheckInDate ? "update check-in date" : widget.isUpdateCheckOutDate ? "update check-out date"
-            //           : isSelectedCheckInDate ? "choose checkout date" : "choose checkin date"
-            //   ),
-            // ),
             body: Stack(
               children: [
                 SfCalendar(
@@ -278,13 +266,13 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
 
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: isThroughBusyDay(formatDate.parse(widget.chosenCheckInDate!), calendarTapDetails!.date!, snapshotData) ? Colors.grey : widget!.balance! < totalPriceBookingDays!.totalPrice! ? Colors.amber : Colors.green,
+                                  primary: isThroughBusyDay(formatDate.parse(widget.chosenCheckInDate!), calendarTapDetails!.date!, snapshotData) || calendarTapDetails.appointments!.where((element) => element.notes.compareTo("busy") == 0).isNotEmpty ? Colors.grey : widget!.balance! < totalPriceBookingDays!.totalPrice! ? Colors.amber : Colors.green,
                                   shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
                                   maximumSize: const Size(150, 56),
                                   minimumSize: const Size(150, 56)
                               ),
                               onPressed: () {
-                                if(!isThroughBusyDay(formatDate.parse(widget.chosenCheckInDate!), formatDate.parse(calendarTapDetails.date!.toString()), snapshotData) || calendarTapDetails.appointments!.where((element) => element.notes.compareTo("busy") == 0).isEmpty) {
+                                if(!isThroughBusyDay(formatDate.parse(widget.chosenCheckInDate!), calendarTapDetails!.date!, snapshotData) && calendarTapDetails.appointments!.where((element) => element.notes.compareTo("busy") == 0).isEmpty) {
                                   if(widget.balance! >= totalPriceBookingDays.totalPrice!) {
                                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingScreen(
                                       homestayModel: widget.homestayModel,
@@ -369,17 +357,6 @@ class _BookingScheduleComponentState extends State<BookingScheduleComponent> {
                   },
                   dataSource: BookingScheduleSource(snapshotData),
                 ),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.end,
-                //   children: [
-                //     Center(
-                //       child: showAlert ? Container(
-                //         margin: const EdgeInsets.only(bottom: 20),
-                //         child: Text(alertMessage),
-                //       ) : Container()
-                //     )
-                //   ],
-                // )
               ],
             ),
           );

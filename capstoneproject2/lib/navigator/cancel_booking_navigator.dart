@@ -11,12 +11,12 @@ import 'package:intl/intl.dart';
 class CancelBookingNavigator extends StatelessWidget {
   const CancelBookingNavigator({
     Key? key,
-    this.username,
+    this.email,
     this.bookingId,
     this.isFirstTimeCancelActive,
     this.isSecondTimeCancelActive
   }) : super(key: key);
-  final String? username;
+  final String? email;
   final int? bookingId;
   final bool? isFirstTimeCancelActive;
   final bool? isSecondTimeCancelActive;
@@ -30,7 +30,7 @@ class CancelBookingNavigator extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey,
       body: FutureBuilder(
-        future: bookingService.cancelBooking(username, bookingId!),
+        future: bookingService.cancelBooking(email, bookingId!),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const SpinKitComponent();
@@ -61,7 +61,7 @@ class CancelBookingNavigator extends StatelessWidget {
                       SizedBox(
                         height: 200,
                         child: FutureBuilder(
-                          future: passengerService.getUserWallet(username!),
+                          future: passengerService.getUserWallet(email!),
                           builder: (context, walletSnapshot) {
                             if(walletSnapshot.connectionState == ConnectionState.waiting) {
                               return const Text("Loading yor wallet balance...");

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:capstoneproject2/services/firebase_service/firebase_clound_firestore_service.dart';
 import 'package:capstoneproject2/services/model/auth_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,8 +22,8 @@ class CloudFireStoreServiceImpl extends ICloudFirestoreService {
   }
 
   @override
-  Future findUserFireStore(String username) async {
-    final result = await _systemUserCollection.where("username", isEqualTo: username).get();
+  Future findUserFireStore(String email) async {
+    final result = await _systemUserCollection.where("email", isEqualTo: email).get();
     if(result.docs.isNotEmpty) {
       AuthenticateModel authenticateModel = AuthenticateModel(
           username: result.docs[0].data()["username"],
@@ -37,11 +39,11 @@ class CloudFireStoreServiceImpl extends ICloudFirestoreService {
   }
 
   @override
-  Future deleteUserWhenSignOut(String username) async {
-    final result = await _systemUserCollection.where("username", isEqualTo: username).get().timeout(const Duration(seconds: 20));
-    result.docs.forEach((element) {
+  Future deleteUserWhenSignOut(String email) async {
+    final result = await _systemUserCollection.where("email", isEqualTo: email).get().timeout(const Duration(seconds: 20));
+    for (var element in result.docs) {
       element.reference.delete();
-    });
+    }
   }
 
 }

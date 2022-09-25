@@ -12,10 +12,10 @@ class CheckBookingOtpNavigator extends StatefulWidget {
   const CheckBookingOtpNavigator({
     Key? key,
     this.otp,
-    this.username
+    this.email
   }) : super(key: key);
   final String? otp;
-  final String? username;
+  final String? email;
 
   @override
   State<CheckBookingOtpNavigator> createState() => _CheckBookingOtpNavigatorState();
@@ -29,7 +29,7 @@ class _CheckBookingOtpNavigatorState extends State<CheckBookingOtpNavigator> {
     return Scaffold(
       backgroundColor: Colors.grey,
       body: FutureBuilder(
-          future: bookingService.findBookingByOtp(widget.username, widget.otp!),
+          future: bookingService.findBookingByOtp(widget.email, widget.otp!),
           builder: (context, snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting) {
               return const SpinKitThreeInOut(
@@ -90,7 +90,7 @@ class _CheckBookingOtpNavigatorState extends State<CheckBookingOtpNavigator> {
                               height: 50,
                               child: ElevatedButton(
                                   onPressed: () {
-                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CheckInByRelativeNavigator(username: widget.username, otp: widget.otp!,),));
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CheckInByRelativeNavigator(email: widget.email, otp: widget.otp!,),));
                                   },
                                   style: ElevatedButton.styleFrom(
                                       primary: Colors.green
@@ -219,10 +219,10 @@ class _CheckBookingOtpNavigatorState extends State<CheckBookingOtpNavigator> {
 class CheckInByRelativeNavigator extends StatefulWidget {
   const CheckInByRelativeNavigator({
     Key? key,
-    this.username,
+    this.email,
     this.otp
   }) : super(key: key);
-  final String? username;
+  final String? email;
   final String? otp;
 
   @override
@@ -236,7 +236,7 @@ class _CheckInByRelativeNavigatorState extends State<CheckInByRelativeNavigator>
     return Scaffold(
       backgroundColor: Colors.grey,
       body: FutureBuilder(
-        future: bookingService.checkInByRelative(widget.username, widget.otp!),
+        future: bookingService.checkInByRelative(widget.email, widget.otp!),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const SpinKitThreeInOut(

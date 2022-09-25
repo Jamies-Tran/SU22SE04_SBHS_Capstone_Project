@@ -1,23 +1,24 @@
 import 'package:capstoneproject2/services/model/homestay_model.dart';
 
 class BookingModel {
-  var id;
-  var passengerName;
-  var passengerPhone;
-  var passengerEmail;
-  var homestayName;
-  var homestayLocation;
-  var homestayCity;
-  var homestayOwner;
-  var homestayOwnerPhone;
-  var homestayOwnerEmail;
+  dynamic id;
+  dynamic passengerName;
+  dynamic passengerPhone;
+  dynamic passengerEmail;
+  dynamic homestayName;
+  dynamic homestayLocation;
+  dynamic homestayCity;
+  dynamic homestayOwner;
+  dynamic homestayOwnerPhone;
+  dynamic homestayOwnerEmail;
   List<HomestayServiceModel> homestayServiceList;
-  var checkIn;
-  var checkOut;
+  dynamic checkIn;
+  dynamic checkOut;
   int? totalPrice;
   int? deposit;
-  var status;
-  var bookingOtp;
+  double? homestayAverageRating;
+  dynamic status;
+  dynamic bookingOtp;
 
   BookingModel({
     this.id,
@@ -30,6 +31,7 @@ class BookingModel {
     this.homestayOwner,
     this.homestayOwnerPhone,
     this.homestayOwnerEmail,
+    this.homestayAverageRating,
     this.homestayServiceList = const [],
     this.checkIn,
     this.checkOut,
@@ -45,6 +47,7 @@ class BookingModel {
     homestayName: json["homestayName"],
     homestayLocation: json["homestayLocation"],
     homestayCity: json["homestayCity"],
+    homestayAverageRating: json["homestayAverageRating"],
     homestayOwner: json["homestayOwner"],
     homestayOwnerPhone: json["homestayOwnerPhone"],
     homestayOwnerEmail: json["homestayOwnerEmail"],

@@ -5,8 +5,10 @@ import 'package:capstoneproject2/navigator/booking_check_out_navigator.dart';
 import 'package:capstoneproject2/navigator/cancel_booking_navigator.dart';
 import 'package:capstoneproject2/navigator/pay_deposit_navigator.dart';
 import 'package:capstoneproject2/screens/booking/booking_list_screen.dart';
+import 'package:capstoneproject2/screens/home_page/components/rating_component.dart';
 import 'package:capstoneproject2/screens/home_page/home_page_screen.dart';
 import 'package:capstoneproject2/screens/home_page/views/booking_history_screen.dart';
+import 'package:capstoneproject2/screens/homestay_detail/view_homestay_detail.dart';
 import 'package:capstoneproject2/services/booking_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:capstoneproject2/services/model/booking_model.dart';
@@ -24,11 +26,11 @@ class BookingDetailsScreen extends StatefulWidget {
     Key? key,
     this.bookingId,
     this.homestayName,
-    this.username
+    this.email
   }) : super(key: key);
   final int? bookingId;
   final String? homestayName;
-  final String? username;
+  final String? email;
 
   @override
   State<BookingDetailsScreen> createState() => _BookingDetailsScreenState();
@@ -59,13 +61,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
     final currencyFormat = NumberFormat("#,##0");
     final bookingService = locator.get<IBookingService>();
     final userService = locator.get<IPassengerService>();
-    final firebaseAuth = FirebaseAuth.instance;
     late bool isFirstTimeCancelActive;
     late bool isSecondTimeCancelActive;
-    late int balance;
-    var rows = <TableRow>[];
-
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Booking details"),
@@ -91,38 +88,10 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             if(snapshotData is BookingModel) {
               final bool isCheckInDate = DateTime.now().difference(formatDate.parse(snapshotData.checkIn)).inDays == 0;
               final int remainingDate = formatDate.parse(snapshotData.checkIn).difference(DateTime.now()).inDays;
-              snapshotData.homestayServiceList.forEach((element) {
-                rows.add(TableRow(
-                    children: [
-                      TableCell(
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            padding: const EdgeInsets.all(15),
-                            child: Text("${element.name}", style: const TextStyle(
-                                fontSize: 17,
-                                fontFamily: 'OpenSans',
-                                letterSpacing: 3.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold
-                            ),),
-                          )),
-                      TableCell(
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 10),
-                            child: Text("${currencyFormat.format(element.price)} / vnd", style: const TextStyle(
-                              fontSize: 17,
-                              fontFamily: 'OpenSans',
-                              letterSpacing: 3.0,
-                              color: Colors.black,
-                            ),),
-                          )
-                      )
-                    ]
-                ));
-              });
+
 
               bool isUsingBookingCancelTicket() {
-                return snapshotData.status.compareTo(bookingStatus["pending_check_in"]) == 0;
+                return snapshotData.status.compareTo(bookingStatus["pending_check_in"]) == 0 || snapshotData.status.compareTo(bookingStatus["pending_check_in_remain_sent"]) == 0 || snapshotData.status.compareTo(bookingStatus["pending_check_in_appointment_sent"]) == 0 ;
               }
 
               depositTextFieldController.text = snapshotData.deposit.toString();
@@ -133,176 +102,496 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 40,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text("Booking Info: ", style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'OpenSans',
-                            letterSpacing: 1.5,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold
-                        )),
-                        const SizedBox(height: 20,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.location_on, color: kPrimaryLightColor,),
-                            Text("${snapshotData.homestayLocation!}", style: const TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'OpenSans',
-                              letterSpacing: 1.5,
-                              color: Colors.black87,
-                            )),
-                            const SizedBox(width: 10,),
-                            const Icon(Icons.location_city, color: kPrimaryLightColor,),
-                            Text("${snapshotData.homestayCity!}", style: const TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'OpenSans',
-                              letterSpacing: 1.5,
-                              color: Colors.black87,
-                            )),
-                          ],
+                    Center(
+                      child: Container(
+                        width: 350,
+                        height: 225,
+                        padding: const EdgeInsets.only(left: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            color: Colors.white,
+                            border: Border.all(color: Colors.black, width: 2.0, style: BorderStyle.solid)
                         ),
-                        const SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Icon(Icons.calendar_month_sharp, color: Colors.green,),
-                            Text("${snapshotData.checkIn!}", style: const TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'OpenSans',
-                              letterSpacing: 1.5,
-                              color: Colors.black87,
+                            Text(
+                                "homestay information".toUpperCase(), style: const TextStyle(
+                                fontSize: 17,
+                                fontFamily: 'OpenSans',
+                                letterSpacing: 1.5,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold
                             )),
-                            const Icon(Icons.forward, color: Colors.amber,),
-                            const Icon(Icons.calendar_month_sharp, color: Colors.redAccent,),
-                            Text("${snapshotData.checkOut!}", style: const TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'OpenSans',
-                              letterSpacing: 1.5,
-                              color: Colors.black87,
-                            )),
-                          ],
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 90,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text("Owner contacts: ", style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'OpenSans',
-                            letterSpacing: 1.5,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold
-                        )),
-                        const SizedBox(height: 20,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.account_circle, color: kPrimaryLightColor,),
-                            Text("${snapshotData.homestayOwner!}", style: const TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'OpenSans',
-                              letterSpacing: 1.5,
-                              color: Colors.black87,
-                            )),
-                            const SizedBox(width: 10,),
-                            const Icon(Icons.phone, color: Colors.green),
-                            Text("${snapshotData.homestayOwnerPhone!}", style: const TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'OpenSans',
-                              letterSpacing: 1.5,
-                              color: Colors.black87,
-                            ))
-                          ],
-                        ),
-                        const SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.email, color: Colors.red,),
-                            Text("${snapshotData.homestayOwnerEmail!}", style: const TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'OpenSans',
-                              letterSpacing: 1.5,
-                              color: Colors.black87,
-                            ))
-                          ],
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 90,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text("Your service list: ", style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'OpenSans',
-                            letterSpacing: 1.5,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold
-                        )),
-                        Center(
-                          child: snapshotData.homestayServiceList.isNotEmpty ? SizedBox(
-                            width: 300,
-                            child: Table(
-                                border: TableBorder.all(color: Colors.black54.withOpacity(0.2)),
-                                columnWidths: const {
-                                  0 : IntrinsicColumnWidth(),
-                                  2 : IntrinsicColumnWidth()
-                                },
-                                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                                children: rows
+                            const SizedBox(height: 10,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text("Name:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+
+                                )),
+                                const SizedBox(width: 7,),
+                                Text(snapshotData.homestayName, style: const TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ))
+                              ],
                             ),
-                          ) : const Text("You didn't register any service",style: TextStyle(
-                            fontSize: 17,
-                            fontFamily: 'OpenSans',
-                            letterSpacing: 1.0,
-                            color: Colors.black,
-                          )),
+                            const SizedBox(height: 7,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text("Location:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+                                )),
+                                const SizedBox(width: 5,),
+                                Flexible(
+                                    child: Text(
+                                        snapshotData.homestayLocation,
+                                        maxLines: 2,
+                                        softWrap: true,
+                                        overflow: TextOverflow.fade,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'OpenSans',
+                                          letterSpacing: 1.5,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black54,
+                                        )
+                                    )
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 7,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text("Rating:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+                                )),
+                                const SizedBox(width: 5,),
+                                RatingComponent(size: 17.0, point: snapshotData.homestayAverageRating)
+                              ],
+                            ),
+                            const SizedBox(height: 7,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text("Owner:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+                                )),
+                                const SizedBox(width: 5,),
+                                Text(snapshotData.homestayOwner, style: const TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ))
+                              ],
+                            ),
+                            const SizedBox(height: 7,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text("More details:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+                                )),
+                                const SizedBox(width: 5,),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomestayDetailsScreen(homestayName: snapshotData.homestayName,),));
+                                  },
+                                  child: const Text("Details page", style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'OpenSans',
+                                      letterSpacing: 1.5,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.greenAccent,
+                                      decoration: TextDecoration.underline,
+                                      decorationThickness: 1.0,
+                                      decorationColor: Colors.greenAccent
+                                  )),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                    ),
+                    const SizedBox(height: 30,),
+                    Center(
+                      child: Container(
+                        width: 350,
+                        height: 200,
+                        padding: const EdgeInsets.only(left: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            color: Colors.white,
+                            border: Border.all(color: Colors.black, width: 2.0, style: BorderStyle.solid)
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                                "booking information".toUpperCase(), style: const TextStyle(
+                                fontSize: 17,
+                                fontFamily: 'OpenSans',
+                                letterSpacing: 1.5,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold
+                            )),
+                            const SizedBox(height: 10,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text("Check-in:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+
+                                )),
+                                const SizedBox(width: 7,),
+                                Text(snapshotData.checkIn, style: const TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ))
+                              ],
+                            ),
+                            const SizedBox(height: 7,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text("Check-out:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+                                )),
+                                const SizedBox(width: 5,),
+                                Text(snapshotData.checkOut, style: const TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                )),
+                              ],
+                            ),
+                            const SizedBox(height: 7,),
+                            snapshotData.homestayServiceList.isEmpty ? Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Text("Service:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+                                )),
+                                SizedBox(width: 5,),
+                                Text("No service selected", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ))
+                              ],
+                            ) : Row(
+                              children: [
+                                const Text("Service:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+                                )),
+                                const SizedBox(height: 5,),
+                                GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Center(
+                                              child: Text("Service list"),
+                                            ),
+                                            content: SizedBox(
+                                              height: snapshotData.homestayServiceList.length == 1 ? 25 : snapshotData.homestayServiceList.length == 2 ? 50 : snapshotData.homestayServiceList.length == 3 ? 75 : 200,
+                                              width: 100,
+                                              child: SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              physics: const AlwaysScrollableScrollPhysics(),
+
+                                              child: ListView.builder(
+                                                scrollDirection: Axis.vertical,
+                                                itemCount: snapshotData.homestayServiceList.length,
+                                                shrinkWrap: true,
+                                                itemBuilder: (context, index) {
+                                                  return Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Text(snapshotData.homestayServiceList[index].name, style: const TextStyle(
+                                                          fontSize: 16,
+                                                          fontFamily: 'OpenSans',
+                                                          letterSpacing: 1.5,
+                                                          color: Colors.black54,
+                                                          fontWeight: FontWeight.bold
+                                                      )),
+                                                      const SizedBox(width: 5,),
+                                                      const Text("-", style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontFamily: 'OpenSans',
+                                                          letterSpacing: 1.5,
+                                                          color: Colors.black54
+                                                      )),
+                                                      Text("${currencyFormat.format(snapshotData.homestayServiceList[index].price)} VND", style: const TextStyle(
+                                                        fontSize: 16,
+                                                        fontFamily: 'OpenSans',
+                                                        letterSpacing: 1.5,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.green,
+                                                      )),
+                                                    ],
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          );
+                                        },
+                                    );
+                                  },
+                                  child: const Text("2 services(View details)", style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'OpenSans',
+                                      letterSpacing: 1.5,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.greenAccent,
+                                      decoration: TextDecoration.underline,
+                                      decorationThickness: 1.0,
+                                      decorationColor: Colors.greenAccent
+                                  )),
+                                )
+                              ],
+                            ),
+
+                            const SizedBox(height: 7,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text("Total:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+
+                                )),
+                                const SizedBox(width: 7,),
+                                Text("${currencyFormat.format(snapshotData.totalPrice)} VND", style: const TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ))
+                              ],
+                            ),
+                            const SizedBox(height: 7,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text("Deposit:", style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  color: Colors.black87,
+
+                                )),
+                                const SizedBox(width: 7,),
+                                Text("${currencyFormat.format(snapshotData.deposit)} VND", style: const TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'OpenSans',
+                                  letterSpacing: 1.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ))
+                              ],
+                            ),
+                          ]
+                        )
+                      ),
+                    ),
+                    const SizedBox(height: 30,),
+                    Center(
+                      child: Container(
+                          width: 350,
+                          height: 170,
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                              color: Colors.white,
+                              border: Border.all(color: Colors.black, width: 2.0, style: BorderStyle.solid)
+                          ),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                    "landlord information".toUpperCase(), style: const TextStyle(
+                                    fontSize: 17,
+                                    fontFamily: 'OpenSans',
+                                    letterSpacing: 1.5,
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.bold
+                                )),
+                                const SizedBox(height: 10,),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Text("Name:", style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'OpenSans',
+                                      letterSpacing: 1.5,
+                                      color: Colors.black87,
+
+                                    )),
+                                    const SizedBox(width: 7,),
+                                    Text(snapshotData.homestayOwner, style: const TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'OpenSans',
+                                      letterSpacing: 1.5,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black54,
+                                    ))
+                                  ],
+                                ),
+                                const SizedBox(height: 7,),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Text("Email:", style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'OpenSans',
+                                      letterSpacing: 1.5,
+                                      color: Colors.black87,
+                                    )),
+                                    const SizedBox(width: 5,),
+                                    Flexible(
+                                        child: Text(
+                                            snapshotData.homestayOwnerEmail,
+                                            maxLines: 2,
+                                            softWrap: true,
+                                            overflow: TextOverflow.fade,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontFamily: 'OpenSans',
+                                              letterSpacing: 1.5,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black54,
+                                        )),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 7,),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Text("Phone:", style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'OpenSans',
+                                      letterSpacing: 1.5,
+                                      color: Colors.black87,
+                                    )),
+                                    const SizedBox(width: 5,),
+                                    Text("${snapshotData.homestayOwnerPhone}", style: const TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'OpenSans',
+                                      letterSpacing: 1.5,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black54,
+                                    ))
+                                  ],
+                                ),
+                              ]
+                          )
+                      ),
                     ),
                     const SizedBox(height: 20,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Total: ", style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'OpenSans',
-                            letterSpacing: 1.5,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold
-                        )),
-                        Text("${currencyFormat.format(snapshotData.totalPrice!)}/VND", style: const TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'OpenSans',
-                          letterSpacing: 1.5,
-                          color: Colors.black87,
-                        )),
-                        const SizedBox(width: 10,),
-                        const Text("Deposit: ", style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'OpenSans',
-                            letterSpacing: 1.5,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold
-                        )),
-                        Text("${currencyFormat.format(snapshotData.deposit!)}/VND", style: const TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'OpenSans',
-                          letterSpacing: 1.5,
-                          color: Colors.black87,
-
-                        )),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     const Text("Total: ", style: TextStyle(
+                    //         fontSize: 15,
+                    //         fontFamily: 'OpenSans',
+                    //         letterSpacing: 1.5,
+                    //         color: Colors.black87,
+                    //         fontWeight: FontWeight.bold
+                    //     )),
+                    //     Text("${currencyFormat.format(snapshotData.totalPrice!)}/VND", style: const TextStyle(
+                    //       fontSize: 15,
+                    //       fontFamily: 'OpenSans',
+                    //       letterSpacing: 1.5,
+                    //       color: Colors.black87,
+                    //     )),
+                    //     const SizedBox(width: 10,),
+                    //     const Text("Deposit: ", style: TextStyle(
+                    //         fontSize: 15,
+                    //         fontFamily: 'OpenSans',
+                    //         letterSpacing: 1.5,
+                    //         color: Colors.black87,
+                    //         fontWeight: FontWeight.bold
+                    //     )),
+                    //     Text("${currencyFormat.format(snapshotData.deposit!)}/VND", style: const TextStyle(
+                    //       fontSize: 15,
+                    //       fontFamily: 'OpenSans',
+                    //       letterSpacing: 1.5,
+                    //       color: Colors.black87,
+                    //
+                    //     )),
+                    //   ],
+                    // ),
                     const SizedBox(height: 10,),
                     FutureBuilder(
-                        future: bookingService.findPassengerCancelBookingTicket(widget.username, widget.bookingId!),
+                        future: bookingService.findPassengerCancelBookingTicket(widget.email, widget.bookingId!),
                         builder: (context, cancelTicketSnapshot) {
                           if(cancelTicketSnapshot.connectionState == ConnectionState.waiting) {
                             return const Center(
@@ -324,10 +613,12 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                       children: [
                                         Icon(
                                           cancelTicketSnapshotData.secondTimeCancelActive == true ? Icons.cancel_presentation : Icons.cancel_presentation_outlined,
+                                          size: 50,
                                           color: cancelTicketSnapshotData.secondTimeCancelActive == true ? Colors.green : Colors.red,
                                         ),
                                         Icon(
                                           cancelTicketSnapshotData.firstTimeCancelActive == true ? Icons.cancel_presentation : Icons.cancel_presentation_outlined,
+                                          size: 50,
                                           color: cancelTicketSnapshotData.firstTimeCancelActive == true ? Colors.green : Colors.red,
                                         )
                                       ],
@@ -337,9 +628,15 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                           cancelTicketSnapshotData.firstTimeCancelActive == true
                                               ? "You have free cancel booking for first time" :
                                           cancelTicketSnapshotData.firstTimeCancelActive == false && cancelTicketSnapshotData.secondTimeCancelActive == true
-                                              ? "You can cancel booking with 5% of deposit fee"
-                                              : "You can cancel booking and will loss 100% of deposit fee"
-                                      )
+                                              ? "You will lost 5% deposit if cancel"
+                                              : "You will lost 100% deposit if cancel"
+                                          , style: const TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'OpenSans',
+                                        letterSpacing: 1.5,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black54,
+                                      ))
                                     ),
                                   ],
                                 ),
@@ -350,9 +647,9 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                         },
                     ),
                     const SizedBox(height: 10,),
-                    ElevatedButton(
+                     ElevatedButton(
                       onPressed: () {
-                        if(snapshotData.status.compareTo(bookingStatus["pending_check_in"]) == 0) {
+                        if(snapshotData.status.compareTo(bookingStatus["pending_check_in"]) == 0 || snapshotData.status.compareTo(bookingStatus["pending_check_in_remain_sent"]) == 0 || snapshotData.status.compareTo(bookingStatus["pending_check_in_appointment_sent"]) == 0) {
                           if(isCheckInDate) {
                             showDialog(context: context, builder: (context) => AlertDialog(
                               title: const Center(child: Text("Enter booking Otp"),),
@@ -362,7 +659,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                 decoration: InputDecoration(
                                     suffixIcon: IconButton(icon: const Icon(Icons.safety_check, color: Colors.green,),
                                       onPressed: () {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookingCheckInNavigator(bookingOtp: snapshotData.bookingOtp, bookingId: snapshotData.id, username: widget.username),));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookingCheckInNavigator(bookingOtp: snapshotData.bookingOtp, bookingId: snapshotData.id, email: widget.email),));
                                       },)
                                 ),
                               ),
@@ -389,7 +686,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                             ),);
                           }
                         } else if(snapshotData.status.compareTo(bookingStatus["check_in"]) == 0
-                            || snapshotData.status.compareTo(bookingStatus["relative_check_in"])) {
+                            || snapshotData.status.compareTo(bookingStatus["relative_check_in"]) ==0 || snapshotData.status.compareTo(bookingStatus["landlord_check_in"]) == 0) {
                           showDialog(
                               context: context,
                               builder: (context) {
@@ -398,7 +695,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                     child: Text("Confirm"),
                                   ),
                                   content: FutureBuilder(
-                                    future: userService.getUserWallet(widget.username!),
+                                    future: userService.getUserWallet(widget.email!),
                                     builder: (context, walletSnapshot) {
                                       if(walletSnapshot.connectionState == ConnectionState.waiting) {
                                         return const SizedBox(
@@ -507,7 +804,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                     ),
                                     ElevatedButton(
                                         onPressed: () {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => BookingCheckOutNavigator(bookingId: widget.bookingId, username: widget.username),));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => BookingCheckOutNavigator(bookingId: widget.bookingId, email: widget.email),));
                                         },
                                         style: ElevatedButton.styleFrom(
                                             primary: Colors.green,
@@ -533,7 +830,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                               : snapshotData.status.compareTo(bookingStatus["check_out"]) == 0 || snapshotData.status.compareTo(bookingStatus["landlord_check_out"]) == 0 || snapshotData.status.compareTo(bookingStatus["relative_check_out"]) == 0
                               ? kPrimaryLightColor
                               : snapshotData.status.compareTo(bookingStatus["rejected"]) == 0 || snapshotData.status.compareTo(bookingStatus["canceled"]) == 0
-                              ? Colors.red
+                              ? Colors.white
                               : kPrimaryLightColor
 
                       ),
@@ -550,11 +847,11 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                           : snapshotData.status.compareTo(bookingStatus["canceled"]) == 0
                           ? "Canceled".toUpperCase()
                           : "",
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(color: snapshotData.status.compareTo(bookingStatus["canceled"]) == 0 || snapshotData.status.compareTo(bookingStatus["rejected"]) == 0 ? Colors.red : Colors.white),
                       ),
                     ),
                     const SizedBox(height: 10,),
-                    TextButton(
+                    !(snapshotData.status.compareTo(bookingStatus["canceled"]) == 0 || snapshotData.status.compareTo(bookingStatus["rejected"]) == 0) ?TextButton(
                         onPressed: () {
                           showDialog(
                               context: context,
@@ -599,7 +896,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                     ),
                                     ElevatedButton(
                                         onPressed: () {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => CancelBookingNavigator(username: widget.username,bookingId: widget.bookingId, isFirstTimeCancelActive: isFirstTimeCancelActive, isSecondTimeCancelActive: isSecondTimeCancelActive,),));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => CancelBookingNavigator(email: widget.email,bookingId: widget.bookingId, isFirstTimeCancelActive: isFirstTimeCancelActive, isSecondTimeCancelActive: isSecondTimeCancelActive,),));
                                         },
                                         style: ElevatedButton.styleFrom(
                                             primary: Colors.green,
@@ -615,7 +912,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                           );
                         },
                         child: Text("Cancel booking".toUpperCase())
-                    ) 
+                    )  : const SizedBox()
                   ],
                 ),
               );

@@ -68,7 +68,7 @@ class _BookingSummaryComponentState extends State<BookingSummaryComponent> {
   int totalServicePrice() {
     int totalServicePrice = 0;
     if(widget.homestayServiceList != null) {
-      for(var homestayService in widget!.homestayServiceList!) {
+      for(var homestayService in widget.homestayServiceList!) {
         totalServicePrice = totalServicePrice + homestayService.price!;
       }
     }
@@ -121,7 +121,7 @@ class _BookingSummaryComponentState extends State<BookingSummaryComponent> {
           }
         }
       } else {
-        if(bookingTimeElement.weekday == DateTime.sunday || bookingTimeElement.weekday == DateTime.saturday) {
+        if((bookingTimeElement.weekday == DateTime.sunday || bookingTimeElement.weekday == DateTime.saturday) &&  widget.homestayModel!.homestayPriceLists!.contains(HomestayPriceListModel(type: "weekend"))) {
           total = total + widget.homestayModel!.homestayPriceLists!.where((element) => element.type.compareTo("weekend") == 0).single.price as int;
         } else {
           total = total + widget.homestayModel!.homestayPriceLists!.where((element) => element.type.compareTo("normal") == 0).single.price as int;
@@ -139,7 +139,12 @@ class _BookingSummaryComponentState extends State<BookingSummaryComponent> {
   
   @override
   Widget build(BuildContext context) {
-    int totalBookingPrice = totalServicePrice() + widget.totalPriceOfBookingDays!.totalPrice!;
+    int totalBookingPrice;
+    if(widget.homestayServiceList == null) {
+      totalBookingPrice = widget.totalPriceOfBookingDays!.totalPrice!;
+    } else {
+      totalBookingPrice = totalServicePrice() + widget.totalPriceOfBookingDays!.totalPrice!;
+    }
     int deposit = totalBookingPrice ~/ 2;
     final firebaseAuth = FirebaseAuth.instance;
     depositTextFieldController.text = deposit.toString();
@@ -861,7 +866,7 @@ class _BookingSummaryComponentState extends State<BookingSummaryComponent> {
                                     checkIn: widget.checkIn,
                                     checkOut: widget.checkOut
                                 );
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => HomestayBookingNavigator(bookingModel: bookingModel, username: firebaseAuth.currentUser!.displayName, amount: int.parse(depositTextFieldController.text)),));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => HomestayBookingNavigator(bookingModel: bookingModel, email: firebaseAuth.currentUser!.email, amount: int.parse(depositTextFieldController.text)),));
                               },
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.green,

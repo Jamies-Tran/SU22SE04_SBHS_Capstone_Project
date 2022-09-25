@@ -14,11 +14,11 @@ class HomestayBookingListComponent extends StatelessWidget {
     Key? key,
     this.homestayName,
     this.status,
-    this.username
+    this.email
   }) : super(key: key);
   final String? homestayName;
   final String? status;
-  final String? username;
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class HomestayBookingListComponent extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () => {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailsScreen(bookingId: getBookingListOfUser[index].id, username: username),))
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailsScreen(bookingId: getBookingListOfUser[index].id, email: email),))
                       },
                       child: Container(
                         height: 170,

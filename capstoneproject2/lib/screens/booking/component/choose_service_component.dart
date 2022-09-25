@@ -70,7 +70,8 @@ class _ChooseServiceComponentState extends State<ChooseServiceComponent> {
                   finishingPhase: true,
                   checkInDate: widget.checkIn,
                   checkOutDate: widget.checkOut,
-                  homestayServiceList: homestayServices
+                  homestayServiceList: homestayServices,
+                  totalPriceOfBookingDays: widget.totalPriceOfBookingDays,
               ),));
             },
             child: const Text("Skip"),
