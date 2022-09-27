@@ -32,8 +32,11 @@
               width: 100%;
               max-height: 170px;
               height: 170px;
+              display: contents;
+              text-align: center;
               img{
-                display: contents;
+                width: 99%;
+                height: 99%;
               }
             }
             .name{

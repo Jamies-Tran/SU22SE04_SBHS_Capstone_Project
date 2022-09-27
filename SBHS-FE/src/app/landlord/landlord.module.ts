@@ -35,7 +35,6 @@ import { NgxEditorModule } from 'ngx-editor';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { HomestayComponent } from './homestay/homestay.component';
 
-import { DeleteHomestayComponent } from './homestay/delete-homestay/delete-homestay.component';
 import { HomestayDetailComponent } from './homestay/homestay-detail/homestay-detail.component';
 
 @NgModule({
@@ -46,8 +45,6 @@ import { HomestayDetailComponent } from './homestay/homestay-detail/homestay-det
     BookingComponent,
     BookingDetailComponent,
     HomestayComponent,
-
-    DeleteHomestayComponent,
     HomestayDetailComponent,
   ],
   imports: [

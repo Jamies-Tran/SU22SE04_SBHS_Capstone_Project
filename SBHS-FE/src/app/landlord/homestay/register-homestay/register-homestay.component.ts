@@ -52,7 +52,8 @@ export class RegisterHomestayComponent implements OnInit {
 
   // richtext
   editor!: Editor;
-  html!: '';
+  editor2!: Editor;
+  descriptionStep4!: any;
   toolbar: Toolbar = [
     ['bold', 'italic'],
     ['underline', 'strike'],
@@ -63,6 +64,7 @@ export class RegisterHomestayComponent implements OnInit {
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
+  oParser = new DOMParser();
 
   // new Facility
   addFacility() {
@@ -318,6 +320,7 @@ export class RegisterHomestayComponent implements OnInit {
   ListSpecialDay: any[] = [];
   ngOnInit(): void {
     this.editor = new Editor();
+    this.editor2 = new Editor();
     this.http.getSpecialDay().subscribe((data) => {
       for (let items of data) {
         this.ListSpecialDay.push({
@@ -349,6 +352,7 @@ export class RegisterHomestayComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.editor.destroy();
+    this.editor2.destroy();
   }
 
   // lấy file hình
@@ -379,6 +383,18 @@ export class RegisterHomestayComponent implements OnInit {
     } else {
       this.informationFormGroup.patchValue({ image: false });
     }
+  }
+  onRemoved(){
+    for( this.file of this.homestayImageFiles){
+
+      this.homestayImageFiles.splice(this.homestayImageFiles.indexOf(this.file),this.homestayImageFiles.length);
+    }
+    for( this.file of this.homestayLicenseFiles){
+
+      this.homestayLicenseFiles.splice(this.homestayLicenseFiles.indexOf(this.file),this.homestayLicenseFiles.length);
+    }
+
+
   }
 
   // lấy file hình
@@ -426,13 +442,18 @@ export class RegisterHomestayComponent implements OnInit {
       this.informationFormGroup.patchValue({ image: false });
     }
   }
-
+  oDOM !: any;
+  text !:any;
   informationForm() {
     console.log(this.informationFormGroup.value);
     // console.log("homestay license", this.homestayLicense);
     console.log('homestay image', this.homestayImages);
 
     console.log('lít special day', this.ListSpecialDay);
+    this.oDOM = this.oParser.parseFromString(this.informationFormGroup.controls.description.value!, "text/html");
+   this.text = this.oDOM.body.innerText;
+   console.log("text" , this.text);
+   this.descriptionStep4 = this.informationFormGroup.controls.description.value!;
   }
   facilityForm() {
     console.log(this.facilityFormGroup.value);
@@ -477,7 +498,7 @@ export class RegisterHomestayComponent implements OnInit {
     let checkInTime = formInformationFormGroupValue.checkInTime.value!;
     let checkOutTime = formInformationFormGroupValue.checkOutTime.value!;
     let numberOfRoom = formInformationFormGroupValue.number.value!;
-    let description = formInformationFormGroupValue.description.value!;
+    let description = this.text;
 
     // price special day
     type homestayPriceList = Array<{
