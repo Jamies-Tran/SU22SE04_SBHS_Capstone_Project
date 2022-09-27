@@ -13,7 +13,7 @@ public interface IRequestService {
 
 	HomestayUpdateRequestEntity createHomestayUpdateRequest(HomestayUpdateRequestEntity homestayUpdateRequestEntity);
 	
-	LandlordBalanceWithdrawalRequestEntity createBalanceWithdrawalRequest(LandlordBalanceWithdrawalRequestEntity withdrawalRequestEntity);
+	LandlordBalanceWithdrawalRequestEntity createBalanceWithdrawalRequest(LandlordBalanceWithdrawalRequestEntity withdrawalRequestEntity, String password);
 
 	LandlordBalanceWithdrawalRequestEntity findWithdrawalRequestById(Long requestId);
 	
@@ -35,6 +35,8 @@ public interface IRequestService {
 	List<HomestayPostingRequestEntity> findAllHomestayPostingRequestByStatus(String status);
 	
 	List<HomestayUpdateRequestEntity> findAllHomestayUpdateRequestByStatus(String status);
+	
+	List<LandlordBalanceWithdrawalRequestEntity> findAllWithdrawalRequestByStatus(String status);
 
 	void verifyHomestayUpdateRequest(Long requestId, boolean isVerifyByAdmin, boolean isAccepted,
 			@Nullable String rejectMessage);
@@ -45,6 +47,6 @@ public interface IRequestService {
 	
 	void deleteHomestayUpdateRequest(Long requestId);
 	
-	void autoDeleteHomestayUpdateRequest();
+//	void autoUpdateHomestayDeleteRequest();
 
 }

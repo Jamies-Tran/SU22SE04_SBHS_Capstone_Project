@@ -1,7 +1,6 @@
 package com.swm.serviceImpl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpHeaders;
@@ -62,7 +62,7 @@ import com.swm.util.DateParsingUtil;
 
 @Service
 public class HomestayService implements IHomestayService {
-	
+
 	@Autowired
 	private IHomestayRepository homestayRepo;
 
@@ -199,7 +199,7 @@ public class HomestayService implements IHomestayService {
 			p.setCreatedBy(accountPoster);
 			p.setCreatedDate(currentDate);
 		});
-		
+
 		UserEntity userEntity = userService.findUserByUserInfo(accountPoster);
 		LandlordEntity landlordEntity = userEntity.getLandlord();
 		if (landlordEntity.getWallet().getBalance() < 1000) {
@@ -309,9 +309,12 @@ public class HomestayService implements IHomestayService {
 
 	@Override
 	public HomestayPagesResponseDto getHomestayPage(HomestayFilterDto filter, int page, int size) {
-		Page<HomestayEntity> homestayPages = this.homestayRepo.homestayPagination(PageRequest.of(page, size), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+		Page<HomestayEntity> homestayPages = this.homestayRepo.homestayPagination(PageRequest.of(page, size),
+				HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
 		List<HomestayEntity> homestayList = homestayPages.getContent();
-		
+		Pageable pageable = null;
+		System.out.println(filter.getFilterByHighestAveragePoint());
+
 		if (filter.getFilterByNearestPlace() != null && filter.getFilterByNearestPlace()) {
 			List<HomestayEntity> results = this.getNeareastLocationFromPlaces(filter.getFilterByStr()).stream()
 					.map(h -> this.findHomestayByAddress(h.getAddress())).collect(Collectors.toList());
@@ -324,34 +327,136 @@ public class HomestayService implements IHomestayService {
 			homestayPagesResponseDto.setTotalPages(homestayCustomPages.totalPages());
 
 			return homestayPagesResponseDto;
-			
+
+		} else {
+			if (StringUtils.hasLength(filter.getFilterByStr())) {
+				System.out.println("filter string not null");
+				if ((filter.getFilterByHighestAveragePoint() == null
+						|| filter.getFilterByHighestAveragePoint() == false)
+						&& (filter.getFilterByNewestPublishedDate() == null
+								|| filter.getFilterByNewestPublishedDate() == false)
+						&& (filter.getFilterByTrending() == null || filter.getFilterByTrending() == false)) {
+					System.out.println("filter all null");
+					pageable = PageRequest.of(page, size);
+
+				} else if ((filter.getFilterByHighestAveragePoint() != null
+						&& filter.getFilterByHighestAveragePoint() == true)
+						&& (filter.getFilterByNewestPublishedDate() == null
+								|| filter.getFilterByNewestPublishedDate() == false)
+						&& (filter.getFilterByTrending() == null || filter.getFilterByTrending() == false)) {
+					System.out.println("average filter not null");
+					pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "averageRatingPoint"));
+
+				} else if ((filter.getFilterByHighestAveragePoint() == null
+						|| filter.getFilterByHighestAveragePoint() == false)
+						&& (filter.getFilterByNewestPublishedDate() != null
+								&& filter.getFilterByNewestPublishedDate() == true)
+						&& (filter.getFilterByTrending() == null || filter.getFilterByTrending() == false)) {
+					System.out.println("new filter not null");
+					pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdDate"));
+
+				} else if ((filter.getFilterByHighestAveragePoint() == null
+						|| filter.getFilterByHighestAveragePoint() == false)
+						&& (filter.getFilterByNewestPublishedDate() == null
+								|| filter.getFilterByNewestPublishedDate() == false)
+						&& (filter.getFilterByTrending() != null && filter.getFilterByTrending() == true)) {
+					System.out.println("trending filter not null");
+					pageable = PageRequest.of(page, size,
+							Sort.by(Direction.DESC, "totalBookingTime", "averageRatingPoint"));
+
+				} else if ((filter.getFilterByHighestAveragePoint() != null
+						&& filter.getFilterByHighestAveragePoint() == true)
+						&& (filter.getFilterByNewestPublishedDate() != null
+								&& filter.getFilterByNewestPublishedDate() == true)
+						&& (filter.getFilterByTrending() == null || filter.getFilterByTrending() == false)) {
+					System.out.println("average and new filter not null");
+					pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdDate", "averageRatingPoint"));
+
+				} else if ((filter.getFilterByHighestAveragePoint() != null
+						&& filter.getFilterByHighestAveragePoint() == true)
+						&& (filter.getFilterByNewestPublishedDate() != null
+								&& filter.getFilterByNewestPublishedDate() == true)
+						&& (filter.getFilterByTrending() != null && filter.getFilterByTrending() == true)) {
+					System.out.println("average, new and trending filter not null");
+					pageable = PageRequest.of(page, size,
+							Sort.by(Direction.DESC, "totalRatingTime", "averageRatingPoint", "createdDate"));
+
+				}
+
+				homestayPages = this.homestayRepo.homestayFilterByStringPagination(pageable, filter.getFilterByStr(),
+						HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+
+			} else {
+				if (filter.getLowestPrice() != null || filter.getHighestPrice() != null) {
+					if (filter.getLowestPrice() > filter.getHighestPrice()) {
+						Long tmp = filter.getLowestPrice();
+						filter.setLowestPrice(filter.getHighestPrice());
+						filter.setHighestPrice(tmp);
+					}
+
+					if (filter.getLowestPrice() == null) {
+						filter.setLowestPrice(filter.getHighestPrice());
+					} else if (filter.getHighestPrice() == null) {
+						filter.setHighestPrice(filter.getLowestPrice());
+					}
+
+					if ((filter.getFilterByHighestAveragePoint() == null
+							|| filter.getFilterByHighestAveragePoint() == false)
+							&& (filter.getFilterByNewestPublishedDate() == null
+									|| filter.getFilterByNewestPublishedDate() == false)) {
+
+						pageable = PageRequest.of(page, size);
+
+					} else if ((filter.getFilterByHighestAveragePoint() != null
+							&& filter.getFilterByHighestAveragePoint() == true)
+							&& (filter.getFilterByNewestPublishedDate() == null
+									|| filter.getFilterByNewestPublishedDate() == false)) {
+
+						pageable = PageRequest.of(page, size,
+								Sort.by(Direction.DESC, "averageRatingPoint", "totalRatingTime"));
+
+					}
+
+					homestayPages = homestayRepo.homestayFilterByPricePagination(pageable, filter.getLowestPrice(),
+							filter.getHighestPrice());
+				} else {
+					if ((filter.getFilterByHighestAveragePoint() != null
+							&& filter.getFilterByHighestAveragePoint() == true)
+							&& (filter.getFilterByNewestPublishedDate() == null
+									|| filter.getFilterByNewestPublishedDate() == false)
+							&& (filter.getFilterByTrending() == null || filter.getFilterByTrending() == false)) {
+
+						pageable = PageRequest.of(page, size,
+								Sort.by(Direction.DESC, "averageRatingPoint", "totalRatingTime"));
+					} else if ((filter.getFilterByHighestAveragePoint() == null
+							|| filter.getFilterByHighestAveragePoint() == false)
+							&& (filter.getFilterByNewestPublishedDate() != null
+									&& filter.getFilterByNewestPublishedDate() == true)
+							&& (filter.getFilterByTrending() == null || filter.getFilterByTrending() == false)) {
+
+						pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdDate"));
+
+					} else if ((filter.getFilterByHighestAveragePoint() == null
+							|| filter.getFilterByHighestAveragePoint() == false)
+							&& (filter.getFilterByNewestPublishedDate() == null
+									|| filter.getFilterByNewestPublishedDate() == false)
+							&& (filter.getFilterByTrending() != null && filter.getFilterByTrending() == true)) {
+
+						pageable = PageRequest.of(page, size,
+								Sort.by(Direction.DESC, "totalBookingTime", "averageRatingPoint", "totalRatingTime"));
+
+					}
+
+					homestayPages = homestayRepo.homestayPagination(pageable,
+							HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
+
+				}
+
+			}
+
 		}
 
-		if (StringUtils.hasLength(filter.getFilterByStr())) {
-			homestayPages = this.homestayRepo.homestayFilterByStringPagination(PageRequest.of(page, size, Sort.by(Direction.DESC, "createdDate")), filter.getFilterByStr(), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name()); 
-			homestayList = homestayPages.getContent();
-		}
-
-		if (filter.getFilterByHighestAveragePoint() != null && filter.getFilterByHighestAveragePoint()) {
-			homestayPages = this.homestayRepo.homestayPagination(PageRequest.of(page, size, Sort.by(Direction.DESC, "average")), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name()); 
-			homestayList = homestayPages.getContent();
-		}
-
-		if (filter.getLowestPrice() != null && filter.getHighestPrice() != null) {
-			homestayPages = this.homestayRepo.homestayFilterByPricePagination(PageRequest.of(page, size), filter.getLowestPrice(), filter.getHighestPrice());
-			homestayList = homestayPages.filter(h -> averageHomestayPrice(h) >= filter.getLowestPrice()
-					&& averageHomestayPrice(h) <= filter.getHighestPrice()).toList();
-		}
-
-		if (filter.getFilterByNewestPublishedDate() != null && filter.getFilterByNewestPublishedDate()) {
-			homestayPages = this.homestayRepo.homestayPagination(PageRequest.of(page, size, Sort.by(Direction.DESC, "createdDate")), HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
-			homestayList = homestayPages.getContent();
-		}
-
-		if(filter.getFilterByTrending() != null && filter.getFilterByTrending()) {
-			
-		}
-
+		homestayList = homestayPages.getContent();
 		HomestayPagesResponseDto homestayPagesResponseDto = new HomestayPagesResponseDto();
 		List<HomestayResponseDto> homestayResponseListDto = homestayList.stream()
 				.map(h -> homestayConvert.homestayResponseDtoConvert(h)).collect(Collectors.toList());
@@ -386,9 +491,9 @@ public class HomestayService implements IHomestayService {
 		StringBuilder url = new StringBuilder();
 		StringBuilder destinationBuilder = new StringBuilder();
 		List<HomestayEntity> homestayList = this.homestayRepo.findAll();
-		if(homestayList.size() > 1) {
-			for(int i = 0; i < homestayList.size(); i++) {
-				if(i == 0) {
+		if (homestayList.size() > 1) {
+			for (int i = 0; i < homestayList.size(); i++) {
+				if (i == 0) {
 					destinationBuilder.append(homestayList.get(i).getAddress());
 				} else {
 					destinationBuilder.append("|").append(homestayList.get(i).getAddress());
@@ -397,18 +502,23 @@ public class HomestayService implements IHomestayService {
 		} else {
 			destinationBuilder.append(homestayList.get(0).getAddress());
 		}
-		url.append("https://maps.googleapis.com/maps/api/distancematrix/json?origins=").append(origin_address).append("&destinations=").append(destinationBuilder.toString()).append("&key=").append(this.googleApiKey);
-		//url.append("https://rsapi.goong.io/DistanceMatrix?origins=").append(origin_address).append("&destinations=").append("10.845974116058448,106.71233014189893").append("&key=").append("BNftq2V1Va90QtjIOmWZSa8Mq0syezEDNWY6PVT4");
+		url.append("https://maps.googleapis.com/maps/api/distancematrix/json?origins=").append(origin_address)
+				.append("&destinations=").append(destinationBuilder.toString()).append("&key=")
+				.append(this.googleApiKey);
+		// url.append("https://rsapi.goong.io/DistanceMatrix?origins=").append(origin_address).append("&destinations=").append("10.845974116058448,106.71233014189893").append("&key=").append("BNftq2V1Va90QtjIOmWZSa8Mq0syezEDNWY6PVT4");
 		System.out.println(url.toString());
-		
+
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.TEXT_PLAIN);
 //		HttpEntity<DistanceMatrixResponseDto> httpEntity = new HttpEntity<DistanceMatrixResponseDto>(header);
-		//DistanceMatrixResponseDto distanceMatrixResponse = new DistanceMatrixResponseDto();
-		
-		DistanceMatrixResponseGoogleDto distanceMatrixResponse = restTemplate.getForObject(url.toString(), DistanceMatrixResponseGoogleDto.class, header);
-		//DistanceMatrixResponseGoogleDto distanceMatrixResponse = new DistanceMatrixResponseGoogleDto();
-		
+		// DistanceMatrixResponseDto distanceMatrixResponse = new
+		// DistanceMatrixResponseDto();
+
+		DistanceMatrixResponseGoogleDto distanceMatrixResponse = restTemplate.getForObject(url.toString(),
+				DistanceMatrixResponseGoogleDto.class, header);
+		// DistanceMatrixResponseGoogleDto distanceMatrixResponse = new
+		// DistanceMatrixResponseGoogleDto();
+
 		return distanceMatrixResponse;
 	}
 
@@ -468,7 +578,6 @@ public class HomestayService implements IHomestayService {
 		GeocodingGoongResponseDto geoCodingResponse = restTemplate.getForObject(url.toString(),
 				GeocodingGoongResponseDto.class, header);
 
-
 		return geoCodingResponse;
 	}
 
@@ -481,6 +590,22 @@ public class HomestayService implements IHomestayService {
 		return homestayEntity;
 	}
 
+	@Transactional
+	@Override
+	public void autoUpdateDeleteStatusHomestay() {
+		List<HomestayEntity> homestayListEntity = this.homestayRepo.findAll().stream()
+				.filter(h -> h.getStatus().equalsIgnoreCase(HomestayStatus.HOMESTAY_PENDING_DELETE.name()))
+				.collect(Collectors.toList());
+		homestayListEntity.forEach(h -> {
+			h.getBooking().forEach(b -> {
+				if(b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CHECKOUT_BY_LANDLORD.name()) || 
+						b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CHECKOUT_BY_PASSENGER_RELATIVE.name()) || 
+						b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CONFIRM_CHECKOUT.name())) {
+					h.setStatus(HomestayStatus.HOMESTAY_DELETE.name());
+				}
+			});
+		});
+
+	}
+
 }
-
-

@@ -12,5 +12,6 @@ import lombok.Setter;
 public class LandlordBalanceWithdrawalRequestDto extends RequestDto{
 	private Long Id;
 	private Long amount;
+	private String password;
 	private String landlordPhone;
 }

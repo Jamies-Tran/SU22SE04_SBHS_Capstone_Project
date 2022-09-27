@@ -111,14 +111,14 @@ public class RequestController {
 		return new ResponseEntity<>(homestayUpdateRequestResponse, HttpStatus.OK);
 	}
 
-	@GetMapping("homestay-update/{status}")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/homestay-update/{status}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LANDLORD')")
 	public ResponseEntity<?> getHomestayUpdateRequestList(@PathVariable("status") String status) {
 		List<HomestayUpdateRequestEntity> homestayUpdateRequestList = requestService
 				.findAllHomestayUpdateRequestByStatus(status);
 		List<HomestayUpdateRequestDto> homestayUpdateRequestResponseList = homestayUpdateRequestList.stream()
 				.map(h -> requestConvert.homestayUpdateRequestDtoConvert(h)).collect(Collectors.toList());
-		
+
 		return new ResponseEntity<>(homestayUpdateRequestResponseList, HttpStatus.OK);
 	}
 
@@ -136,6 +136,17 @@ public class RequestController {
 		return new ResponseEntity<>(homestayUpdateRequestResponse, HttpStatus.CREATED);
 	}
 
+	@GetMapping("/withdraw-request/{status}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LANDLORD')")
+	public ResponseEntity<?> getWithdrawalRequestList(@PathVariable("status") String status) {
+		List<LandlordBalanceWithdrawalRequestEntity> withdrawalRequestListEntity = requestService
+				.findAllWithdrawalRequestByStatus(status);
+		List<LandlordBalanceWithdrawalRequestDto> withdrawalRequestResponseDtoList = withdrawalRequestListEntity
+				.stream().map(h -> requestConvert.withdrawalDtoConvert(h)).collect(Collectors.toList());
+	
+		return new ResponseEntity<>(withdrawalRequestResponseDtoList, HttpStatus.OK);
+	}
+
 	@PostMapping("/withdraw-request")
 	@PreAuthorize("hasRole('ROLE_LANDLORD')")
 	public ResponseEntity<?> createWithdrawalRequest(
@@ -143,7 +154,7 @@ public class RequestController {
 		LandlordBalanceWithdrawalRequestEntity withdrawalRequestEntity = requestConvert
 				.withdrawalEntityConvert(withdrawalRequest);
 		LandlordBalanceWithdrawalRequestEntity withdrawalRequestPersistence = requestService
-				.createBalanceWithdrawalRequest(withdrawalRequestEntity);
+				.createBalanceWithdrawalRequest(withdrawalRequestEntity, withdrawalRequest.getPassword());
 		LandlordBalanceWithdrawalRequestDto withdrawalRequestResponse = requestConvert
 				.withdrawalDtoConvert(withdrawalRequestPersistence);
 

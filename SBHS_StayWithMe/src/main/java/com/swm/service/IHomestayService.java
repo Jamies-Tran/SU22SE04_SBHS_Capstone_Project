@@ -47,6 +47,6 @@ public interface IHomestayService {
 
 	Long averageHomestayPrice(HomestayEntity homestayEntity);
 	
-	
+	void autoUpdateDeleteStatusHomestay();
 
 }

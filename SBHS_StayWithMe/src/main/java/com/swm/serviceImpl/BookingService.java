@@ -96,6 +96,7 @@ public class BookingService implements IBookingService {
 		}
 	}
 
+	@Transactional
 	@Override
 	public BookingEntity createBooking(BookingEntity bookingEntity) {
 		UserEntity userEntity = userService
@@ -104,6 +105,7 @@ public class BookingService implements IBookingService {
 		passengerEntity.setBooking(List.of(bookingEntity));
 		HomestayEntity homestayEntity = bookingEntity.getBookingHomestay();
 		currentDate = formatDateTime(currentDate);
+		long totalBookingTime = homestayEntity.getTotalBookingTime() + 1;
 		if (!homestayEntity.getStatus().equalsIgnoreCase(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name())) {
 			throw new ResourceNotAllowException(homestayEntity.getName(), "Homestay not active");
 		}
@@ -159,7 +161,8 @@ public class BookingService implements IBookingService {
 		bookingEntity.setBookingOtp(bookingOtpEntity);
 
 		BookingEntity bookingPersisted = bookingRepo.save(bookingEntity);
-
+		homestayEntity.setTotalBookingTime(totalBookingTime);
+		
 		return bookingPersisted;
 	}
 

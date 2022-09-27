@@ -6,6 +6,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.swm.service.IBookingService;
+import com.swm.service.IHomestayService;
 import com.swm.service.ILandlordStatisticService;
 import com.swm.service.IRequestService;
 import com.swm.service.ISystemStatisticService;
@@ -19,6 +20,9 @@ public class SystemHandlerUtil {
 	
 	@Autowired
 	private IRequestService requestService;
+	
+	@Autowired
+	private IHomestayService homestayService;
 	
 	@Autowired
 	private ISystemStatisticService systemStatisticService;
@@ -36,14 +40,19 @@ public class SystemHandlerUtil {
 		requestService.autoAcceptHomestayUpdateRequest();
 	}
 	
-	@Scheduled(fixedDelay = 5000)
-	public void autoDeleteHomestayUpdateRequest() {
-		requestService.autoDeleteHomestayUpdateRequest();
-	}
+//	@Scheduled(fixedDelay = 5000)
+//	public void autoDeleteHomestayUpdateRequest() {
+//		requestService.autoUpdateHomestayDeleteRequest();
+//	}
 	
 	@Scheduled(fixedDelay = 5000)
 	public void autoCreateStatistic() {
 		systemStatisticService.createSystemStatistic();
 		landlordStatisticService.createLandlordStatistic();
+	}
+	
+	@Scheduled(fixedDelay = 5000)
+	public void autoUpdateHomestayDeleteStatus() {
+		homestayService.autoUpdateDeleteStatusHomestay();
 	}
 }

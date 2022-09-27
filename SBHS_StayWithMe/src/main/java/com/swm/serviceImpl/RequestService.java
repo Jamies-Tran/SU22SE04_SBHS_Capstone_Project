@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -81,6 +82,8 @@ public class RequestService implements IRequestService {
 	@Autowired
 	private IAuthenticationService authenticationService;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 //	@Autowired
 //	private IHomestayRepository homestayRepo;
 
@@ -403,33 +406,38 @@ public class RequestService implements IRequestService {
 		homestayUpdateRequestRepo.delete(homestayUpdateRequest);
 	}
 
-	@Transactional
-	@Override
-	public void autoDeleteHomestayUpdateRequest() {
-		List<HomestayUpdateRequestEntity> homestayUpdateRequestList = homestayUpdateRequestRepo.findAll().stream()
-				.filter(r -> r.getStatus().equalsIgnoreCase(RequestStatus.ACCEPT.name())
-						|| r.getStatus().equalsIgnoreCase(RequestStatus.REJECT.name()))
-				.sorted().collect(Collectors.toList());
-		if (homestayUpdateRequestList.size() >= 10) {
-			homestayUpdateRequestRepo.delete(homestayUpdateRequestList.get(homestayUpdateRequestList.size() - 1));
-		}
-	}
+//	@Transactional
+//	@Override
+//	public void autoUpdateHomestayDeleteRequest() {
+//		List<HomestayUpdateRequestEntity> homestayUpdateRequestList = homestayUpdateRequestRepo.findAll().stream()
+//				.filter(r -> r.getStatus().equalsIgnoreCase(RequestStatus.ACCEPT.name())
+//						|| r.getStatus().equalsIgnoreCase(RequestStatus.REJECT.name()))
+//				.sorted().collect(Collectors.toList());
+//		if (homestayUpdateRequestList.size() >= 10) {
+//			homestayUpdateRequestRepo.delete(homestayUpdateRequestList.get(homestayUpdateRequestList.size() - 1));
+//		}
+//	}
 
 	@Override
 	public LandlordBalanceWithdrawalRequestEntity createBalanceWithdrawalRequest(
-			LandlordBalanceWithdrawalRequestEntity withdrawalRequestEntity) {
+			LandlordBalanceWithdrawalRequestEntity withdrawalRequestEntity, String password) {
 		UserEntity user = userService.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
-		withdrawalRequestEntity.setCreatedBy(user.getUsername());
-		withdrawalRequestEntity.setCreatedDate(DateParsingUtil.formatDateTime(currentDate));
-		withdrawalRequestEntity.setStatus(RequestStatus.PENDING.name());
-		withdrawalRequestEntity.setLandlordRequestWithdrawal(user.getLandlord());
-		withdrawalRequestEntity.setCreatedByEmail(user.getEmail());
-		withdrawalRequestEntity.setRequestType(RequestType.WITHDRAWAL_REQUEST.name());
-		user.getLandlord().setWithdrawalRequest(withdrawalRequestEntity);
-		LandlordBalanceWithdrawalRequestEntity withdrawalRequestPersistence = withdrawalRequestRepo
-				.save(withdrawalRequestEntity);
+		if(passwordEncoder.matches(password, user.getPassword())) {
+			withdrawalRequestEntity.setCreatedBy(user.getUsername());
+			withdrawalRequestEntity.setCreatedDate(DateParsingUtil.formatDateTime(currentDate));
+			withdrawalRequestEntity.setStatus(RequestStatus.PENDING.name());
+			withdrawalRequestEntity.setLandlordRequestWithdrawal(user.getLandlord());
+			withdrawalRequestEntity.setCreatedByEmail(user.getEmail());
+			withdrawalRequestEntity.setRequestType(RequestType.WITHDRAWAL_REQUEST.name());
+			user.getLandlord().setWithdrawalRequest(withdrawalRequestEntity);
+			LandlordBalanceWithdrawalRequestEntity withdrawalRequestPersistence = withdrawalRequestRepo
+					.save(withdrawalRequestEntity);
+			return withdrawalRequestPersistence;
+		} else {
+			throw new ResourceNotAllowException("Wrong password");
+		}
 
-		return withdrawalRequestPersistence;
+		
 	}
 
 	@Transactional
@@ -465,15 +473,18 @@ public class RequestService implements IRequestService {
 
 	@Override
 	public List<HomestayUpdateRequestEntity> findAllHomestayUpdateRequestByStatus(String status) {
-		List<HomestayUpdateRequestEntity> homestayEntityList;
-		if(status.equalsIgnoreCase("all")) {
-			homestayEntityList = homestayUpdateRequestRepo.findAll();
-		} else {
-			homestayEntityList = homestayUpdateRequestRepo.findAll().stream().filter(h -> h.getStatus().equalsIgnoreCase(status)).collect(Collectors.toList());
-		}
+		List<HomestayUpdateRequestEntity> homestayEntityListhomestayEntityList = status.equalsIgnoreCase("all") 
+				? homestayUpdateRequestRepo.findAll() : homestayUpdateRequestRepo.findAll().stream().filter(h -> h.getStatus().equalsIgnoreCase(status)).collect(Collectors.toList());;
+	
+		return homestayEntityListhomestayEntityList;
+	}
+
+	@Override
+	public List<LandlordBalanceWithdrawalRequestEntity> findAllWithdrawalRequestByStatus(String status) {
+		List<LandlordBalanceWithdrawalRequestEntity> withdrawalRequestList = status.equalsIgnoreCase("all") 
+				? this.withdrawalRequestRepo.findAll() : this.withdrawalRequestRepo.findAll().stream().filter(h -> h.getStatus().equalsIgnoreCase(status)).collect(Collectors.toList());
 		
-		
-		return homestayEntityList;
+		return withdrawalRequestList;
 	}
 
 }
