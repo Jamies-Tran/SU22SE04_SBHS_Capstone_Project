@@ -50,11 +50,8 @@
                 [ngClass]="{'active' : toggle.editProfile, 'default': !toggle.editProfile}"> <i
                   class="fa-solid fa-arrow-right-from-bracket"></i> Update Profile </div>
 
-              <div class="btn-add" matRipple (click)="toggle.changePass = !toggle.changePass;
-                showDiv.changePass =!showDiv.changePass;
-                showDiv.addBalance=false;showDiv.cashOut = false;showDiv.editProfile= false;"
-                [ngClass]="{'active' : toggle.changePass, 'default': !toggle.changePass}"> <i
-                  class="fa-solid fa-arrow-right-from-bracket"></i> Change Password
+              <div class="btn-add" matRipple routerLink="/ForgetPassword">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Change Password
               </div>
             </div>
           </div>
@@ -217,7 +214,7 @@
               <div class="input-acc-num">
                 <p>Telephone: </p>
                 <mat-form-field class="cash-input" appearance="outline">
-                  <input type="tel" matInput placeholder="090xxx" >
+                  <input type="tel" matInput placeholder="090xxx" [(ngModel)]="phoneWithdraw">
                 </mat-form-field>
               </div>
             </div>
@@ -237,7 +234,7 @@
                 <mat-form-field class="cash-input" appearance="outline">
                   <mat-label>Cash</mat-label>
                   <span matPrefix> <i class="fa-solid fa-dong-sign"></i> &nbsp;</span>
-                  <input type="number" matInput placeholder="1.000" [(ngModel)]="amount">
+                  <input type="number" matInput placeholder="1.000" [(ngModel)]="amountWithdraw">
                 </mat-form-field>
               </div>
               <div class="total-cash">
@@ -246,69 +243,16 @@
               <div class="input-acc-num ">
                 <p>Confirm Password: </p>
                 <mat-form-field class="cash-input password" appearance="outline">
-                  <input type="password" matInput [(ngModel)]="amount">
+                  <input type="password" matInput [(ngModel)]="passwordWithdraw">
                 </mat-form-field>
               </div>
               <div class="button">
                 <button class="btn-denied" mat-raised-button>Cancel</button>
-                <button class="btn-accept" color="primary" mat-raised-button (click)="addMoney()">Submit</button>
+                <button class="btn-accept" color="primary" mat-raised-button (click)="cashOut()">Submit</button>
               </div>
-            </div>
-
-
-
-
-
-          </div>
-          <!-- Change Password -->
-          <div class="card-col card" *ngIf="showDiv.changePass">
-
-            <div class="card-header">
-              <h1>Change Password</h1>
-            </div>
-
-
-            <!-- Password -->
-            <div class="password">
-              <div class="fill">
-                <div class="fill-text">
-                  <p>Old Password:</p>
-                </div>
-
-                <mat-form-field appearance="legacy">
-                  <input type="password" required matInput [(ngModel)]="newPassword">
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- Password -->
-            <div class="password">
-              <div class="fill">
-                <div class="fill-text">
-                  <p>New Password:</p>
-                </div>
-
-                <mat-form-field appearance="legacy">
-                  <input type="password" required matInput [(ngModel)]="newPassword">
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- Password -->
-            <div class="password">
-              <div class="fill">
-                <div class="fill-text">
-                  <p>Comfirm Password:</p>
-                </div>
-
-                <mat-form-field appearance="legacy">
-                  <input type="password" required matInput [(ngModel)]="newPassword">
-                </mat-form-field>
-              </div>
-            </div>
-
-            <div class="button password">
-              <button class="btn-accept" color="primary" mat-raised-button>Change Password</button>
             </div>
           </div>
+
         </div>
       </div>
 

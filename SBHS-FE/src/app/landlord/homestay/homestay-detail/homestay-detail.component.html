@@ -14,37 +14,32 @@
           <div>
             <mat-form-field class="fill fill-row-left" appearance="legacy">
               <mat-label>Homestay's Name</mat-label>
-              <input name="homestayname" matInput required readonly>
+              <input [(ngModel)]="value.name" matInput required readonly name="homestayname">
             </mat-form-field>
           </div>
           <!-- check in -->
           <div>
             <mat-form-field class="fill fill-row-left" appearance="legacy">
               <mat-label>Check-in time</mat-label>
-              <input id="check-in" type="time" matInput required readonly>
+              <input id="check-in" type="time" name="check-in" readonly [(ngModel)]="value.checkInTime" matInput
+                required>
             </mat-form-field>
           </div>
-          <div>
-            <mat-form-field class="fill fill-row-left" appearance="legacy">
-              <mat-label>Number of Room</mat-label>
-              <input id="number" type="number" readonly required matInput>
-            </mat-form-field>
-          </div>
+
         </div>
         <div class="col right">
-          <!-- city -->
           <div>
             <mat-form-field class="fill fill-row-right" appearance="legacy">
-              <mat-label>City</mat-label>
-              <mat-select disabled name="city" >
-                <mat-option > </mat-option>
-              </mat-select>
+              <mat-label>Number of Room</mat-label>
+              <input id="number" name="number" type="number" readonly [(ngModel)]="value.numberOfRoom" required
+                matInput>
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="fill fill-row-right" appearance="legacy">
               <mat-label>Check-out time</mat-label>
-              <input id="checkout" type="time" matInput readonly>
+              <input id="checkout" type="time" name="check-out" readonly [(ngModel)]="value.checkOutTime" matInput
+                required>
             </mat-form-field>
           </div>
         </div>
@@ -54,82 +49,95 @@
         <div>
           <mat-form-field class="fill" appearance="legacy">
             <mat-label>Normal day: Price (VND)</mat-label>
-            <input name="price" id="price" type="number" matInput readonly>
+            <input [(ngModel)]="value.homestayPriceList[0].price" readonly name="normal" type="number" matInput
+              required>
           </mat-form-field>
         </div>
         <!-- Price weekend day-->
         <div>
           <mat-form-field class="fill" appearance="legacy">
             <mat-label>Weekend: Price (VND)</mat-label>
-            <input name="price" id="price" type="number" matInput readonly>
+            <input [(ngModel)]="value.homestayPriceList[1].price" readonly name="weekend" type="number" matInput
+              required>
           </mat-form-field>
         </div>
         <form>
           <!-- Price special day-->
-          <div class="special">
+          <h1>Special Day</h1>
+          <div class="special-step4">
+            <div *ngFor="let item of ListSpecialDay; let i = index ">
 
-            <h1>Special Day</h1>
-            <div class="panel-special">
-              <!-- day -->
-              <div class="row">
-                <!-- name of special day -->
-                <div class="col description">
-                  Tet Nguyen Dan Dan
-                </div>
-                <!-- Start -->
-                <div class="col left">
-                  <div>
-                    Start day
+              <h2>{{i+1}}. {{item.specialDayList.description}} </h2>
+
+              <div>
+                <!-- day -->
+                <div class="row">
+                  <!-- name of special day -->
+
+                  <!-- Start -->
+                  <div class="col left">
+                    <div>
+                      Start day
+                    </div>
+                    <!-- day / month -->
+                    <div class="start-day">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Day</mat-label>
+                        <input type="text" matInput value="{{item.specialDayList.startDay}}" readonly
+                          style="cursor:unset">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Month</mat-label>
+                        <div *ngFor="let name of valueMonthName; let i = index">
+                          <input *ngIf="i == item.specialDayList.startMonth" type="text" matInput [value]="name"
+                            readonly style="cursor:unset">
+                        </div>
+                      </mat-form-field>
+                    </div>
                   </div>
-                  <!-- day / month -->
-                  <div class="start-day">
+                  <p class="line-"> - </p>
+                  <div class="col right">
+                    <div>
+                      End day
+                    </div>
+                    <!-- day / month -->
+                    <div>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Day</mat-label>
+                        <input type="text" matInput value="{{item.specialDayList.endDay}}" readonly
+                          style="cursor:unset">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Month</mat-label>
+                        <div *ngFor="let name of valueMonthName; let i = index">
+                          <input *ngIf="i == item.specialDayList.endMonth" type="text" matInput [value]="name" readonly
+                            style="cursor:unset">
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- price -->
+                  <div class="col price">
+                    <div>
+                      Price
+                    </div>
                     <mat-form-field appearance="outline">
-                      <mat-label>Day</mat-label>
-                      <input type="text" matInput value="10" readonly style="cursor:unset">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Month</mat-label>
-                      <input type="text" matInput value="10" readonly style="cursor:unset">
+                      <mat-label>Price (VND)</mat-label>
+                      <input name="price" id="price" type="number" readonly matInput [(ngModel)]="item.price">
                     </mat-form-field>
                   </div>
-                </div>
-                <p class="line-"> - </p>
-                <div class="col right">
-                  <div>
-                    End day
-                  </div>
-                  <!-- day / month -->
-                  <div>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Day</mat-label>
-                      <input type="text" matInput value="20" readonly style="cursor:unset">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Month</mat-label>
-                      <input type="text" matInput value="12" readonly style="cursor:unset">
-                    </mat-form-field>
-                  </div>
-                </div>
-                <!-- price -->
-                <div class="col price">
-                  <div>
-                    Price
-                  </div>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Price (VND)</mat-label>
-                    <input name="price" id="price" type="number" matInput readonly value="10000">
-                  </mat-form-field>
                 </div>
               </div>
-            </div>
 
+            </div>
           </div>
         </form>
         <!-- address -->
         <div>
           <mat-form-field class="fill" appearance="legacy">
             <mat-label>Address</mat-label>
-            <input name="homestayaddress" type="text" matInput readonly>
+            <input name="homestayaddress" type="text" matInput readonly [(ngModel)]="value.address" required>
+
           </mat-form-field>
         </div>
         <!-- description -->
@@ -139,7 +147,8 @@
         </mat-form-field>
         <div class="editor">
           <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
-          <ngx-editor id="edit-2" class="edit-text" formControlName="description">
+          <ngx-editor id="edit-2" class="edit-text" [editor]="editor" name="description"
+            [(ngModel)]="value.description" disabled>
           </ngx-editor>
         </div>
       </div>
@@ -148,18 +157,9 @@
           <div class="add-img">
             <div class="img-homestay">
               <h1>Image Homestay</h1>
-              <div class="show-image col">
+              <div class="show-image col" *ngFor="let item of homestayImage">
                 <div>
-                  <img src="/assets/image/1.jpg">
-                </div>
-                <div>
-                  <img src="/assets/image/1.jpg">
-                </div>
-                <div>
-                  <img src="/assets/image/1.jpg">
-                </div>
-                <div>
-                  <img src="/assets/image/1.jpg">
+                  <img [src]="item.url">
                 </div>
               </div>
             </div>
@@ -171,7 +171,7 @@
               <h1>Image Homestay License</h1>
               <div class=" show-image col">
                 <div>
-                  <img src="/assets/image/1.jpg">
+                  <img src="{{homestayLicense}}">
                 </div>
               </div>
             </div>
@@ -195,399 +195,160 @@
       <div class="row">
         <div class="col ">
           <!-- ngFor -->
-          <div class="row-fill">
-            <div class=" icon"><i class="fas fa-tv"></i></div>
-            <div class=" text">
-              <p>TV</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" readonly matInput />
+          <div *ngFor="let facility of value.homestayCommonFacilities ; let i = index">
+            <div class="row-fill" *ngIf="i % 2 == 0 ">
+              <div class=" icon">
+                <mat-icon fontIcon="devices"></mat-icon>
+              </div>
+              <div class=" text">
+                <p>{{facility.name}}</p>
+              </div>
+              <div class=" checkbox">
+              </div>
+              <div class=" input">
+                <div class="col-input">
+                  <input value="{{facility.amount}}" type="number" class="col-input-amount" readonly matInput />
+                </div>
               </div>
             </div>
           </div>
 
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-bed"></i></div>
-            <div class="text">
-              <p>Bed</p>
-            </div>
-            <div class=" checkbox">
 
-            </div>
-
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-          <div class=" row-fill">
-            <div class="icon"><i class="fa-solid fa-couch"></i></div>
-            <div class=" text">
-              <p>Sofa</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class="input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-fan"></i></div>
-            <div class=" text">
-              <p>Fan</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
         </div>
         <div class="col col-right-2">
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-fire-burner"></i></div>
-            <div class=" text">
-              <p>Cooking stove</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-shower"></i></div>
-            <div class=" text">
-              <p>Shower</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-toilet"></i></div>
-            <div class=" text">
-              <p>Toilet</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class="co input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-bath"></i></div>
-            <div class=" text">
-              <p>Bathtub</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-    </div>
-    <div class="add-input ">
-      <!-- Add Facility -->
-
-
-      <h1>Additional Facility</h1>
-      <div class="row">
-        <div class="col ">
-
           <!-- ngFor -->
-          <div class="row-fill">
-            <div class=" icon"><i class="fas fa-tv"></i></div>
-            <div class=" text">
-              <p>TV</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" readonly matInput />
+          <div *ngFor="let facility of value.homestayCommonFacilities ; let i = index">
+            <div class="row-fill" *ngIf="i % 2 == 1 ">
+              <div class=" icon">
+                <mat-icon fontIcon="devices"></mat-icon>
               </div>
-            </div>
-          </div>
-
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-bed"></i></div>
-            <div class="text">
-              <p>Bed</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
+              <div class=" text">
+                <p>{{facility.name}}</p>
               </div>
-            </div>
-          </div>
-          <div class=" row-fill">
-            <div class="icon"><i class="fa-solid fa-couch"></i></div>
-            <div class=" text">
-              <p>Sofa</p>
-            </div>
-            <div class=" checkbox">
+              <div class=" checkbox">
 
-            </div>
-            <div class="input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
               </div>
-            </div>
-          </div>
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-fan"></i></div>
-            <div class=" text">
-              <p>Fan</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col col-right-2">
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-fire-burner"></i></div>
-            <div class=" text">
-              <p>Cooking stove</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-shower"></i></div>
-            <div class=" text">
-              <p>Shower</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-toilet"></i></div>
-            <div class=" text">
-              <p>Toilet</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class="co input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-bath"></i></div>
-            <div class=" text">
-              <p>Bathtub</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
+              <div class=" input">
+                <div class="col-input">
+                  <input value="{{facility.amount}}" type="number" class="col-input-amount" readonly matInput />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+
+
+
+      <div class="add-input ">
+        <!-- Add Facility -->
+
+
+        <h1>Additional Facility</h1>
+        <div class="row">
+          <div class="col ">
+            <!-- ngFor -->
+            <div *ngFor="let facility of value.homestayAdditionFacilities ; let i = index">
+              <div class="row-fill" *ngIf="i % 2 == 0 ">
+                <div class=" icon">
+                  <mat-icon fontIcon="devices"></mat-icon>
+                </div>
+                <div class=" text">
+                  <p>{{facility.name}}</p>
+                </div>
+                <div class=" checkbox">
+                </div>
+                <div class=" input">
+                  <div class="col-input">
+                    <input value="{{facility.amount}}" type="number" class="col-input-amount" readonly matInput />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="col col-right-2">
+            <!-- ngFor -->
+            <div *ngFor="let facility of value.homestayAdditionFacilities ; let i = index">
+              <div class="row-fill" *ngIf="i % 2 == 1 ">
+                <div class=" icon">
+                  <mat-icon fontIcon="devices"></mat-icon>
+                </div>
+                <div class=" text">
+                  <p>{{facility.name}}</p>
+                </div>
+                <div class=" checkbox">
+
+                </div>
+                <div class=" input">
+                  <div class="col-input">
+                    <input value="{{facility.amount}}" type="number" class="col-input-amount" readonly matInput />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-  </div>
-  <br>
-  <!--        -->
-  <!-- Step 3 -->
-  <!--        -->
-  <div class="input-content card">
-    <div class="add-input ">
-      <div class="header">
-        <h1> 3 - Service</h1>
-      </div>
-      <h1>Common Service</h1>
-
-
-      <div class="row">
-
-        <div class="col ">
-          <div class="row-fill">
-            <div class=" icon"><i class="fa-solid fa-wifi"></i></div>
-            <div class=" text">
-              <p>Wireless internet</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput readonly />
-              </div>
-            </div>
-          </div>
-
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-pizza-slice"></i></div>
-            <div class="text">
-              <p>Food Service</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput />
-              </div>
-            </div>
-          </div>
-
-          <div class=" row-fill">
-            <div class="icon"><i class="fa-solid fa-martini-glass-citrus"></i></div>
-            <div class=" text">
-              <p>Bar Service</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class="input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput />
-              </div>
-            </div>
-          </div>
-
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-person-swimming"></i></div>
-            <div class=" text">
-              <p>Swimming Service</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput />
-              </div>
-            </div>
-          </div>
-
-
-
+    <br>
+    <!--        -->
+    <!-- Step 3 -->
+    <!--        -->
+    <div class="input-content card">
+      <div class="add-input ">
+        <div class="header">
+          <h1> 3 - Service</h1>
         </div>
+        <h1>Common Service</h1>
 
-        <div class="col col-right-2">
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-spa"></i></div>
-            <div class=" text">
-              <p>Spa Service</p>
-            </div>
-            <div class=" checkbox">
 
+
+        <!--  -->
+
+        <div class="row">
+          <div class="col ">
+            <!-- ngFor -->
+            <div *ngFor="let service of value.homestayServices ; let i = index">
+              <div class="row-fill" *ngIf="i % 2 == 0 ">
+                <div class=" icon"><i class="fa-solid fa-martini-glass-citrus"></i></div>
+                <div class=" text">
+                  <p>{{service.name}}</p>
+                </div>
+                <div class=" checkbox">
+                </div>
+                <div class=" input">
+                  <div class="col-input">
+                    <input value="{{service.price}}" type="number" class="col-input-amount" readonly matInput />
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput />
+
+
+          </div>
+          <div class="col col-right-2">
+            <!-- ngFor -->
+            <div *ngFor="let service of value.homestayServices ; let i = index">
+              <div class="row-fill" *ngIf="i % 2 == 1 ">
+                <div class=" icon"><i class="fa-solid fa-martini-glass-citrus"></i></div>
+                <div class=" text">
+                  <p>{{service.name}}</p>
+                </div>
+                <div class=" checkbox">
+
+                </div>
+                <div class=" input">
+                  <div class="col-input">
+                    <input value="{{service.price}}" type="number" class="col-input-amount" readonly matInput />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-fish"></i></div>
-            <div class=" text">
-              <p>Fishing Service</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput />
-              </div>
-            </div>
-          </div>
-
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-motorcycle"></i></div>
-            <div class=" text">
-              <p>Car Rental Service</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class="co input">
-              <div class="col-input">
-                <input name="amount" type="number" class="col-input-amount" matInput />
-              </div>
-            </div>
-          </div>
-
-          <div class=" row-fill">
-            <div class=" icon"><i class="fa-solid fa-fire"></i></div>
-            <div class=" text">
-              <p>Campfire Service</p>
-            </div>
-            <div class=" checkbox">
-
-            </div>
-            <div class=" input">
-              <div class="col-input">
-                <input name="amount" type="number" min="0" class="col-input-amount" matInput />
-              </div>
-            </div>
-          </div>
-
-
         </div>
 
       </div>
@@ -596,138 +357,7 @@
       <div class="add-input ">
         <!-- Add service -->
         <h1>Additional Service</h1>
-        <div class="row">
 
-          <div class="col ">
-            <div class="row-fill">
-              <div class=" icon"><i class="fa-solid fa-wifi"></i></div>
-              <div class=" text">
-                <p>Wireless internet</p>
-              </div>
-              <div class=" checkbox">
-
-              </div>
-              <div class=" input">
-                <div class="col-input">
-                  <input name="amount" type="number" class="col-input-amount" matInput readonly />
-                </div>
-              </div>
-            </div>
-
-            <div class=" row-fill">
-              <div class=" icon"><i class="fa-solid fa-pizza-slice"></i></div>
-              <div class="text">
-                <p>Food Service</p>
-              </div>
-              <div class=" checkbox">
-
-              </div>
-              <div class=" input">
-                <div class="col-input">
-                  <input name="amount" type="number" class="col-input-amount" matInput />
-                </div>
-              </div>
-            </div>
-
-            <div class=" row-fill">
-              <div class="icon"><i class="fa-solid fa-martini-glass-citrus"></i></div>
-              <div class=" text">
-                <p>Bar Service</p>
-              </div>
-              <div class=" checkbox">
-
-              </div>
-              <div class="input">
-                <div class="col-input">
-                  <input name="amount" type="number" class="col-input-amount" matInput />
-                </div>
-              </div>
-            </div>
-
-            <div class=" row-fill">
-              <div class=" icon"><i class="fa-solid fa-person-swimming"></i></div>
-              <div class=" text">
-                <p>Swimming Service</p>
-              </div>
-              <div class=" checkbox">
-
-              </div>
-              <div class=" input">
-                <div class="col-input">
-                  <input name="amount" type="number" class="col-input-amount" matInput />
-                </div>
-              </div>
-            </div>
-
-
-
-          </div>
-
-          <div class="col col-right-2">
-            <div class=" row-fill">
-              <div class=" icon"><i class="fa-solid fa-spa"></i></div>
-              <div class=" text">
-                <p>Spa Service</p>
-              </div>
-              <div class=" checkbox">
-
-              </div>
-              <div class=" input">
-                <div class="col-input">
-                  <input name="amount" type="number" class="col-input-amount" matInput />
-                </div>
-              </div>
-            </div>
-
-            <div class=" row-fill">
-              <div class=" icon"><i class="fa-solid fa-fish"></i></div>
-              <div class=" text">
-                <p>Fishing Service</p>
-              </div>
-              <div class=" checkbox">
-
-              </div>
-              <div class=" input">
-                <div class="col-input">
-                  <input name="amount" type="number" class="col-input-amount" matInput />
-                </div>
-              </div>
-            </div>
-
-            <div class=" row-fill">
-              <div class=" icon"><i class="fa-solid fa-motorcycle"></i></div>
-              <div class=" text">
-                <p>Car Rental Service</p>
-              </div>
-              <div class=" checkbox">
-
-              </div>
-              <div class="co input">
-                <div class="col-input">
-                  <input name="amount" type="number" class="col-input-amount" matInput />
-                </div>
-              </div>
-            </div>
-
-            <div class=" row-fill">
-              <div class=" icon"><i class="fa-solid fa-fire"></i></div>
-              <div class=" text">
-                <p>Campfire Service</p>
-              </div>
-              <div class=" checkbox">
-
-              </div>
-              <div class=" input">
-                <div class="col-input">
-                  <input name="amount" type="number" class="col-input-amount" matInput />
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-
-        </div>
       </div>
 
     </div>
@@ -735,8 +365,8 @@
 
 
   <div class="add-btn">
-    <button class="btn-back" mat-raised-button>Back</button>
-    <button class="btn-next submit" mat-raised-button >Edit</button>
-    <button class="btn-next submit" mat-raised-button >Submit</button>
+    <button class="btn-back" mat-raised-button routerLink="../../Homestay">Back</button>
+    <button class="btn-next submit" color="primary" mat-raised-button>Edit</button>
+    <!-- <button class="btn-next submit" mat-raised-button>Submit</button> -->
   </div>
 </div>

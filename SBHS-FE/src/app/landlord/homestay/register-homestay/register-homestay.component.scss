@@ -83,12 +83,14 @@
       .upl-img {
         padding: 0px 7%;
         margin: 0;
-        .col{
+
+        .col {
           width: 50%;
           max-width: 50%;
         }
 
       }
+
       .upl-img-step4 {
         padding: 0px 7%;
         margin: 0;
@@ -498,6 +500,77 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
-.img-step4{
-  max-width: 400px;
+
+.img-step4 {
+  height: 220px !important;
+  max-width: 100% !important;
+}
+
+.special-step4 {
+  width: 84%;
+  margin-left: 8%;
+  padding-top: 3%;
+  z-index: -1;
+
+
+
+  .panel-header-special {
+    font-size: large;
+    padding-left: 10px;
+  }
+
+  .col {
+    min-width: 150px;
+  }
+
+  .right {
+    padding-left: 0%;
+    max-width: 38%;
+
+
+    .mat-form-field {
+      width: 48.5%;
+      min-width: 157px;
+      margin-right: 5px;
+    }
+  }
+
+  .left {
+    padding-right: 0%;
+    max-width: 40%;
+
+
+    .mat-form-field {
+      width: 48.5%;
+      min-width: 157px;
+      margin-right: 5px;
+    }
+  }
+
+  .line- {
+    width: fit-content;
+
+    padding-top: 55px;
+    margin: 5px 5px 5px 3px;
+    font-size: 20px;
+    font-weight: 500;
+
+  }
+
+
+  .price {
+    max-width: 20%;
+
+    .mat-form-field {
+      width: 100%;
+    }
+  }
+
+
+  .chb-special {
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: normal;
+
+  }
 }

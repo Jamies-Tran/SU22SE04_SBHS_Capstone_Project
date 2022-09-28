@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ServerHttpService } from 'src/app/services/verify-homestay.service';
 import { ImageService } from '../../../services/image.service';
 import { Editor, Toolbar } from 'ngx-editor';
-
+import { MatDialog } from '@angular/material/dialog';
+import { MessageComponent } from '../../../pop-up/message/message.component';
+import { SuccessComponent } from '../../../pop-up/success/success.component';
 
 @Component({
   selector: 'app-request-homestay-detail',
@@ -10,6 +12,7 @@ import { Editor, Toolbar } from 'ngx-editor';
   styleUrls: ['./request-homestay-detail.component.scss']
 })
 export class RequestHomestayDetailComponent implements OnInit {
+  message!: string;
   createdBy :string =""
   createdByEmail :string =""
   createdDate :string =""
@@ -32,7 +35,7 @@ export class RequestHomestayDetailComponent implements OnInit {
   public rejectMessage = "";
   imageUrl:string =""
   registerError: string ="";
-  constructor(private http: ServerHttpService,private image: ImageService) { }
+  constructor(public dialog: MatDialog,private http: ServerHttpService,private image: ImageService) { }
 
   // richtext
   editor!: Editor;
@@ -84,28 +87,55 @@ export class RequestHomestayDetailComponent implements OnInit {
   public accept(){
     this.http.verifyHomestay(localStorage.getItem("id") +"",this.isAccept,this.rejectMessage).subscribe((data =>{
       if(data !=null){
+        this.message = 'Homesaty have accept';
+            this.openDialogSuccess();
         location.reload();
       }
 
       console.log(data)
     }),
     error =>{
-      if(error["status"] == 500){
-        this.registerError = "please check your information again!"
-      }else this.registerError = error
+      if (error['status'] == 500) {
+        this.registerError = 'please check your information again!';
+        this.message = this.registerError;
+        this.openDialog();
+      } else {
+        this.registerError = error;
+        this.message = error;
+        this.openDialog();
+      }
     })
   }
   public reject(){
     this.rejectMessage = "not enough condition"
     this.http.verifyHomestay(localStorage.getItem("id") +"",this.isReject,this.rejectMessage).subscribe((data =>{
       if(data !=null){
+        this.message = 'Homestay have reject';
+            this.openDialogSuccess();
         location.reload();
       }
     }),
     error =>{
-      if(error["status"] == 500){
-        this.registerError = "please check your information again!"
-      }else this.registerError = error
+      if (error['status'] == 500) {
+        this.registerError = 'please check your information again!';
+        this.message = this.registerError;
+        this.openDialog();
+      } else {
+        this.registerError = error;
+        this.message = error;
+        this.openDialog();
+      }
     })
+  }
+  // dialog error
+  openDialog() {
+    this.dialog.open(MessageComponent, {
+      data: this.message,
+    });
+  }
+  openDialogSuccess() {
+    this.dialog.open(SuccessComponent, {
+      data: this.message,
+    });
   }
 }

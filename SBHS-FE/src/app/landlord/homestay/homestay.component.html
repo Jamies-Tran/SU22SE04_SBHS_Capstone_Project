@@ -13,18 +13,18 @@
             <a mat-raised-button routerLink="RegisterHomestay">Register</a>
           </div>
         </div>
-        <div class="row main-content" *ngFor="let item of value">
-          <div class="col-sm-4">
+        <div class="row main-content" >
+          <div class="col-sm-4" *ngFor="let item of value">
             <div class="card">
               <div class="image">
-                <img src="/assets/image/1.jpg" >
+                <img [src]="item.imgURL" >
               </div>
               <div class="name">
                 {{item.name}}
               </div>
               <div class="button">
                 <a mat-raised-button color="warn" mat-button (click)="openDialog()">Delete</a>
-                <a mat-raised-button color="primary" routerLink="HomestayDetail">Edit</a>
+                <a mat-raised-button color="primary" routerLink="HomestayDetail" (click)="getHomestayName(item.name)">Edit</a>
               </div>
             </div>
           </div>

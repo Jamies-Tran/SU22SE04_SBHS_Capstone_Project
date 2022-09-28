@@ -13,6 +13,9 @@ import { finalize } from 'rxjs/operators';
 import { empty, Observable } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MessageComponent } from '../../../pop-up/message/message.component';
+import { SuccessComponent } from '../../../pop-up/success/success.component';
 
 interface City {
   value: string;
@@ -34,6 +37,22 @@ export class RegisterHomestayComponent implements OnInit {
 
   newServices: any[] = [];
   newFacility: any[] = [];
+
+  // Format Month
+  valueMonthName: Array<string> = [
+    'January ',
+    'February ',
+    'March ',
+    'April ',
+    'May ',
+    'June ',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November ',
+    'December ',
+  ];
 
   // API Google Map
 
@@ -116,7 +135,7 @@ export class RegisterHomestayComponent implements OnInit {
     priceNormalDay: ['', Validators.required],
     priceWeekendDay: ['', Validators.required],
     number: ['', Validators.required],
-    city: ['', Validators.required],
+    city: [''],
     description: [''],
 
     image: [false, Validators.requiredTrue],
@@ -315,7 +334,8 @@ export class RegisterHomestayComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private storage: AngularFireStorage,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    public dialog: MatDialog
   ) {}
   ListSpecialDay: any[] = [];
   ngOnInit(): void {
@@ -347,7 +367,6 @@ export class RegisterHomestayComponent implements OnInit {
     this.facilityFormGroup.controls.inputShower.disable();
     this.facilityFormGroup.controls.inputToilet.disable();
     this.facilityFormGroup.controls.inputBathtub.disable();
-
   }
 
   ngOnDestroy(): void {
@@ -384,17 +403,19 @@ export class RegisterHomestayComponent implements OnInit {
       this.informationFormGroup.patchValue({ image: false });
     }
   }
-  onRemoved(){
-    for( this.file of this.homestayImageFiles){
-
-      this.homestayImageFiles.splice(this.homestayImageFiles.indexOf(this.file),this.homestayImageFiles.length);
+  onRemoved() {
+    for (this.file of this.homestayImageFiles) {
+      this.homestayImageFiles.splice(
+        this.homestayImageFiles.indexOf(this.file),
+        this.homestayImageFiles.length
+      );
     }
-    for( this.file of this.homestayLicenseFiles){
-
-      this.homestayLicenseFiles.splice(this.homestayLicenseFiles.indexOf(this.file),this.homestayLicenseFiles.length);
+    for (this.file of this.homestayLicenseFiles) {
+      this.homestayLicenseFiles.splice(
+        this.homestayLicenseFiles.indexOf(this.file),
+        this.homestayLicenseFiles.length
+      );
     }
-
-
   }
 
   // lấy file hình
@@ -442,18 +463,22 @@ export class RegisterHomestayComponent implements OnInit {
       this.informationFormGroup.patchValue({ image: false });
     }
   }
-  oDOM !: any;
-  text !:any;
+  oDOM!: any;
+  text!: any;
   informationForm() {
     console.log(this.informationFormGroup.value);
     // console.log("homestay license", this.homestayLicense);
     console.log('homestay image', this.homestayImages);
 
     console.log('lít special day', this.ListSpecialDay);
-    this.oDOM = this.oParser.parseFromString(this.informationFormGroup.controls.description.value!, "text/html");
-   this.text = this.oDOM.body.innerText;
-   console.log("text" , this.text);
-   this.descriptionStep4 = this.informationFormGroup.controls.description.value!;
+    this.oDOM = this.oParser.parseFromString(
+      this.informationFormGroup.controls.description.value!,
+      'text/html'
+    );
+    this.text = this.oDOM.body.innerText;
+    console.log('text', this.text);
+    this.descriptionStep4 =
+      this.informationFormGroup.controls.description.value!;
   }
   facilityForm() {
     console.log(this.facilityFormGroup.value);
@@ -712,13 +737,34 @@ export class RegisterHomestayComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          alert('Register Success!!!');
+          this.registerError = 'Register Success!!!';
+          this.openDialogSuccess();
         },
         (error) => {
           if (error['status'] == 500) {
             this.registerError = 'please check your information again!';
-          } else this.registerError = error;
+            this.openDialog();
+          } else {
+            this.registerError = error;
+            this.openDialog();
+          }
         }
       );
   }
+  // dialog error
+  openDialog() {
+    this.dialog.open(MessageComponent, {
+      data: this.registerError,
+    });
+  }
+  openDialogSuccess() {
+    this.dialog.open(SuccessComponent, {
+      data: this.registerError,
+    });
+  }
 }
+
+// dialog
+// export interface DialogData {
+//   message: string;
+// }

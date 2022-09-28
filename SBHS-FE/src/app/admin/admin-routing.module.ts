@@ -7,7 +7,8 @@ import { RequestHomestayComponent } from './request-homestay/request-homestay.co
 import { RequestHomestayDetailComponent } from './request-homestay/request-homestay-detail/request-homestay-detail.component';
 import { SpecialDayComponent } from './special-day/special-day.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from '../landlord/profile/profile.component';
+
 
 const routes: Routes = [
   {

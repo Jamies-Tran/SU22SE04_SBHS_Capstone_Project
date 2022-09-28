@@ -9,6 +9,7 @@ import { BookingDetailComponent } from './booking/booking-detail/booking-detail.
 import { HomestayComponent } from './homestay/homestay.component';
 
 import { HomestayDetailComponent } from './homestay/homestay-detail/homestay-detail.component';
+import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
           { path: 'HomestayDetail', component: HomestayDetailComponent },
         ],
       },
+      { path: 'ForgetPassword', component: ForgetPasswordComponent },
     ],
   },
 ];

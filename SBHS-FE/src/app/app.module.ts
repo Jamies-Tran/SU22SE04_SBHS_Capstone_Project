@@ -41,6 +41,7 @@ import { AdminComponent } from './admin/admin.component';
 import { Page1Component } from './page1/page1.component';
 import { MessageComponent } from './pop-up/message/message.component';
 import { DeleteHomestayDialogComponent } from './pop-up/delete-homestay-dialog/delete-homestay-dialog.component';
+import { SuccessComponent } from './pop-up/success/success.component';
 
 
 
@@ -56,6 +57,7 @@ import { DeleteHomestayDialogComponent } from './pop-up/delete-homestay-dialog/d
     Page1Component,
     MessageComponent,
     DeleteHomestayDialogComponent,
+    SuccessComponent,
   ],
   imports: [
     BrowserModule,

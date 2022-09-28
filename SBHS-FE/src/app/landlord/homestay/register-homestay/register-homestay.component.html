@@ -1,8 +1,6 @@
 <div class="container">
-  <div *ngIf="registerError != null">
-    <h1 style="color: red;">{{registerError}}</h1>
-  </div>
-  <mat-stepper #stepper>
+
+  <mat-stepper  #stepper>
     <!-- <mat-stepper linear #stepper> -->
 
     <!-- Step 1 Information -->
@@ -34,14 +32,15 @@
                   </mat-form-field>
                 </div>
 
+
+              </div>
+              <div class="col right">
                 <div>
-                  <mat-form-field class="fill fill-row-left" appearance="legacy">
+                  <mat-form-field class="fill fill-row-right" appearance="legacy">
                     <mat-label>Number of Room</mat-label>
                     <input id="number" type="number" matInput placeholder="1" required formControlName="number">
                   </mat-form-field>
                 </div>
-              </div>
-              <div class="col right">
                 <div>
                   <mat-form-field class="fill fill-row-right" appearance="legacy">
                     <mat-label>Check-out time</mat-label>
@@ -83,8 +82,8 @@
                         </mat-panel-description>
                       </mat-expansion-panel-header>
                       <!-- collapse -->
-                      <div *ngFor="let item of ListSpecialDay ">
-                        <mat-checkbox class="chb-special" color="primary" [(ngModel)]="item.status" name="status">
+                      <div *ngFor="let item of ListSpecialDay; let i =index ">
+                        <mat-checkbox class="chb-special" color="primary" [(ngModel)]="item.status" name="value{{i}}">
                           {{item.description}}
                         </mat-checkbox>
                         <div>
@@ -101,9 +100,14 @@
                                   <mat-label>Day</mat-label>
                                   <input type="text" matInput [value]="item.startDay" readonly style="cursor:unset">
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" >
                                   <mat-label>Month</mat-label>
-                                  <input type="text" matInput [value]="item.startMonth" readonly style="cursor:unset">
+
+                                  <div *ngFor="let name of valueMonthName; let i = index">
+                                    <input   *ngIf="i == item.startMonth"
+                                    type="text" matInput [value]="name" readonly style="cursor:unset">
+                                  </div>
+
                                 </mat-form-field>
                               </div>
                             </div>
@@ -120,7 +124,11 @@
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                   <mat-label>Month</mat-label>
-                                  <input type="text" matInput [value]="item.endMonth" readonly style="cursor:unset">
+                                  <!-- <input type="text" matInput [value]="item.endMonth" readonly style="cursor:unset"> -->
+                                  <div *ngFor="let name of valueMonthName; let i = index">
+                                    <input   *ngIf="i == item.endMonth"
+                                    type="text" matInput [value]="name" readonly style="cursor:unset">
+                                  </div>
                                 </mat-form-field>
                               </div>
                             </div>
@@ -153,6 +161,7 @@
                   <input name="homestayaddress" type="text" matInput placeholder="123 Quang Trung p.1 Q.1"
                     formControlName="address" required ngx-google-places-autocomplete [options]="options"
                     #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)">
+
                 </mat-form-field>
               </div>
               <!-- description -->
@@ -161,6 +170,7 @@
                 <mat-label>Description</mat-label>
                 <input type="text" matInput disabled>
               </mat-form-field>
+
               <div class="editor">
                 <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
                 <ngx-editor class="edit-text" [editor]="editor" formControlName="description"
@@ -397,7 +407,7 @@
                     </div>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary" [(ngModel)]="value.status">
+                    <mat-checkbox color="primary" [(ngModel)]="value.status" name="value{{i}}">
                     </mat-checkbox>
                   </div>
                   <div class=" input">
@@ -432,7 +442,7 @@
                     </div>
                   </div>
                   <div class=" checkbox">
-                    <mat-checkbox color="primary" [(ngModel)]="value.status">
+                    <mat-checkbox color="primary" [(ngModel)]="value.status" name="value{{i}}">
                     </mat-checkbox>
                   </div>
                   <div class=" input">
@@ -613,7 +623,7 @@
                       </div>
                     </div>
                     <div class=" checkbox">
-                      <mat-checkbox color="primary" [(ngModel)]="value.status">
+                      <mat-checkbox color="primary" [(ngModel)]="value.status" name="value{{i}}">
                       </mat-checkbox>
                     </div>
                     <div class=" input">
@@ -707,16 +717,16 @@
                     value="{{informationFormGroup.controls.checkInTime.value}}">
                 </mat-form-field>
               </div>
+
+            </div>
+            <div class="col right">
               <div>
-                <mat-form-field class="fill fill-row-left" appearance="legacy">
+                <mat-form-field class="fill fill-row-right" appearance="legacy">
                   <mat-label>Number of Room</mat-label>
                   <input id="number" type="number" readonly matInput
                     value="{{informationFormGroup.controls.number.value}}">
                 </mat-form-field>
               </div>
-            </div>
-            <div class="col right">
-
               <div>
                 <mat-form-field class="fill fill-row-right" appearance="legacy">
                   <mat-label>Check-out time</mat-label>
@@ -745,9 +755,10 @@
             </div>
             <form>
               <!-- Price special day-->
-              <div class="special">
-                <div *ngFor="let item of ListSpecialDay ">
-                  <mat-checkbox class="chb-special" color="primary" [(ngModel)]="item.status" name="status">
+              <div class="special-step4">
+                <div *ngFor="let item of ListSpecialDay; let i = index ">
+                  <mat-checkbox class="chb-special" color="primary" disabled="true" [(ngModel)]="item.status"
+                    name="value{{i}}">
                     {{item.description}}
                   </mat-checkbox>
                   <div>
@@ -766,7 +777,11 @@
                           </mat-form-field>
                           <mat-form-field appearance="outline">
                             <mat-label>Month</mat-label>
-                            <input type="text" matInput [value]="item.startMonth" readonly style="cursor:unset">
+                            <!-- <input type="text" matInput [value]="item.startMonth" readonly style="cursor:unset"> -->
+                            <div *ngFor="let name of valueMonthName; let i = index">
+                              <input   *ngIf="i == item.startMonth"
+                              type="text" matInput [value]="name" readonly style="cursor:unset">
+                            </div>
                           </mat-form-field>
                         </div>
                       </div>
@@ -783,7 +798,11 @@
                           </mat-form-field>
                           <mat-form-field appearance="outline">
                             <mat-label>Month</mat-label>
-                            <input type="text" matInput [value]="item.endMonth" readonly style="cursor:unset">
+                            <!-- <input type="text" matInput [value]="item.endMonth" readonly style="cursor:unset"> -->
+                            <div *ngFor="let name of valueMonthName; let i = index">
+                              <input   *ngIf="i == item.endMonth"
+                              type="text" matInput [value]="name" readonly style="cursor:unset">
+                            </div>
                           </mat-form-field>
                         </div>
                       </div>
@@ -832,29 +851,24 @@
                 <div class="img-homestay">
                   <h1>Image Homestay</h1>
                   <div class="show-image col">
-                    <div>
-                      <img class="img-step4" src="/assets/image/1.jpg">
+                    <div *ngFor="let item of homestayImageFiles">
+                      <ngx-dropzone-image-preview class="img-step4" ngProjectAs="ngx-dropzone-preview" [file]="item"                          >
+                        </ngx-dropzone-image-preview>
                     </div>
-                    <div>
-                      <img class="img-step4" src="/assets/image/22.jpg">
-                    </div>
-                    <div>
-                      <img class="img-step4" src="/assets/image/333.jpg">
-                    </div>
-                    <div>
-                      <img class="img-step4" src="/assets/image/1.jpg">
-                    </div>
+
                   </div>
                 </div>
               </div>
             </div>
+
             <div class="col">
               <div class="add-img">
                 <div class="img-homestayLicense col">
                   <h1>Image Homestay License</h1>
                   <div class=" show-image col">
-                    <div>
-                      <img class="img-step4" src="/assets/image/giay phep kinh doanh.jpg">
+                    <div *ngFor="let item of homestayLicenseFiles">
+                      <ngx-dropzone-image-preview class="img-step4" ngProjectAs="ngx-dropzone-preview" [file]="item"                          >
+                      </ngx-dropzone-image-preview>
                     </div>
                   </div>
                 </div>
@@ -1014,126 +1028,57 @@
           <h1>Additional Facility</h1>
           <div class="row">
             <div class="col ">
-
-              <!-- ngFor -->
-              <div class="row-fill">
-                <div class=" icon"><i class="fas fa-tv"></i></div>
-                <div class=" text">
-                  <p>TV</p>
-                </div>
-                <div class=" checkbox">
-
-                </div>
-                <div class=" input">
-                  <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" readonly matInput />
+              <div *ngFor="let value of newFacility; let i = index">
+                <div class=" row-fill " *ngIf="i % 2 == 0 && value.status == true">
+                  <div class=" icon"><i class="fa-solid fa-plus"></i></div>
+                  <div class=" input">
+                    <div class=" col-input add">
+                      <input type="text" [(ngModel)]="value.name" readonly autocomplete="off" name="value{{i}}"
+                        placeholder="New Facility" class="col-input-amount value-name" matInput />
+                    </div>
                   </div>
+                  <div class=" checkbox">
+
+                  </div>
+                  <div class=" input">
+                    <div class="col-input">
+                      <input type="number" min="0" readonly [(ngModel)]="value.amount" autocomplete="off"
+                        name="value{{i}}" class="col-input-amount" matInput placeholder="Amount" />
+                    </div>
+                  </div>
+
                 </div>
               </div>
 
-              <div class=" row-fill">
-                <div class=" icon"><i class="fa-solid fa-bed"></i></div>
-                <div class="text">
-                  <p>Bed</p>
-                </div>
-                <div class=" checkbox">
 
-                </div>
-
-                <div class=" input">
-                  <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput readonly />
-                  </div>
-                </div>
-              </div>
-              <div class=" row-fill">
-                <div class="icon"><i class="fa-solid fa-couch"></i></div>
-                <div class=" text">
-                  <p>Sofa</p>
-                </div>
-                <div class=" checkbox">
-
-                </div>
-                <div class="input">
-                  <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput readonly />
-                  </div>
-                </div>
-              </div>
-              <div class=" row-fill">
-                <div class=" icon"><i class="fa-solid fa-fan"></i></div>
-                <div class=" text">
-                  <p>Fan</p>
-                </div>
-                <div class=" checkbox">
-
-                </div>
-                <div class=" input">
-                  <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput readonly />
-                  </div>
-                </div>
-              </div>
             </div>
+
+            <!-- Add facility -->
             <div class="col col-right-2">
-              <div class=" row-fill">
-                <div class=" icon"><i class="fa-solid fa-fire-burner"></i></div>
-                <div class=" text">
-                  <p>Cooking stove</p>
-                </div>
-                <div class=" checkbox">
-
-                </div>
-                <div class=" input">
-                  <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput readonly />
+              <div *ngFor="let value of newFacility; let i = index ">
+                <div class=" row-fill " *ngIf="i % 2 == 1 && value.status == true">
+                  <div class=" icon"><i class="fa-solid fa-plus"></i></div>
+                  <div class=" input">
+                    <div class="col-input add">
+                      <input type="text" [(ngModel)]="value.name" readonly autocomplete="off" #name="ngModel"
+                        name="value{{i}}" placeholder="New Facility" class="col-input-amount value-name" matInput />
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class=" row-fill">
-                <div class=" icon"><i class="fa-solid fa-shower"></i></div>
-                <div class=" text">
-                  <p>Shower</p>
-                </div>
-                <div class=" checkbox">
+                  <div class=" checkbox">
 
-                </div>
-                <div class=" input">
-                  <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput readonly />
                   </div>
-                </div>
-              </div>
-              <div class=" row-fill">
-                <div class=" icon"><i class="fa-solid fa-toilet"></i></div>
-                <div class=" text">
-                  <p>Toilet</p>
-                </div>
-                <div class=" checkbox">
+                  <div class=" input">
+                    <div class="col-input">
+                      <input type="number" min="0" readonly [(ngModel)]="value.amount" autocomplete="off"
+                        #name="ngModel" name="value{{i}}" class="col-input-amount" matInput placeholder="Amount" />
+                    </div>
+                  </div>
 
-                </div>
-                <div class="co input">
-                  <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput readonly />
-                  </div>
-                </div>
-              </div>
-              <div class=" row-fill">
-                <div class=" icon"><i class="fa-solid fa-bath"></i></div>
-                <div class=" text">
-                  <p>Bathtub</p>
-                </div>
-                <div class=" checkbox">
-
-                </div>
-                <div class=" input">
-                  <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput readonly />
-                  </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
 
       </div>
@@ -1178,7 +1123,7 @@
                 </div>
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput
+                    <input name="amount" type="number" class="col-input-amount" matInput readonly
                       value="{{serviceFormGroup.controls.foodPrice.value}}" />
                   </div>
                 </div>
@@ -1194,7 +1139,7 @@
                 </div>
                 <div class="input">
                   <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput
+                    <input name="amount" type="number" class="col-input-amount" matInput readonly
                       value="{{serviceFormGroup.controls.barPrice.value}}" />
                   </div>
                 </div>
@@ -1210,7 +1155,7 @@
                 </div>
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput
+                    <input name="amount" type="number" class="col-input-amount" matInput readonly
                       value="{{serviceFormGroup.controls.swimmingPrice.value}}" />
                   </div>
                 </div>
@@ -1231,7 +1176,7 @@
                 </div>
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput
+                    <input name="amount" type="number" class="col-input-amount" matInput readonly
                       value="{{serviceFormGroup.controls.spaPrice.value}}" />
                   </div>
                 </div>
@@ -1247,7 +1192,7 @@
                 </div>
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput
+                    <input name="amount" type="number" class="col-input-amount" matInput readonly
                       value="{{serviceFormGroup.controls.fishingPrice.value}}" />
                   </div>
                 </div>
@@ -1263,7 +1208,7 @@
                 </div>
                 <div class="co input">
                   <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput
+                    <input name="amount" type="number" class="col-input-amount" matInput readonly
                       value="{{serviceFormGroup.controls.carRentalPrice.value}}" />
                   </div>
                 </div>
@@ -1279,152 +1224,68 @@
                 </div>
                 <div class=" input">
                   <div class="col-input">
-                    <input name="amount" type="number" class="col-input-amount" matInput
+                    <input name="amount" type="number" class="col-input-amount" matInput readonly
                       value="{{serviceFormGroup.controls.campfirePrice.value}}" />
                   </div>
                 </div>
               </div>
-
-
             </div>
-
           </div>
-
-
+          <br>
           <div class="add-input ">
             <!-- Add service -->
             <h1>Additional Service</h1>
             <div class="row">
-
               <div class="col ">
-                <div class="row-fill">
-                  <div class=" icon"><i class="fa-solid fa-wifi"></i></div>
-                  <div class=" text">
-                    <p>Wireless internet</p>
-                  </div>
-                  <div class=" checkbox">
-
-                  </div>
-                  <div class=" input">
-                    <div class="col-input">
-                      <input name="amount" type="number" class="col-input-amount" matInput readonly />
+                <div *ngFor="let value of newServices; let i = index">
+                  <div class=" row-fill" *ngIf="i % 2 == 0 && value.status == true">
+                    <div class=" icon"><i class="fa-solid fa-plus"></i></div>
+                    <div class=" input">
+                      <div class="col-input add">
+                        <input autocomplete="off" type="text" readonly [(ngModel)]="value.name" #name="ngModel"
+                          name="value{{i}}" placeholder="New Service" class="col-input-amount value-name" matInput />
+                      </div>
                     </div>
+                    <div class=" checkbox">
+
+                    </div>
+                    <div class=" input">
+                      <div class="col-input">
+                        <input autocomplete="off" readonly type="number" min="0" [(ngModel)]="value.price"
+                          [disabled]="!value.status" #name="ngModel" name="value{{i}}" class="col-input-amount" matInput
+                          placeholder="Price" />
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-
-                <div class=" row-fill">
-                  <div class=" icon"><i class="fa-solid fa-pizza-slice"></i></div>
-                  <div class="text">
-                    <p>Food Service</p>
-                  </div>
-                  <div class=" checkbox">
-
-                  </div>
-                  <div class=" input">
-                    <div class="col-input">
-                      <input name="amount" type="number" class="col-input-amount" matInput />
-                    </div>
-                  </div>
-                </div>
-
-                <div class=" row-fill">
-                  <div class="icon"><i class="fa-solid fa-martini-glass-citrus"></i></div>
-                  <div class=" text">
-                    <p>Bar Service</p>
-                  </div>
-                  <div class=" checkbox">
-
-                  </div>
-                  <div class="input">
-                    <div class="col-input">
-                      <input name="amount" type="number" class="col-input-amount" matInput />
-                    </div>
-                  </div>
-                </div>
-
-                <div class=" row-fill">
-                  <div class=" icon"><i class="fa-solid fa-person-swimming"></i></div>
-                  <div class=" text">
-                    <p>Swimming Service</p>
-                  </div>
-                  <div class=" checkbox">
-
-                  </div>
-                  <div class=" input">
-                    <div class="col-input">
-                      <input name="amount" type="number" class="col-input-amount" matInput />
-                    </div>
-                  </div>
-                </div>
-
-
 
               </div>
-
+              <!-- Add service -->
               <div class="col col-right-2">
-                <div class=" row-fill">
-                  <div class=" icon"><i class="fa-solid fa-spa"></i></div>
-                  <div class=" text">
-                    <p>Spa Service</p>
-                  </div>
-                  <div class=" checkbox">
-
-                  </div>
-                  <div class=" input">
-                    <div class="col-input">
-                      <input name="amount" type="number" class="col-input-amount" matInput />
+                <div *ngFor="let value of newServices; let i = index">
+                  <div class=" row-fill" *ngIf="i % 2 == 1 && value.status == true">
+                    <div class=" icon"><i class="fa-solid fa-plus"></i></div>
+                    <div class=" input">
+                      <div class="col-input add">
+                        <input id="name" type="text" readonly [(ngModel)]="value.name" #name="ngModel" name="value{{i}}"
+                          placeholder="New Service" class="col-input-amount value-name" matInput />
+                      </div>
                     </div>
+                    <div class=" checkbox">
+
+                    </div>
+                    <div class=" input">
+                      <div class="col-input">
+                        <input id="amount" type="number" readonly min="0" [disabled]="!value.status"
+                          [(ngModel)]="value.price" #name="ngModel" name="value{{i}}" class="col-input-amount" matInput
+                          placeholder="Price" />
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-
-                <div class=" row-fill">
-                  <div class=" icon"><i class="fa-solid fa-fish"></i></div>
-                  <div class=" text">
-                    <p>Fishing Service</p>
-                  </div>
-                  <div class=" checkbox">
-
-                  </div>
-                  <div class=" input">
-                    <div class="col-input">
-                      <input name="amount" type="number" class="col-input-amount" matInput />
-                    </div>
-                  </div>
-                </div>
-
-                <div class=" row-fill">
-                  <div class=" icon"><i class="fa-solid fa-motorcycle"></i></div>
-                  <div class=" text">
-                    <p>Car Rental Service</p>
-                  </div>
-                  <div class=" checkbox">
-
-                  </div>
-                  <div class="co input">
-                    <div class="col-input">
-                      <input name="amount" type="number" class="col-input-amount" matInput />
-                    </div>
-                  </div>
-                </div>
-
-                <div class=" row-fill">
-                  <div class=" icon"><i class="fa-solid fa-fire"></i></div>
-                  <div class=" text">
-                    <p>Campfire Service</p>
-                  </div>
-                  <div class=" checkbox">
-
-                  </div>
-                  <div class=" input">
-                    <div class="col-input">
-                      <input name="amount" type="number" class="col-input-amount" matInput />
-                    </div>
-                  </div>
-                </div>
-
-
               </div>
-
             </div>
           </div>
 

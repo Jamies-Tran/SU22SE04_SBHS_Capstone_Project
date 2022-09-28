@@ -24,6 +24,12 @@ export class ServerHttpService {
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
+  public getHomestayDetail(){
+    const url = `${this.REST_API_SERVER}/api/homestay/permit-all/details/`+ localStorage.getItem('homestayName')+``;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
   private handleError(error: HttpErrorResponse) {
     return throwError(
       error.error["message"]);

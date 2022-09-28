@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerHttpService } from 'src/app/services/specialday.service';
-
+import { MessageComponent } from '../../pop-up/message/message.component';
+import { SuccessComponent } from '../../pop-up/success/success.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-special-day',
   templateUrl: './special-day.component.html',
@@ -8,12 +10,14 @@ import { ServerHttpService } from 'src/app/services/specialday.service';
 })
 export class SpecialDayComponent implements OnInit {
   newSpecialDay: any[] = [];
+  message!: string;
   Error: string = '';
-  constructor(private http: ServerHttpService) {}
+  constructor(private http: ServerHttpService,public dialog: MatDialog) {}
   valueday30: Array<number> = [];
   valueday31: Array<number> = [];
   valueday28: Array<number> = [];
   valueMonth: Array<number> = [];
+
   valueMonthName: Array<string> = [
     'January ',
     'February ',
@@ -34,6 +38,18 @@ export class SpecialDayComponent implements OnInit {
   endMonth = '1';
   description = '';
   flag = false;
+
+  // dialog error
+  openDialog() {
+    this.dialog.open(MessageComponent, {
+      data: this.message,
+    });
+  }
+  openDialogSuccess() {
+    this.dialog.open(SuccessComponent, {
+      data: this.message,
+    });
+  }
 
   ngOnInit(): void {
     for (let index = 1; index < 31; index++) {
@@ -93,11 +109,19 @@ export class SpecialDayComponent implements OnInit {
         (data) => {
           this.flag = true;
           console.log('data', data);
+          this.message = 'Add Successfull';
+            this.openDialogSuccess();
         },
         (error) => {
           if (error['status'] == 500) {
-            this.Error = 'please check your information again!';
-          } else this.Error = error;
+            // this.registerError = 'please check your information again!';
+           this.message = 'please check your information again!';
+            this.openDialog();
+          } else {
+
+            this.message = error;
+            this.openDialog();
+          }
         }
       );
   }

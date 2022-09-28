@@ -27,7 +27,7 @@ export class ServerHttpService {
   }
 
   public getBalance(){
-    
+
     const url =`${this.REST_API_SERVER}/api/user/get/wallet/landlord_wallet`;
     return this.httpClient
     .get<any>(url,this.httpOptions)
@@ -40,6 +40,15 @@ export class ServerHttpService {
       amount,orderInfo,extraData
     }
     const url =`${this.REST_API_SERVER}/api/payment`;
+    return this.httpClient
+    .post<any>(url,value,this.httpOptions)
+    .pipe(catchError(this.handleError));
+  }
+  public withdraw(phone:string, amount:string, password:string){
+    var value ={
+      phone,amount,password
+    }
+    const url =`${this.REST_API_SERVER}/api/request/withdraw-request`;
     return this.httpClient
     .post<any>(url,value,this.httpOptions)
     .pipe(catchError(this.handleError));

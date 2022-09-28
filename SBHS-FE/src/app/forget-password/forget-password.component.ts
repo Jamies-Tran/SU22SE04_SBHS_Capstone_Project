@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ForgetPasswordService } from '../services/forget-password.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ImageService } from '../services/image.service';
+import { RequiredValidator } from '@angular/forms';
 
 @Component({
   selector: 'app-forget-password',
@@ -9,7 +10,7 @@ import { ImageService } from '../services/image.service';
   styleUrls: ['./forget-password.component.scss']
 })
 export class ForgetPasswordComponent implements OnInit {
-  public comfirmPassword="";
+  public comfirmPassword=""  ;
   public username = "";
   public otp = "";
   public newPassword = "";
@@ -22,13 +23,19 @@ export class ForgetPasswordComponent implements OnInit {
     console.log(this.username)
     this.http.inputUserName(this.username).subscribe((data => {
 
-    }))
+    }),
+    error =>{
+      alert(error)
+    })
   }
   public inputOtp() {
     console.log(this.username)
     this.http.inputOTP(this.username,this.otp).subscribe((data => {
 
-    }))
+    }),
+    error =>{
+      alert(error)
+    })
   }
   public inputPassword() {
     console.log(this.username)

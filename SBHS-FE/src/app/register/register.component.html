@@ -31,9 +31,7 @@
 
       <div class="register-container">
         <form action="RegisterController" method="POST" (ngSubmit)="register()">
-          <div *ngIf="registerError != null">
-            <h1 style="color: red;">{{registerError}}</h1>
-          </div>
+
           <div class="register-header">
             Register
           </div>
@@ -156,7 +154,7 @@
                 <div class="uploadimage">
                   <p>Upload font your Citizen ID</p>
                   <input #imageInput type="file" multiple accept="image/*"
-                     required (change)="onSelectImageFont($event)">
+                      (change)="onSelectImageFont($event)">
                 </div>
               </div>
             </div>
@@ -164,7 +162,7 @@
               <div class="register-text">
                 <div class="uploadimage">
                   <p>Upload back your Citizen ID</p>
-                  <input #imageInput type="file" multiple accept="image/*" (change)="onSelectImageBack($event)" required>
+                  <input #imageInput type="file" multiple accept="image/*" (change)="onSelectImageBack($event)" >
                 </div>
               </div>
             </div>

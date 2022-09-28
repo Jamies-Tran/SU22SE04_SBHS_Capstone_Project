@@ -3,9 +3,7 @@
     <h1>Request List</h1>
   </div>
   <div class="body card">
-    <div *ngIf="registerError != null">
-      <h1 style="color: red;">{{registerError}}</h1>
-    </div>
+
     <div class="body-container">
       <div style="float:left; margin-right:15px;">
         <select [(ngModel)]="status" (click)="getStatusLandlord()">

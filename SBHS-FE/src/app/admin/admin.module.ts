@@ -31,7 +31,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxEditorModule } from 'ngx-editor';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile.component';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +41,6 @@ import { ProfileComponent } from './profile/profile.component';
     RequestHomestayDetailComponent,
     SpecialDayComponent,
     DashboardComponent,
-    ProfileComponent,
   ],
   imports: [
     CommonModule,

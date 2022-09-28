@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServerHttpService } from 'src/app/services/profile.service';
 import { ImageService } from '../../services/image.service';
+import { MessageComponent } from '../../pop-up/message/message.component';
+import { SuccessComponent } from '../../pop-up/success/success.component';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +16,8 @@ export class ProfileComponent implements OnInit {
     private http: ServerHttpService,
     private image: ImageService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) {}
   public username = '';
   public email = '';
@@ -24,7 +28,8 @@ export class ProfileComponent implements OnInit {
   public address = '';
   public avatarUrl = '';
   public balance = '';
-  newPassword !: string;
+  newPassword!: string;
+  message!: string;
 
   // set min-max date
   minDate!: Date;
@@ -84,5 +89,37 @@ export class ProfileComponent implements OnInit {
         alert(error);
       }
     );
+  }
+  phoneWithdraw: string = '';
+  amountWithdraw: string = '';
+  passwordWithdraw: string = '';
+  isSuccess = 'none';
+  public cashOut() {
+    this.http
+      .withdraw(this.phoneWithdraw, this.amountWithdraw, this.passwordWithdraw)
+      .subscribe(
+        (data) => {
+          this.isSuccess = 'true';
+          this.message = 'Create a request cash out success';
+          this. openDialogSuccess() ;
+        },
+        (error) => {
+          this.isSuccess = 'false';
+          this.message = error;
+          this.openDialog();
+        }
+      );
+  }
+
+  // dialog error
+  openDialog() {
+    this.dialog.open(MessageComponent, {
+      data: this.message,
+    });
+  }
+  openDialogSuccess() {
+    this.dialog.open(SuccessComponent, {
+      data: this.message,
+    });
   }
 }
