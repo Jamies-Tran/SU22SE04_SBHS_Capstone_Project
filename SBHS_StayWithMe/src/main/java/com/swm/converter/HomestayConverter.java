@@ -110,11 +110,12 @@ public class HomestayConverter {
 				.map(p -> this.homestayPriceListResponseDtoConvert(p)).collect(Collectors.toList());
 		HomestayLicenseDto homestayLicenseImageDto = homestayLicenseDtoConvert(homestayEntity.getLicenseImage());
 		HomestayResponseDto homestayDto = new HomestayResponseDto();
+		
 		homestayDto.setId(homestayEntity.getId());
 		homestayDto.setName(homestayEntity.getName());
 		homestayDto.setDescription(homestayEntity.getDescription());
 		homestayDto.setOwner(homestayEntity.getLandlordOwner().getLandlordAccount().getUsername());
-		homestayDto.setAddress(homestayEntity.getAddress());
+		homestayDto.setAddress(homestayEntity.getAddress().split("-")[0]);
 		homestayDto.setCity(homestayEntity.getCity());
 		homestayDto.setHomestayPriceList(homestayPriceList);
 		homestayDto.setNumberOfRoom(homestayEntity.getNumberOfRoom());

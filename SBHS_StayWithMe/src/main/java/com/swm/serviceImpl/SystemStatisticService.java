@@ -58,4 +58,11 @@ public class SystemStatisticService implements ISystemStatisticService {
 		return systemStatistic;
 	}
 
+	@Override
+	public List<SystemStatisticEntity> getSystemstatisticList() {
+		List<SystemStatisticEntity> systemstatisticList = this.systemStatisticRepo.findAll();
+		
+		return systemstatisticList;
+	}
+
 }

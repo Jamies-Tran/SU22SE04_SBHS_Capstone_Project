@@ -1,6 +1,8 @@
 package com.swm.controller;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,33 +25,43 @@ import com.swm.util.DateParsingUtil;
 @RestController
 @RequestMapping("/api/statistic")
 public class StatisticController {
-	
+
 	@Autowired
 	private ISystemStatisticService systemStatisticService;
-	
+
 	@Autowired
 	private ILandlordStatisticService landlordStatisticService;
-	
+
 	@Autowired
 	private StatisticConverter statisticConvert;
-	
+
 	@GetMapping("/system-statistic")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> getSystemStatisticByDateTime(@RequestParam String time) {
 		Date statisticTime = DateParsingUtil.statisticYearMonthTime(DateParsingUtil.parseDateTimeStr(time));
 		SystemStatisticEntity systemStatistic = systemStatisticService.findSystemStatisticByTime(statisticTime);
 		SystemStatisticDto systemStatisticResponseDto = statisticConvert.systemStatisticDtoConvert(systemStatistic);
-		
+
 		return new ResponseEntity<>(systemStatisticResponseDto, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/landlord-statistic")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_LANDLORD')")
 	public ResponseEntity<?> getLandlordStatisticByDateTime(@RequestParam String time) {
 		Date statisticTime = DateParsingUtil.statisticYearMonthTime(DateParsingUtil.parseDateTimeStr(time));
 		LandlordStatisticEntity landlordStatistic = landlordStatisticService.findLandlordStatisticByTime(statisticTime);
 		LandlordStatisticDto landlordStatisticDto = statisticConvert.landlordStatisticDtoConvert(landlordStatistic);
-		
+
 		return new ResponseEntity<>(landlordStatisticDto, HttpStatus.OK);
+	}
+
+	@GetMapping("/landlord-statistic/list")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_LANDLORD')")
+	public ResponseEntity<?> getLandlordStatisticList() {
+		List<LandlordStatisticEntity> landlordStatisticList = this.landlordStatisticService.getLandlordStaitsticList();
+		List<LandlordStatisticDto> landlordStatisticResponseList = landlordStatisticList.stream()
+				.map(l -> statisticConvert.landlordStatisticDtoConvert(l)).collect(Collectors.toList());
+		
+		return new ResponseEntity<>(landlordStatisticResponseList, HttpStatus.OK);
 	}
 }

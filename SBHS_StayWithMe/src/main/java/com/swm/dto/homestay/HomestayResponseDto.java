@@ -18,6 +18,7 @@ public class HomestayResponseDto implements Comparable<HomestayResponseDto>{
 	private String owner;
 	private String address;
 	private String city;
+	private String userDistanceFromHomestay;
 	private int numberOfRoom;
 	private String checkInTime;
 	private String checkOutTime;

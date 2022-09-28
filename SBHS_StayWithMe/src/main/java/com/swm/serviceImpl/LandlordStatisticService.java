@@ -65,4 +65,11 @@ public class LandlordStatisticService implements ILandlordStatisticService {
 		
 	}
 
+	@Override
+	public List<LandlordStatisticEntity> getLandlordStaitsticList() {
+		List<LandlordStatisticEntity> landlordStatisticList = this.landlordStatisticRepo.findAll();
+		
+		return landlordStatisticList;
+	}
+
 }

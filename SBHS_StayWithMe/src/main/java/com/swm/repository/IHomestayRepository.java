@@ -28,6 +28,6 @@ public interface IHomestayRepository extends JpaRepository<HomestayEntity, Long>
 	@Query(value = "select h from HomestayEntity h where h.name like %:filterStr% or h.address like %:filterStr% or h.landlordOwner.landlordAccount.username like %:filterStr% and h.status = :status")
 	Page<HomestayEntity> homestayFilterByStringPagination(Pageable pageable, @Param("filterStr") String filterStr, @Param("status") String status);
 	
-	@Query(value = "select h from HomestayEntity h where h.address = :address")
+	@Query(value = "select h from HomestayEntity h where h.address like %:address%")
 	Optional<HomestayEntity> findHomestayByAddress(@Param("address") String address);
 }

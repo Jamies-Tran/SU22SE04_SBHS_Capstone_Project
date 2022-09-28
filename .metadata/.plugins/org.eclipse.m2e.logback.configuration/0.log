@@ -21749,3 +21749,204 @@ org.eclipse.core.runtime.CoreException: Launch configuration MainApplication ref
 2022-09-28 03:49:29,032 [Worker-20: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
 2022-09-28 03:52:23,203 [Worker-21: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
 2022-09-28 03:52:23,207 [Worker-21: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 03:52:23,210 [Worker-21: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 03:52:23,211 [Worker-21: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 04:03:51,791 [Worker-28: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 04:03:51,800 [Worker-28: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 04:03:51,803 [Worker-28: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 04:03:51,804 [Worker-28: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 04:04:32,908 [Worker-28: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 04:04:32,911 [Worker-28: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 04:04:32,914 [Worker-28: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 04:04:32,915 [Worker-28: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 04:05:14,763 [Worker-27: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 04:05:14,766 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 04:05:14,769 [Worker-27: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 04:05:14,771 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 04:05:43,640 [Worker-13: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 04:05:43,643 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 04:05:43,645 [Worker-13: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 04:05:43,647 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 04:16:23,166 [Worker-27: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 04:16:23,170 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 04:16:23,173 [Worker-27: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 04:16:23,175 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:00:51,268 [Worker-41: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:00:51,326 [Worker-41: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:00:51,342 [Worker-41: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:00:51,346 [Worker-41: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:14:37,634 [Worker-51: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:14:37,657 [Worker-51: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:14:37,665 [Worker-51: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:14:37,666 [Worker-51: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:22:33,434 [Worker-53: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:22:33,438 [Worker-53: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:22:33,442 [Worker-53: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:22:33,444 [Worker-53: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:30:56,344 [Worker-47: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:30:56,347 [Worker-47: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:30:56,350 [Worker-47: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:30:56,352 [Worker-47: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:35:45,222 [Worker-48: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:35:45,225 [Worker-48: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:35:45,227 [Worker-48: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:35:45,229 [Worker-48: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:38:43,142 [Worker-52: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:38:43,146 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:38:43,149 [Worker-52: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:38:43,150 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:44:14,675 [Worker-55: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:44:14,678 [Worker-55: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:44:14,681 [Worker-55: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:44:14,683 [Worker-55: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:45:16,122 [Worker-52: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:45:16,125 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:45:16,128 [Worker-52: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:45:16,129 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:46:05,986 [Worker-56: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:46:05,989 [Worker-56: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:46:05,992 [Worker-56: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:46:05,994 [Worker-56: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:53:00,664 [Worker-56: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:53:00,668 [Worker-56: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:53:00,671 [Worker-56: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:53:00,673 [Worker-56: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:57:07,319 [Worker-61: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:57:07,322 [Worker-61: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 05:57:07,325 [Worker-61: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:57:07,326 [Worker-61: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 05:59:07,294 [Worker-59: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:59:07,356 [Worker-59: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-09-28 05:59:07,383 [Worker-59: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 05:59:07,387 [Worker-59: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:16:22,375 [Worker-73: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:16:22,383 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:16:22,403 [Worker-73: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:16:22,404 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:17:49,345 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:17:49,362 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:17:49,365 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:17:49,367 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:21:49,170 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:21:49,174 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:21:49,177 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:21:49,187 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:25:14,154 [Worker-80: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:25:14,157 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:25:14,160 [Worker-80: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:25:14,161 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:25:45,774 [Worker-73: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:25:45,776 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:25:45,779 [Worker-73: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:25:45,779 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:26:15,070 [Worker-76: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:26:15,073 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:26:15,076 [Worker-76: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:26:15,077 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:28:32,106 [Worker-82: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:28:32,109 [Worker-82: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:28:32,111 [Worker-82: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:28:32,112 [Worker-82: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:33:10,836 [Worker-82: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:33:10,839 [Worker-82: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:33:10,845 [Worker-82: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:33:10,846 [Worker-82: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:40:56,315 [Worker-84: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:40:56,319 [Worker-84: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:40:56,321 [Worker-84: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:40:56,323 [Worker-84: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:41:15,940 [Worker-73: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:41:15,942 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:41:15,945 [Worker-73: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:41:15,946 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:45:14,541 [Worker-79: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:45:14,545 [Worker-79: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:45:14,548 [Worker-79: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:45:14,549 [Worker-79: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:48:21,000 [Worker-89: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:48:21,010 [Worker-89: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:48:21,031 [Worker-89: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:48:21,033 [Worker-89: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:51:27,230 [Worker-90: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:51:27,234 [Worker-90: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:51:27,236 [Worker-90: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:51:27,238 [Worker-90: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:51:31,614 [Worker-92: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:51:31,618 [Worker-92: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:51:31,622 [Worker-92: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:51:31,623 [Worker-92: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:54:32,117 [Worker-79: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:54:32,120 [Worker-79: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 07:54:32,122 [Worker-79: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:54:32,124 [Worker-79: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 07:54:40,238 [Worker-90: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:54:40,240 [Worker-90: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-09-28 07:54:40,246 [Worker-90: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 07:54:40,247 [Worker-90: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:00:25,868 [Worker-86: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:00:25,871 [Worker-86: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:00:25,874 [Worker-86: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:00:25,875 [Worker-86: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:04:07,683 [Worker-97: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:04:07,686 [Worker-97: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:04:07,688 [Worker-97: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:04:07,690 [Worker-97: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:05:20,892 [Worker-96: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:05:20,896 [Worker-96: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:05:20,898 [Worker-96: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:05:20,900 [Worker-96: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:05:58,563 [Worker-99: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:05:58,567 [Worker-99: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:05:58,570 [Worker-99: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:05:58,572 [Worker-99: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:06:07,726 [Worker-97: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:06:07,730 [Worker-97: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:06:07,732 [Worker-97: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:06:07,733 [Worker-97: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:07:32,189 [Worker-99: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:07:32,193 [Worker-99: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:07:32,196 [Worker-99: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:07:32,197 [Worker-99: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:10:36,611 [Worker-98: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:10:36,614 [Worker-98: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:10:36,617 [Worker-98: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:10:36,619 [Worker-98: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:17:10,903 [Worker-100: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:17:10,907 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:17:10,909 [Worker-100: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:17:10,910 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:19:05,495 [Worker-102: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:19:05,498 [Worker-102: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:19:05,500 [Worker-102: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:19:05,501 [Worker-102: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:21:38,478 [Worker-104: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:21:38,483 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:21:38,486 [Worker-104: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:21:38,487 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:23:58,870 [Worker-105: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:23:58,873 [Worker-105: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:23:58,875 [Worker-105: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:23:58,876 [Worker-105: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:36:01,543 [Worker-108: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:36:01,547 [Worker-108: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:36:01,549 [Worker-108: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:36:01,550 [Worker-108: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:37:39,097 [Worker-100: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:37:39,100 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:37:39,103 [Worker-100: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:37:39,104 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 08:58:17,780 [Worker-110: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:58:17,780 [Worker-110: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 08:58:17,784 [Worker-110: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 08:58:17,784 [Worker-110: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 11:12:20,053 [Worker-7: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-09-28 11:12:46,190 [Worker-11: Launching Application] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 11:12:46,201 [Worker-11: Launching Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 11:12:46,285 [Worker-11: Launching Application] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 11:12:46,287 [Worker-11: Launching Application] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 13:11:59,255 [Worker-38: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 13:11:59,317 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources
+2022-09-28 13:11:59,330 [Worker-38: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 13:11:59,332 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\84981\Desktop\SU22SE04_SBHS_Capstone_Project\SBHS_StayWithMe\src\test\resources
+2022-09-28 14:22:22,168 [Worker-65: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1258 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-09-28 14:22:22,180 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 6 resources

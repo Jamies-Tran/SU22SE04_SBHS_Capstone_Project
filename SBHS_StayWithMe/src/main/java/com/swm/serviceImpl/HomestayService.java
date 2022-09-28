@@ -60,8 +60,23 @@ import com.swm.service.IUserService;
 import com.swm.util.CustomPage;
 import com.swm.util.DateParsingUtil;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Service
 public class HomestayService implements IHomestayService {
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	class HomestayGeometryFromUserLocation {
+		String homestayName;
+		String latLng;
+		String distance;
+	}
 
 	@Autowired
 	private IHomestayRepository homestayRepo;
@@ -163,7 +178,13 @@ public class HomestayService implements IHomestayService {
 		if (homestayRepo.findHomestayByName(homestayEntity.getName()).isPresent()) {
 			throw new DuplicateResourceException(homestayEntity.getName(), "Homestay exist");
 		}
-
+		GeocodingGoongResponseDto homestayAddressGeometry =  getLocationGeometry(homestayEntity.getAddress());
+		StringBuilder homestayActualAddress = new StringBuilder();
+		homestayActualAddress.append(homestayAddressGeometry.getResults().get(0).getFormatted_address()).append("-")
+			.append(homestayAddressGeometry.getResults().get(0).getGeometry().getLocation().getLat()).append(",")
+			.append(homestayAddressGeometry.getResults().get(0).getGeometry().getLocation().getLng());
+		System.out.println(homestayActualAddress.toString());
+		homestayEntity.setAddress(homestayActualAddress.toString());
 		String accountPoster = authenticationService.getAuthenticatedUser().getUsername();
 		homestayEntity.setCreatedDate(currentDate);
 		homestayEntity.setCreatedBy(accountPoster);
@@ -254,7 +275,7 @@ public class HomestayService implements IHomestayService {
 	@Override
 	public List<HomestayEntity> findHomestayListByOwnerName() {
 		UserDetails userDetails = authenticationService.getAuthenticatedUser();
-		List<HomestayEntity> homestayEntityList = this.getHomestayBookingAvailableList();
+		List<HomestayEntity> homestayEntityList = this.homestayRepo.findAll();
 		List<HomestayEntity> ownerHomestayList = homestayEntityList.stream().filter(homestay -> homestay
 				.getLandlordOwner().getLandlordAccount().getUsername().equals(userDetails.getUsername()))
 				.collect(Collectors.toList());
@@ -317,12 +338,23 @@ public class HomestayService implements IHomestayService {
 
 		if (filter.getFilterByNearestPlace() != null && filter.getFilterByNearestPlace()) {
 			List<HomestayEntity> results = this.getNeareastLocationFromPlaces(filter.getFilterByStr()).stream()
-					.map(h -> this.findHomestayByAddress(h.getAddress())).collect(Collectors.toList());
+					.map(h -> this.findHomestayByAddress(h.getAddress())).filter(h -> h.getStatus().equalsIgnoreCase(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name())).collect(Collectors.toList());
 			CustomPage<HomestayEntity> homestayCustomPages = new CustomPage<HomestayEntity>(page, size, results);
 			homestayList = homestayCustomPages.of();
+			
+			List<String> geoMeterLtnLng = new ArrayList<String>();
+			homestayList.forEach(h -> {
+				geoMeterLtnLng.add(h.getAddress().split("-")[1]);
+			});
+			System.out.println(geoMeterLtnLng.size());
+			List<String> userDistanceFromHomestays = this.getDistanceString(filter.getFilterByStr(), geoMeterLtnLng);
 			HomestayPagesResponseDto homestayPagesResponseDto = new HomestayPagesResponseDto();
 			List<HomestayResponseDto> homestayResponseListDto = homestayList.stream()
 					.map(h -> homestayConvert.homestayResponseDtoConvert(h)).collect(Collectors.toList());
+			for (int i = 0; i < homestayList.size(); i++) {
+				String address = userDistanceFromHomestays.get(i);
+				homestayResponseListDto.get(i).setUserDistanceFromHomestay(address);
+			}
 			homestayPagesResponseDto.setHomestayListDto(homestayResponseListDto);
 			homestayPagesResponseDto.setTotalPages(homestayCustomPages.totalPages());
 
@@ -457,9 +489,19 @@ public class HomestayService implements IHomestayService {
 		}
 
 		homestayList = homestayPages.getContent();
+		List<String> geoMeterLtnLng = new ArrayList<String>();
+		homestayList.forEach(h -> {
+			geoMeterLtnLng.add(h.getAddress().split("-")[1]);
+		});
+		System.out.println(geoMeterLtnLng.size());
+		List<String> userDistanceFromHomestays = this.getDistanceString(filter.getUserCurrentLocation(), geoMeterLtnLng);
 		HomestayPagesResponseDto homestayPagesResponseDto = new HomestayPagesResponseDto();
 		List<HomestayResponseDto> homestayResponseListDto = homestayList.stream()
 				.map(h -> homestayConvert.homestayResponseDtoConvert(h)).collect(Collectors.toList());
+		for (int i = 0; i < homestayList.size(); i++) {
+			String address = userDistanceFromHomestays.get(i);
+			homestayResponseListDto.get(i).setUserDistanceFromHomestay(address);
+		}
 		homestayPagesResponseDto.setHomestayListDto(homestayResponseListDto);
 		homestayPagesResponseDto.setTotalPages(homestayPages.getTotalPages());
 
@@ -474,6 +516,37 @@ public class HomestayService implements IHomestayService {
 //		return differentInDay;
 //	}
 
+	private List<String> getDistanceString(String currentLocation, List<String> geoMeterLtnLng) {
+		StringBuilder url = new StringBuilder();
+		StringBuilder destinationBuilder = new StringBuilder();
+		List<String> distanceListString = new ArrayList<String>();
+		
+		if(geoMeterLtnLng.size() == 1 && geoMeterLtnLng.size() > 0) {
+			destinationBuilder.append(geoMeterLtnLng.get(0));
+		} else {
+			for (int i = 0; i < geoMeterLtnLng.size(); i++) {
+				if(i == 0) {
+					destinationBuilder.append(geoMeterLtnLng.get(i));
+				} else {
+					destinationBuilder.append("|").append(geoMeterLtnLng.get(i));
+				}
+			}
+		}
+		url.append(GOONG_DISTANCE_MATRIX_API).append("?origins=").append(currentLocation).append("&destinations=")
+		.append(destinationBuilder.toString()).append("&api_key=").append(goongApiKey);
+		System.out.println(url.toString());
+		
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(MediaType.APPLICATION_JSON);
+		DistanceMatrixResponseGoongDto distanceMatrixResponse = restTemplate.getForObject(url.toString(),
+				DistanceMatrixResponseGoongDto.class, header);
+		for (int i = 0; i < geoMeterLtnLng.size(); i++) {
+			distanceListString.add(distanceMatrixResponse.getRows().get(0).getElements().get(i).getDistance().getText());
+		}
+		
+		return distanceListString;
+	}
+	
 	@Override
 	public Long averageHomestayPrice(HomestayEntity homestayEntity) {
 		long total = 0;
@@ -490,7 +563,7 @@ public class HomestayService implements IHomestayService {
 //		String Url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver%20BC%7CSeattle&destinations=San%20Francisco%7CVictoria%20BC&mode=bicycling&language=fr-FR&key=YOUR_API_KEY";
 		StringBuilder url = new StringBuilder();
 		StringBuilder destinationBuilder = new StringBuilder();
-		List<HomestayEntity> homestayList = this.homestayRepo.findAll();
+		List<HomestayEntity> homestayList = this.homestayRepo.findAll().stream().filter(h -> h.getStatus().equalsIgnoreCase(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name())).collect(Collectors.toList());
 		if (homestayList.size() > 1) {
 			for (int i = 0; i < homestayList.size(); i++) {
 				if (i == 0) {
@@ -510,9 +583,6 @@ public class HomestayService implements IHomestayService {
 
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.TEXT_PLAIN);
-//		HttpEntity<DistanceMatrixResponseDto> httpEntity = new HttpEntity<DistanceMatrixResponseDto>(header);
-		// DistanceMatrixResponseDto distanceMatrixResponse = new
-		// DistanceMatrixResponseDto();
 
 		DistanceMatrixResponseGoogleDto distanceMatrixResponse = restTemplate.getForObject(url.toString(),
 				DistanceMatrixResponseGoogleDto.class, header);
@@ -530,27 +600,24 @@ public class HomestayService implements IHomestayService {
 		StringBuilder destinationBuilder = new StringBuilder();
 		List<String> addressList = new ArrayList<String>();
 		List<LocationDistanceDto> locationDistanceList = new ArrayList<LocationDistanceDto>();
-		List<HomestayEntity> homestayList = this.homestayRepo.findAll();
+		List<HomestayEntity> homestayList = this.homestayRepo.findAll().stream().filter(h -> h.getStatus().equalsIgnoreCase(HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name())).collect(Collectors.toList());
 		if (homestayList.size() > 1) {
 			for (int i = 0; i < homestayList.size(); i++) {
 				if (i == 0) {
-					GeocodingGoongResponseDto geometry = this.getLocationGeometry(homestayList.get(i).getAddress());
-					addressList.add(geometry.getResults().get(0).getFormatted_address());
-					destinationBuilder.append(geometry.getResults().get(0).getGeometry().getLocation().getLat())
-							.append(",").append(geometry.getResults().get(0).getGeometry().getLocation().getLng());
+					System.out.println(homestayList.get(i).getAddress().split("-")[1]);
+					addressList.add(homestayList.get(i).getAddress().split("-")[1]);
+					destinationBuilder.append(homestayList.get(i).getAddress().split("-")[1]);
 				} else {
-					GeocodingGoongResponseDto geometry = this.getLocationGeometry(homestayList.get(i).getAddress());
-					addressList.add(geometry.getResults().get(0).getFormatted_address());
+					System.out.println(homestayList.get(i).getAddress().split("-")[1]);
+					addressList.add(homestayList.get(i).getAddress().split("-")[1]);
 					destinationBuilder.append("|")
-							.append(geometry.getResults().get(0).getGeometry().getLocation().getLat()).append(",")
-							.append(geometry.getResults().get(0).getGeometry().getLocation().getLng());
+							.append(homestayList.get(i).getAddress().split("-")[1]);
 				}
 			}
 		} else {
-			GeocodingGoongResponseDto geometry = this.getLocationGeometry(homestayList.get(0).getAddress());
-			addressList.add(geometry.getResults().get(0).getFormatted_address());
-			destinationBuilder.append(geometry.getResults().get(0).getGeometry().getLocation().getLat()).append(",")
-					.append(geometry.getResults().get(0).getGeometry().getLocation().getLng());
+			System.out.println(homestayList.get(0).getAddress().split("-")[1]);
+			addressList.add(homestayList.get(0).getAddress().split("-")[1]);
+			destinationBuilder.append(homestayList.get(0).getAddress().split("-")[1]);
 		}
 		url.append(GOONG_DISTANCE_MATRIX_API).append("?origins=").append(origin_address).append("&destinations=")
 				.append(destinationBuilder.toString()).append("&api_key=").append(goongApiKey);
