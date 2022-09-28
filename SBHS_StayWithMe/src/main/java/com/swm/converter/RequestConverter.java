@@ -209,6 +209,7 @@ public class RequestConverter {
 	public LandlordBalanceWithdrawalRequestEntity withdrawalEntityConvert(LandlordBalanceWithdrawalRequestDto withdrawalRequestDto) {
 		LandlordBalanceWithdrawalRequestEntity withdrawalEntity = new LandlordBalanceWithdrawalRequestEntity();
 		withdrawalEntity.setAmount(withdrawalRequestDto.getAmount());
+		withdrawalEntity.setLandlordPhone(withdrawalRequestDto.getLandlordPhone());
 		
 		return withdrawalEntity;
 	}
@@ -221,7 +222,7 @@ public class RequestConverter {
 		withdrawalRequestDto.setCreatedDate(DateParsingUtil.parseDateTimeToStr(withdrawalRequestEntity.getCreatedDate()));
 		withdrawalRequestDto.setStatus(withdrawalRequestEntity.getStatus());
 		withdrawalRequestDto.setAmount(withdrawalRequestEntity.getAmount());
-		withdrawalRequestDto.setLandlordPhone(withdrawalRequestEntity.getLandlordRequestWithdrawal().getLandlordAccount().getPhone());
+		withdrawalRequestDto.setLandlordPhone(withdrawalRequestEntity.getLandlordPhone());
 		if(StringUtils.hasLength(withdrawalRequestEntity.getVerifiedBy())) {
 			withdrawalRequestDto.setVerifyBy(withdrawalRequestEntity.getVerifiedBy());
 		}

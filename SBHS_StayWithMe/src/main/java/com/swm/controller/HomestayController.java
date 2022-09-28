@@ -171,8 +171,8 @@ public class HomestayController {
 
 	@DeleteMapping("/removal/{Id}")
 	@PreAuthorize("hasAuthority('homestay:delete')")
-	public ResponseEntity<?> deleteHomestayById(@PathVariable("Id") Long Id, @RequestParam Boolean cancelConfirm) {
-		HomestayEntity homestayEntity = homestayService.setDeleteStatusForHomestayById(Id, cancelConfirm);
+	public ResponseEntity<?> deleteHomestayById(@PathVariable("Id") Long Id) {
+		HomestayEntity homestayEntity = homestayService.setDeleteStatusForHomestayById(Id);
 		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestayEntity);
 
 		return new ResponseEntity<>(homestayResponseDto, HttpStatus.GONE);

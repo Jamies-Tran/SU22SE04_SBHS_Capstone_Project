@@ -61,7 +61,17 @@ public class StatisticController {
 		List<LandlordStatisticEntity> landlordStatisticList = this.landlordStatisticService.getLandlordStaitsticList();
 		List<LandlordStatisticDto> landlordStatisticResponseList = landlordStatisticList.stream()
 				.map(l -> statisticConvert.landlordStatisticDtoConvert(l)).collect(Collectors.toList());
-		
+
 		return new ResponseEntity<>(landlordStatisticResponseList, HttpStatus.OK);
+	}
+
+	@GetMapping("/system-statistic/list")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ResponseEntity<?> getAdminDashboardList() {
+		List<SystemStatisticEntity> statisticList = this.systemStatisticService.getSystemstatisticList();
+		List<SystemStatisticDto> statisticResponseList = statisticList.stream()
+				.map(s -> statisticConvert.systemStatisticDtoConvert(s)).collect(Collectors.toList());
+		
+		return new ResponseEntity<>(statisticResponseList, HttpStatus.OK);
 	}
 }

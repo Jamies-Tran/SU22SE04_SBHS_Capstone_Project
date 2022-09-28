@@ -60,23 +60,18 @@ import com.swm.service.IUserService;
 import com.swm.util.CustomPage;
 import com.swm.util.DateParsingUtil;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Service
 public class HomestayService implements IHomestayService {
 	
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Getter
-	@Setter
-	class HomestayGeometryFromUserLocation {
-		String homestayName;
-		String latLng;
-		String distance;
-	}
+//	@AllArgsConstructor
+//	@NoArgsConstructor
+//	@Getter
+//	@Setter
+//	class HomestayGeometryFromUserLocation {
+//		String homestayName;
+//		String latLng;
+//		String distance;
+//	}
 
 	@Autowired
 	private IHomestayRepository homestayRepo;
@@ -140,32 +135,30 @@ public class HomestayService implements IHomestayService {
 
 	@Transactional
 	@Override
-	public HomestayEntity setDeleteStatusForHomestayById(Long Id, boolean confirmCancelAndDelete) {
+	public HomestayEntity setDeleteStatusForHomestayById(Long Id) {
 		UserEntity user = userService.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
 		HomestayEntity homestayEntity = homestayRepo.findById(Id)
 				.orElseThrow(() -> new ResourceNotFoundException(Id.toString(), "Homestay id not found"));
 
-		if (confirmCancelAndDelete) {
-			if (homestayEntity.getBooking().isEmpty()) {
-				homestayEntity.setStatus(HomestayStatus.HOMESTAY_DELETE.name());
-				homestayEntity.setModifiedBy(user.getUsername());
-				homestayEntity.setModifiedDate(DateParsingUtil.formatDateTime(currentDate));
-			} else {
-				if (homestayEntity.getBooking().stream()
-						.anyMatch(h -> h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
-								|| h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name()))) {
-					homestayEntity.getBooking().stream()
-							.filter(h -> h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
-									|| h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name()))
-							.collect(Collectors.toList()).forEach(h -> {
-								bookingService.confirmBooking(h.getId(), false,
-										"Homestay has been removed by landlord");
-							});
-				}
-				homestayEntity.setStatus(HomestayStatus.HOMESTAY_PENDING_DELETE.name());
-				homestayEntity.setModifiedBy(user.getUsername());
-				homestayEntity.setModifiedDate(DateParsingUtil.formatDateTime(currentDate));
+		if (homestayEntity.getBooking().isEmpty()) {
+			homestayEntity.setStatus(HomestayStatus.HOMESTAY_DELETE.name());
+			homestayEntity.setModifiedBy(user.getUsername());
+			homestayEntity.setModifiedDate(DateParsingUtil.formatDateTime(currentDate));
+		} else {
+			if (homestayEntity.getBooking().stream()
+					.anyMatch(h -> h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
+							|| h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name()))) {
+				homestayEntity.getBooking().stream()
+						.filter(h -> h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING.name())
+								|| h.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_PENDING_ALERT_SENT.name()))
+						.collect(Collectors.toList()).forEach(h -> {
+							bookingService.confirmBooking(h.getId(), false,
+									"Homestay has been removed by landlord");
+						});
 			}
+			homestayEntity.setStatus(HomestayStatus.HOMESTAY_PENDING_DELETE.name());
+			homestayEntity.setModifiedBy(user.getUsername());
+			homestayEntity.setModifiedDate(DateParsingUtil.formatDateTime(currentDate));
 		}
 
 		return homestayEntity;
@@ -667,7 +660,10 @@ public class HomestayService implements IHomestayService {
 			h.getBooking().forEach(b -> {
 				if(b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CHECKOUT_BY_LANDLORD.name()) || 
 						b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CHECKOUT_BY_PASSENGER_RELATIVE.name()) || 
-						b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CONFIRM_CHECKOUT.name())) {
+						b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CONFIRM_CHECKIN.name()) ||
+						b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_CONFIRM_CHECKOUT.name()) ||
+						b.getStatus().equalsIgnoreCase(BookingStatus.BOOKING_REJECTED.name())) {
+					
 					h.setStatus(HomestayStatus.HOMESTAY_DELETE.name());
 				}
 			});

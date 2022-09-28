@@ -28,6 +28,9 @@ public class LandlordBalanceWithdrawalRequestEntity extends BaseRequestEntity {
 	@Setter
 	private String status;
 	
+	@Setter
+	private String landlordPhone;
+	
 	
 	@OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinColumn(name = "landlord_id", referencedColumnName = "Id")

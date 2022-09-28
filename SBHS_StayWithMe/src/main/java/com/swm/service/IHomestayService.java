@@ -35,7 +35,7 @@ public interface IHomestayService {
 	
 	SpecialDayPriceListEntity deleteSpecialDayPriceList(String code);
 	
-	HomestayEntity setDeleteStatusForHomestayById(Long Id, boolean confirmCancelAndDelete);
+	HomestayEntity setDeleteStatusForHomestayById(Long Id);
 	
 	DistanceMatrixResponseGoogleDto getDistanceMatrixFromPlaces(String origin_address);
 	
