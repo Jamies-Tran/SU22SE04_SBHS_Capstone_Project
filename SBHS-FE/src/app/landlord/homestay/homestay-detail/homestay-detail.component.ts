@@ -39,7 +39,7 @@ export class HomestayDetailComponent implements OnInit {
         console.log('image', this.imgUrl);
       }
       this.homestayLicense = await this.image.getImage(
-        'homestay/' + this.value.homestayLicense.url
+        'license/' + this.value.homestayLicense.url
       );
     });
   }

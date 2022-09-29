@@ -497,23 +497,23 @@ export class RegisterHomestayComponent implements OnInit {
     console.log('register');
     for (this.file of this.homestayImageFiles) {
       console.log('file homestayimage name:', this.file.name);
-      const path = 'homestay/' + this.file.name +" " +this.informationFormGroup.controls.homestayName.value;
+      const path = 'homestay/' + this.informationFormGroup.controls.homestayName.value +' ' + this.file.name ;
       const fileRef = this.storage.ref(path);
       this.storage.upload(path, this.file);
 
       this.homestayImages.push(this.file.name);
-      console.log('ten file luu tren database', this.homestayImages);
+      console.log('path name', path);
     }
 
     // homestayLicenseFiles
     for (this.file of this.homestayLicenseFiles) {
       console.log('file homestay license name:', this.file.name);
-      const path = 'license/' + this.file.name +" " +this.informationFormGroup.controls.homestayName.value;
+      const path = 'license/' +  this.informationFormGroup.controls.homestayName.value +' ' +this.file.name ;
       const fileRef = this.storage.ref(path);
       this.storage.upload(path, this.file);
 
       this.homestayLicense = this.file.name;
-      console.log('ten file luu tren database', this.homestayLicense);
+      console.log('path name', path);
     }
 
     // lay value
