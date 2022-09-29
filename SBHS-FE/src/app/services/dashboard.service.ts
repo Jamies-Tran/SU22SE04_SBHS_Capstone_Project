@@ -23,6 +23,12 @@ export class ServerHttpService {
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
+  public getInfoAdminDashboard(date:string){
+    const url = `${this.REST_API_SERVER}/api/statistic/system-statistic?time=`+date+``;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
   
   private handleError(error: HttpErrorResponse) {
     return throwError(

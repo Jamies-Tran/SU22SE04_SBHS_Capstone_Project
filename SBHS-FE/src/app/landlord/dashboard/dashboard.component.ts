@@ -26,23 +26,23 @@ export class DashboardComponent implements OnInit {
     this.getInfoMonth12();
   }
   currentValue:any;
-  month1Value:string =""
-  month2Value:string =""
-  month3Value:string =""
-  month4Value:string =""
-  month5Value:string =""
-  month6Value:string =""
-  month7Value:string =""
-  month8Value:string =""
-  month9Value:string =""
-  month10Value:string =""
-  month11Value:string =""
-  month12Value:string =""
+  month1Value:number =0
+  month2Value:number =0
+  month3Value:number =0
+  month4Value:number =0
+  month5Value:number =0
+  month6Value:number =0
+  month7Value:number =0
+  month8Value:number =0
+  month9Value:number =0
+  month10Value:number =0
+  month11Value:number =0
+  month12Value:number =0
   getInfoCurrentMonth(){
     const now = new Date();
     this.http.getInfoDashboard(dateFormat(now, "yyyy-mm-dd")).subscribe((data =>{
       this.currentValue = data;
-      console.log(data)
+      console.log(data.totalProfit)
     }),
     error =>{
       console.log(error)
@@ -123,7 +123,7 @@ export class DashboardComponent implements OnInit {
   getInfoMonth9(){
     this.http.getInfoDashboard("2022-9-01").subscribe((data =>{
       this.month9Value = data.totalProfit;
-      console.log(data)
+      console.log(this.month9Value)
     }),
     error =>{
       console.log(error)
