@@ -29,7 +29,6 @@ export class RegisterHomestayComponent implements OnInit {
   homestayImageFiles: File[] = [];
   homestayLicenseFiles: File[] = [];
   file!: File;
-  payment = 'atm';
   value!: string;
   public homestayLicense!: string;
   public homestayImages: string[] = [];
@@ -137,7 +136,6 @@ export class RegisterHomestayComponent implements OnInit {
     number: ['', Validators.required],
     city: [''],
     description: [''],
-
     image: [false, Validators.requiredTrue],
   });
 
@@ -356,7 +354,7 @@ export class RegisterHomestayComponent implements OnInit {
         });
       }
       // this.ListSpecialDay = data
-      console.log(this.ListSpecialDay);
+      console.log('this.ListSpecialDay ' , data);
     });
     this.facilityFormGroup.reset();
     this.facilityFormGroup.controls.inputTv.disable();
@@ -463,6 +461,8 @@ export class RegisterHomestayComponent implements OnInit {
       this.informationFormGroup.patchValue({ image: false });
     }
   }
+
+
   oDOM!: any;
   text!: any;
   informationForm() {
@@ -471,6 +471,7 @@ export class RegisterHomestayComponent implements OnInit {
     console.log('homestay image', this.homestayImages);
 
     console.log('lít special day', this.ListSpecialDay);
+
     this.oDOM = this.oParser.parseFromString(
       this.informationFormGroup.controls.description.value!,
       'text/html'
@@ -479,6 +480,7 @@ export class RegisterHomestayComponent implements OnInit {
     console.log('text', this.text);
     this.descriptionStep4 =
       this.informationFormGroup.controls.description.value!;
+
   }
   facilityForm() {
     console.log(this.facilityFormGroup.value);
@@ -585,49 +587,49 @@ export class RegisterHomestayComponent implements OnInit {
 
     if (facilityFormGroupValue.cookingStove.value == true) {
       myhomestayCommonFacilities.push({
-        name: 'cookingStove',
+        name: 'CookingStove',
         amount: facilityFormGroupValue.inputCookingStove.value + '',
       });
     }
 
     if (facilityFormGroupValue.bed.value == true) {
       myhomestayCommonFacilities.push({
-        name: 'bed',
+        name: 'Bed',
         amount: facilityFormGroupValue.inputBed.value + '',
       });
     }
 
     if (facilityFormGroupValue.shower.value == true) {
       myhomestayCommonFacilities.push({
-        name: 'shower',
+        name: 'Shower',
         amount: facilityFormGroupValue.inputShower.value + '',
       });
     }
 
     if (facilityFormGroupValue.sofa.value == true) {
       myhomestayCommonFacilities.push({
-        name: 'sofa',
+        name: 'Sofa',
         amount: facilityFormGroupValue.inputSofa.value + '',
       });
     }
 
     if (facilityFormGroupValue.toilet.value == true) {
       myhomestayCommonFacilities.push({
-        name: 'toilet',
+        name: 'Toilet',
         amount: facilityFormGroupValue.inputToilet.value + '',
       });
     }
 
     if (facilityFormGroupValue.fan.value == true) {
       myhomestayCommonFacilities.push({
-        name: 'fan',
+        name: 'Fan',
         amount: facilityFormGroupValue.inputFan.value + '',
       });
     }
 
     if (facilityFormGroupValue.bathtub.value == true) {
       myhomestayCommonFacilities.push({
-        name: 'bathtub',
+        name: 'Bathtub',
         amount: facilityFormGroupValue.inputBathtub.value + '',
       });
     }
@@ -652,56 +654,56 @@ export class RegisterHomestayComponent implements OnInit {
 
     if (serviceFormGroupValue.wifi.value == true) {
       myHomestayServices.push({
-        name: 'wifi',
+        name: 'Wifi',
         price: serviceFormGroupValue.wifiPrice.value + '',
       });
     }
 
     if (serviceFormGroupValue.spa.value == true) {
       myHomestayServices.push({
-        name: 'spa',
+        name: 'Spa',
         price: serviceFormGroupValue.spaPrice.value + '',
       });
     }
 
     if (serviceFormGroupValue.food.value == true) {
       myHomestayServices.push({
-        name: 'food',
+        name: 'Food',
         price: serviceFormGroupValue.foodPrice.value + '',
       });
     }
 
     if (serviceFormGroupValue.fishing.value == true) {
       myHomestayServices.push({
-        name: 'fishing',
+        name: 'Fishing',
         price: serviceFormGroupValue.fishingPrice.value + '',
       });
     }
 
     if (serviceFormGroupValue.bar.value == true) {
       myHomestayServices.push({
-        name: 'bar',
+        name: 'Bar',
         price: serviceFormGroupValue.barPrice.value + '',
       });
     }
 
     if (serviceFormGroupValue.carRental.value == true) {
       myHomestayServices.push({
-        name: 'carRental',
+        name: 'CarRental',
         price: serviceFormGroupValue.carRentalPrice.value + '',
       });
     }
 
     if (serviceFormGroupValue.swimming.value == true) {
       myHomestayServices.push({
-        name: 'swimming',
+        name: 'Swimming',
         price: serviceFormGroupValue.swimmingPrice.value + '',
       });
     }
 
     if (serviceFormGroupValue.campfire.value == true) {
       myHomestayServices.push({
-        name: 'campfire',
+        name: 'Campfire',
         price: serviceFormGroupValue.campfirePrice.value + '',
       });
     }
