@@ -30,7 +30,7 @@ export class UpdateHomestayComponent implements OnInit {
   homestayImageFiles: File[] = [];
   homestayLicenseFiles: File[] = [];
   file!: File;
-  value: any = [];
+  value: any =[];
   public homestayLicense!: string;
   public homestayImages: string[] = [];
   readonly = false;
@@ -60,8 +60,11 @@ export class UpdateHomestayComponent implements OnInit {
     this.http.getHomestayDetail().subscribe(async (data) => {
       this.value = data;
       console.log(data);
+      console.log(this.value.name);
+      console.log("this.value", this.value);
 
-      this.getHomestaySpecialDay();
+
+
 
       // for (this.i of this.value.homestayImages) {
       //   this.imgUrl = await this.image.getImage('homestay/' + this.i.url);
@@ -71,7 +74,15 @@ export class UpdateHomestayComponent implements OnInit {
       // this.homestayLicense = await this.image.getImage(
       //   'homestay/' + this.value.homestayLicense.url
       // );
+
+      this.getHomestaySpecialDay();
+      this.informationFormGroup.patchValue({
+        homestayName:this.value.name
+      })
+
     });
+
+
   }
 
   // Format Month
@@ -129,6 +140,7 @@ export class UpdateHomestayComponent implements OnInit {
     this.descriptionStep4 =
       this.informationFormGroup.controls.description.value!;
   }
+
   ngOnDestroy(): void {
     this.editor.destroy();
     this.editor2.destroy();
@@ -158,23 +170,148 @@ export class UpdateHomestayComponent implements OnInit {
 
   // information Form
   informationFormGroup = this._formBuilder.group({
-    homestayName: [{ value: this.value.name }, Validators.required],
-    address: [{ value: this.value.address }, Validators.required],
-    checkInTime: [{ value: this.value.checkInTime }, Validators.required],
-    checkOutTime: [{ value: this.value.checkOutTime }, Validators.required],
-    priceNormalDay: [
-      { value: this.value.homestayPriceList[0].price },
-      Validators.required,
-    ],
-    priceWeekendDay: [
-      { value: this.value.homestayPriceList[1].price },
-      Validators.required,
-    ],
-    number: [{ value: this.value.numberOfRoom }, Validators.required],
-
+    homestayName: ['', Validators.required],
+    address: ['', Validators.required],
+    checkInTime: ['', Validators.required],
+    checkOutTime: ['', Validators.required],
+    priceNormalDay: ['', Validators.required],
+    priceWeekendDay: ['', Validators.required],
+    number: ['', Validators.required],
     description: [''],
     image: [false, Validators.requiredTrue],
   });
+
+  getHomestaySpecialDay() {
+    for (let item of this.value.homestayPriceList) {
+      if (item.type == 'special') {
+        this.ListSpecialDay.push(item);
+        console.log('list homestay', this.ListSpecialDay);
+      }
+    }
+    this.http.getSpecialDay().subscribe((data) => {
+      for (let items of data) {
+        for (let specialDay of this.ListSpecialDay) {
+          if (items.id !== specialDay.id) {
+            this.ListSpecialDay.push(items );
+          }
+        }
+      }
+      // this.ListSpecialDay = data
+      console.log('fianl list', this.ListSpecialDay);
+    });
+
+
+  }
+
+  // Image
+
+  // lấy file hình
+  onSelectImageHomestay(files: any) {
+    console.log('onselect: ', files);
+    // set files
+    this.homestayImageFiles.push(...files.addedFiles);
+    if (
+      this.homestayImageFiles.length >= 1 &&
+      this.homestayLicenseFiles.length == 1
+    ) {
+      this.informationFormGroup.patchValue({ image: true });
+    } else {
+      this.informationFormGroup.patchValue({ image: false });
+    }
+  }
+
+  // xóa file hình
+  onRemoveHomestayImage(event: File) {
+    console.log(event);
+    this.homestayImageFiles.splice(this.homestayImageFiles.indexOf(event), 1);
+    console.log('xoa file:', this.homestayImageFiles);
+    if (
+      this.homestayImageFiles.length >= 1 &&
+      this.homestayLicenseFiles.length == 1
+    ) {
+      this.informationFormGroup.patchValue({ image: true });
+    } else {
+      this.informationFormGroup.patchValue({ image: false });
+    }
+  }
+  onRemoved() {
+    for (this.file of this.homestayImageFiles) {
+      this.homestayImageFiles.splice(
+        this.homestayImageFiles.indexOf(this.file),
+        this.homestayImageFiles.length
+      );
+    }
+    for (this.file of this.homestayLicenseFiles) {
+      this.homestayLicenseFiles.splice(
+        this.homestayLicenseFiles.indexOf(this.file),
+        this.homestayLicenseFiles.length
+      );
+    }
+  }
+
+  // lấy file hình
+  onSelectHomestayLicense(files: any) {
+    console.log('onselect: ', files);
+    // set files
+    this.homestayLicenseFiles.push(...files.addedFiles);
+    console.log('file array', this.homestayLicenseFiles);
+    console.log('file lenght', this.homestayLicenseFiles.length);
+
+    if (this.homestayLicenseFiles.length > 1) {
+      this.homestayLicenseFiles.splice(
+        this.homestayLicenseFiles.indexOf(files),
+        1
+      );
+      console.log('file lenght slice', this.homestayLicenseFiles.length);
+      console.log('file array', this.homestayLicenseFiles);
+      console.log('file index', this.homestayLicenseFiles.indexOf(files));
+    }
+    if (
+      this.homestayImageFiles.length >= 1 &&
+      this.homestayLicenseFiles.length == 1
+    ) {
+      this.informationFormGroup.patchValue({ image: true });
+    } else {
+      this.informationFormGroup.patchValue({ image: false });
+    }
+  }
+
+  // xóa file hình
+  onRemoveHomestayLicense(event: File) {
+    console.log(event);
+    console.log('xoa index:', this.homestayLicenseFiles.indexOf(event));
+    this.homestayLicenseFiles.splice(
+      this.homestayLicenseFiles.indexOf(event),
+      1
+    );
+    console.log('xoa file:', this.homestayLicenseFiles);
+    if (
+      this.homestayImageFiles.length >= 1 &&
+      this.homestayLicenseFiles.length == 1
+    ) {
+      this.informationFormGroup.patchValue({ image: true });
+    } else {
+      this.informationFormGroup.patchValue({ image: false });
+    }
+  }
+
+  informationForm() {
+    console.log(this.informationFormGroup.value);
+    // console.log("homestay license", this.homestayLicense);
+    // console.log('homestay image', this.homestayImages);
+
+    // console.log('lít special day', this.ListSpecialDay);
+
+    this.oDOM = this.oParser.parseFromString(
+      this.informationFormGroup.controls.description.value!,
+      'text/html'
+    );
+    this.text = this.oDOM.body.innerText;
+    console.log('text', this.text);
+    this.descriptionStep4 =
+      this.informationFormGroup.controls.description.value!;
+
+  }
 
   // facility Form
   facilityFormGroup = this._formBuilder.group({
@@ -341,115 +478,35 @@ export class UpdateHomestayComponent implements OnInit {
     }
   }
 
-  getHomestaySpecialDay() {
-    for (let item of this.value.homestayPriceList) {
-      if (item.type == 'special') {
-        this.ListSpecialDay.push(item);
-        console.log('list homestay', this.ListSpecialDay);
-      }
-    }
-    this.http.getSpecialDay().subscribe((data) => {
-      for (let items of data) {
-        for (let specialDay of this.ListSpecialDay) {
-          if (items.id !== specialDay.id) {
-            this.ListSpecialDay.push(items + { status: false });
-          }
-        }
-      }
-      // this.ListSpecialDay = data
-      console.log('fianl list', this.ListSpecialDay);
-    });
+
+
+
+  facilityForm() {
+    console.log(this.facilityFormGroup.value);
+  }
+  serviceForm() {
+    console.log(this.serviceFormGroup.value);
+  }
+  paymentForm() {      }
+
+
+
+  paymentFormGroup = this._formBuilder.group({});
+
+
+  // New Service
+  addService() {
+    this.newServices.push({ name: '', price: '', status: false });
+    console.log('values', this.newServices);
+    console.log('size', this.newServices.length);
   }
 
-  // Image
-
-  // lấy file hình
-  onSelectImageHomestay(files: any) {
-    console.log('onselect: ', files);
-    // set files
-    this.homestayImageFiles.push(...files.addedFiles);
-    if (
-      this.homestayImageFiles.length >= 1 &&
-      this.homestayLicenseFiles.length == 1
-    ) {
-      this.informationFormGroup.patchValue({ image: true });
-    } else {
-      this.informationFormGroup.patchValue({ image: false });
-    }
+  removeService(i: any) {
+    this.newServices.splice(i, 1);
   }
 
-  // xóa file hình
-  onRemoveHomestayImage(event: File) {
-    console.log(event);
-    this.homestayImageFiles.splice(this.homestayImageFiles.indexOf(event), 1);
-    console.log('xoa file:', this.homestayImageFiles);
-    if (
-      this.homestayImageFiles.length >= 1 &&
-      this.homestayLicenseFiles.length == 1
-    ) {
-      this.informationFormGroup.patchValue({ image: true });
-    } else {
-      this.informationFormGroup.patchValue({ image: false });
-    }
-  }
-  onRemoved() {
-    for (this.file of this.homestayImageFiles) {
-      this.homestayImageFiles.splice(
-        this.homestayImageFiles.indexOf(this.file),
-        this.homestayImageFiles.length
-      );
-    }
-    for (this.file of this.homestayLicenseFiles) {
-      this.homestayLicenseFiles.splice(
-        this.homestayLicenseFiles.indexOf(this.file),
-        this.homestayLicenseFiles.length
-      );
-    }
-  }
-
-  // lấy file hình
-  onSelectHomestayLicense(files: any) {
-    console.log('onselect: ', files);
-    // set files
-    this.homestayLicenseFiles.push(...files.addedFiles);
-    console.log('file array', this.homestayLicenseFiles);
-    console.log('file lenght', this.homestayLicenseFiles.length);
-
-    if (this.homestayLicenseFiles.length > 1) {
-      this.homestayLicenseFiles.splice(
-        this.homestayLicenseFiles.indexOf(files),
-        1
-      );
-      console.log('file lenght slice', this.homestayLicenseFiles.length);
-      console.log('file array', this.homestayLicenseFiles);
-      console.log('file index', this.homestayLicenseFiles.indexOf(files));
-    }
-    if (
-      this.homestayImageFiles.length >= 1 &&
-      this.homestayLicenseFiles.length == 1
-    ) {
-      this.informationFormGroup.patchValue({ image: true });
-    } else {
-      this.informationFormGroup.patchValue({ image: false });
-    }
-  }
-
-  // xóa file hình
-  onRemoveHomestayLicense(event: File) {
-    console.log(event);
-    console.log('xoa index:', this.homestayLicenseFiles.indexOf(event));
-    this.homestayLicenseFiles.splice(
-      this.homestayLicenseFiles.indexOf(event),
-      1
-    );
-    console.log('xoa file:', this.homestayLicenseFiles);
-    if (
-      this.homestayImageFiles.length >= 1 &&
-      this.homestayLicenseFiles.length == 1
-    ) {
-      this.informationFormGroup.patchValue({ image: true });
-    } else {
-      this.informationFormGroup.patchValue({ image: false });
-    }
+  resetService(): void {
+    this.newServices = [];
+    console.log(this.newServices);
   }
 }

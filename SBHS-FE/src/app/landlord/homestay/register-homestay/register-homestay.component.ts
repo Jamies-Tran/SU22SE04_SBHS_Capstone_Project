@@ -258,6 +258,7 @@ export class RegisterHomestayComponent implements OnInit {
     campfire: false,
     campfirePrice: [{ value: '', disabled: true }],
   });
+
   enableInputWifi() {
     if (this.serviceFormGroup.controls.wifi.value === true) {
       this.serviceFormGroup.controls.wifiPrice.enable();
@@ -468,9 +469,9 @@ export class RegisterHomestayComponent implements OnInit {
   informationForm() {
     console.log(this.informationFormGroup.value);
     // console.log("homestay license", this.homestayLicense);
-    console.log('homestay image', this.homestayImages);
+    // console.log('homestay image', this.homestayImages);
 
-    console.log('lít special day', this.ListSpecialDay);
+    // console.log('lít special day', this.ListSpecialDay);
 
     this.oDOM = this.oParser.parseFromString(
       this.informationFormGroup.controls.description.value!,
