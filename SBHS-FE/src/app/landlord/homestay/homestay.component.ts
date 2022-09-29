@@ -15,6 +15,7 @@ export class HomestayComponent implements OnInit {
   constructor( private image: ImageService,public dialog: MatDialog, private http: ServerHttpService) { }
   value : any[]=[];
   i : any;
+  isDelete = "null"
   ngOnInit(): void {
     this.http.getHomestayList().subscribe(async  (data) =>{
       // this.value = data;
@@ -24,7 +25,7 @@ export class HomestayComponent implements OnInit {
       for(this.i of data){
 
         var imgUrl = await this.image.getImage('homestay/' + this.i.homestayImages[0].url)
-        this.value.push({imgURL:imgUrl, name:this.i.name })
+        this.value.push({imgURL:imgUrl, name:this.i.name, id:this.i.id })
         console.log(imgUrl);
       }
 
@@ -33,12 +34,23 @@ export class HomestayComponent implements OnInit {
   }
   getHomestayName(name: string){
     localStorage.setItem('homestayName',name);
-    console.log(localStorage.getItem('homestayName'))
   }
-
+  id: string =""
+  getHomestayId(id: string){
+    this.id = id
+  }
+  deleteHomestay(){
+    this.http.deleteHomestay(this.id).subscribe((data =>{
+      this.isDelete = "true"
+    }),
+    error =>{
+      this.isDelete = "false"
+    })
+  }
   openDialog() {
     this.dialog.open(DeleteHomestayDialogComponent);
   }
+
 }
 
 

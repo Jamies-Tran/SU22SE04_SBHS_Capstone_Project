@@ -1,6 +1,8 @@
 <div class="wrapper">
   <div class="container">
     <div class="container-fluid">
+      <div *ngIf="isDelete == 'true'"><h1 style="text-align: center; color: green;">Delete Homestay Success!!!!</h1></div>
+      <div *ngIf="isDelete == 'false'"><h1 style="text-align: center; color: red;">Delete Homestay fail!!!!</h1></div>
       <div class="header">
         <h1>Homestay</h1>
       </div>
@@ -23,7 +25,7 @@
                 {{item.name}}
               </div>
               <div class="button">
-                <a mat-raised-button color="warn" mat-button (click)="openDialog()">Delete</a>
+                <a mat-raised-button color="warn" mat-button (click)="getHomestayId(item.id)" (click)="deleteHomestay()">Delete</a>
                 <a mat-raised-button color="primary" routerLink="HomestayDetail" (click)="getHomestayName(item.name)">View</a>
                 <a mat-raised-button color="primary" routerLink="UpdateHomestay" (click)="getHomestayName(item.name)">Edit</a>
               </div>
