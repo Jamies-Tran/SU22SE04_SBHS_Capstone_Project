@@ -5,13 +5,17 @@
 		<item key="DIALOG_Y_ORIGIN" value="247"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="autoDeleteHomestayUpdateRequest"/>
+		<item key="selection" value="getSpecialDayPriceList"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="getSpecialDayPriceList"/>
+			<item value="autoUpdateDeleteStatusHomestay"/>
+			<item value="deleteHomestayById"/>
+			<item value="eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjQzNTM2MzAsImV4cCI6MTY2NDM4NDczNCwic3ViIjoibGFuZGxvcmQwMDIifQ.HhLqSCan8zkuJ0WWiUH6BW8D3skwEJEhgXB_GAghEDo"/>
 			<item value="autoDeleteHomestayUpdateRequest"/>
 			<item value="getHomestayPage"/>
 			<item value="/homestay/permit-all/list"/>
@@ -21,12 +25,8 @@
 			<item value="findHomestayListByOwnerName"/>
 			<item value="homestayPagination"/>
 			<item value="checkOut"/>
-			<item value="deleteHomestayById"/>
 			<item value="conflic"/>
 			<item value="confirmBooking"/>
-			<item value="getUserBookingList"/>
-			<item value="getBookingPendingListHaveSameCheckInDate"/>
-			<item value="findSystemWalletByUsername"/>
 		</list>
 		<list key="replacehistory">
 		</list>
