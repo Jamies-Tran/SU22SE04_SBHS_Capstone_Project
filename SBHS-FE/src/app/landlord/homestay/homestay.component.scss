@@ -34,12 +34,14 @@
               height: 170px;
               display: contents;
               text-align: center;
+              cursor: pointer;
               img{
                 width: 99%;
                 height: 99%;
                 max-height: 170px;
                 min-height: 170px;
               height: 170px;
+              cursor: pointer;
               }
             }
             .name{
@@ -47,6 +49,7 @@
               font-size: 17px;
               font-weight: 500;
               margin: 2.5%;
+              cursor: pointer;
             }
             .button {
               display: flex;

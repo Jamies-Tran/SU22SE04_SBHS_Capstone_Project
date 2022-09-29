@@ -48,7 +48,10 @@ export class HomestayComponent implements OnInit {
     })
   }
   openDialog() {
-    this.dialog.open(DeleteHomestayDialogComponent);
+    this.dialog.open(DeleteHomestayDialogComponent,{
+      data : this.id
+    });
+
   }
 
 }

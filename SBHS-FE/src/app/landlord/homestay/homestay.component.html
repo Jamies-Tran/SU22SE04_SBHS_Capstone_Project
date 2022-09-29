@@ -18,16 +18,17 @@
         <div class="row main-content" >
           <div class="col-sm-4" *ngFor="let item of value">
             <div class="card">
-              <div class="image">
+              <div class="image" routerLink="HomestayDetail" (click)="getHomestayName(item.name)">
                 <img [src]="item.imgURL" >
               </div>
-              <div class="name">
+              <div class="name" routerLink="HomestayDetail" (click)="getHomestayName(item.name)">
                 {{item.name}}
               </div>
               <div class="button">
-                <a mat-raised-button color="warn" mat-button (click)="getHomestayId(item.id)" (click)="deleteHomestay()">Delete</a>
-                <a mat-raised-button color="primary" routerLink="HomestayDetail" (click)="getHomestayName(item.name)">View</a>
-                <a mat-raised-button color="primary" routerLink="UpdateHomestay" >Edit</a>
+                <!-- <a mat-raised-button color="warn" mat-button (click)="getHomestayId(item.id)" (click)="deleteHomestay()">Delete</a> -->
+                <a mat-raised-button color="warn" mat-button (click)="getHomestayId(item.id)" (click)="openDialog()">Delete</a>
+                <a mat-raised-button color="primary" routerLink="HomestayDetail" (click)="getHomestayName(item.name)">Edit</a>
+
               </div>
             </div>
           </div>

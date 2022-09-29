@@ -23,8 +23,13 @@
       font-size: 2em;
 
       p {
+        height: 45px;
         font-size: 16px;
         line-height: 1.4em;
+        word-break: break-word;
+      }
+      .inline{
+        line-height: 45px;
       }
     }
 
@@ -66,6 +71,7 @@
       p {
         font-size: 2em;
       }
+
     }
 
     .pull-right {
@@ -105,4 +111,17 @@ input:-webkit-autofill,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
+  }
+
+  .bot-organe{
+    border-bottom: 3px solid #FF6D00;
+  }
+  .bot-red{
+    border-bottom: 3px solid #F50057;
+  }
+  .bot-yellogreen{
+    border-bottom: 3px solid yellowgreen;
+  }
+  .bot-blue{
+    border-bottom: 3px solid #18FFFF;
   }

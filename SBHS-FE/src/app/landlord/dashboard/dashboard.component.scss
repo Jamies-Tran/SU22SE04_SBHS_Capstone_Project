@@ -112,3 +112,16 @@ input:-webkit-autofill,
   input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
   }
+
+  .bot-organe{
+    border-bottom: 3px solid #FF6D00;
+  }
+  .bot-red{
+    border-bottom: 3px solid #F50057;
+  }
+  .bot-yellogreen{
+    border-bottom: 3px solid yellowgreen;
+  }
+  .bot-blue{
+    border-bottom: 3px solid #18FFFF;
+  }

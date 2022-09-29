@@ -14,6 +14,8 @@ export class HomestayDetailComponent implements OnInit {
   homestayImage: any[] = [];
   homestayLicense: any;
   i: any;
+  newServices: any[] = [];
+  newFacility: any[] = [];
 
   constructor(private http: ServerHttpService, private image: ImageService) {}
   value: any;
@@ -85,4 +87,49 @@ export class HomestayDetailComponent implements OnInit {
     this.formattedaddress = address.formatted_address;
     console.log('address', address);
   }
+
+  isReadonly = true;
+  isAddition = false;
+  onUpdateHomestay(){
+    this.isReadonly = false;
+    this.isAddition = true;
+
+  }
+  update(){}
+
+  // new Facility
+  addFacility() {
+    this.newFacility.push({ name: '', amount: '', status: false });
+    console.log('values', this.newFacility);
+    console.log('size', this.newFacility.length);
+  }
+
+  removeFacility(i: any) {
+    this.newFacility.splice(i, 1);
+    console.log('delete', this.newFacility.length + i);
+  }
+  removeCommonFacility(i: any) {
+    this.value.homestayCommonFacilities.splice(i, 1);
+    console.log('delete common', this.value.homestayCommonFacilities);
+  }
+
+  // New Service
+  addService() {
+    this.newServices.push({ name: '', price: '', status: false });
+    console.log('values', this.newServices);
+    console.log('size', this.newServices.length);
+  }
+
+  removeService(i: any) {
+    this.newServices.splice(i, 1);
+  }
+  removeCommonService(i: any) {
+    this.value.homestayServices.splice(i, 1);
+  }
+
+  // removeCommonService(i: any) {
+  //   this.value..splice(i, 1);
+  // }
 }
+
+
