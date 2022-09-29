@@ -362,9 +362,7 @@ export class UpdateHomestayComponent implements OnInit {
   }
 
   // Image
-  getImageHomestay(){
-    this.homestayImageFiles.push()
-  }
+
   // lấy file hình
   onSelectImageHomestay(files: any) {
     console.log('onselect: ', files);

@@ -102,13 +102,13 @@ export class RegisterComponent implements OnInit {
     if (this.valid() == true) {
       // Image Font
       const pathFont =
-        'landlord/citizenIdentification/' + this.citizenIdentificationUrlFront;
+        'landlord/citizenIdentification/' + this.citizenIdentificationUrlFront +" " +this.username ;
       const fileRefFont = this.storage.ref(pathFont);
       this.storage.upload(pathFont, this.fileFont);
 
       // Image Back
       const pathBack =
-        'landlord/citizenIdentification/' + this.citizenIdentificationUrlBack;
+        'landlord/citizenIdentification/' + this.citizenIdentificationUrlBack +" " + this.username;
       const fileRefBack = this.storage.ref(pathFont);
       this.storage.upload(pathBack, this.fileBack);
 

@@ -496,7 +496,7 @@ export class RegisterHomestayComponent implements OnInit {
     console.log('register');
     for (this.file of this.homestayImageFiles) {
       console.log('file homestayimage name:', this.file.name);
-      const path = 'homestay/' + this.file.name;
+      const path = 'homestay/' + this.file.name +" " +this.informationFormGroup.controls.homestayName.value;
       const fileRef = this.storage.ref(path);
       this.storage.upload(path, this.file);
 
@@ -507,7 +507,7 @@ export class RegisterHomestayComponent implements OnInit {
     // homestayLicenseFiles
     for (this.file of this.homestayLicenseFiles) {
       console.log('file homestay license name:', this.file.name);
-      const path = 'license/' + this.file.name;
+      const path = 'license/' + this.file.name +" " +this.informationFormGroup.controls.homestayName.value;
       const fileRef = this.storage.ref(path);
       this.storage.upload(path, this.file);
 
