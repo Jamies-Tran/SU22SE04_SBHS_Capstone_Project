@@ -40,5 +40,10 @@ export class ServerHttpService {
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
-
+  public deleteHomestay(id:string) {
+    const url = `${this.REST_API_SERVER}/api/homestay/removal/`+id+``;
+    return this.httpClient
+      .delete<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
 }
