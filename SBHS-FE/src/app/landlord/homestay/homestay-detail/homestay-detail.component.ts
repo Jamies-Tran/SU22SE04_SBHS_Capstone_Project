@@ -14,31 +14,31 @@ export class HomestayDetailComponent implements OnInit {
   homestayImage: any[] = [];
   homestayLicense: any;
   i: any;
-  check = false;
+
   constructor(private http: ServerHttpService, private image: ImageService) {}
   value: any;
   ListSpecialDay: any[] = [];
-  imgUrl !: string;
+  imgUrl!: string;
   ngOnInit(): void {
     this.editor = new Editor();
     this.http.getHomestayDetail().subscribe(async (data) => {
       this.value = data;
       console.log(data);
-      for(let item of this.value.homestayPriceList){
-        if(item.type == 'special'){
+      for (let item of this.value.homestayPriceList) {
+        if (item.type == 'special') {
           this.ListSpecialDay.push(item);
           console.log(this.ListSpecialDay);
         }
       }
 
-
-
       for (this.i of this.value.homestayImages) {
         this.imgUrl = await this.image.getImage('homestay/' + this.i.url);
-        this.homestayImage.push({url: this.imgUrl})
-        console.log("image", this.imgUrl)
+        this.homestayImage.push({ url: this.imgUrl });
+        console.log('image', this.imgUrl);
       }
-      this.homestayLicense = await this.image.getImage('homestay/' + this.value.homestayLicense.url);
+      this.homestayLicense = await this.image.getImage(
+        'homestay/' + this.value.homestayLicense.url
+      );
     });
   }
 

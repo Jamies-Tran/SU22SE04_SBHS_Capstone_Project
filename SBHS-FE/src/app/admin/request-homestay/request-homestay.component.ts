@@ -23,7 +23,7 @@ export class RequestHomestayComponent implements OnInit {
       this.values = data;
     }),
     error =>{
-      alert(error)
+      console.log(error);
     })
   }
   public Id = 0;

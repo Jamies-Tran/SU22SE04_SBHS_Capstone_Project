@@ -10,6 +10,7 @@ import { HomestayComponent } from './homestay/homestay.component';
 
 import { HomestayDetailComponent } from './homestay/homestay-detail/homestay-detail.component';
 import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
+import { UpdateHomestayComponent } from './homestay/update-homestay/update-homestay.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
         children: [
           { path: 'RegisterHomestay', component: RegisterHomestayComponent },
           { path: 'HomestayDetail', component: HomestayDetailComponent },
+          { path: 'UpdateHomestay', component: UpdateHomestayComponent },
         ],
       },
       { path: 'ForgetPassword', component: ForgetPasswordComponent },

@@ -34,5 +34,11 @@ export class ServerHttpService {
     return throwError(
       error.error["message"]);
   };
+  public getSpecialDay() {
+    const url = `${this.REST_API_SERVER}/api/homestay/get/all/special-day`;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
 
 }

@@ -28,7 +28,7 @@ export class RequestComponent implements OnInit {
         console.log('data', this.values);
       },
       (error) => {
-        alert(error);
+        console.log(error)
       }
     );
   }

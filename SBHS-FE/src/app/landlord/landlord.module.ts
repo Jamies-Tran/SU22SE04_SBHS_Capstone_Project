@@ -36,6 +36,7 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { HomestayComponent } from './homestay/homestay.component';
 
 import { HomestayDetailComponent } from './homestay/homestay-detail/homestay-detail.component';
+import { UpdateHomestayComponent } from './homestay/update-homestay/update-homestay.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { HomestayDetailComponent } from './homestay/homestay-detail/homestay-det
     BookingDetailComponent,
     HomestayComponent,
     HomestayDetailComponent,
+    UpdateHomestayComponent,
   ],
   imports: [
     CommonModule,

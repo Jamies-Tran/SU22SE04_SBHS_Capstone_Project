@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div class="container-fluid">
-    <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div>
+    <!-- <div *ngIf="registerError != null"> <h1 style="color: red;">{{registerError}}</h1></div> -->
     <div class="header">
       <h1>Booking Information</h1>
     </div>
@@ -8,15 +8,10 @@
     <div class="card">
 
       <div class="card-image">
-        <div class="image">
-          <img src="/assets/image/1.jpg">
+        <div class="image" *ngFor="let item of ">
+          <img [src]="item">
         </div>
-        <div class="image">
-          <img src="/assets/image/1.jpg">
-        </div>
-        <div class="image">
-          <img src="/assets/image/1.jpg">
-        </div>
+
       </div>
       <div class="card-homestay">
 
