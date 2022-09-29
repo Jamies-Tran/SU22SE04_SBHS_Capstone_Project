@@ -415,8 +415,8 @@ public class HomestayService implements IHomestayService {
 						HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
 
 			} else if (!StringUtils.hasLength(filter.getFilterByStr())
-					&& StringUtils.hasLength(filter.getLowestPrice().toString())
-					&& !StringUtils.hasLength(filter.getHighestPrice().toString())) {
+					&& filter.getLowestPrice() != null
+					&& filter.getHighestPrice() == null) {
 
 				if ((filter.getFilterByHighestAveragePoint() != null && filter.getFilterByHighestAveragePoint() == true)
 						&& (filter.getFilterByNewestPublishedDate() == null
@@ -446,8 +446,8 @@ public class HomestayService implements IHomestayService {
 				homestayPages = homestayRepo.homestayFilterByLowestPrice(pageable, filter.getLowestPrice());
 
 			} else if (!StringUtils.hasLength(filter.getFilterByStr())
-					&& !StringUtils.hasLength(filter.getLowestPrice().toString())
-					&& StringUtils.hasLength(filter.getHighestPrice().toString())) {
+					&& filter.getLowestPrice() == null
+					&& filter.getHighestPrice() != null) {
 
 				if ((filter.getFilterByHighestAveragePoint() != null && filter.getFilterByHighestAveragePoint() == true)
 						&& (filter.getFilterByNewestPublishedDate() == null

@@ -41,6 +41,8 @@ public interface IBookingService {
 	
 	BookingEntity deleteBooking(Long bookingId);
 	
+	public List<BookingEntity> getHomestayBookingListForLandlord(String homestayName, String status);
+	
 	void remindPassengerBookingDate();
 
 }

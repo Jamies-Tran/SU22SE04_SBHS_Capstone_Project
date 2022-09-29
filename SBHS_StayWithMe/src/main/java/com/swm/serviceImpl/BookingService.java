@@ -188,6 +188,23 @@ public class BookingService implements IBookingService {
 
 		return bookingEntityList;
 	}
+	
+	@Override
+	public List<BookingEntity> getHomestayBookingListForLandlord(String homestayName, String status) {
+		UserEntity user = userService.findUserByUserInfo(authenticationService.getAuthenticatedUser().getUsername());
+		List<BookingEntity> bookingList = bookingRepo.findAll();
+		if(homestayName.equalsIgnoreCase("all") && status.equalsIgnoreCase("all")) {
+			bookingList = bookingRepo.getAllBookingListByLandlord(user.getUsername()).orElseThrow(() -> new ResourceNotFoundException("No booking found"));
+		} else if(!homestayName.equalsIgnoreCase("all") && !status.equalsIgnoreCase("all")) {
+			bookingList = bookingRepo.getAllBookingListByHomestayAndStatus(homestayName, status).orElseThrow(() -> new ResourceNotFoundException("No booking found"));
+		} else if(!homestayName.equalsIgnoreCase("all") && status.equalsIgnoreCase("all")) {
+			bookingList = bookingRepo.getAllBookingListByHomestay(homestayName).orElseThrow(() -> new ResourceNotFoundException("No booking found"));
+		} else if(homestayName.equalsIgnoreCase("all") && !status.equalsIgnoreCase("all")) {
+			bookingList = bookingRepo.getAllBookingListByLandlordAndStatus(user.getUsername(), status).orElseThrow(() -> new ResourceNotFoundException("No booking found"));
+		}
+
+		return bookingList;
+	}
 
 	@Transactional
 	@Override

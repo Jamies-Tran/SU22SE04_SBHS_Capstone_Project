@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.swm.dto.statistic.LandlordStatisticDto"/>
-    <fullyQualifiedTypeName name="com.google.api.client.util.DateTime"/>
-    <fullyQualifiedTypeName name="com.swm.entity.LandlordStatisticEntity"/>
     <fullyQualifiedTypeName name="com.swm.service.ILandlordStatisticService"/>
     <fullyQualifiedTypeName name="com.swm.util.DateParsingUtil"/>
     <fullyQualifiedTypeName name="com.swm.dto.goong.distance.matrix.DistanceMatrixResponseGoongDto"/>
@@ -11,7 +8,6 @@
     <fullyQualifiedTypeName name="com.swm.repository.IHomestayRepository"/>
     <fullyQualifiedTypeName name="java.nio.charset.StandardCharsets"/>
     <fullyQualifiedTypeName name="javax.annotation.Resource"/>
-    <fullyQualifiedTypeName name="com.swm.exception.ResourceNotFoundException"/>
     <fullyQualifiedTypeName name="com.swm.dto.distance.LocationDistanceDto"/>
     <fullyQualifiedTypeName name="org.apache.tomcat.util.digester.DocumentProperties.Charset"/>
     <fullyQualifiedTypeName name="java.nio.charset.Charset"/>
@@ -23,10 +19,8 @@
     <fullyQualifiedTypeName name="lombok.Getter"/>
     <fullyQualifiedTypeName name="lombok.Setter"/>
     <fullyQualifiedTypeName name="com.swm.dto.homestay.HomestayResponseDto"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
     <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="net.bytebuddy.asm.Advice.AssignReturned.ToThis"/>
     <fullyQualifiedTypeName name="net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy.BatchAllocator.ForTotal"/>
     <fullyQualifiedTypeName name="com.swm.util.CustomPage"/>
@@ -36,8 +30,6 @@
     <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.Query"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.Sort"/>
-    <fullyQualifiedTypeName name="org.springframework.data.domain.Pageable"/>
-    <fullyQualifiedTypeName name="org.springframework.data.domain.PageRequest"/>
     <fullyQualifiedTypeName name="com.swm.dto.google.distance.matrix.DistanceMatrixResponseGoogleDto"/>
     <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
     <fullyQualifiedTypeName name="com.swm.dto.goong.geocoding.GeocodingGoongResponseDto"/>
@@ -60,4 +52,12 @@
     <fullyQualifiedTypeName name="org.springframework.data.repository.query.Param"/>
     <fullyQualifiedTypeName name="org.springframework.util.StringUtils"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.Sort.Direction"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Pageable"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.PageRequest"/>
+    <fullyQualifiedTypeName name="java.text.NumberFormat"/>
+    <fullyQualifiedTypeName name="java.util.Locale"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.swm.entity.BookingEntity"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.swm.exception.ResourceNotFoundException"/>
 </qualifiedTypeNameHistroy>

@@ -5,13 +5,17 @@
 		<item key="DIALOG_Y_ORIGIN" value="247"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="getSpecialDayPriceList"/>
+		<item key="selection" value="public List&lt;BookingEntity&gt; getHomestayBookingListForLandlord(String homestayName, String status)"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="public List&lt;BookingEntity&gt; getHomestayBookingListForLandlord(String homestayName, String status)"/>
+			<item value="Landlord"/>
+			<item value="HomestayEntity"/>
+			<item value="getHomestayBookingList"/>
 			<item value="getSpecialDayPriceList"/>
 			<item value="autoUpdateDeleteStatusHomestay"/>
 			<item value="deleteHomestayById"/>
@@ -23,10 +27,6 @@
 			<item value="LandlordEntity"/>
 			<item value="cancel"/>
 			<item value="findHomestayListByOwnerName"/>
-			<item value="homestayPagination"/>
-			<item value="checkOut"/>
-			<item value="conflic"/>
-			<item value="confirmBooking"/>
 		</list>
 		<list key="replacehistory">
 		</list>

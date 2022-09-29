@@ -228,6 +228,16 @@ public class BookingController {
 
 		return new ResponseEntity<>(homestayBookingResponseList, HttpStatus.OK);
 	}
+	
+	@GetMapping("/booking-list/{homestayName}")
+	@PreAuthorize("hasRole('ROLE_LANDLORD')")
+	public ResponseEntity<?> getAllHomestayBookingForLandlord(@PathVariable("homestayName") String homestayName, @RequestParam("status") String status) {
+		List<BookingEntity> homestayBookingEntityList = bookingService.getHomestayBookingListForLandlord(homestayName, status);
+		List<BookingResponseDto> homestayBookingResponseList = homestayBookingEntityList.stream()
+				.map(b -> bookingConvert.bookingToDto(b)).collect(Collectors.toList());
+
+		return new ResponseEntity<>(homestayBookingResponseList, HttpStatus.OK);
+	}
 
 	@GetMapping("/booking-list")
 	@PreAuthorize("hasRole('ROLE_PASSENGER')")

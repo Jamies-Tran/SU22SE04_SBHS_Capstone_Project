@@ -2,7 +2,9 @@ package com.swm.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.NumberFormat;
 import java.util.Base64;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -106,6 +108,8 @@ public class ServerPageController {
 			UsernameMapper usernameMapper = this.usenameMapperFromJson(usernameJson);
 			UserEntity user = userService.findUserByUserInfo(usernameMapper.getUsername());
 			long actualBalance = user.getPassenger().getWallet().getBalance() - user.getPassenger().getWallet().getFuturePay();
+			
+			NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.ENGLISH);
 			model.addAttribute("passengerWalletBalance", user.getPassenger().getWallet().getBalance());
 			model.addAttribute("passengerWalletFuturePay", user.getPassenger().getWallet().getFuturePay());
 			model.addAttribute("passengerWalletActualBalance", actualBalance);

@@ -5,11 +5,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body style="background-color: #B4AFAF">
- 	<div style="margin-top:70px; margin-left:100px; margin-right:50px; padding-top:50px; padding-bottom:50px ;background-color:white" th:background="@{/background/homestay_background.jpg}">
- 		<p>Your new balance: <span style="font-weight: bold;" th:text="${#strings.replace(#strings.replace(#numbers.formatCurrency(passengerWalletBalance), '.00', ''), '$', '')}"></span> (+<span style="font-weight: bold;color: green;" th:text="${totalTransaction}"></span>) VND</p>
- 		<p>Your future pay: <span style="font-weight: bold;" th:text="${#strings.replace(#strings.replace(#numbers.formatCurrency(passengerWalletFuturePay), '.00', ''), '$', '')}"></span> VND</p>
- 		<p>Your new actual balance: <span style="font-weight: bold;" th:text="${#strings.replace(#strings.replace(#numbers.formatCurrency(passengerWalletActualBalance), '.00', ''), '$', '')}"></span> VND</p>
- 	</div>
+	<div style="margin-top:500px; padding-top:50px; padding-bottom:50px ;background-color:white;">
+ 			<!-- <p>Your new balance: <span style="font-weight: bold;" th:text="${#strings.replace(#strings.replace(#numbers.formatCurrency(passengerWalletBalance), '.00', ''), '$', '')}"></span> (+<span style="font-weight: bold;color: green;" th:text="${totalTransaction}"></span>) VND</p>-->
+ 			<p style="font-size:30px">Your new balance: <span style="font-weight: bold;font-weight:30px" th:text="${#strings.replace(#strings.replace(#numbers.formatCurrency(passengerWalletBalance), '.00', ''), '$', '')}"></span> (+<span style="font-weight: bold;color: green;" th:text="${#strings.replace(#strings.replace(#numbers.formatCurrency(totalTransaction), '.00', ''), '$', '')}"></span>) VND</p>
+ 			<p style="font-size:30px;">Your future pay: <span style="font-weight: bold;font-weight:30px" th:text="${#strings.replace(#strings.replace(#numbers.formatCurrency(passengerWalletFuturePay), '.00', ''), '$', '')}"></span> VND</p>
+ 			<p style="font-size:30px;">Your actual balance: <span style="font-weight: bold;font-weight:30px" th:text="${#strings.replace(#strings.replace(#numbers.formatCurrency(passengerWalletActualBalance), '.00', ''), '$', '')}"></span> VND</p>
+ 		</div>
+ 	
 </body>
 
 </html>
