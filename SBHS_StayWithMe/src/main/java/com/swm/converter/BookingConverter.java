@@ -63,7 +63,7 @@ public class BookingConverter {
 		bookingDto.setPassengerPhone(bookingEntity.getBookingCreator().getPassengerAccount().getPhone());
 		bookingDto.setPassengerEmail(bookingEntity.getBookingCreator().getPassengerAccount().getEmail());
 		bookingDto.setHomestayName(bookingEntity.getBookingHomestay().getName());
-		bookingDto.setHomestayLocation(bookingEntity.getBookingHomestay().getAddress());
+		bookingDto.setHomestayLocation(bookingEntity.getBookingHomestay().getAddress().split("-")[0]);
 		bookingDto.setHomestayCity(bookingEntity.getBookingHomestay().getCity());
 		bookingDto.setHomestayAverageRating(bookingEntity.getBookingHomestay().getAverageRatingPoint());
 		bookingDto.setHomestayOwner(bookingEntity.getBookingHomestay().getLandlordOwner().getLandlordAccount().getUsername());

@@ -216,7 +216,7 @@ public class BookingController {
 	public ResponseEntity<?> deleteBooking(@PathVariable("bookingId") Long bookingId) {
 		bookingService.deleteBooking(bookingId);
 
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 

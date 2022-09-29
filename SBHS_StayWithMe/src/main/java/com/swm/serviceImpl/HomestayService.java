@@ -322,6 +322,7 @@ public class HomestayService implements IHomestayService {
 
 	@Override
 	public HomestayPagesResponseDto getHomestayPage(HomestayFilterDto filter, int page, int size) {
+		System.out.println("new publish: " + filter.getFilterByNewestPublishedDate() + "highest score: " + filter.getFilterByHighestAveragePoint() + "current location" + filter.getUserCurrentLocation() + "trending" + filter.getFilterByTrending());
 		Page<HomestayEntity> homestayPages = this.homestayRepo.homestayPagination(PageRequest.of(page, size),
 				HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
 		List<HomestayEntity> homestayList = homestayPages.getContent();
@@ -356,8 +357,8 @@ public class HomestayService implements IHomestayService {
 
 		} else {
 			if (StringUtils.hasLength(filter.getFilterByStr())
-					&& !StringUtils.hasLength(filter.getLowestPrice().toString())
-					&& !StringUtils.hasLength(filter.getHighestPrice().toString())) {
+					&& filter.getLowestPrice() == null
+					&& filter.getHighestPrice() == null) {
 				System.out.println("filter string not null");
 				if ((filter.getFilterByHighestAveragePoint() == null
 						|| filter.getFilterByHighestAveragePoint() == false)
@@ -390,26 +391,9 @@ public class HomestayService implements IHomestayService {
 						&& (filter.getFilterByTrending() != null && filter.getFilterByTrending() == true)) {
 					System.out.println("trending filter not null");
 					pageable = PageRequest.of(page, size,
-							Sort.by(Direction.DESC, "totalBookingTime", "averageRatingPoint"));
+							Sort.by(Direction.DESC, "averageRatingPoint","totalRatingTime", "totalBookingTime"));
 
-				} else if ((filter.getFilterByHighestAveragePoint() != null
-						&& filter.getFilterByHighestAveragePoint() == true)
-						&& (filter.getFilterByNewestPublishedDate() != null
-								&& filter.getFilterByNewestPublishedDate() == true)
-						&& (filter.getFilterByTrending() == null || filter.getFilterByTrending() == false)) {
-					System.out.println("average and new filter not null");
-					pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdDate", "averageRatingPoint"));
-
-				} else if ((filter.getFilterByHighestAveragePoint() != null
-						&& filter.getFilterByHighestAveragePoint() == true)
-						&& (filter.getFilterByNewestPublishedDate() != null
-								&& filter.getFilterByNewestPublishedDate() == true)
-						&& (filter.getFilterByTrending() != null && filter.getFilterByTrending() == true)) {
-					System.out.println("average, new and trending filter not null");
-					pageable = PageRequest.of(page, size,
-							Sort.by(Direction.DESC, "totalRatingTime", "averageRatingPoint", "createdDate"));
-
-				}
+				} 
 
 				homestayPages = this.homestayRepo.homestayFilterByStringPagination(pageable, filter.getFilterByStr(),
 						HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
@@ -439,7 +423,7 @@ public class HomestayService implements IHomestayService {
 								|| filter.getFilterByNewestPublishedDate() == false)
 						&& (filter.getFilterByTrending() != null && filter.getFilterByTrending() == true)) {
 
-					pageable = PageRequest.of(page, size, Sort.by("averageRatingPoint", "totalBookingTime"));
+					pageable = PageRequest.of(page, size, Sort.by("averageRatingPoint", "totalRatingTime","totalBookingTime"));
 
 				}
 
@@ -448,7 +432,7 @@ public class HomestayService implements IHomestayService {
 			} else if (!StringUtils.hasLength(filter.getFilterByStr())
 					&& filter.getLowestPrice() == null
 					&& filter.getHighestPrice() != null) {
-
+				System.out.println("filter string not null");
 				if ((filter.getFilterByHighestAveragePoint() != null && filter.getFilterByHighestAveragePoint() == true)
 						&& (filter.getFilterByNewestPublishedDate() == null
 								|| filter.getFilterByNewestPublishedDate() == false)
@@ -470,10 +454,40 @@ public class HomestayService implements IHomestayService {
 								|| filter.getFilterByNewestPublishedDate() == false)
 						&& (filter.getFilterByTrending() != null && filter.getFilterByTrending() == true)) {
 
-					pageable = PageRequest.of(page, size, Sort.by("averageRatingPoint", "totalBookingTime"));
+					pageable = PageRequest.of(page, size, Sort.by("averageRatingPoint", "totalRatingTime", "totalBookingTime"));
 				}
 
 				homestayPages = homestayRepo.homestayFilterByHighestPrice(pageable, filter.getHighestPrice());
+
+			} else if (filter.getFilterByStr() == null
+					&& filter.getLowestPrice() == null
+					&& filter.getHighestPrice() == null) {
+				System.out.println("all string filter null");
+				if ((filter.getFilterByHighestAveragePoint() != null && filter.getFilterByHighestAveragePoint() == true)
+						&& (filter.getFilterByNewestPublishedDate() == null
+								|| filter.getFilterByNewestPublishedDate() == false)
+						&& (filter.getFilterByTrending() == null || filter.getFilterByTrending() == false)) {
+					System.out.println("highest average point");
+					pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "averagePoint"));
+
+				} else if ((filter.getFilterByHighestAveragePoint() == null
+						|| filter.getFilterByHighestAveragePoint() == false)
+						&& (filter.getFilterByNewestPublishedDate() != null
+								&& filter.getFilterByNewestPublishedDate() == true)
+						&& (filter.getFilterByTrending() == null || filter.getFilterByTrending() == false)) {
+					System.out.println("new publish");
+					pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdDate"));
+
+				} else if ((filter.getFilterByHighestAveragePoint() == null
+						|| filter.getFilterByHighestAveragePoint() == false)
+						&& (filter.getFilterByNewestPublishedDate() == null
+								|| filter.getFilterByNewestPublishedDate() == false)
+						&& (filter.getFilterByTrending() != null && filter.getFilterByTrending() == true)) {
+					System.out.println("trending");
+					pageable = PageRequest.of(page, size, Sort.by(Direction.DESC ,"averageRatingPoint", "totalRatingTime", "totalBookingTime"));
+				}
+
+				homestayPages = homestayRepo.homestayPagination(pageable, HomestayStatus.HOMESTAY_BOOKING_AVAILABLE.name());
 
 			} 
 
