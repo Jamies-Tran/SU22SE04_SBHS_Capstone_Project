@@ -175,7 +175,7 @@ public class HomestayController {
 		HomestayEntity homestayEntity = homestayService.setDeleteStatusForHomestayById(Id);
 		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestayEntity);
 
-		return new ResponseEntity<>(homestayResponseDto, HttpStatus.GONE);
+		return new ResponseEntity<>(homestayResponseDto, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/removal/list/{homestayId}")
@@ -188,7 +188,7 @@ public class HomestayController {
 				homestayServiceIdList);
 		HomestayResponseDto homestayResponseDto = homestayConvert.homestayResponseDtoConvert(homestayEntity);
 
-		return new ResponseEntity<>(homestayResponseDto, HttpStatus.GONE);
+		return new ResponseEntity<>(homestayResponseDto, HttpStatus.OK);
 
 	}
 
