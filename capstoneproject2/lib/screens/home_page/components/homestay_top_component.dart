@@ -1,8 +1,14 @@
-import 'package:capstoneproject2/constants.dart';
+
+import 'package:capstoneproject2/screens/home_page/views/search_homestay_view.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HomestayTopComponent extends StatelessWidget {
-  const HomestayTopComponent({Key? key}) : super(key: key);
+  const HomestayTopComponent({
+    Key? key,
+    this.pos
+  }) : super(key: key);
+  final Position? pos;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +19,7 @@ class HomestayTopComponent extends StatelessWidget {
           BoxShadow(color: Theme.of(context).primaryColor, spreadRadius: 3)
         ]
       ),
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -50,6 +56,7 @@ class HomestayTopComponent extends StatelessWidget {
                       flex: 1,
                       child: TextField(
                         cursorColor: Colors.black,
+                        readOnly: true,
                         decoration: InputDecoration(
                             fillColor: Colors.white54,
                             filled: true,
@@ -68,6 +75,7 @@ class HomestayTopComponent extends StatelessWidget {
                               child: const Icon(Icons.search),
                             )
                         ),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FilterSearchingHomestay(pos: pos!),)),
                       ),
                     ),
                   ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const kPrimaryColor = Colors.lightBlueAccent;
 const kPrimaryLightColor = Colors.lightBlue;
+const googleApiKey = "AIzaSyCZQviiuwR3Dxs_MWYf614pqjXPUxGJ6bM";
 
 const double defaultPadding = 16.0;
 

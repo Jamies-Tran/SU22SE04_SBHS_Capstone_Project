@@ -99,7 +99,8 @@ class HomestayModel {
   dynamic name;
   dynamic description;
   dynamic owner;
-  dynamic address;
+  String? address;
+  dynamic userDistanceFromHomestay;
   dynamic numberOfRoom;
   dynamic city;
   dynamic checkInTime;
@@ -109,7 +110,7 @@ class HomestayModel {
   dynamic securityPoint;
   dynamic positionPoint;
   dynamic averagePoint;
-  dynamic averagePrice;
+  int? averagePrice;
   dynamic totalBookingTime;
   dynamic totalRatingTime;
   List<HomestayImageModel> homestayImages;
@@ -123,7 +124,8 @@ class HomestayModel {
     this.name,
     this.description,
     this.owner,
-    this.address, 
+    this.address,
+    this.userDistanceFromHomestay,
     this.city,
     this.numberOfRoom,
     this.checkInTime,
@@ -147,6 +149,7 @@ class HomestayModel {
     id: json["id"],
     name: json["name"],
     description: json["description"],
+    userDistanceFromHomestay: json["userDistanceFromHomestay"],
     owner: json["owner"],
     numberOfRoom: json["numberOfRoom"],
     checkInTime: json["checkInTime"],
@@ -172,6 +175,7 @@ class HomestayModel {
 
 class HomestayFilterRequestModel {
   String? filterByStr;
+  String? userCurrentLocation;
   int? lowestPrice;
   int? highestPrice;
   bool? filterByNewestPublishedDate;
@@ -181,6 +185,7 @@ class HomestayFilterRequestModel {
 
   HomestayFilterRequestModel({
     this.filterByStr,
+    this.userCurrentLocation,
     this.filterByNewestPublishedDate,
     this.filterByHighestAveragePoint,
     this.filterByNearestPlace,
@@ -191,6 +196,7 @@ class HomestayFilterRequestModel {
 
   Map<String, dynamic> toJson() => {
     "filterByStr" : filterByStr,
+    "userCurrentLocation" : userCurrentLocation,
     "filterByNewestPublishedDate" : filterByNewestPublishedDate,
     "filterByHighestAveragePoint" : filterByHighestAveragePoint,
     "filterByTrending" : filterByTrending,

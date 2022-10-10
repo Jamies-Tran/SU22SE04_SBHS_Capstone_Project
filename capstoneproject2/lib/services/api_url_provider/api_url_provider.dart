@@ -18,4 +18,4 @@ const paymentApiUrl = "http://$mobileDeviceDomain:8080/api/payment";
 
 const String emulatorDomain = "10.0.2.2";
 
-const String mobileDeviceDomain = "192.168.1.132";
+const String mobileDeviceDomain = "10.3.64.231";

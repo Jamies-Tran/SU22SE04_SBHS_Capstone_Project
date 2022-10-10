@@ -3,8 +3,9 @@ import 'package:capstoneproject2/screens/profile/wallet_screen.dart';
 import 'package:capstoneproject2/services/booking_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:flutter/material.dart';
-import 'package:geocode/geocode.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:search_map_location/search_map_location.dart';
+import 'package:search_map_location/utils/google_search/place.dart';
 
 import '../../../constants.dart';
 
@@ -190,56 +191,34 @@ class _ProfileOptionState extends State<ProfileOption> {
             ],
           )
         ) : const SizedBox(),
-        FutureBuilder(
-            future: determinePosition(),
-            builder: (context, snapshot) {
 
-              if(snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: Text("wait a minute..."),
-                );
-              } else if(snapshot.hasData) {
-                final address = snapshot.data;
-                if(address is Address) {
-                  return Text("${address.streetAddress}");
-                }
-              } else if(snapshot.hasError) {
-                return Center(
-                  child: Text(
-                      "${snapshot.error}"
-                  ),
-                );
-              }
 
-              return Container();
-            },
-        )
       ],
     );
   }
 }
 
-Future<Address> determinePosition() async {
-  bool isServiceEnabled;
-  LocationPermission permission;
-  isServiceEnabled = await Geolocator.isLocationServiceEnabled();
-  GeoCode geoCode = GeoCode(apiKey: "16604495097491160603x78472");
-  if(!isServiceEnabled) {
-    return Future.error("service not enable");
-  }
-  permission = await Geolocator.checkPermission();
-  if(permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if(permission == LocationPermission.denied) {
-      return Future.error("permission denied");
-    }
-  }
-  if(permission == LocationPermission.deniedForever) {
-    return Future.error("permission denied forever");
-  }
-  Position pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  // Coordinates coordinates = Coordinates(latitude: pos.latitude, longitude: pos.longitude);
-  return await geoCode.reverseGeocoding(latitude: pos.latitude, longitude: pos.longitude);
-}
+// Future<Address> determinePosition() async {
+//   bool isServiceEnabled;
+//   LocationPermission permission;
+//   isServiceEnabled = await Geolocator.isLocationServiceEnabled();
+//   GeoCode geoCode = GeoCode(apiKey: "16604495097491160603x78472");
+//   if(!isServiceEnabled) {
+//     return Future.error("service not enable");
+//   }
+//   permission = await Geolocator.checkPermission();
+//   if(permission == LocationPermission.denied) {
+//     permission = await Geolocator.requestPermission();
+//     if(permission == LocationPermission.denied) {
+//       return Future.error("permission denied");
+//     }
+//   }
+//   if(permission == LocationPermission.deniedForever) {
+//     return Future.error("permission denied forever");
+//   }
+//   Position pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+//   // Coordinates coordinates = Coordinates(latitude: pos.latitude, longitude: pos.longitude);
+//   return await geoCode.reverseGeocoding(latitude: pos.latitude, longitude: pos.longitude);
+// }
 
 

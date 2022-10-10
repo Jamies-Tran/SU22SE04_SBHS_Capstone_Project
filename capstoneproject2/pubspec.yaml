@@ -54,7 +54,9 @@ dependencies:
   syncfusion_flutter_calendar: ^20.2.40
   url_launcher: ^6.1.5
   geolocator: ^9.0.1
-  geocode: ^1.0.2
+
+  search_map_location: ^0.0.6
+  geocoding: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +89,9 @@ flutter:
     - assets/images/passenger-default.png
     - assets/images/default-image.jpg
     - assets/images/sg_example_1.jpg
+    - assets/images/ha-noi.jpg
+    - assets/images/dalat.jpg
+    - assets/images/vungtau.jpg
     - assets/icons/gmail.svg
     - assets/icons/chat.svg
     - assets/icons/login.svg

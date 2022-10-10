@@ -23,7 +23,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     SizedBox(
-      height: 5000,
+      height: 9000,
       width: double.infinity,
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -57,7 +57,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       //   title: const Text('Stay With Me'),
       // ),
       body: SizedBox(
-        height: 900,
+        height: 5000,
         width: double.infinity,
         child: Center(
           child: _widgetOptions.elementAt(_selectedIndex),

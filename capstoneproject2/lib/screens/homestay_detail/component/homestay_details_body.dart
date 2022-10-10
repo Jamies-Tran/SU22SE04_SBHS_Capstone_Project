@@ -160,7 +160,7 @@ class HomestayDetailsBody extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(Icons.attach_money, color: Colors.green),
-                      Text  ("${currencyFormat.format(homestayModel?.homestayPriceLists!.first.price)} ~ ${currencyFormat.format(homestayModel?.homestayPriceLists!.last.price)}/day", style: const TextStyle(
+                      Text  ("${currencyFormat.format(homestayModel!.averagePrice!)}/day", style: const TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
                           letterSpacing: 2.0,
@@ -182,7 +182,7 @@ class HomestayDetailsBody extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(Icons.location_on, color: Colors.red),
-                      Text("${homestayModel?.address}", style: const TextStyle(
+                      Text("${homestayModel?.address.toString().split(",").first}", style: const TextStyle(
                           fontSize: 15,
                           fontFamily: 'OpenSans',
                           letterSpacing: 2.0,

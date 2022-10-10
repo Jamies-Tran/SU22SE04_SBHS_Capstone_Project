@@ -45,37 +45,6 @@ class _HomestayDetailsScreenState extends State<HomestayDetailsScreen> {
             fontWeight: FontWeight.bold
         )),
         centerTitle: false,
-        actions: [
-          TextButton(
-            onPressed: (){
-              showDialog(context: context, builder: (context) => AlertDialog(
-                title: const Center(child: Text("Enter booking Otp"),),
-                content: TextField(
-                  controller: otpTextFieldController,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                      suffixIcon: IconButton(icon: const Icon(Icons.safety_check, color: Colors.green,),
-                        onPressed: () {
-                          //Navigator.push(context, MaterialPageRoute(builder: (context) => BookingCheckInNavigator(bookingOtp: otpTextFieldController.text, bookingId: snapshotData.id, username: firebaseAuth.currentUser!.displayName),));
-                        },)
-                  ),
-                ),
-                actions: [
-                  ElevatedButton(onPressed: () {
-                    Navigator.pop(context);
-                  }
-                      , child: const Text("Cancel")
-                  )
-                ],
-              ),);
-            },
-            child: Text("booking-otp".toUpperCase(), style: const TextStyle(
-                fontFamily: 'OpenSans',
-                color: Colors.white,
-                fontWeight: FontWeight.bold
-            ),),
-          )
-        ],
         backgroundColor: kPrimaryColor,
       ),
       body: FutureBuilder(

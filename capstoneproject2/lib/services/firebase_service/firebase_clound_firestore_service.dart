@@ -10,4 +10,8 @@ abstract class ICloudFirestoreService {
   Future findUserFireStore(String email);
 
   Future deleteUserWhenSignOut(String email);
+
+  Future saveUserCurrentLocation(String latLng);
+
+  Future getUserCurrentLocation(String latLng);
 }

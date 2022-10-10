@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:capstoneproject2/services/api_url_provider/api_url_provider.dart';
 import 'package:capstoneproject2/services/firebase_service/firebase_auth_service.dart';
 import 'package:capstoneproject2/services/firebase_service/firebase_clound_firestore_service.dart';
+import 'package:capstoneproject2/services/geometry_service.dart';
 import 'package:capstoneproject2/services/locator/service_locator.dart';
 import 'package:capstoneproject2/services/model/auth_model.dart';
 import 'package:capstoneproject2/services/model/error_handler_model.dart';
 import 'package:capstoneproject2/services/model/homestay_model.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../services/homestay_service.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +25,8 @@ class HomestayServiceImpl extends IHomestayService {
   final firebaseCloudFirestore = locator<ICloudFirestoreService>();
 
   final firebaseAuth = locator<IFirebaseAuthenticateService>();
+
+  final geometryService = locator.get<IGeometryService>();
 
   @override
   Future getAvailableHomestay() async {
@@ -76,6 +80,15 @@ class HomestayServiceImpl extends IHomestayService {
 
   @override
   Future searchHomestayByFilter(HomestayFilterRequestModel homestayFilterRequestModel, int page, int size) async {
+    if(homestayFilterRequestModel.filterByNearestPlace != null && homestayFilterRequestModel.filterByNearestPlace == true) {
+      String coordinates;
+      if(homestayFilterRequestModel.filterByStr != null) {
+        coordinates = await geometryService.getLocationPosition(homestayFilterRequestModel.filterByStr!);
+      } else {
+        coordinates = homestayFilterRequestModel.userCurrentLocation!;
+      }
+      homestayFilterRequestModel.filterByStr = coordinates;
+    }
     final client = http.Client();
     final url = Uri.parse("$homestayFilterSearchUrl?page=$page&size=$size");
     final response = await client.post(
