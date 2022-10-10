@@ -51,15 +51,14 @@ public class LandlordStatisticService implements ILandlordStatisticService {
 		List<LandlordEntity> landlordList = this.landlordRepo.findAll();
 		if(landlordList != null) {
 			landlordList.forEach(l -> {
-				l.getStatistic().forEach(s -> {
-					if(this.findLandlordStatisticByTime(DateParsingUtil.statisticYearMonthTime(currentTime)) == null) {
-						LandlordStatisticEntity landlordStatistic = new LandlordStatisticEntity();
-						landlordStatistic.setLandlordStatistic(l);
-						landlordStatistic.setStatisticTime(DateParsingUtil.statisticYearMonthTime(currentTime));
-						l.setStatistic(List.of(s));
-						this.landlordStatisticRepo.save(landlordStatistic);
-					}
-				});
+				if(!l.getStatistic().stream().anyMatch(s -> s.getStatisticTime().equals(DateParsingUtil.statisticYearMonthTime(currentTime)))) {
+					LandlordStatisticEntity landlordStatistic = new LandlordStatisticEntity();
+					landlordStatistic.setLandlordStatistic(l);
+					landlordStatistic.setStatisticTime(DateParsingUtil.statisticYearMonthTime(currentTime));
+					l.setStatistic(List.of(landlordStatistic));
+					this.landlordStatisticRepo.save(landlordStatistic);
+				}
+				
 			});
 		}
 		

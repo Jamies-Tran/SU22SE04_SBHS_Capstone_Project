@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.swm.service.ILandlordStatisticService"/>
-    <fullyQualifiedTypeName name="com.swm.util.DateParsingUtil"/>
-    <fullyQualifiedTypeName name="com.swm.dto.goong.distance.matrix.DistanceMatrixResponseGoongDto"/>
-    <fullyQualifiedTypeName name="javax.mail.Address"/>
-    <fullyQualifiedTypeName name="java.lang.Comparable"/>
     <fullyQualifiedTypeName name="com.swm.repository.IHomestayRepository"/>
     <fullyQualifiedTypeName name="java.nio.charset.StandardCharsets"/>
     <fullyQualifiedTypeName name="javax.annotation.Resource"/>
@@ -15,7 +10,6 @@
     <fullyQualifiedTypeName name="com.swm.dto.google.distance.matrix.DistanceMatrixRowGoogleDto"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.Page"/>
     <fullyQualifiedTypeName name="java.util.function.UnaryOperator"/>
-    <fullyQualifiedTypeName name="org.hibernate.internal.build.AllowSysOut"/>
     <fullyQualifiedTypeName name="lombok.Getter"/>
     <fullyQualifiedTypeName name="lombok.Setter"/>
     <fullyQualifiedTypeName name="com.swm.dto.homestay.HomestayResponseDto"/>
@@ -44,20 +38,26 @@
     <fullyQualifiedTypeName name="com.swm.service.IHomestayService"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="org.springframework.security.access.prepost.PreAuthorize"/>
-    <fullyQualifiedTypeName name="com.swm.entity.SystemStatisticEntity"/>
     <fullyQualifiedTypeName name="com.swm.dto.statistic.SystemStatisticDto"/>
     <fullyQualifiedTypeName name="org.aspectj.weaver.patterns.HasMemberTypePatternForPerThisMatching"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="com.swm.enums.BookingStatus"/>
     <fullyQualifiedTypeName name="org.springframework.data.repository.query.Param"/>
     <fullyQualifiedTypeName name="org.springframework.util.StringUtils"/>
-    <fullyQualifiedTypeName name="org.springframework.data.domain.Sort.Direction"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.Pageable"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.PageRequest"/>
     <fullyQualifiedTypeName name="java.text.NumberFormat"/>
     <fullyQualifiedTypeName name="java.util.Locale"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.swm.entity.BookingEntity"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="com.swm.exception.ResourceNotFoundException"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Sort.Direction"/>
+    <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+    <fullyQualifiedTypeName name="java.util.Calendar"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="org.hibernate.query.criteria.internal.expression.function.CurrentTimeFunction"/>
+    <fullyQualifiedTypeName name="org.hibernate.internal.build.AllowSysOut"/>
+    <fullyQualifiedTypeName name="com.google.api.client.util.DateTime"/>
+    <fullyQualifiedTypeName name="com.swm.entity.SystemStatisticEntity"/>
+    <fullyQualifiedTypeName name="com.swm.util.DateParsingUtil"/>
 </qualifiedTypeNameHistroy>

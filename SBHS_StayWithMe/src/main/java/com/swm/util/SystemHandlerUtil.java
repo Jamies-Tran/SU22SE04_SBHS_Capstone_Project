@@ -30,7 +30,13 @@ public class SystemHandlerUtil {
 	@Autowired
 	private ILandlordStatisticService landlordStatisticService;
 	
-	@Scheduled(fixedDelay = 1000)
+	@Scheduled(fixedDelay = 5000)
+	public void autoCreateStatistic() {
+		systemStatisticService.createSystemStatistic();
+		landlordStatisticService.createLandlordStatistic();
+	}
+	
+	@Scheduled(fixedDelay = 10000)
 	public void cautionCheckInTask() {
 		bookingService.remindPassengerBookingDate();
 	}
@@ -45,11 +51,7 @@ public class SystemHandlerUtil {
 //		requestService.autoUpdateHomestayDeleteRequest();
 //	}
 	
-	@Scheduled(fixedDelay = 5000)
-	public void autoCreateStatistic() {
-		systemStatisticService.createSystemStatistic();
-		landlordStatisticService.createLandlordStatistic();
-	}
+	
 	
 	@Scheduled(fixedDelay = 5000)
 	public void autoUpdateHomestayDeleteStatus() {
