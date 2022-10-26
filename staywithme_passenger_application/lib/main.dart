@@ -1,6 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:staywithme_passenger_application/service_locator/service_locator.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized;
+  await Firebase.initializeApp();
+  setup();
   runApp(const MyApp());
 }
 
