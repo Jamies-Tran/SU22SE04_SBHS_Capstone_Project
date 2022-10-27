@@ -17,6 +17,18 @@ class RegisterBloc {
   String? _gender;
   String? _phone;
   String? _avatarUrl;
+  final genderSelection = ["Male", "Female"];
+
+  final initData = RegisterState(
+      username: null,
+      address: null,
+      avatarUrl: null,
+      citizenIdentification: null,
+      dob: null,
+      email: null,
+      gender: "Male",
+      password: null,
+      phone: null);
 
   RegisterBloc() {
     eventController.stream.listen((event) {
@@ -43,17 +55,16 @@ class RegisterBloc {
       _phone = event.phone;
     } else if (event is InputAvatarUrlEvent) {
       _avatarUrl = event.avatarUrl;
-    } else if (event is SubmitRegisterAccountEvent) {
-      stateController.sink.add(RegisterState(
-          username: _username,
-          password: _password,
-          address: _address,
-          avatarUrl: _avatarUrl,
-          citizenIdentification: _citizenIdentification,
-          dob: _dob,
-          email: _email,
-          gender: _gender,
-          phone: _phone));
-    }
+    } else if (event is SubmitRegisterAccountEvent) {}
+    stateController.sink.add(RegisterState(
+        username: _username,
+        password: _password,
+        address: _address,
+        avatarUrl: _avatarUrl,
+        citizenIdentification: _citizenIdentification,
+        dob: _dob,
+        email: _email,
+        gender: _gender,
+        phone: _phone));
   }
 }

@@ -54,4 +54,25 @@ class InputAvatarUrlEvent extends RegisterEvent {
   String? avatarUrl;
 }
 
-class SubmitRegisterAccountEvent extends RegisterEvent {}
+class SubmitRegisterAccountEvent extends RegisterEvent {
+  SubmitRegisterAccountEvent(
+      {this.username,
+      this.password,
+      this.email,
+      this.address,
+      this.phone,
+      this.gender,
+      this.citizenIdentification,
+      this.dob,
+      this.avatarUrl});
+
+  String? username;
+  String? password;
+  String? email;
+  String? address;
+  String? phone;
+  String? gender;
+  String? citizenIdentification;
+  String? dob;
+  String? avatarUrl;
+}
