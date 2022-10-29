@@ -39,6 +39,8 @@ dependencies:
   firebase_core: ^2.1.0
   get_it: ^7.2.0
   intl: ^0.17.0
+  firebase_auth: ^4.1.0
+  google_sign_in: ^5.4.2
 
 dev_dependencies:
   flutter_test:
@@ -90,5 +92,12 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+  fonts:
+    - family: SourceCodePro
+      fonts:
+        - asset: fonts/SourceCodePro-Italic-VariableFont_wght.ttf
+    - family: Lobster
+      fonts:
+        - asset: fonts/Lobster-Regular.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

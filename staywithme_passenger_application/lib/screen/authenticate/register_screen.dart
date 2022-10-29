@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:staywithme_passenger_application/bloc/event/register_event.dart';
+import 'package:staywithme_passenger_application/bloc/event/authentication_event.dart';
 import 'package:staywithme_passenger_application/bloc/register_bloc.dart';
 import 'package:staywithme_passenger_application/bloc/state/register_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -31,7 +33,11 @@ class _RegisterScreen extends State<RegisterScreen> {
               const Center(
                 child: Text(
                   "Register account",
-                  style: TextStyle(fontSize: 40),
+                  style: TextStyle(
+                      fontSize: 35,
+                      fontFamily: "SourceCodePro",
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent),
                 ),
               ),
               const SizedBox(
@@ -322,7 +328,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         ],
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 100,
                       ),
                       ElevatedButton(
                           onPressed: () {
@@ -341,13 +347,73 @@ class _RegisterScreen extends State<RegisterScreen> {
                                       username: snapshot.data!.username));
                             }
                           },
-                          child: const Text("Register"))
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blueAccent,
+                              minimumSize: const Size(300, 50),
+                              maximumSize: const Size(300, 50)),
+                          child: const Text(
+                            "Submit",
+                            style: TextStyle(fontFamily: "Lobster"),
+                          )),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      const Center(
+                        child: Text(
+                          "Or sign up with",
+                          style: TextStyle(
+                              fontFamily: "SourceCodePro",
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            if (formState.currentState!.validate()) {
+                              Navigator.of(context).pushReplacementNamed(
+                                  ChooseGoogleAccountScreen
+                                      .chooseGoogleAccountScreenRoute);
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.redAccent,
+                              minimumSize: const Size(300, 50),
+                              maximumSize: const Size(300, 50)),
+                          child: const Text(
+                            "Google Account",
+                            style: TextStyle(fontFamily: "Lobster"),
+                          )),
                     ],
                   ))
             ]);
           },
         ),
       )),
+    );
+  }
+}
+
+class ChooseGoogleAccountScreen extends StatelessWidget {
+  const ChooseGoogleAccountScreen({super.key});
+
+  static const chooseGoogleAccountScreenRoute = "/choose-google-account";
+
+  @override
+  Widget build(BuildContext context) {
+    final googleSignInAccount = GoogleSignIn();
+
+    return FutureBuilder(
+      future: googleSignInAccount.signIn(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {}
+
+        return Container();
+      },
     );
   }
 }

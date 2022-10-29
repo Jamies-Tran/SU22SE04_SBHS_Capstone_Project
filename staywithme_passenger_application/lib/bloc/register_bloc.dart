@@ -1,10 +1,12 @@
 import 'dart:async';
 
-import 'package:staywithme_passenger_application/bloc/event/register_event.dart';
+import 'package:staywithme_passenger_application/bloc/event/auth_by_google_event.dart';
+import 'package:staywithme_passenger_application/bloc/event/authentication_event.dart';
+import 'package:staywithme_passenger_application/bloc/state/auth_by_google_state.dart';
 import 'package:staywithme_passenger_application/bloc/state/register_state.dart';
 
 class RegisterBloc {
-  final eventController = StreamController<RegisterEvent>();
+  final eventController = StreamController<AuthenticationEvent>();
 
   final stateController = StreamController<RegisterState>();
 
@@ -36,7 +38,7 @@ class RegisterBloc {
     });
   }
 
-  void eventHandler(RegisterEvent event) {
+  void eventHandler(AuthenticationEvent event) {
     if (event is InputUsernameEvent) {
       _username = event.username;
     } else if (event is InputPasswordEvent) {
