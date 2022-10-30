@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:staywithme_passenger_application/bloc/event/authentication_event.dart';
 import 'package:staywithme_passenger_application/bloc/register_bloc.dart';
 import 'package:staywithme_passenger_application/bloc/state/register_state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+
+  static const registerAccountRoute = "/register_account_route";
 
   @override
   State<RegisterScreen> createState() => _RegisterScreen();
@@ -371,11 +373,8 @@ class _RegisterScreen extends State<RegisterScreen> {
                       ),
                       ElevatedButton(
                           onPressed: () {
-                            if (formState.currentState!.validate()) {
-                              Navigator.of(context).pushReplacementNamed(
-                                  ChooseGoogleAccountScreen
-                                      .chooseGoogleAccountScreenRoute);
-                            }
+                            registerBloc.eventController.sink.add(
+                                ChooseGoogleAccountEvent(context: context));
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.redAccent,
@@ -403,17 +402,33 @@ class ChooseGoogleAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final googleSignInAccount = GoogleSignIn();
+    final registerBloc = RegisterBloc();
 
-    return FutureBuilder(
-      future: googleSignInAccount.signIn(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        } else if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.hasData) {}
+    return Scaffold(
+      backgroundColor: Colors.blueAccent,
+      body: FutureBuilder(
+        future: googleSignInAccount.signIn(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const SpinKitSpinningLines(color: Colors.white);
+          } else if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
+            final googleSignInAccount = snapshot.data;
+            registerBloc.eventController.sink.add(
+                NavigateToCompleteGoogelRegisterAccountEvent(
+                    context: context,
+                    googleSignInAccount: googleSignInAccount));
+          } else if (snapshot.connectionState == ConnectionState.done &&
+              !snapshot.hasData) {
+            Future.delayed(
+                Duration.zero,
+                () => registerBloc.eventController.sink
+                    .add(CancelChooseGoogleAccountEvent(context: context)));
+          }
 
-        return Container();
-      },
+          return Container();
+        },
+      ),
     );
   }
 }

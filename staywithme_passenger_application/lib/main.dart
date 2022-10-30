@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:staywithme_passenger_application/screen/authenticate/complete_google_register.screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/register_screen.dart';
 import 'package:staywithme_passenger_application/service_locator/service_locator.dart';
 
@@ -31,11 +32,14 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      initialRoute: "/",
+      initialRoute: RegisterScreen.registerAccountRoute,
       routes: {
-        "/": (context) => const RegisterScreen(),
+        RegisterScreen.registerAccountRoute: (context) =>
+            const RegisterScreen(),
         ChooseGoogleAccountScreen.chooseGoogleAccountScreenRoute: (context) =>
-            const ChooseGoogleAccountScreen()
+            const ChooseGoogleAccountScreen(),
+        CompleteGoogleRegisterScreen.completeGoogleRegisterRoute: (context) =>
+            const CompleteGoogleRegisterScreen()
       },
     );
   }

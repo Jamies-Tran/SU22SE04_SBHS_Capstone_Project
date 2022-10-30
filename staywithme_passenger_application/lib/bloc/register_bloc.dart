@@ -1,9 +1,9 @@
 import 'dart:async';
-
-import 'package:staywithme_passenger_application/bloc/event/auth_by_google_event.dart';
+import 'package:flutter/material.dart';
 import 'package:staywithme_passenger_application/bloc/event/authentication_event.dart';
-import 'package:staywithme_passenger_application/bloc/state/auth_by_google_state.dart';
 import 'package:staywithme_passenger_application/bloc/state/register_state.dart';
+import 'package:staywithme_passenger_application/screen/authenticate/complete_google_register.screen.dart';
+import 'package:staywithme_passenger_application/screen/authenticate/register_screen.dart';
 
 class RegisterBloc {
   final eventController = StreamController<AuthenticationEvent>();
@@ -57,6 +57,16 @@ class RegisterBloc {
       _phone = event.phone;
     } else if (event is InputAvatarUrlEvent) {
       _avatarUrl = event.avatarUrl;
+    } else if (event is ChooseGoogleAccountEvent) {
+      Navigator.of(event.context!)
+          .pushNamed(ChooseGoogleAccountScreen.chooseGoogleAccountScreenRoute);
+    } else if (event is CancelChooseGoogleAccountEvent) {
+      Navigator.of(event.context!)
+          .pushNamed(RegisterScreen.registerAccountRoute);
+    } else if (event is NavigateToCompleteGoogelRegisterAccountEvent) {
+      Navigator.of(event.context!).pushReplacementNamed(
+          CompleteGoogleRegisterScreen.completeGoogleRegisterRoute,
+          arguments: {"googleSignInAccount": event.googleSignInAccount});
     } else if (event is SubmitRegisterAccountEvent) {}
     stateController.sink.add(RegisterState(
         username: _username,

@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 abstract class AuthenticationEvent {}
 
 class InputUsernameEvent extends AuthenticationEvent {
@@ -52,6 +55,26 @@ class InputAvatarUrlEvent extends AuthenticationEvent {
   InputAvatarUrlEvent({this.avatarUrl});
 
   String? avatarUrl;
+}
+
+class ChooseGoogleAccountEvent extends AuthenticationEvent {
+  ChooseGoogleAccountEvent({this.context});
+
+  BuildContext? context;
+}
+
+class CancelChooseGoogleAccountEvent extends AuthenticationEvent {
+  CancelChooseGoogleAccountEvent({this.context});
+
+  BuildContext? context;
+}
+
+class NavigateToCompleteGoogelRegisterAccountEvent extends AuthenticationEvent {
+  NavigateToCompleteGoogelRegisterAccountEvent(
+      {this.context, this.googleSignInAccount});
+
+  BuildContext? context;
+  GoogleSignInAccount? googleSignInAccount;
 }
 
 class SubmitRegisterAccountEvent extends AuthenticationEvent {
