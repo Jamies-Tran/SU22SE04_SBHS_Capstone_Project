@@ -9,7 +9,7 @@ import 'package:staywithme_passenger_application/bloc/state/register_state.dart'
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
-  static const registerAccountRoute = "/register_account_route";
+  static const registerAccountRoute = "/register_account";
 
   @override
   State<RegisterScreen> createState() => _RegisterScreen();
@@ -401,13 +401,13 @@ class ChooseGoogleAccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final googleSignInAccount = GoogleSignIn();
+    final googleSignIn = GoogleSignIn();
     final registerBloc = RegisterBloc();
 
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       body: FutureBuilder(
-        future: googleSignInAccount.signIn(),
+        future: googleSignIn.signIn(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SpinKitSpinningLines(color: Colors.white);
@@ -417,6 +417,7 @@ class ChooseGoogleAccountScreen extends StatelessWidget {
             registerBloc.eventController.sink.add(
                 NavigateToCompleteGoogelRegisterAccountEvent(
                     context: context,
+                    googleSignIn: googleSignIn,
                     googleSignInAccount: googleSignInAccount));
           } else if (snapshot.connectionState == ConnectionState.done &&
               !snapshot.hasData) {

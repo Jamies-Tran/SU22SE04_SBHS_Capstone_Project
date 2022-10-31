@@ -4,11 +4,15 @@ import 'package:staywithme_passenger_application/bloc/event/authentication_event
 import 'package:staywithme_passenger_application/bloc/state/register_state.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/complete_google_register.screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/register_screen.dart';
+import 'package:staywithme_passenger_application/service/auth_by_google_service.dart';
+import 'package:staywithme_passenger_application/service_locator/service_locator.dart';
 
 class RegisterBloc {
   final eventController = StreamController<AuthenticationEvent>();
 
   final stateController = StreamController<RegisterState>();
+
+  final googleAuthService = locator.get<IAuthenticateByGoogleService>();
 
   String? _username;
   String? _password;
@@ -66,7 +70,14 @@ class RegisterBloc {
     } else if (event is NavigateToCompleteGoogelRegisterAccountEvent) {
       Navigator.of(event.context!).pushReplacementNamed(
           CompleteGoogleRegisterScreen.completeGoogleRegisterRoute,
-          arguments: {"googleSignInAccount": event.googleSignInAccount});
+          arguments: {
+            "googleSignInAccount": event.googleSignInAccount,
+            "googleSignIn": event.googleSignIn
+          });
+    } else if (event is CancelCompleteGoogleAccountRegisterEvent) {
+      googleAuthService.signOut(event.googleSignIn!).then((value) =>
+          Navigator.of(event.context!)
+              .pushReplacementNamed(RegisterScreen.registerAccountRoute));
     } else if (event is SubmitRegisterAccountEvent) {}
     stateController.sink.add(RegisterState(
         username: _username,

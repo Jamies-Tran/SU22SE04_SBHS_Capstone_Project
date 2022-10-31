@@ -69,11 +69,19 @@ class CancelChooseGoogleAccountEvent extends AuthenticationEvent {
   BuildContext? context;
 }
 
+class CancelCompleteGoogleAccountRegisterEvent extends AuthenticationEvent {
+  CancelCompleteGoogleAccountRegisterEvent({this.context, this.googleSignIn});
+
+  GoogleSignIn? googleSignIn;
+  BuildContext? context;
+}
+
 class NavigateToCompleteGoogelRegisterAccountEvent extends AuthenticationEvent {
   NavigateToCompleteGoogelRegisterAccountEvent(
-      {this.context, this.googleSignInAccount});
+      {this.context, this.googleSignIn, this.googleSignInAccount});
 
   BuildContext? context;
+  GoogleSignIn? googleSignIn;
   GoogleSignInAccount? googleSignInAccount;
 }
 

@@ -3,6 +3,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class IAuthenticateByGoogleService {
   Future<dynamic> authenticateByGoogle(GoogleSignInAccount googleSignInAccount);
+
+  Future<dynamic> signOut(GoogleSignIn googleSignIn);
 }
 
 class AuthenticateByGoogleService extends IAuthenticateByGoogleService {
@@ -18,5 +20,11 @@ class AuthenticateByGoogleService extends IAuthenticateByGoogleService {
         await _firebaseAuth.signInWithCredential(googleCredential);
 
     return signInWithGoogle;
+  }
+
+  @override
+  Future signOut(GoogleSignIn googleSignIn) async {
+    await googleSignIn.signOut();
+    await _firebaseAuth.signOut();
   }
 }
