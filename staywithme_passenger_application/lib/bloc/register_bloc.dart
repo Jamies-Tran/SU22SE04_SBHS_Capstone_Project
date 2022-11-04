@@ -90,4 +90,9 @@ class RegisterBloc {
         gender: _gender,
         phone: _phone));
   }
+
+  void dispose() {
+    eventController.close();
+    stateController.close();
+  }
 }

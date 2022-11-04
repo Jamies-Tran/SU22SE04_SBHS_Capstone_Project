@@ -1,6 +1,4 @@
-abstract class AuthenticateState {}
-
-class RegisterState extends AuthenticateState {
+class RegisterState {
   RegisterState(
       {this.username,
       this.password,
