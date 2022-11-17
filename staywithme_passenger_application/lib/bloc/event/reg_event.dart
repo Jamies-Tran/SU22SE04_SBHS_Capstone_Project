@@ -1,82 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-abstract class AuthenticationEvent {}
+abstract class RegisterEvent {}
 
-class InputUsernameEvent extends AuthenticationEvent {
+class InputUsernameEvent extends RegisterEvent {
   InputUsernameEvent({this.username});
 
   String? username;
 }
 
-class InputPasswordEvent extends AuthenticationEvent {
+class InputPasswordEvent extends RegisterEvent {
   InputPasswordEvent({this.password});
 
   String? password;
 }
 
-class InputEmailEvent extends AuthenticationEvent {
+class InputEmailEvent extends RegisterEvent {
   InputEmailEvent({this.email});
 
   String? email;
 }
 
-class InputAddressEvent extends AuthenticationEvent {
+class InputAddressEvent extends RegisterEvent {
   InputAddressEvent({this.address});
 
   String? address;
 }
 
-class InputPhoneEvent extends AuthenticationEvent {
+class InputPhoneEvent extends RegisterEvent {
   InputPhoneEvent({this.phone});
 
   String? phone;
 }
 
-class InputGenderEvent extends AuthenticationEvent {
-  InputGenderEvent({this.gender});
+class ChooseGenderEvent extends RegisterEvent {
+  ChooseGenderEvent({this.gender});
 
   String? gender;
 }
 
-class InputCitizenIdentificationEvent extends AuthenticationEvent {
+class InputCitizenIdentificationEvent extends RegisterEvent {
   InputCitizenIdentificationEvent({this.citizenIdentification});
 
   String? citizenIdentification;
 }
 
-class InputDobEvent extends AuthenticationEvent {
+class InputDobEvent extends RegisterEvent {
   InputDobEvent({this.dob});
 
   String? dob;
 }
 
-class InputAvatarUrlEvent extends AuthenticationEvent {
+class InputAvatarUrlEvent extends RegisterEvent {
   InputAvatarUrlEvent({this.avatarUrl});
 
   String? avatarUrl;
 }
 
-class ChooseGoogleAccountEvent extends AuthenticationEvent {
+class ChooseGoogleAccountEvent extends RegisterEvent {
   ChooseGoogleAccountEvent({this.context});
 
   BuildContext? context;
 }
 
-class CancelChooseGoogleAccountEvent extends AuthenticationEvent {
-  CancelChooseGoogleAccountEvent({this.context});
+class ValidateGoogleAccountEvent extends RegisterEvent {
+  ValidateGoogleAccountEvent(
+      {this.googleSignIn, this.googleSignInAccount, this.context});
 
-  BuildContext? context;
-}
-
-class CancelCompleteGoogleAccountRegisterEvent extends AuthenticationEvent {
-  CancelCompleteGoogleAccountRegisterEvent({this.context, this.googleSignIn});
-
+  GoogleSignInAccount? googleSignInAccount;
   GoogleSignIn? googleSignIn;
   BuildContext? context;
 }
 
-class NavigateToCompleteGoogelRegisterAccountEvent extends AuthenticationEvent {
+class NavigateToCompleteGoogelRegisterAccountEvent extends RegisterEvent {
   NavigateToCompleteGoogelRegisterAccountEvent(
       {this.context, this.googleSignIn, this.googleSignInAccount});
 
@@ -85,7 +81,7 @@ class NavigateToCompleteGoogelRegisterAccountEvent extends AuthenticationEvent {
   GoogleSignInAccount? googleSignInAccount;
 }
 
-class SubmitRegisterAccountEvent extends AuthenticationEvent {
+class SubmitRegisterAccountEvent extends RegisterEvent {
   SubmitRegisterAccountEvent(
       {this.username,
       this.password,

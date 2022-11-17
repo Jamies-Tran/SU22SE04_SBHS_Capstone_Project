@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:staywithme_passenger_application/bloc/complete_google_auth_bloc.dart';
-import 'package:staywithme_passenger_application/bloc/event/auth_by_google_event.dart';
-import 'package:staywithme_passenger_application/bloc/event/authentication_event.dart';
-import 'package:staywithme_passenger_application/bloc/register_bloc.dart';
-import 'package:staywithme_passenger_application/bloc/state/register_state.dart';
+import 'package:staywithme_passenger_application/bloc/complete_google_reg_bloc.dart';
+import 'package:staywithme_passenger_application/bloc/event/reg_google_event.dart';
+import 'package:staywithme_passenger_application/bloc/event/reg_event.dart';
+import 'package:staywithme_passenger_application/bloc/reg_bloc.dart';
+import 'package:staywithme_passenger_application/bloc/state/reg_state.dart';
+import 'package:staywithme_passenger_application/service/auth_by_google_service.dart';
+import 'package:staywithme_passenger_application/service_locator/service_locator.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -41,14 +43,15 @@ class _RegisterScreen extends State<RegisterScreen> {
             initialData: registerBloc.initData,
             builder: (context, snapshot) {
               return Column(children: [
-                const Center(
-                  child: Text(
-                    "Register account",
-                    style: TextStyle(
-                        fontSize: 35,
-                        fontFamily: "SourceCodePro",
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent),
+                Center(
+                  child: Container(
+                    height: 100,
+                    width: 370,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("images/register.jpeg"),
+                          fit: BoxFit.fill),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -294,9 +297,9 @@ class _RegisterScreen extends State<RegisterScreen> {
                                               color: Colors.pink,
                                             ),
                                       underline: const SizedBox(),
-                                      onChanged: (value) => registerBloc
-                                          .eventController.sink
-                                          .add(InputGenderEvent(gender: value)),
+                                      onChanged: (value) =>
+                                          registerBloc.eventController.sink.add(
+                                              ChooseGenderEvent(gender: value)),
                                     ),
                                   ),
                                 )),
@@ -370,7 +373,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 minimumSize: const Size(300, 50),
                                 maximumSize: const Size(300, 50)),
                             child: const Text(
-                              "Submit",
+                              "Register",
                               style: TextStyle(fontFamily: "Lobster"),
                             )),
                         const SizedBox(
@@ -411,6 +414,7 @@ class _RegisterScreen extends State<RegisterScreen> {
   }
 }
 
+// TODO: choose google account sceen (screen)
 class ChooseGoogleAccountScreen extends StatefulWidget {
   const ChooseGoogleAccountScreen({super.key});
 
@@ -462,27 +466,10 @@ class _ChooseGoogleAccountScreenState extends State<ChooseGoogleAccountScreen> {
                       ),
                     ],
                   );
-                case ConnectionState.active:
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      SpinKitCircle(
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "Getting your google accounts...",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "SourceCodePro"),
-                      ),
-                    ],
-                  );
                 case ConnectionState.done:
                   if (snapshot.hasData) {
-                    completeGoogleAuthBloc.eventController.sink.add(
-                        ForwardCompleteGoogleRegisterScreenEvent(
+                    registerBloc.eventController.sink.add(
+                        ValidateGoogleAccountEvent(
                             context: context,
                             googleSignInAccount: snapshot.data,
                             googleSignIn: googleSignIn));
@@ -499,5 +486,114 @@ class _ChooseGoogleAccountScreenState extends State<ChooseGoogleAccountScreen> {
             return Container();
           },
         ));
+  }
+}
+
+// TODO: check valid google account - is account exist on system (screen)
+class GoogleAccountValidationScreen extends StatefulWidget {
+  const GoogleAccountValidationScreen({super.key});
+
+  static const String checkValidGoogleAccountRoute = "/google-validation";
+
+  @override
+  State<GoogleAccountValidationScreen> createState() =>
+      _CheckValidGoogleAccountScreenState();
+}
+
+class _CheckValidGoogleAccountScreenState
+    extends State<GoogleAccountValidationScreen> {
+  final authByGoogleService = locator.get<IAuthenticateByGoogleService>();
+  final completeGoogleAuthBloc = CompleteGoogleAuthBloc();
+
+  @override
+  void dispose() {
+    completeGoogleAuthBloc.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final routeArguments = ModalRoute.of(context)!.settings.arguments as Map;
+    GoogleSignIn googleSignIn = routeArguments["googleSignIn"];
+    GoogleSignInAccount googleSignInAccount =
+        routeArguments["googleSignInAccount"];
+
+    return Scaffold(
+      backgroundColor: Colors.green,
+      body: FutureBuilder(
+        future: authByGoogleService.validateGoogleAccount(googleSignInAccount),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            completeGoogleAuthBloc.eventController.sink
+                .add(BackwardToRegisterScreenEvent(context: context));
+          } else {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    SpinKitCircle(
+                      color: Colors.white,
+                    ),
+                    Text(
+                      "Validating your account...",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "SourceCodePro"),
+                    ),
+                  ],
+                );
+              case ConnectionState.done:
+                if (snapshot.hasData) {
+                  if (snapshot.data is bool) {
+                    if (snapshot.data == true) {
+                      completeGoogleAuthBloc.eventController.sink.add(
+                          ForwardCompleteGoogleRegisterScreenEvent(
+                              context: context,
+                              googleSignIn: googleSignIn,
+                              googleSignInAccount: googleSignInAccount));
+                    } else {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Your account has been registered on stay with me system",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "SourceCodePro"),
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                completeGoogleAuthBloc.eventController.sink.add(
+                                    BackwardToRegisterScreenEvent(
+                                        context: context));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.redAccent,
+                                  minimumSize: const Size(300, 50),
+                                  maximumSize: const Size(300, 50)),
+                              child: const Text(
+                                "Go back",
+                                style: TextStyle(fontFamily: "Lobster"),
+                              )),
+                        ],
+                      );
+                    }
+                  }
+                }
+                break;
+              default:
+                return Container();
+            }
+          }
+
+          return Container();
+        },
+      ),
+    );
   }
 }

@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:staywithme_passenger_application/bloc/event/authentication_event.dart';
-import 'package:staywithme_passenger_application/bloc/register_bloc.dart';
+import 'package:staywithme_passenger_application/bloc/complete_google_reg_bloc.dart';
+import 'package:staywithme_passenger_application/bloc/event/reg_google_event.dart';
+import 'package:staywithme_passenger_application/bloc/event/reg_event.dart';
+import 'package:staywithme_passenger_application/bloc/reg_bloc.dart';
 // import 'package:staywithme_passenger_application/service/auth_by_google_service.dart';
 // import 'package:staywithme_passenger_application/service_locator/service_locator.dart';
 
 class CompleteGoogleRegisterScreen extends StatefulWidget {
   const CompleteGoogleRegisterScreen({super.key});
 
-  static const completeGoogleRegisterRoute = "/complete_google_sign_in";
+  static const completeGoogleRegisterScreenRoute = "/complete_google_sign_in";
 
   @override
   State<CompleteGoogleRegisterScreen> createState() =>
       _CompleteGoogleRegisterScreenState();
 }
 
-// TODO: sửa tràn màng hình khi click vào textfield
+// TODO: implement complete google auth bloc
 class _CompleteGoogleRegisterScreenState
     extends State<CompleteGoogleRegisterScreen> {
-  final registerBloc = RegisterBloc();
+  final completeGoogleRegisterBloc = CompleteGoogleAuthBloc();
   final formState = GlobalKey<FormState>();
   final dobTextFieldController = TextEditingController();
-  final usernameTextFieldController = TextEditingController();
-  final emailTextFieldController = TextEditingController();
   final dateFormat = DateFormat("yyyy-MM-dd");
 
   @override
   Widget build(BuildContext context) {
     final getArguments = ModalRoute.of(context)!.settings.arguments as Map;
-    final TextEditingController usernameTextEditingCtl =
+    final TextEditingController usernameTextFieldController =
         getArguments["usernameTextEditingCtl"];
-    final TextEditingController emailTextEditingCtl =
+    final TextEditingController emailTextFieldController =
         getArguments["emailTextEditingCtl"];
     final GoogleSignIn googleSignIn = getArguments["googleSignIn"];
 
@@ -44,18 +44,23 @@ class _CompleteGoogleRegisterScreenState
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   StreamBuilder(
-                    stream: registerBloc.stateController.stream,
-                    initialData: registerBloc.initData,
+                    stream: completeGoogleRegisterBloc.stateController.stream,
+                    initialData: completeGoogleRegisterBloc.initData(
+                        usernameTextFieldController.text,
+                        emailTextFieldController.text),
                     builder: (context, snapshot) {
                       return Column(children: [
-                        const Center(
-                          child: Text(
-                            "Complete account",
-                            style: TextStyle(
-                                fontSize: 35,
-                                fontFamily: "SourceCodePro",
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blueAccent),
+                        Center(
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            height: 100,
+                            width: 370,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      "images/complete_register.jpg"),
+                                  fit: BoxFit.fill),
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -66,7 +71,7 @@ class _CompleteGoogleRegisterScreenState
                             child: Column(
                               children: [
                                 TextFormField(
-                                  controller: usernameTextEditingCtl,
+                                  controller: usernameTextFieldController,
                                   decoration: const InputDecoration(
                                       fillColor: Colors.white,
                                       focusColor: Colors.grey,
@@ -84,9 +89,11 @@ class _CompleteGoogleRegisterScreenState
                                               width: 1.0)),
                                       label: Text("Username"),
                                       prefixIcon: Icon(Icons.account_box)),
-                                  onChanged: (value) => registerBloc
-                                      .eventController.sink
-                                      .add(InputUsernameEvent(username: value)),
+                                  onChanged: (value) =>
+                                      completeGoogleRegisterBloc
+                                          .eventController.sink
+                                          .add(InputUsernameGoogleAuthEvent(
+                                              username: value)),
                                   validator: (value) =>
                                       snapshot.data!.validateUsername(),
                                 ),
@@ -94,7 +101,7 @@ class _CompleteGoogleRegisterScreenState
                                   height: 25,
                                 ),
                                 TextFormField(
-                                  controller: emailTextEditingCtl,
+                                  controller: emailTextFieldController,
                                   readOnly: true,
                                   decoration: const InputDecoration(
                                       fillColor: Colors.white,
@@ -113,82 +120,43 @@ class _CompleteGoogleRegisterScreenState
                                               width: 1.0)),
                                       label: Text("Email"),
                                       prefixIcon: Icon(Icons.email)),
-                                  onChanged: (value) => registerBloc
-                                      .eventController.sink
-                                      .add(InputEmailEvent(email: value)),
+                                  onChanged: (value) =>
+                                      completeGoogleRegisterBloc
+                                          .eventController.sink
+                                          .add(ReceiveEmailGoogleAuthEvent(
+                                              email: value)),
                                   validator: (value) =>
                                       snapshot.data!.validateEmail(),
                                 ),
                                 const SizedBox(
                                   height: 25,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: TextFormField(
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                            fillColor: Colors.white,
-                                            focusColor: Colors.grey,
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(3.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.blueAccent,
-                                                    width: 1.0)),
-                                            errorBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(3.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.redAccent,
-                                                    width: 1.0)),
-                                            label: Text("ID card"),
-                                            prefixIcon:
-                                                Icon(Icons.card_membership)),
-                                        onChanged: (value) => registerBloc
-                                            .eventController.sink
-                                            .add(
-                                                InputCitizenIdentificationEvent(
-                                                    citizenIdentification:
-                                                        value)),
-                                        validator: (value) => snapshot.data!
-                                            .validateCitizenIdentification(),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: TextFormField(
-                                        decoration: const InputDecoration(
-                                            fillColor: Colors.white,
-                                            focusColor: Colors.grey,
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(3.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.blueAccent,
-                                                    width: 1.0)),
-                                            errorBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(3.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.redAccent,
-                                                    width: 1.0)),
-                                            label: Text("Password"),
-                                            prefixIcon: Icon(Icons.lock)),
-                                        onChanged: (value) => registerBloc
-                                            .eventController.sink
-                                            .add(InputPasswordEvent(
-                                                password: value)),
-                                        validator: (value) =>
-                                            snapshot.data!.validatePassword(),
-                                      ),
-                                    )
-                                  ],
+                                TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: const InputDecoration(
+                                      fillColor: Colors.white,
+                                      focusColor: Colors.grey,
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(3.0)),
+                                          borderSide: BorderSide(
+                                              color: Colors.blueAccent,
+                                              width: 1.0)),
+                                      errorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(3.0)),
+                                          borderSide: BorderSide(
+                                              color: Colors.redAccent,
+                                              width: 1.0)),
+                                      label: Text("ID card"),
+                                      prefixIcon: Icon(Icons.card_membership)),
+                                  onChanged: (value) => completeGoogleRegisterBloc
+                                      .eventController.sink
+                                      .add(
+                                          InputCitizenIdentificationGoogleAuthEvent(
+                                              citizenIdentification: value)),
+                                  validator: (value) => snapshot.data!
+                                      .validateCitizenIdentification(),
                                 ),
                                 const SizedBox(
                                   height: 25,
@@ -217,9 +185,11 @@ class _CompleteGoogleRegisterScreenState
                                                     width: 1.0)),
                                             label: Text("Phone"),
                                             prefixIcon: Icon(Icons.phone)),
-                                        onChanged: (value) => registerBloc
-                                            .eventController.sink
-                                            .add(InputPhoneEvent(phone: value)),
+                                        onChanged: (value) =>
+                                            completeGoogleRegisterBloc
+                                                .eventController.sink
+                                                .add(InputPhoneGoogleAuthEvent(
+                                                    phone: value)),
                                         validator: (value) =>
                                             snapshot.data!.validatePhone(),
                                       ),
@@ -248,10 +218,12 @@ class _CompleteGoogleRegisterScreenState
                                             label: Text("Address"),
                                             prefixIcon:
                                                 Icon(Icons.location_city)),
-                                        onChanged: (value) => registerBloc
-                                            .eventController.sink
-                                            .add(InputAddressEvent(
-                                                address: value)),
+                                        onChanged: (value) =>
+                                            completeGoogleRegisterBloc
+                                                .eventController.sink
+                                                .add(
+                                                    InputAddressGoogleAuthEvent(
+                                                        address: value)),
                                         validator: (value) =>
                                             snapshot.data!.validateAddress(),
                                       ),
@@ -296,8 +268,9 @@ class _CompleteGoogleRegisterScreenState
                                           ).then((value) {
                                             dobTextFieldController.text =
                                                 dateFormat.format(value!);
-                                            registerBloc.eventController.sink
-                                                .add(InputDobEvent(
+                                            completeGoogleRegisterBloc
+                                                .eventController.sink
+                                                .add(InputDobGoogleAuthEvent(
                                                     dob: dobTextFieldController
                                                         .text));
                                           });
@@ -325,7 +298,7 @@ class _CompleteGoogleRegisterScreenState
                                                 ),
                                                 label: const Text("Gender")),
                                             child: DropdownButton<String>(
-                                              items: registerBloc
+                                              items: completeGoogleRegisterBloc
                                                   .genderSelection
                                                   .map((e) => DropdownMenuItem(
                                                         value: e,
@@ -346,10 +319,12 @@ class _CompleteGoogleRegisterScreenState
                                                       color: Colors.pink,
                                                     ),
                                               underline: const SizedBox(),
-                                              onChanged: (value) => registerBloc
-                                                  .eventController.sink
-                                                  .add(InputGenderEvent(
-                                                      gender: value)),
+                                              onChanged: (value) =>
+                                                  completeGoogleRegisterBloc
+                                                      .eventController.sink
+                                                      .add(
+                                                          ChooseGenderGoogleAuthEvent(
+                                                              gender: value)),
                                             ),
                                           ),
                                         ))
@@ -364,8 +339,9 @@ class _CompleteGoogleRegisterScreenState
                                 ElevatedButton(
                                     onPressed: () {
                                       if (formState.currentState!.validate()) {
-                                        registerBloc.eventController.sink.add(
-                                            SubmitRegisterAccountEvent(
+                                        completeGoogleRegisterBloc
+                                            .eventController.sink
+                                            .add(SubmitGoogleCompleteRegisterEvent(
                                                 address: snapshot.data!.address,
                                                 avatarUrl:
                                                     snapshot.data!.avatarUrl,
@@ -375,12 +351,11 @@ class _CompleteGoogleRegisterScreenState
                                                 dob: snapshot.data!.dob,
                                                 email: snapshot.data!.email,
                                                 gender: snapshot.data!.gender,
-                                                password:
-                                                    snapshot.data!.password,
                                                 phone: snapshot.data!.phone,
                                                 username:
                                                     snapshot.data!.username));
                                       }
+                                      print(snapshot.data!.email);
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.blueAccent,
@@ -395,10 +370,12 @@ class _CompleteGoogleRegisterScreenState
                                 ),
                                 TextButton(
                                     onPressed: (() async {
-                                      registerBloc.eventController.sink.add(
-                                          CancelCompleteGoogleAccountRegisterEvent(
-                                              context: context,
-                                              googleSignIn: googleSignIn));
+                                      completeGoogleRegisterBloc
+                                          .eventController.sink
+                                          .add(
+                                              CancelCompleteGoogleAccountRegisterEvent(
+                                                  context: context,
+                                                  googleSignIn: googleSignIn));
                                     }),
                                     child: const Text(
                                       "Cancel",

@@ -1,18 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:staywithme_passenger_application/bloc/event/authentication_event.dart';
-import 'package:staywithme_passenger_application/bloc/state/register_state.dart';
-import 'package:staywithme_passenger_application/screen/authenticate/complete_google_register.screen.dart';
+import 'package:staywithme_passenger_application/bloc/event/reg_event.dart';
+import 'package:staywithme_passenger_application/bloc/state/reg_state.dart';
+import 'package:staywithme_passenger_application/screen/authenticate/complete_google_reg_screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/register_screen.dart';
-import 'package:staywithme_passenger_application/service/auth_by_google_service.dart';
-import 'package:staywithme_passenger_application/service_locator/service_locator.dart';
 
 class RegisterBloc {
-  final eventController = StreamController<AuthenticationEvent>();
+  final eventController = StreamController<RegisterEvent>();
 
   final stateController = StreamController<RegisterState>();
-
-  final googleAuthService = locator.get<IAuthenticateByGoogleService>();
 
   String? _username;
   String? _password;
@@ -42,7 +38,7 @@ class RegisterBloc {
     });
   }
 
-  void eventHandler(AuthenticationEvent event) {
+  void eventHandler(RegisterEvent event) {
     if (event is InputUsernameEvent) {
       _username = event.username;
     } else if (event is InputPasswordEvent) {
@@ -55,7 +51,7 @@ class RegisterBloc {
       _citizenIdentification = event.citizenIdentification;
     } else if (event is InputDobEvent) {
       _dob = event.dob;
-    } else if (event is InputGenderEvent) {
+    } else if (event is ChooseGenderEvent) {
       _gender = event.gender;
     } else if (event is InputPhoneEvent) {
       _phone = event.phone;
@@ -64,20 +60,20 @@ class RegisterBloc {
     } else if (event is ChooseGoogleAccountEvent) {
       Navigator.of(event.context!)
           .pushNamed(ChooseGoogleAccountScreen.chooseGoogleAccountScreenRoute);
-    } else if (event is CancelChooseGoogleAccountEvent) {
-      Navigator.of(event.context!)
-          .pushNamed(RegisterScreen.registerAccountRoute);
+    } else if (event is ValidateGoogleAccountEvent) {
+      Navigator.pushReplacementNamed(event.context!,
+          GoogleAccountValidationScreen.checkValidGoogleAccountRoute,
+          arguments: {
+            'googleSignInAccount': event.googleSignInAccount,
+            'googleSignIn': event.googleSignIn
+          });
     } else if (event is NavigateToCompleteGoogelRegisterAccountEvent) {
       Navigator.of(event.context!).pushReplacementNamed(
-          CompleteGoogleRegisterScreen.completeGoogleRegisterRoute,
+          CompleteGoogleRegisterScreen.completeGoogleRegisterScreenRoute,
           arguments: {
             "googleSignInAccount": event.googleSignInAccount,
             "googleSignIn": event.googleSignIn
           });
-    } else if (event is CancelCompleteGoogleAccountRegisterEvent) {
-      googleAuthService.signOut(event.googleSignIn!).then((value) =>
-          Navigator.of(event.context!)
-              .pushReplacementNamed(RegisterScreen.registerAccountRoute));
     } else if (event is SubmitRegisterAccountEvent) {}
     stateController.sink.add(RegisterState(
         username: _username,
