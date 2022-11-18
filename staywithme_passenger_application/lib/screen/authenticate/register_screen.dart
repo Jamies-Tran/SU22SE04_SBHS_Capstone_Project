@@ -427,7 +427,7 @@ class ChooseGoogleAccountScreen extends StatefulWidget {
 
 class _ChooseGoogleAccountScreenState extends State<ChooseGoogleAccountScreen> {
   final registerBloc = RegisterBloc();
-  final completeGoogleAuthBloc = CompleteGoogleAuthBloc();
+  final completeGoogleAuthBloc = CompleteGoogleRegBloc();
 
   @override
   void dispose() {
@@ -503,7 +503,7 @@ class GoogleAccountValidationScreen extends StatefulWidget {
 class _CheckValidGoogleAccountScreenState
     extends State<GoogleAccountValidationScreen> {
   final authByGoogleService = locator.get<IAuthenticateByGoogleService>();
-  final completeGoogleAuthBloc = CompleteGoogleAuthBloc();
+  final completeGoogleAuthBloc = CompleteGoogleRegBloc();
 
   @override
   void dispose() {

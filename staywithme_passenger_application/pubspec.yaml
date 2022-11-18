@@ -73,6 +73,9 @@ flutter:
     - images/complete_register.jpg
     - images/login.jpg
     - images/register.jpeg
+    - images/complete_register_background.jpg
+    - images/login_background.jpg
+    - images/register_background.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

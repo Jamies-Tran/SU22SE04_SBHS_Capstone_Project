@@ -8,7 +8,7 @@ import 'package:staywithme_passenger_application/screen/authenticate/register_sc
 import 'package:staywithme_passenger_application/service/auth_by_google_service.dart';
 import 'package:staywithme_passenger_application/service_locator/service_locator.dart';
 
-class CompleteGoogleAuthBloc {
+class CompleteGoogleRegBloc {
   final eventController = StreamController<CompleteGoogleRegisterEvent>();
   final stateController = StreamController<CompleteGoogleRegisterState>();
 
@@ -23,7 +23,7 @@ class CompleteGoogleAuthBloc {
   String? _dob;
   final genderSelection = ["Male", "Female"];
 
-  CompleteGoogleAuthBloc() {
+  CompleteGoogleRegBloc() {
     eventController.stream.listen((event) {
       eventHandler(event);
     });
