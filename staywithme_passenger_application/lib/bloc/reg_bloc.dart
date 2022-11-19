@@ -19,6 +19,7 @@ class RegisterBloc {
   String? _gender;
   String? _phone;
   String? _avatarUrl;
+  bool? _isFocusOnTextField = false;
   final genderSelection = ["Male", "Female"];
 
   final initData = RegisterState(
@@ -30,7 +31,8 @@ class RegisterBloc {
       email: null,
       gender: "Male",
       password: null,
-      phone: null);
+      phone: null,
+      isFocusOnTextField: false);
 
   RegisterBloc() {
     eventController.stream.listen((event) {
@@ -57,6 +59,8 @@ class RegisterBloc {
       _phone = event.phone;
     } else if (event is InputAvatarUrlEvent) {
       _avatarUrl = event.avatarUrl;
+    } else if (event is FocusTextFieldRegisterEvent) {
+      _isFocusOnTextField = event.isFocus;
     } else if (event is ChooseGoogleAccountEvent) {
       Navigator.of(event.context!)
           .pushNamed(ChooseGoogleAccountScreen.chooseGoogleAccountScreenRoute);
@@ -67,7 +71,7 @@ class RegisterBloc {
             'googleSignInAccount': event.googleSignInAccount,
             'googleSignIn': event.googleSignIn
           });
-    } else if (event is NavigateToCompleteGoogelRegisterAccountEvent) {
+    } else if (event is NavigateToCompleteGoogelRegScreenEvent) {
       Navigator.of(event.context!).pushReplacementNamed(
           CompleteGoogleRegisterScreen.completeGoogleRegisterScreenRoute,
           arguments: {
@@ -84,7 +88,8 @@ class RegisterBloc {
         dob: _dob,
         email: _email,
         gender: _gender,
-        phone: _phone));
+        phone: _phone,
+        isFocusOnTextField: _isFocusOnTextField));
   }
 
   void dispose() {

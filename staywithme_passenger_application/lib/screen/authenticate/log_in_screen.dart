@@ -24,14 +24,14 @@ class _LoginScreenState extends State<LoginScreen> {
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
         loginBloc.eventController.sink
-            .add(FocusUsernameLoginEvent(isFocus: false));
+            .add(FocusTextFieldLoginEvent(isFocus: false));
       },
       child: Stack(children: [
         Image.asset(
           "images/login_background.jpg",
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -69,20 +69,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                     decoration: InputDecoration(
                                         filled: true,
                                         fillColor: snapshot.data!.focusColor(),
-                                        label: const Text("Username"),
+                                        label: const Text(
+                                          "Username",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.greenAccent,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                         prefixIcon: const Icon(
                                           Icons.account_box,
                                           color: Colors.greenAccent,
                                         ),
                                         enabledBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Colors.black))),
+                                                color: Colors.white,
+                                                width: 2.5)),
+                                        errorStyle: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.redAccent)),
                                     onTap: () => loginBloc.eventController.sink
-                                        .add(FocusUsernameLoginEvent(
+                                        .add(FocusTextFieldLoginEvent(
                                             isFocus: true)),
                                     onEditingComplete: () => loginBloc
                                         .eventController.sink
-                                        .add(FocusUsernameLoginEvent(
+                                        .add(FocusTextFieldLoginEvent(
                                             isFocus: false)),
                                     onChanged: (value) => loginBloc
                                         .eventController.sink
@@ -99,26 +110,36 @@ class _LoginScreenState extends State<LoginScreen> {
                                   width: 300,
                                   child: TextFormField(
                                     obscureText: true,
-                                    decoration: const InputDecoration(
-                                        fillColor: Colors.white,
-                                        focusColor: Colors.grey,
-                                        border: OutlineInputBorder(
+                                    decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: snapshot.data!.focusColor(),
+                                        enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.white,
+                                                width: 2.5)),
+                                        errorBorder: const OutlineInputBorder(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(3.0)),
                                             borderSide: BorderSide(
-                                                color: Colors.blueAccent,
+                                                color: Colors.orange,
                                                 width: 1.0)),
-                                        errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(3.0)),
-                                            borderSide: BorderSide(
-                                                color: Colors.redAccent,
-                                                width: 1.0)),
-                                        label: Text("Password"),
-                                        prefixIcon: Icon(
+                                        errorStyle: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.redAccent),
+                                        label: const Text(
+                                          "Password",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.orange,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        prefixIcon: const Icon(
                                           Icons.lock,
-                                          color: Colors.redAccent,
+                                          color: Colors.orange,
                                         )),
+                                    onTap: () => loginBloc.eventController.sink
+                                        .add(FocusTextFieldLoginEvent(
+                                            isFocus: true)),
                                     onChanged: (value) => loginBloc
                                         .eventController.sink
                                         .add(InputPasswordLoginEvent(
@@ -163,7 +184,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       width: 10,
                                     ),
                                     ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          loginBloc.eventController.sink.add(
+                                              NavigateToRegScreenEvent(
+                                                  context: context));
+                                        },
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.blueAccent,
                                             minimumSize: const Size(140, 50),

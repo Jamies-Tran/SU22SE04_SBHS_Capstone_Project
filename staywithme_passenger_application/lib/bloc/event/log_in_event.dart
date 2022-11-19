@@ -1,4 +1,4 @@
-import 'package:staywithme_passenger_application/bloc/log_in_bloc.dart';
+import 'package:flutter/cupertino.dart';
 
 abstract class LogInEvent {}
 
@@ -14,8 +14,14 @@ class InputPasswordLoginEvent extends LogInEvent {
   String? password;
 }
 
-class FocusUsernameLoginEvent extends LogInEvent {
-  FocusUsernameLoginEvent({this.isFocus});
+class FocusTextFieldLoginEvent extends LogInEvent {
+  FocusTextFieldLoginEvent({this.isFocus});
 
   bool? isFocus;
+}
+
+class NavigateToRegScreenEvent extends LogInEvent {
+  NavigateToRegScreenEvent({this.context});
+
+  BuildContext? context;
 }

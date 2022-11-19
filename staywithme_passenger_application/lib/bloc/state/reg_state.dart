@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class RegisterState {
   RegisterState(
       {this.username,
@@ -8,7 +10,8 @@ class RegisterState {
       this.citizenIdentification,
       this.avatarUrl,
       this.dob,
-      this.phone});
+      this.phone,
+      this.isFocusOnTextField});
 
   String? username;
   String? password;
@@ -19,6 +22,16 @@ class RegisterState {
   String? citizenIdentification;
   String? dob;
   String? avatarUrl;
+
+  bool? isFocusOnTextField;
+
+  Color focusColor() {
+    if (isFocusOnTextField!) {
+      return Colors.white;
+    } else {
+      return Colors.white24;
+    }
+  }
 
   String? validateUsername() {
     if (username == "" || username == null) {

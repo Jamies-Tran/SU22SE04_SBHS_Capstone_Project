@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 
 class LoginState {
-  LoginState(
-      {this.username,
-      this.password,
-      this.isFocusOnUsernameField,
-      this.isFocusOnPasswordField});
+  LoginState({this.username, this.password, this.isFocusOnTextField});
 
   String? username;
   String? password;
 
-  bool? isFocusOnUsernameField;
-  bool? isFocusOnPasswordField;
+  bool? isFocusOnTextField;
 
   Color focusColor() {
-    if (isFocusOnUsernameField!) {
+    if (isFocusOnTextField!) {
       return Colors.white;
     } else {
       return Colors.white24;

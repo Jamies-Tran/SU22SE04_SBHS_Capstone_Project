@@ -57,6 +57,12 @@ class InputAvatarUrlEvent extends RegisterEvent {
   String? avatarUrl;
 }
 
+class FocusTextFieldRegisterEvent extends RegisterEvent {
+  FocusTextFieldRegisterEvent({this.isFocus});
+
+  bool? isFocus;
+}
+
 class ChooseGoogleAccountEvent extends RegisterEvent {
   ChooseGoogleAccountEvent({this.context});
 
@@ -72,8 +78,8 @@ class ValidateGoogleAccountEvent extends RegisterEvent {
   BuildContext? context;
 }
 
-class NavigateToCompleteGoogelRegisterAccountEvent extends RegisterEvent {
-  NavigateToCompleteGoogelRegisterAccountEvent(
+class NavigateToCompleteGoogelRegScreenEvent extends RegisterEvent {
+  NavigateToCompleteGoogelRegScreenEvent(
       {this.context, this.googleSignIn, this.googleSignInAccount});
 
   BuildContext? context;
