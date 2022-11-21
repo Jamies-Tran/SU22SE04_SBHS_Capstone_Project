@@ -59,6 +59,14 @@
           }
         },
         {
+          "client_id": "593303082715-s55p0rkhule9lolh5pisf70r65puifek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.staywithme_passenger_application",
+            "certificate_hash": "b6b02ff575d4e714901f2c9d51627edf4ae2c091"
+          }
+        },
+        {
           "client_id": "593303082715-i4th7iqth4ojqa0qojr4ba7jks93t0kt.apps.googleusercontent.com",
           "client_type": 3
         }
