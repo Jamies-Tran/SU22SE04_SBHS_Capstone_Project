@@ -3,9 +3,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:staywithme_passenger_application/bloc/complete_google_reg_bloc.dart';
 import 'package:staywithme_passenger_application/bloc/event/reg_google_event.dart';
-// import 'package:staywithme_passenger_application/service/auth_by_google_service.dart';
-// import 'package:staywithme_passenger_application/service_locator/service_locator.dart';
 
+// TODO: update complete gg reg screen
 class CompleteGoogleRegisterScreen extends StatefulWidget {
   const CompleteGoogleRegisterScreen({super.key});
 

@@ -72,7 +72,7 @@ flutter:
   assets:
     - images/complete_register.jpg
     - images/login.jpg
-    - images/register.jpeg
+    - images/register.jpg
     - images/complete_register_background.jpg
     - images/login_background.jpg
     - images/register_background.jpg

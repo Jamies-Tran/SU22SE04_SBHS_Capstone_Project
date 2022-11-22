@@ -87,6 +87,12 @@ class NavigateToCompleteGoogelRegScreenEvent extends RegisterEvent {
   GoogleSignInAccount? googleSignInAccount;
 }
 
+class NaviageToLoginScreenEvent extends RegisterEvent {
+  NaviageToLoginScreenEvent({this.context});
+
+  BuildContext? context;
+}
+
 class SubmitRegisterAccountEvent extends RegisterEvent {
   SubmitRegisterAccountEvent(
       {this.username,

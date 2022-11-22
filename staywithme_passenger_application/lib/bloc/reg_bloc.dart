@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:staywithme_passenger_application/bloc/event/reg_event.dart';
 import 'package:staywithme_passenger_application/bloc/state/reg_state.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/complete_google_reg_screen.dart';
+import 'package:staywithme_passenger_application/screen/authenticate/log_in_screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/register_screen.dart';
 
 class RegisterBloc {
@@ -78,6 +79,9 @@ class RegisterBloc {
             "googleSignInAccount": event.googleSignInAccount,
             "googleSignIn": event.googleSignIn
           });
+    } else if (event is NaviageToLoginScreenEvent) {
+      Navigator.of(event.context!)
+          .pushReplacementNamed(LoginScreen.loginScreenRoute);
     } else if (event is SubmitRegisterAccountEvent) {}
     stateController.sink.add(RegisterState(
         username: _username,

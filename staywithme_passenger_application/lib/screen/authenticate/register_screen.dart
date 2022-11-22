@@ -63,7 +63,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         width: 370,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                              image: AssetImage("images/register.jpeg"),
+                              image: AssetImage("images/register.jpg"),
                               fit: BoxFit.fill),
                         ),
                       ),
@@ -81,28 +81,35 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                     decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: snapshot.data!.focusColor(),
-                                        label: const Text(
-                                          "Username",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.black26,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                      filled: true,
+                                      fillColor: Colors.transparent,
+                                      label: const Text(
+                                        "Username",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white70,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        prefixIcon: const Icon(
-                                          Icons.account_box,
-                                          color: Colors.black26,
-                                        ),
-                                        enabledBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white,
-                                                width: 2.5)),
-                                        errorStyle: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.redAccent)),
+                                      ),
+                                      prefixIcon: Icon(
+                                        Icons.account_box,
+                                        color: snapshot.data!.focusColor(),
+                                      ),
+                                      enabledBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white24,
+                                              width: 2.5)),
+                                      focusedBorder: const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 3.0)),
+                                      errorStyle: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.redAccent),
+                                    ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
@@ -121,25 +128,33 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                     decoration: InputDecoration(
                                         filled: true,
-                                        fillColor: snapshot.data!.focusColor(),
+                                        fillColor: Colors.transparent,
                                         label: const Text(
                                           "Password",
                                           style: TextStyle(
                                             fontSize: 20,
-                                            color: Colors.black26,
+                                            color: Colors.white70,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        prefixIcon: const Icon(
+                                        prefixIcon: Icon(
                                           Icons.lock,
-                                          color: Colors.black26,
+                                          color: snapshot.data!.focusColor(),
                                         ),
                                         enabledBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Colors.white,
+                                                color: Colors.white24,
                                                 width: 2.5)),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.white,
+                                                    width: 3.0)),
                                         errorStyle: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.redAccent)),
@@ -166,26 +181,34 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
                                         filled: true,
-                                        fillColor: snapshot.data!.focusColor(),
+                                        fillColor: Colors.transparent,
                                         label: const Text(
                                           "Email",
                                           style: TextStyle(
                                             fontSize: 20,
-                                            color: Colors.black26,
+                                            color: Colors.white70,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        prefixIcon: const Icon(
-                                          Icons.email,
-                                          color: Colors.black26,
+                                        prefixIcon: Icon(
+                                          Icons.mail,
+                                          color: snapshot.data!.focusColor(),
                                         ),
                                         enabledBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Colors.white,
+                                                color: Colors.white24,
                                                 width: 2.5)),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.white,
+                                                    width: 3.0)),
                                         errorStyle: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.redAccent)),
@@ -206,25 +229,33 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                     decoration: InputDecoration(
                                         filled: true,
-                                        fillColor: snapshot.data!.focusColor(),
+                                        fillColor: Colors.transparent,
                                         label: const Text(
                                           "Address",
                                           style: TextStyle(
                                             fontSize: 20,
-                                            color: Colors.black26,
+                                            color: Colors.white70,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        prefixIcon: const Icon(
+                                        prefixIcon: Icon(
                                           Icons.location_city,
-                                          color: Colors.black26,
+                                          color: snapshot.data!.focusColor(),
                                         ),
                                         enabledBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Colors.white,
+                                                color: Colors.white24,
                                                 width: 2.5)),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.white,
+                                                    width: 3.0)),
                                         errorStyle: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.redAccent)),
@@ -250,26 +281,34 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                     keyboardType: TextInputType.phone,
                                     decoration: InputDecoration(
                                         filled: true,
-                                        fillColor: snapshot.data!.focusColor(),
+                                        fillColor: Colors.transparent,
                                         label: const Text(
                                           "Phone",
                                           style: TextStyle(
                                             fontSize: 20,
-                                            color: Colors.black26,
+                                            color: Colors.white70,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        prefixIcon: const Icon(
+                                        prefixIcon: Icon(
                                           Icons.phone,
-                                          color: Colors.black26,
+                                          color: snapshot.data!.focusColor(),
                                         ),
                                         enabledBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Colors.white,
+                                                color: Colors.white24,
                                                 width: 2.5)),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.white,
+                                                    width: 3.0)),
                                         errorStyle: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.redAccent)),
@@ -290,26 +329,34 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                         filled: true,
-                                        fillColor: snapshot.data!.focusColor(),
+                                        fillColor: Colors.transparent,
                                         label: const Text(
                                           "ID Card",
                                           style: TextStyle(
                                             fontSize: 20,
-                                            color: Colors.black26,
+                                            color: Colors.white70,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        prefixIcon: const Icon(
-                                          Icons.card_membership,
-                                          color: Colors.black26,
+                                        prefixIcon: Icon(
+                                          Icons.lock,
+                                          color: snapshot.data!.focusColor(),
                                         ),
                                         enabledBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Colors.white,
+                                                color: Colors.white24,
                                                 width: 2.5)),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.white,
+                                                    width: 3.0)),
                                         errorStyle: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.redAccent)),
@@ -340,27 +387,37 @@ class _RegisterScreen extends State<RegisterScreen> {
                                       child: InputDecorator(
                                         decoration: InputDecoration(
                                             filled: true,
-                                            fillColor: snapshot.data!
-                                                .focusColor(),
+                                            fillColor: Colors.transparent,
                                             prefixIcon: snapshot.data!.gender ==
                                                     "Male"
-                                                ? const Icon(
+                                                ? Icon(
                                                     Icons.boy,
-                                                    color: Colors.black26,
+                                                    color: snapshot.data!
+                                                        .focusColor(),
                                                   )
-                                                : const Icon(
+                                                : Icon(
                                                     Icons.girl,
-                                                    color: Colors.black26,
+                                                    color: snapshot.data!
+                                                        .focusColor(),
                                                   ),
                                             enabledBorder:
                                                 const OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                        color: Colors.white,
+                                                        color: Colors.white24,
                                                         width: 2.5)),
+                                            focusedBorder:
+                                                const UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.white,
+                                                        width: 3.0)),
                                             errorStyle: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.redAccent)),
                                         child: DropdownButton<String>(
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                          dropdownColor: Colors.blueAccent,
                                           items: registerBloc.genderSelection
                                               .map((e) => DropdownMenuItem(
                                                     value: e,
@@ -387,27 +444,35 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                     readOnly: true,
                                     controller: dobTextFieldController,
                                     decoration: InputDecoration(
                                         filled: true,
-                                        fillColor: snapshot.data!.focusColor(),
+                                        fillColor: Colors.transparent,
                                         label: const Text(
                                           "Birthday",
                                           style: TextStyle(
                                             fontSize: 20,
-                                            color: Colors.black26,
+                                            color: Colors.white70,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        prefixIcon: const Icon(
+                                        prefixIcon: Icon(
                                           Icons.calendar_today,
-                                          color: Colors.black26,
+                                          color: snapshot.data!.focusColor(),
                                         ),
                                         enabledBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Colors.white,
+                                                color: Colors.white24,
                                                 width: 2.5)),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.white,
+                                                    width: 3.0)),
                                         errorStyle: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.redAccent)),
@@ -436,7 +501,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                               ],
                             ),
                             const SizedBox(
-                              height: 100,
+                              height: 50,
                             ),
                             ElevatedButton(
                                 onPressed: () {
@@ -491,8 +556,25 @@ class _RegisterScreen extends State<RegisterScreen> {
                                   "Google Account",
                                   style: TextStyle(fontFamily: "Lobster"),
                                 )),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  registerBloc.eventController.sink.add(
+                                      NaviageToLoginScreenEvent(
+                                          context: context));
+                                },
+                                child: const Text(
+                                  "Already had an account? Login",
+                                  style: TextStyle(
+                                    color: Colors.deepOrange,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ))
                           ],
-                        ))
+                        )),
                   ]);
                 },
               ),
