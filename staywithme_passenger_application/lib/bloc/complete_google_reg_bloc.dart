@@ -21,7 +21,10 @@ class CompleteGoogleRegBloc {
   String? _citizenIdentification;
   String? _gender;
   String? _dob;
+  bool? _isFocusOnTextField;
   final genderSelection = ["Male", "Female"];
+
+  String? _cancelGoogleRegRoute;
 
   CompleteGoogleRegBloc() {
     eventController.stream.listen((event) {
@@ -37,7 +40,8 @@ class CompleteGoogleRegBloc {
           citizenIdentification: null,
           gender: null,
           phone: null,
-          dob: null);
+          dob: null,
+          isFocusOnTextField: false);
 
   void eventHandler(CompleteGoogleRegisterEvent event) {
     if (event is ForwardCompleteGoogleRegisterScreenEvent) {
@@ -55,9 +59,15 @@ class CompleteGoogleRegBloc {
     } else if (event is BackwardToRegisterScreenEvent) {
       Navigator.of(event.context!).pop();
     } else if (event is CancelCompleteGoogleAccountRegisterEvent) {
+      if (event.isChangeGoogleAccount!) {
+        _cancelGoogleRegRoute =
+            ChooseGoogleAccountScreen.chooseGoogleAccountScreenRoute;
+      } else {
+        _cancelGoogleRegRoute = RegisterScreen.registerAccountRoute;
+      }
       googleAuthService.signOut(event.googleSignIn!).then((value) =>
           Navigator.of(event.context!)
-              .pushReplacementNamed(RegisterScreen.registerAccountRoute));
+              .pushReplacementNamed(_cancelGoogleRegRoute!));
     } else if (event is InputUsernameGoogleAuthEvent) {
       _username = event.username;
     } else if (event is ReceiveEmailGoogleAuthEvent) {
@@ -72,6 +82,8 @@ class CompleteGoogleRegBloc {
       _gender = event.gender;
     } else if (event is InputDobGoogleAuthEvent) {
       _dob = event.dob;
+    } else if (event is FocusTextFieldCompleteGoogleRegEvent) {
+      _isFocusOnTextField = event.isFocusOnTextField;
     } else if (event is SubmitGoogleCompleteRegisterEvent) {}
 
     stateController.sink.add(CompleteGoogleRegisterState(
@@ -81,7 +93,8 @@ class CompleteGoogleRegBloc {
         phone: _phone,
         citizenIdentification: _citizenIdentification,
         gender: _gender,
-        dob: _dob));
+        dob: _dob,
+        isFocusOnTextField: _isFocusOnTextField));
   }
 
   void dispose() {

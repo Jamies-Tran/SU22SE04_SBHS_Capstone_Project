@@ -21,10 +21,12 @@ class BackwardToRegisterScreenEvent extends CompleteGoogleRegisterEvent {
 
 class CancelCompleteGoogleAccountRegisterEvent
     extends CompleteGoogleRegisterEvent {
-  CancelCompleteGoogleAccountRegisterEvent({this.context, this.googleSignIn});
+  CancelCompleteGoogleAccountRegisterEvent(
+      {this.context, this.googleSignIn, this.isChangeGoogleAccount});
 
   GoogleSignIn? googleSignIn;
   BuildContext? context;
+  bool? isChangeGoogleAccount;
 }
 
 class SubmitGoogleCompleteRegisterEvent extends CompleteGoogleRegisterEvent {
@@ -46,6 +48,12 @@ class SubmitGoogleCompleteRegisterEvent extends CompleteGoogleRegisterEvent {
   String? citizenIdentification;
   String? avatarUrl;
   String? dob;
+}
+
+class FocusTextFieldCompleteGoogleRegEvent extends CompleteGoogleRegisterEvent {
+  FocusTextFieldCompleteGoogleRegEvent({this.isFocusOnTextField});
+
+  bool? isFocusOnTextField;
 }
 
 class InputUsernameGoogleAuthEvent extends CompleteGoogleRegisterEvent {

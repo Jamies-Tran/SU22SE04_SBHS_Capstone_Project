@@ -41,7 +41,7 @@ class _RegisterScreen extends State<RegisterScreen> {
       },
       child: Stack(children: [
         Image.asset(
-          "images/register_background.jpg",
+          "images/register_background.png",
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           fit: BoxFit.cover,
@@ -647,6 +647,7 @@ class _ChooseGoogleAccountScreenState extends State<ChooseGoogleAccountScreen> {
                             googleSignInAccount: snapshot.data,
                             googleSignIn: googleSignIn));
                   } else {
+                    print("snapshot has data: ${snapshot.hasData}");
                     completeGoogleAuthBloc.eventController.sink
                         .add(BackwardToRegisterScreenEvent(context: context));
                   }

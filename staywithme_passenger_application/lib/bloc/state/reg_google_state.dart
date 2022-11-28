@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class CompleteGoogleRegisterState {
   CompleteGoogleRegisterState(
       {this.username,
@@ -7,7 +9,8 @@ class CompleteGoogleRegisterState {
       this.citizenIdentification,
       this.gender,
       this.dob,
-      this.avatarUrl});
+      this.avatarUrl,
+      this.isFocusOnTextField});
 
   String? username;
   String? email;
@@ -17,6 +20,7 @@ class CompleteGoogleRegisterState {
   String? gender;
   String? avatarUrl;
   String? dob;
+  bool? isFocusOnTextField;
 
   String? validateUsername() {
     if (username == null || username == "") {
@@ -24,6 +28,14 @@ class CompleteGoogleRegisterState {
     }
 
     return null;
+  }
+
+  Color focusColor() {
+    if (isFocusOnTextField == true) {
+      return Colors.black45;
+    } else {
+      return Colors.white;
+    }
   }
 
   String? validateEmail() {
