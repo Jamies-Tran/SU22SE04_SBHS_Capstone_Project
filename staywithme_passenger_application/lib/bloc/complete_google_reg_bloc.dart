@@ -32,16 +32,18 @@ class CompleteGoogleRegBloc {
     });
   }
 
-  CompleteGoogleRegisterState initData(String? username, String? email) =>
-      CompleteGoogleRegisterState(
-          username: username,
-          email: email,
-          address: null,
-          citizenIdentification: null,
-          gender: null,
-          phone: null,
-          dob: null,
-          isFocusOnTextField: false);
+  CompleteGoogleRegisterState initData(String? username, String? email) {
+    _email = email;
+    return CompleteGoogleRegisterState(
+        username: username,
+        email: email,
+        address: null,
+        citizenIdentification: null,
+        gender: genderSelection[0],
+        phone: null,
+        dob: null,
+        isFocusOnTextField: false);
+  }
 
   void eventHandler(CompleteGoogleRegisterEvent event) {
     if (event is ForwardCompleteGoogleRegisterScreenEvent) {
@@ -84,8 +86,11 @@ class CompleteGoogleRegBloc {
       _dob = event.dob;
     } else if (event is FocusTextFieldCompleteGoogleRegEvent) {
       _isFocusOnTextField = event.isFocusOnTextField;
+    } else if (event is CancelChooseAnotherGoogleAccountEvent) {
+      Navigator.of(event.context!).pop();
     } else if (event is SubmitGoogleCompleteRegisterEvent) {}
 
+    //TODO: sửa isFocusOnTextField-bool thành focusColor-Color
     stateController.sink.add(CompleteGoogleRegisterState(
         username: _username,
         email: _email,

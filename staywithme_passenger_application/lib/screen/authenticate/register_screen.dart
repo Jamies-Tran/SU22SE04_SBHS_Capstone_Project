@@ -41,10 +41,10 @@ class _RegisterScreen extends State<RegisterScreen> {
       },
       child: Stack(children: [
         Image.asset(
-          "images/register_background.png",
+          "images/register_background_2.jpg",
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -82,31 +82,31 @@ class _RegisterScreen extends State<RegisterScreen> {
                                   flex: 1,
                                   child: TextFormField(
                                     style: const TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       filled: true,
-                                      fillColor: Colors.transparent,
-                                      label: const Text(
+                                      fillColor: Colors.white,
+                                      label: Text(
                                         "Username",
                                         style: TextStyle(
                                           fontSize: 20,
-                                          color: Colors.white70,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       prefixIcon: Icon(
                                         Icons.account_box,
-                                        color: snapshot.data!.focusColor(),
+                                        color: Colors.black,
                                       ),
-                                      enabledBorder: const OutlineInputBorder(
+                                      enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Colors.white24,
+                                              color: Colors.transparent,
                                               width: 2.5)),
-                                      focusedBorder: const UnderlineInputBorder(
+                                      focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.white, width: 3.0)),
-                                      errorStyle: const TextStyle(
+                                      errorStyle: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.redAccent),
                                     ),
@@ -129,35 +129,34 @@ class _RegisterScreen extends State<RegisterScreen> {
                                   flex: 1,
                                   child: TextFormField(
                                     style: const TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.transparent,
-                                        label: const Text(
-                                          "Password",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white70,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                    decoration: const InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      label: Text(
+                                        "Password",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        prefixIcon: Icon(
-                                          Icons.lock,
-                                          color: snapshot.data!.focusColor(),
-                                        ),
-                                        enabledBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white24,
-                                                width: 2.5)),
-                                        focusedBorder:
-                                            const UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 3.0)),
-                                        errorStyle: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.redAccent)),
+                                      ),
+                                      prefixIcon: Icon(
+                                        Icons.lock,
+                                        color: Colors.black,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2.5)),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 3.0)),
+                                      errorStyle: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.redAccent),
+                                    ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
@@ -182,36 +181,34 @@ class _RegisterScreen extends State<RegisterScreen> {
                                   flex: 1,
                                   child: TextFormField(
                                     style: const TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    keyboardType: TextInputType.emailAddress,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.transparent,
-                                        label: const Text(
-                                          "Email",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white70,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                    decoration: const InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      label: Text(
+                                        "Email",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        prefixIcon: Icon(
-                                          Icons.mail,
-                                          color: snapshot.data!.focusColor(),
-                                        ),
-                                        enabledBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white24,
-                                                width: 2.5)),
-                                        focusedBorder:
-                                            const UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 3.0)),
-                                        errorStyle: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.redAccent)),
+                                      ),
+                                      prefixIcon: Icon(
+                                        Icons.mail,
+                                        color: Colors.black,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2.5)),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 3.0)),
+                                      errorStyle: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.redAccent),
+                                    ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
@@ -230,35 +227,34 @@ class _RegisterScreen extends State<RegisterScreen> {
                                   flex: 1,
                                   child: TextFormField(
                                     style: const TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.transparent,
-                                        label: const Text(
-                                          "Address",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white70,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                    decoration: const InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      label: Text(
+                                        "Address",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        prefixIcon: Icon(
-                                          Icons.location_city,
-                                          color: snapshot.data!.focusColor(),
-                                        ),
-                                        enabledBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white24,
-                                                width: 2.5)),
-                                        focusedBorder:
-                                            const UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 3.0)),
-                                        errorStyle: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.redAccent)),
+                                      ),
+                                      prefixIcon: Icon(
+                                        Icons.location_city,
+                                        color: Colors.black,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2.5)),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 3.0)),
+                                      errorStyle: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.redAccent),
+                                    ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
@@ -281,37 +277,36 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
                                     keyboardType: TextInputType.phone,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.transparent,
-                                        label: const Text(
-                                          "Phone",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white70,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                    style: const TextStyle(
+                                        color: Colors.black45,
+                                        fontWeight: FontWeight.bold),
+                                    decoration: const InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      label: Text(
+                                        "Phone",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        prefixIcon: Icon(
-                                          Icons.phone,
-                                          color: snapshot.data!.focusColor(),
-                                        ),
-                                        enabledBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white24,
-                                                width: 2.5)),
-                                        focusedBorder:
-                                            const UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 3.0)),
-                                        errorStyle: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.redAccent)),
+                                      ),
+                                      prefixIcon: Icon(
+                                        Icons.phone,
+                                        color: Colors.black,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2.5)),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 3.0)),
+                                      errorStyle: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.redAccent),
+                                    ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
@@ -329,37 +324,36 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
                                     keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.transparent,
-                                        label: const Text(
-                                          "ID Card",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white70,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                    style: const TextStyle(
+                                        color: Colors.black45,
+                                        fontWeight: FontWeight.bold),
+                                    decoration: const InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      label: Text(
+                                        "ID Card",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        prefixIcon: Icon(
-                                          Icons.lock,
-                                          color: snapshot.data!.focusColor(),
-                                        ),
-                                        enabledBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white24,
-                                                width: 2.5)),
-                                        focusedBorder:
-                                            const UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 3.0)),
-                                        errorStyle: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.redAccent)),
+                                      ),
+                                      prefixIcon: Icon(
+                                        Icons.card_membership,
+                                        color: Colors.black,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2.5)),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 3.0)),
+                                      errorStyle: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.redAccent),
+                                    ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
@@ -387,18 +381,16 @@ class _RegisterScreen extends State<RegisterScreen> {
                                       child: InputDecorator(
                                         decoration: InputDecoration(
                                             filled: true,
-                                            fillColor: Colors.transparent,
+                                            fillColor: Colors.white,
                                             prefixIcon: snapshot.data!.gender ==
                                                     "Male"
-                                                ? Icon(
+                                                ? const Icon(
                                                     Icons.boy,
-                                                    color: snapshot.data!
-                                                        .focusColor(),
+                                                    color: Colors.black,
                                                   )
-                                                : Icon(
+                                                : const Icon(
                                                     Icons.girl,
-                                                    color: snapshot.data!
-                                                        .focusColor(),
+                                                    color: Colors.black,
                                                   ),
                                             enabledBorder:
                                                 const OutlineInputBorder(
@@ -421,7 +413,12 @@ class _RegisterScreen extends State<RegisterScreen> {
                                           items: registerBloc.genderSelection
                                               .map((e) => DropdownMenuItem(
                                                     value: e,
-                                                    child: Text(e),
+                                                    child: Text(
+                                                      e,
+                                                      style: const TextStyle(
+                                                          color:
+                                                              Colors.black45),
+                                                    ),
                                                   ))
                                               .toList(),
                                           value: snapshot.data!.gender,
@@ -444,38 +441,37 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
                                     readOnly: true,
                                     controller: dobTextFieldController,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.transparent,
-                                        label: const Text(
-                                          "Birthday",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white70,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                    style: const TextStyle(
+                                        color: Colors.black45,
+                                        fontWeight: FontWeight.bold),
+                                    decoration: const InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      label: Text(
+                                        "Birth day",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        prefixIcon: Icon(
-                                          Icons.calendar_today,
-                                          color: snapshot.data!.focusColor(),
-                                        ),
-                                        enabledBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white24,
-                                                width: 2.5)),
-                                        focusedBorder:
-                                            const UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 3.0)),
-                                        errorStyle: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.redAccent)),
+                                      ),
+                                      prefixIcon: Icon(
+                                        Icons.calendar_month,
+                                        color: Colors.black,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2.5)),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 3.0)),
+                                      errorStyle: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.redAccent),
+                                    ),
                                     onTap: () {
                                       showDatePicker(
                                         context: context,
@@ -536,6 +532,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 "Or sign up with",
                                 style: TextStyle(
                                     fontFamily: "SourceCodePro",
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -568,6 +565,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 child: const Text(
                                   "Already had an account? Login",
                                   style: TextStyle(
+                                    backgroundColor: Colors.white,
                                     color: Colors.deepOrange,
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline,

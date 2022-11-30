@@ -29,6 +29,13 @@ class CancelCompleteGoogleAccountRegisterEvent
   bool? isChangeGoogleAccount;
 }
 
+class CancelChooseAnotherGoogleAccountEvent
+    extends CompleteGoogleRegisterEvent {
+  CancelChooseAnotherGoogleAccountEvent({this.context});
+
+  BuildContext? context;
+}
+
 class SubmitGoogleCompleteRegisterEvent extends CompleteGoogleRegisterEvent {
   SubmitGoogleCompleteRegisterEvent(
       {this.username,

@@ -3,7 +3,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:staywithme_passenger_application/bloc/complete_google_reg_bloc.dart';
 import 'package:staywithme_passenger_application/bloc/event/reg_google_event.dart';
-import 'package:staywithme_passenger_application/screen/authenticate/register_screen.dart';
 
 // TODO: update complete gg reg screen
 class CompleteGoogleRegisterScreen extends StatefulWidget {
@@ -32,14 +31,13 @@ class _CompleteGoogleRegisterScreenState
         getArguments["emailTextEditingCtl"];
     final GoogleSignIn googleSignIn = getArguments["googleSignIn"];
 
-    return Stack(children: [
-      // Image.asset(
-      //   "images/complete_register_background.jpg",
-      //   width: MediaQuery.of(context).size.width,
-      //   height: MediaQuery.of(context).size.height,
-      //   fit: BoxFit.fill,
-      // ),
-      Scaffold(
+    return GestureDetector(
+      onTap: () {
+        completeGoogleRegisterBloc.eventController.sink.add(
+            FocusTextFieldCompleteGoogleRegEvent(isFocusOnTextField: false));
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
         backgroundColor: Colors.grey,
         body: SafeArea(
           child: SingleChildScrollView(
@@ -90,31 +88,52 @@ class _CompleteGoogleRegisterScreenState
                                     width: 300,
                                     child: TextFormField(
                                       controller: usernameTextFieldController,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.5),
                                       decoration: InputDecoration(
                                           filled: true,
                                           fillColor: Colors.white,
                                           label: const Text(
                                             "Username",
                                             style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black45,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                                fontFamily: "SourceCodePro",
+                                                color: Colors.black45,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1.5),
                                           ),
-                                          prefixIcon: Icon(
+                                          prefixIcon: const Icon(
                                             Icons.account_circle,
-                                            color: snapshot.data!.focusColor(),
+                                            color: Colors.black45,
                                           ),
-                                          enabledBorder: OutlineInputBorder(
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              Icons.close,
+                                              color:
+                                                  snapshot.data!.focusColor(),
+                                            ),
+                                            onPressed: () {
+                                              usernameTextFieldController
+                                                  .clear();
+                                              completeGoogleRegisterBloc
+                                                  .eventController.sink
+                                                  .add(InputUsernameGoogleAuthEvent(
+                                                      username:
+                                                          usernameTextFieldController
+                                                              .text));
+                                            },
+                                          ),
+                                          enabledBorder:
+                                              const UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.white,
+                                                      width: 1.0)),
+                                          focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: snapshot.data!
                                                       .focusColor(),
                                                   width: 1.0)),
-                                          focusedBorder:
-                                              const UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.white,
-                                                      width: 3.0)),
                                           errorStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent)),
@@ -140,97 +159,124 @@ class _CompleteGoogleRegisterScreenState
                                     child: TextFormField(
                                       controller: emailTextFieldController,
                                       readOnly: true,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.5),
                                       decoration: InputDecoration(
                                           filled: true,
                                           fillColor: Colors.white,
                                           label: const Text(
                                             "Email",
                                             style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black45,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                                fontFamily: "SourceCodePro",
+                                                color: Colors.black45,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1.5),
                                           ),
-                                          prefixIcon: Icon(
+                                          prefixIcon: const Icon(
                                             Icons.mail,
-                                            color: snapshot.data!.focusColor(),
+                                            color: Colors.black45,
                                           ),
-                                          enabledBorder: OutlineInputBorder(
+                                          suffixIcon: IconButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      AlertDialog(
+                                                    title: const Center(
+                                                      child: Text(
+                                                        "Choose account",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                    content: const Padding(
+                                                      padding:
+                                                          EdgeInsets.all(10),
+                                                      child: Text(
+                                                        "Do you want to change google account?",
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                "SourceCodePro",
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                    actions: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                completeGoogleRegisterBloc
+                                                                    .eventController
+                                                                    .sink
+                                                                    .add(CancelChooseAnotherGoogleAccountEvent(
+                                                                        context:
+                                                                            context));
+                                                              },
+                                                              child: const Text(
+                                                                "Cancel",
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "SourceCodePro",
+                                                                    color: Colors
+                                                                        .red,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              )),
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                completeGoogleRegisterBloc
+                                                                    .eventController
+                                                                    .sink
+                                                                    .add(CancelCompleteGoogleAccountRegisterEvent(
+                                                                        context:
+                                                                            context,
+                                                                        googleSignIn:
+                                                                            googleSignIn,
+                                                                        isChangeGoogleAccount:
+                                                                            true));
+                                                              },
+                                                              child: const Text(
+                                                                "Change",
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "SourceCodePro",
+                                                                    color: Colors
+                                                                        .green,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ))
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              icon: const Icon(
+                                                  Icons.restart_alt)),
+                                          enabledBorder:
+                                              const UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.white,
+                                                      width: 1.0)),
+                                          focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: snapshot.data!
                                                       .focusColor(),
                                                   width: 1.0)),
-                                          focusedBorder:
-                                              const UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.white,
-                                                      width: 3.0)),
                                           errorStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent)),
-                                      onTap: () => showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          title: const Center(
-                                            child: Text(
-                                              "Choose account",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                          content: const Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: Text(
-                                              "Do you want to change google account?",
-                                              style: TextStyle(
-                                                  fontFamily: "SourceCodePro",
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                          actions: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: const Text(
-                                                      "Cancel",
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              "SourceCodePro",
-                                                          color: Colors.red,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
-                                                TextButton(
-                                                    onPressed: () {
-                                                      completeGoogleRegisterBloc
-                                                          .eventController.sink
-                                                          .add(CancelCompleteGoogleAccountRegisterEvent(
-                                                              context: context,
-                                                              googleSignIn:
-                                                                  googleSignIn,
-                                                              isChangeGoogleAccount:
-                                                                  true));
-                                                    },
-                                                    child: const Text(
-                                                      "Change",
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              "SourceCodePro",
-                                                          color: Colors.green,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ))
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
                                       onChanged: (value) =>
                                           completeGoogleRegisterBloc
                                               .eventController.sink
@@ -247,34 +293,43 @@ class _CompleteGoogleRegisterScreenState
                                     width: 300,
                                     child: TextFormField(
                                       keyboardType: TextInputType.phone,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.5),
                                       decoration: InputDecoration(
                                           filled: true,
                                           fillColor: Colors.white,
                                           label: const Text(
                                             "Phone",
                                             style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black45,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                                fontFamily: "SourceCodePro",
+                                                color: Colors.black45,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1.5),
                                           ),
-                                          prefixIcon: Icon(
+                                          prefixIcon: const Icon(
                                             Icons.phone,
-                                            color: snapshot.data!.focusColor(),
+                                            color: Colors.black45,
                                           ),
-                                          enabledBorder: OutlineInputBorder(
+                                          enabledBorder:
+                                              const UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.white,
+                                                      width: 1.0)),
+                                          focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: snapshot.data!
                                                       .focusColor(),
                                                   width: 1.0)),
-                                          focusedBorder:
-                                              const UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.white,
-                                                      width: 3.0)),
                                           errorStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent)),
+                                      onTap: () => completeGoogleRegisterBloc
+                                          .eventController.sink
+                                          .add(
+                                              FocusTextFieldCompleteGoogleRegEvent(
+                                                  isFocusOnTextField: true)),
                                       onChanged: (value) =>
                                           completeGoogleRegisterBloc
                                               .eventController.sink
@@ -290,34 +345,43 @@ class _CompleteGoogleRegisterScreenState
                                   SizedBox(
                                     width: 300,
                                     child: TextFormField(
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.5),
                                       decoration: InputDecoration(
                                           filled: true,
                                           fillColor: Colors.white,
                                           label: const Text(
                                             "Address",
                                             style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black45,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                                fontFamily: "SourceCodePro",
+                                                color: Colors.black45,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1.5),
                                           ),
-                                          prefixIcon: Icon(
+                                          prefixIcon: const Icon(
                                             Icons.location_city,
-                                            color: snapshot.data!.focusColor(),
+                                            color: Colors.black45,
                                           ),
-                                          enabledBorder: OutlineInputBorder(
+                                          enabledBorder:
+                                              const UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.white,
+                                                      width: 1.0)),
+                                          focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: snapshot.data!
                                                       .focusColor(),
                                                   width: 1.0)),
-                                          focusedBorder:
-                                              const UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.white,
-                                                      width: 3.0)),
                                           errorStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent)),
+                                      onTap: () => completeGoogleRegisterBloc
+                                          .eventController.sink
+                                          .add(
+                                              FocusTextFieldCompleteGoogleRegEvent(
+                                                  isFocusOnTextField: true)),
                                       onChanged: (value) =>
                                           completeGoogleRegisterBloc
                                               .eventController.sink
@@ -334,34 +398,43 @@ class _CompleteGoogleRegisterScreenState
                                     width: 300,
                                     child: TextFormField(
                                       keyboardType: TextInputType.number,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.5),
                                       decoration: InputDecoration(
                                           filled: true,
                                           fillColor: Colors.white,
                                           label: const Text(
                                             "ID Card",
                                             style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black45,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                                fontFamily: "SourceCodePro",
+                                                color: Colors.black45,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1.5),
                                           ),
-                                          prefixIcon: Icon(
+                                          prefixIcon: const Icon(
                                             Icons.card_membership,
-                                            color: snapshot.data!.focusColor(),
+                                            color: Colors.black45,
                                           ),
-                                          enabledBorder: OutlineInputBorder(
+                                          enabledBorder:
+                                              const UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.white,
+                                                      width: 1.0)),
+                                          focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: snapshot.data!
                                                       .focusColor(),
                                                   width: 1.0)),
-                                          focusedBorder:
-                                              const UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.white,
-                                                      width: 3.0)),
                                           errorStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent)),
+                                      onTap: () => completeGoogleRegisterBloc
+                                          .eventController.sink
+                                          .add(
+                                              FocusTextFieldCompleteGoogleRegEvent(
+                                                  isFocusOnTextField: true)),
                                       onChanged: (value) =>
                                           completeGoogleRegisterBloc
                                               .eventController.sink
@@ -384,32 +457,35 @@ class _CompleteGoogleRegisterScreenState
                                         child: TextFormField(
                                           readOnly: true,
                                           controller: dobTextFieldController,
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 1.5),
                                           decoration: InputDecoration(
                                               filled: true,
                                               fillColor: Colors.white,
                                               label: const Text(
                                                 "Birth day",
                                                 style: TextStyle(
-                                                  fontSize: 20,
+                                                  fontFamily: "SourceCodePro",
                                                   color: Colors.black45,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              prefixIcon: Icon(
+                                              prefixIcon: const Icon(
                                                 Icons.calendar_month,
-                                                color:
-                                                    snapshot.data!.focusColor(),
+                                                color: Colors.black45,
                                               ),
-                                              enabledBorder: OutlineInputBorder(
+                                              enabledBorder:
+                                                  const UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.white,
+                                                          width: 1.0)),
+                                              focusedBorder: OutlineInputBorder(
                                                   borderSide: BorderSide(
                                                       color: snapshot.data!
                                                           .focusColor(),
                                                       width: 1.0)),
-                                              focusedBorder:
-                                                  const UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Colors.white,
-                                                          width: 3.0)),
                                               errorStyle: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.redAccent)),
@@ -444,29 +520,35 @@ class _CompleteGoogleRegisterScreenState
                                           decoration: InputDecoration(
                                               filled: true,
                                               fillColor: Colors.white,
+                                              label: const Text(
+                                                "Gender",
+                                                style: TextStyle(
+                                                  fontFamily: "SourceCodePro",
+                                                  color: Colors.black45,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                               prefixIcon:
                                                   snapshot.data!.gender ==
                                                           "Male"
-                                                      ? Icon(
+                                                      ? const Icon(
                                                           Icons.boy,
-                                                          color: snapshot.data!
-                                                              .focusColor(),
+                                                          color: Colors.black45,
                                                         )
-                                                      : Icon(
+                                                      : const Icon(
                                                           Icons.girl,
-                                                          color: snapshot.data!
-                                                              .focusColor(),
+                                                          color: Colors.black45,
                                                         ),
-                                              enabledBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: snapshot.data!
-                                                          .focusColor(),
-                                                      width: 2.5)),
-                                              focusedBorder:
+                                              enabledBorder:
                                                   const UnderlineInputBorder(
                                                       borderSide: BorderSide(
                                                           color: Colors.white,
-                                                          width: 3.0)),
+                                                          width: 1.0)),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: snapshot.data!
+                                                          .focusColor(),
+                                                      width: 1.0)),
                                               errorStyle: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.redAccent)),
@@ -475,7 +557,15 @@ class _CompleteGoogleRegisterScreenState
                                                 .genderSelection
                                                 .map((e) => DropdownMenuItem(
                                                       value: e,
-                                                      child: Text(e),
+                                                      child: Text(
+                                                        e,
+                                                        style: const TextStyle(
+                                                            fontSize: 12,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            letterSpacing: 1.5),
+                                                      ),
                                                     ))
                                                 .toList(),
                                             value: snapshot.data!.gender,
@@ -496,6 +586,7 @@ class _CompleteGoogleRegisterScreenState
                                   ),
                                   ElevatedButton(
                                       onPressed: () {
+                                        print(usernameTextFieldController.text);
                                         if (formState.currentState!
                                             .validate()) {
                                           completeGoogleRegisterBloc
@@ -552,6 +643,6 @@ class _CompleteGoogleRegisterScreenState
           ),
         ),
       ),
-    ]);
+    );
   }
 }
