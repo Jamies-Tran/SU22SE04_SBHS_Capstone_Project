@@ -20,8 +20,15 @@ class RegisterBloc {
   String? _gender;
   String? _phone;
   String? _avatarUrl;
-  bool? _isFocusOnTextField = false;
   final genderSelection = ["Male", "Female"];
+
+  Color? _focusUsernameColor;
+  Color? _focusPasswordColor;
+  Color? _focusEmailColor;
+  Color? _focusAddressColor;
+  Color? _focusPhoneColor;
+  Color? _focusCitizenIdentificationColor;
+  Color? _focusBirthdayColor;
 
   final initData = RegisterState(
       username: null,
@@ -33,7 +40,13 @@ class RegisterBloc {
       gender: "Male",
       password: null,
       phone: null,
-      isFocusOnTextField: false);
+      focusUsernameColor: Colors.white,
+      focusPasswordColor: Colors.white,
+      focusAddressColor: Colors.white,
+      focusEmailColor: Colors.white,
+      focusPhoneColor: Colors.white,
+      focusCitizenIdentificationColor: Colors.white,
+      focusBirthdayColor: Colors.white);
 
   RegisterBloc() {
     eventController.stream.listen((event) {
@@ -61,7 +74,22 @@ class RegisterBloc {
     } else if (event is InputAvatarUrlEvent) {
       _avatarUrl = event.avatarUrl;
     } else if (event is FocusTextFieldRegisterEvent) {
-      _isFocusOnTextField = event.isFocus;
+      _focusUsernameColor =
+          event.isFocusOnUsername == true ? Colors.black45 : Colors.white;
+      _focusPasswordColor =
+          event.isFocusOnPassword == true ? Colors.black45 : Colors.white;
+      _focusEmailColor =
+          event.isFocusOnEmail == true ? Colors.black45 : Colors.white;
+      _focusAddressColor =
+          event.isFocusOnAddress == true ? Colors.black45 : Colors.white;
+      _focusPhoneColor =
+          event.isFocusOnPhone == true ? Colors.black45 : Colors.white;
+      _focusCitizenIdentificationColor =
+          event.isFocusOnCitizenIdentification == true
+              ? Colors.black45
+              : Colors.white;
+      _focusBirthdayColor =
+          event.isFocusOnBirthday == true ? Colors.black45 : Colors.white;
     } else if (event is ChooseGoogleAccountEvent) {
       Navigator.of(event.context!)
           .pushNamed(ChooseGoogleAccountScreen.chooseGoogleAccountScreenRoute);
@@ -93,7 +121,13 @@ class RegisterBloc {
         email: _email,
         gender: _gender,
         phone: _phone,
-        isFocusOnTextField: _isFocusOnTextField));
+        focusUsernameColor: _focusUsernameColor,
+        focusPasswordColor: _focusPasswordColor,
+        focusEmailColor: _focusEmailColor,
+        focusAddressColor: _focusAddressColor,
+        focusPhoneColor: _focusPhoneColor,
+        focusCitizenIdentificationColor: _focusCitizenIdentificationColor,
+        focusBirthdayColor: _focusBirthdayColor));
   }
 
   void dispose() {

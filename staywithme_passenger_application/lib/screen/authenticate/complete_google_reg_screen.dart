@@ -29,12 +29,25 @@ class _CompleteGoogleRegisterScreenState
         getArguments["usernameTextEditingCtl"];
     final TextEditingController emailTextFieldController =
         getArguments["emailTextEditingCtl"];
+    final TextEditingController phoneTextFieldController =
+        TextEditingController();
+    final TextEditingController addressTextFieldController =
+        TextEditingController();
+    final TextEditingController idCardTextFieldController =
+        TextEditingController();
+    final TextEditingController birthdayTextFieldController =
+        TextEditingController();
     final GoogleSignIn googleSignIn = getArguments["googleSignIn"];
 
     return GestureDetector(
       onTap: () {
         completeGoogleRegisterBloc.eventController.sink.add(
-            FocusTextFieldCompleteGoogleRegEvent(isFocusOnTextField: false));
+            FocusTextFieldCompleteGoogleRegEvent(
+                isFocusOnAddress: false,
+                isFocusOnBirthDay: false,
+                isFocusOnCitizenIdentification: false,
+                isFocusOnPhone: false,
+                isFocusOnUsername: false));
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
@@ -110,8 +123,8 @@ class _CompleteGoogleRegisterScreenState
                                           suffixIcon: IconButton(
                                             icon: Icon(
                                               Icons.close,
-                                              color:
-                                                  snapshot.data!.focusColor(),
+                                              color: snapshot
+                                                  .data!.focusUsernameColor,
                                             ),
                                             onPressed: () {
                                               usernameTextFieldController
@@ -129,19 +142,23 @@ class _CompleteGoogleRegisterScreenState
                                                   borderSide: BorderSide(
                                                       color: Colors.white,
                                                       width: 1.0)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: snapshot.data!
-                                                      .focusColor(),
-                                                  width: 1.0)),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black45,
+                                                      width: 1.0)),
                                           errorStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent)),
                                       onTap: () => completeGoogleRegisterBloc
                                           .eventController.sink
-                                          .add(
-                                              FocusTextFieldCompleteGoogleRegEvent(
-                                                  isFocusOnTextField: true)),
+                                          .add(FocusTextFieldCompleteGoogleRegEvent(
+                                              isFocusOnUsername: true,
+                                              isFocusOnAddress: false,
+                                              isFocusOnBirthDay: false,
+                                              isFocusOnCitizenIdentification:
+                                                  false,
+                                              isFocusOnPhone: false)),
                                       onChanged: (value) =>
                                           completeGoogleRegisterBloc
                                               .eventController.sink
@@ -269,11 +286,11 @@ class _CompleteGoogleRegisterScreenState
                                                   borderSide: BorderSide(
                                                       color: Colors.white,
                                                       width: 1.0)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: snapshot.data!
-                                                      .focusColor(),
-                                                  width: 1.0)),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black45,
+                                                      width: 1.0)),
                                           errorStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent)),
@@ -293,6 +310,7 @@ class _CompleteGoogleRegisterScreenState
                                     width: 300,
                                     child: TextFormField(
                                       keyboardType: TextInputType.phone,
+                                      controller: phoneTextFieldController,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
@@ -312,24 +330,44 @@ class _CompleteGoogleRegisterScreenState
                                             Icons.phone,
                                             color: Colors.black45,
                                           ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              Icons.close,
+                                              color: snapshot
+                                                  .data!.focusPhoneColor,
+                                            ),
+                                            onPressed: () {
+                                              phoneTextFieldController.clear();
+                                              completeGoogleRegisterBloc
+                                                  .eventController.sink
+                                                  .add(InputPhoneGoogleAuthEvent(
+                                                      phone:
+                                                          phoneTextFieldController
+                                                              .text));
+                                            },
+                                          ),
                                           enabledBorder:
                                               const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                       color: Colors.white,
                                                       width: 1.0)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: snapshot.data!
-                                                      .focusColor(),
-                                                  width: 1.0)),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black45,
+                                                      width: 1.0)),
                                           errorStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent)),
                                       onTap: () => completeGoogleRegisterBloc
                                           .eventController.sink
-                                          .add(
-                                              FocusTextFieldCompleteGoogleRegEvent(
-                                                  isFocusOnTextField: true)),
+                                          .add(FocusTextFieldCompleteGoogleRegEvent(
+                                              isFocusOnPhone: true,
+                                              isFocusOnAddress: false,
+                                              isFocusOnBirthDay: false,
+                                              isFocusOnCitizenIdentification:
+                                                  false,
+                                              isFocusOnUsername: false)),
                                       onChanged: (value) =>
                                           completeGoogleRegisterBloc
                                               .eventController.sink
@@ -345,6 +383,7 @@ class _CompleteGoogleRegisterScreenState
                                   SizedBox(
                                     width: 300,
                                     child: TextFormField(
+                                      controller: addressTextFieldController,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
@@ -364,24 +403,45 @@ class _CompleteGoogleRegisterScreenState
                                             Icons.location_city,
                                             color: Colors.black45,
                                           ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              Icons.close,
+                                              color: snapshot
+                                                  .data!.focusAddressColor,
+                                            ),
+                                            onPressed: () {
+                                              addressTextFieldController
+                                                  .clear();
+                                              completeGoogleRegisterBloc
+                                                  .eventController.sink
+                                                  .add(InputAddressGoogleAuthEvent(
+                                                      address:
+                                                          addressTextFieldController
+                                                              .text));
+                                            },
+                                          ),
                                           enabledBorder:
                                               const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                       color: Colors.white,
                                                       width: 1.0)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: snapshot.data!
-                                                      .focusColor(),
-                                                  width: 1.0)),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black45,
+                                                      width: 1.0)),
                                           errorStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent)),
                                       onTap: () => completeGoogleRegisterBloc
                                           .eventController.sink
-                                          .add(
-                                              FocusTextFieldCompleteGoogleRegEvent(
-                                                  isFocusOnTextField: true)),
+                                          .add(FocusTextFieldCompleteGoogleRegEvent(
+                                              isFocusOnAddress: true,
+                                              isFocusOnBirthDay: false,
+                                              isFocusOnCitizenIdentification:
+                                                  false,
+                                              isFocusOnPhone: false,
+                                              isFocusOnUsername: false)),
                                       onChanged: (value) =>
                                           completeGoogleRegisterBloc
                                               .eventController.sink
@@ -398,6 +458,7 @@ class _CompleteGoogleRegisterScreenState
                                     width: 300,
                                     child: TextFormField(
                                       keyboardType: TextInputType.number,
+                                      controller: idCardTextFieldController,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
@@ -417,16 +478,33 @@ class _CompleteGoogleRegisterScreenState
                                             Icons.card_membership,
                                             color: Colors.black45,
                                           ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              Icons.close,
+                                              color: snapshot.data!
+                                                  .focusCitizenIdentificationColor,
+                                            ),
+                                            onPressed: () {
+                                              idCardTextFieldController.clear();
+
+                                              completeGoogleRegisterBloc
+                                                  .eventController.sink
+                                                  .add(InputCitizenIdentificationGoogleAuthEvent(
+                                                      citizenIdentification:
+                                                          idCardTextFieldController
+                                                              .text));
+                                            },
+                                          ),
                                           enabledBorder:
                                               const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                       color: Colors.white,
                                                       width: 1.0)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: snapshot.data!
-                                                      .focusColor(),
-                                                  width: 1.0)),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black45,
+                                                      width: 1.0)),
                                           errorStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent)),
@@ -434,7 +512,12 @@ class _CompleteGoogleRegisterScreenState
                                           .eventController.sink
                                           .add(
                                               FocusTextFieldCompleteGoogleRegEvent(
-                                                  isFocusOnTextField: true)),
+                                        isFocusOnCitizenIdentification: true,
+                                        isFocusOnAddress: false,
+                                        isFocusOnBirthDay: false,
+                                        isFocusOnPhone: false,
+                                        isFocusOnUsername: false,
+                                      )),
                                       onChanged: (value) =>
                                           completeGoogleRegisterBloc
                                               .eventController.sink
@@ -449,137 +532,156 @@ class _CompleteGoogleRegisterScreenState
                                   const SizedBox(
                                     height: 25,
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 150,
-                                        child: TextFormField(
-                                          readOnly: true,
-                                          controller: dobTextFieldController,
-                                          style: const TextStyle(
-                                              color: Colors.black,
+                                  SizedBox(
+                                    width: 300,
+                                    child: TextFormField(
+                                      readOnly: true,
+                                      controller: dobTextFieldController,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.5),
+                                      decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          label: const Text(
+                                            "Birth day",
+                                            style: TextStyle(
+                                              fontFamily: "SourceCodePro",
+                                              color: Colors.black45,
                                               fontWeight: FontWeight.bold,
-                                              letterSpacing: 1.5),
-                                          decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: Colors.white,
-                                              label: const Text(
-                                                "Birth day",
-                                                style: TextStyle(
-                                                  fontFamily: "SourceCodePro",
-                                                  color: Colors.black45,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              prefixIcon: const Icon(
-                                                Icons.calendar_month,
-                                                color: Colors.black45,
-                                              ),
-                                              enabledBorder:
-                                                  const UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Colors.white,
-                                                          width: 1.0)),
-                                              focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: snapshot.data!
-                                                          .focusColor(),
-                                                      width: 1.0)),
-                                              errorStyle: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.redAccent)),
-                                          onTap: () {
-                                            showDatePicker(
-                                              context: context,
-                                              initialDate: DateTime(1980),
-                                              firstDate: DateTime(1980),
-                                              lastDate: DateTime(2004),
-                                            ).then((value) {
-                                              dobTextFieldController.text =
-                                                  dateFormat.format(value!);
+                                            ),
+                                          ),
+                                          prefixIcon: const Icon(
+                                            Icons.calendar_month,
+                                            color: Colors.black45,
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              Icons.close,
+                                              color: snapshot
+                                                  .data!.focusBirthDayColor,
+                                            ),
+                                            onPressed: () {
+                                              dobTextFieldController.clear();
+
                                               completeGoogleRegisterBloc
                                                   .eventController.sink
                                                   .add(InputDobGoogleAuthEvent(
                                                       dob:
-                                                          dobTextFieldController
+                                                          birthdayTextFieldController
                                                               .text));
-                                            });
-                                          },
-                                          validator: (value) =>
-                                              snapshot.data!.validateDob(),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 2,
-                                      ),
-                                      SizedBox(
-                                        height: 59,
-                                        width: 150,
-                                        child: InputDecorator(
-                                          decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: Colors.white,
-                                              label: const Text(
-                                                "Gender",
-                                                style: TextStyle(
-                                                  fontFamily: "SourceCodePro",
-                                                  color: Colors.black45,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              prefixIcon:
-                                                  snapshot.data!.gender ==
-                                                          "Male"
-                                                      ? const Icon(
-                                                          Icons.boy,
-                                                          color: Colors.black45,
-                                                        )
-                                                      : const Icon(
-                                                          Icons.girl,
-                                                          color: Colors.black45,
-                                                        ),
-                                              enabledBorder:
-                                                  const UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Colors.white,
-                                                          width: 1.0)),
-                                              focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: snapshot.data!
-                                                          .focusColor(),
-                                                      width: 1.0)),
-                                              errorStyle: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.redAccent)),
-                                          child: DropdownButton<String>(
-                                            items: completeGoogleRegisterBloc
-                                                .genderSelection
-                                                .map((e) => DropdownMenuItem(
-                                                      value: e,
-                                                      child: Text(
-                                                        e,
-                                                        style: const TextStyle(
-                                                            fontSize: 12,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            letterSpacing: 1.5),
-                                                      ),
-                                                    ))
-                                                .toList(),
-                                            value: snapshot.data!.gender,
-                                            underline: const SizedBox(),
-                                            onChanged: (value) =>
-                                                completeGoogleRegisterBloc
-                                                    .eventController.sink
-                                                    .add(
-                                                        ChooseGenderGoogleAuthEvent(
-                                                            gender: value)),
+                                            },
                                           ),
-                                        ),
-                                      )
-                                    ],
+                                          enabledBorder:
+                                              const UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.white,
+                                                      width: 1.0)),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black45,
+                                                      width: 1.0)),
+                                          errorStyle: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.redAccent)),
+                                      onTap: () {
+                                        showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime(1980),
+                                          firstDate: DateTime(1980),
+                                          lastDate: DateTime(2004),
+                                        ).then((value) {
+                                          dobTextFieldController.text =
+                                              dateFormat.format(value!);
+                                          completeGoogleRegisterBloc
+                                              .eventController.sink
+                                              .add(FocusTextFieldCompleteGoogleRegEvent(
+                                                  isFocusOnBirthDay: true,
+                                                  isFocusOnAddress: false,
+                                                  isFocusOnCitizenIdentification:
+                                                      false,
+                                                  isFocusOnPhone: false,
+                                                  isFocusOnUsername: false));
+                                          completeGoogleRegisterBloc
+                                              .eventController.sink
+                                              .add(InputDobGoogleAuthEvent(
+                                                  dob: dobTextFieldController
+                                                      .text));
+                                        });
+                                      },
+                                      validator: (value) =>
+                                          snapshot.data!.validateDob(),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 25,
+                                  ),
+                                  SizedBox(
+                                    height: 59,
+                                    width: 300,
+                                    child: InputDecorator(
+                                      decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          label: const Text(
+                                            "Gender",
+                                            style: TextStyle(
+                                              fontFamily: "SourceCodePro",
+                                              color: Colors.black45,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          prefixIcon: snapshot.data!.gender ==
+                                                  "Male"
+                                              ? const Icon(
+                                                  Icons.boy,
+                                                  color: Colors.black45,
+                                                )
+                                              : const Icon(
+                                                  Icons.girl,
+                                                  color: Colors.black45,
+                                                ),
+                                          enabledBorder:
+                                              const UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.white,
+                                                      width: 1.0)),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black45,
+                                                      width: 1.0)),
+                                          errorStyle: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.redAccent)),
+                                      child: DropdownButton<String>(
+                                        items: completeGoogleRegisterBloc
+                                            .genderSelection
+                                            .map((e) => DropdownMenuItem(
+                                                  value: e,
+                                                  child: Text(
+                                                    e,
+                                                    style: const TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        letterSpacing: 1.5),
+                                                  ),
+                                                ))
+                                            .toList(),
+                                        value: snapshot.data!.gender,
+                                        underline: const SizedBox(),
+                                        onChanged: (value) =>
+                                            completeGoogleRegisterBloc
+                                                .eventController.sink
+                                                .add(
+                                                    ChooseGenderGoogleAuthEvent(
+                                                        gender: value)),
+                                      ),
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 50,

@@ -15,9 +15,16 @@ class InputPasswordLoginEvent extends LogInEvent {
 }
 
 class FocusTextFieldLoginEvent extends LogInEvent {
-  FocusTextFieldLoginEvent({this.isFocus});
+  FocusTextFieldLoginEvent({this.isFocusUsername, this.isFocusPassword});
 
-  bool? isFocus;
+  bool? isFocusUsername;
+  bool? isFocusPassword;
+}
+
+class ShowPasswordLoginEvent extends LogInEvent {
+  ShowPasswordLoginEvent({this.isShowPassword});
+
+  bool? isShowPassword;
 }
 
 class NavigateToRegScreenEvent extends LogInEvent {

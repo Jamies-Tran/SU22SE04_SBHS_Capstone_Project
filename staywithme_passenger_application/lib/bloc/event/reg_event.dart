@@ -58,9 +58,22 @@ class InputAvatarUrlEvent extends RegisterEvent {
 }
 
 class FocusTextFieldRegisterEvent extends RegisterEvent {
-  FocusTextFieldRegisterEvent({this.isFocus});
+  FocusTextFieldRegisterEvent(
+      {this.isFocusOnUsername,
+      this.isFocusOnPassword,
+      this.isFocusOnEmail,
+      this.isFocusOnAddress,
+      this.isFocusOnPhone,
+      this.isFocusOnCitizenIdentification,
+      this.isFocusOnBirthday});
 
-  bool? isFocus;
+  bool? isFocusOnUsername;
+  bool? isFocusOnPassword;
+  bool? isFocusOnEmail;
+  bool? isFocusOnPhone;
+  bool? isFocusOnAddress;
+  bool? isFocusOnCitizenIdentification;
+  bool? isFocusOnBirthday;
 }
 
 class ChooseGoogleAccountEvent extends RegisterEvent {

@@ -9,12 +9,20 @@ class LoginBlog {
   final eventController = StreamController<LogInEvent>();
   final stateController = StreamController<LoginState>();
 
-  LoginState initData() =>
-      LoginState(username: null, password: null, isFocusOnTextField: false);
+  bool _isShowPassword = false;
+
+  LoginState initData() => LoginState(
+      username: null,
+      password: null,
+      focusUsernameColor: Colors.white,
+      focusPasswordColor: Colors.white,
+      isShowPassword: _isShowPassword);
 
   String? _username;
   String? _password;
-  bool _isFocusOnTextField = false;
+
+  Color? _focusUsernameColor;
+  Color? _focusPasswordColor;
 
   LoginBlog() {
     eventController.stream.listen((event) {
@@ -28,7 +36,12 @@ class LoginBlog {
     } else if (event is InputPasswordLoginEvent) {
       _password = event.password;
     } else if (event is FocusTextFieldLoginEvent) {
-      _isFocusOnTextField = event.isFocus!;
+      _focusUsernameColor =
+          event.isFocusUsername == true ? Colors.black45 : Colors.white;
+      _focusPasswordColor =
+          event.isFocusPassword == true ? Colors.black45 : Colors.white;
+    } else if (event is ShowPasswordLoginEvent) {
+      _isShowPassword = !_isShowPassword;
     } else if (event is NavigateToRegScreenEvent) {
       Navigator.of(event.context!)
           .pushNamed(RegisterScreen.registerAccountRoute);
@@ -37,6 +50,8 @@ class LoginBlog {
     stateController.sink.add(LoginState(
         username: _username,
         password: _password,
-        isFocusOnTextField: _isFocusOnTextField));
+        focusUsernameColor: _focusUsernameColor,
+        focusPasswordColor: _focusPasswordColor,
+        isShowPassword: _isShowPassword));
   }
 }

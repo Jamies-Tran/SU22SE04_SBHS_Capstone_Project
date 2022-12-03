@@ -21,10 +21,14 @@ class CompleteGoogleRegBloc {
   String? _citizenIdentification;
   String? _gender;
   String? _dob;
-  bool? _isFocusOnTextField;
   final genderSelection = ["Male", "Female"];
-
   String? _cancelGoogleRegRoute;
+
+  Color? _focusUsernameColor;
+  Color? _focusPhoneColor;
+  Color? _focusCitizenIdentificationColor;
+  Color? _focusBirthDayColor;
+  Color? _focusAddressColor;
 
   CompleteGoogleRegBloc() {
     eventController.stream.listen((event) {
@@ -33,16 +37,22 @@ class CompleteGoogleRegBloc {
   }
 
   CompleteGoogleRegisterState initData(String? username, String? email) {
+    _username = username;
     _email = email;
     return CompleteGoogleRegisterState(
-        username: username,
-        email: email,
-        address: null,
-        citizenIdentification: null,
-        gender: genderSelection[0],
-        phone: null,
-        dob: null,
-        isFocusOnTextField: false);
+      username: username,
+      email: email,
+      address: null,
+      citizenIdentification: null,
+      gender: genderSelection[0],
+      phone: null,
+      dob: null,
+      focusAddressColor: Colors.white,
+      focusBirthDayColor: Colors.white,
+      focusCitizenIdentificationColor: Colors.white,
+      focusPhoneColor: Colors.white,
+      focusUsernameColor: Colors.white,
+    );
   }
 
   void eventHandler(CompleteGoogleRegisterEvent event) {
@@ -85,21 +95,50 @@ class CompleteGoogleRegBloc {
     } else if (event is InputDobGoogleAuthEvent) {
       _dob = event.dob;
     } else if (event is FocusTextFieldCompleteGoogleRegEvent) {
-      _isFocusOnTextField = event.isFocusOnTextField;
+      if (event.isFocusOnUsername == true) {
+        _focusUsernameColor = Colors.black45;
+      } else {
+        _focusUsernameColor = Colors.white;
+      }
+      if (event.isFocusOnPhone == true) {
+        _focusPhoneColor = Colors.black45;
+      } else {
+        _focusPhoneColor = Colors.white;
+      }
+      if (event.isFocusOnAddress == true) {
+        _focusAddressColor = Colors.black45;
+      } else {
+        _focusAddressColor = Colors.white;
+      }
+      if (event.isFocusOnCitizenIdentification == true) {
+        _focusCitizenIdentificationColor = Colors.black45;
+      } else {
+        _focusCitizenIdentificationColor = Colors.white;
+      }
+      if (event.isFocusOnBirthDay == true) {
+        _focusBirthDayColor = Colors.black45;
+      } else {
+        _focusBirthDayColor = Colors.white;
+      }
     } else if (event is CancelChooseAnotherGoogleAccountEvent) {
       Navigator.of(event.context!).pop();
     } else if (event is SubmitGoogleCompleteRegisterEvent) {}
 
     //TODO: sửa isFocusOnTextField-bool thành focusColor-Color
     stateController.sink.add(CompleteGoogleRegisterState(
-        username: _username,
-        email: _email,
-        address: _address,
-        phone: _phone,
-        citizenIdentification: _citizenIdentification,
-        gender: _gender,
-        dob: _dob,
-        isFocusOnTextField: _isFocusOnTextField));
+      username: _username,
+      email: _email,
+      address: _address,
+      phone: _phone,
+      citizenIdentification: _citizenIdentification,
+      gender: _gender,
+      dob: _dob,
+      focusAddressColor: _focusAddressColor,
+      focusBirthDayColor: _focusBirthDayColor,
+      focusCitizenIdentificationColor: _focusCitizenIdentificationColor,
+      focusPhoneColor: _focusPhoneColor,
+      focusUsernameColor: _focusUsernameColor,
+    ));
   }
 
   void dispose() {

@@ -58,9 +58,18 @@ class SubmitGoogleCompleteRegisterEvent extends CompleteGoogleRegisterEvent {
 }
 
 class FocusTextFieldCompleteGoogleRegEvent extends CompleteGoogleRegisterEvent {
-  FocusTextFieldCompleteGoogleRegEvent({this.isFocusOnTextField});
+  FocusTextFieldCompleteGoogleRegEvent(
+      {this.isFocusOnUsername,
+      this.isFocusOnPhone,
+      this.isFocusOnAddress,
+      this.isFocusOnBirthDay,
+      this.isFocusOnCitizenIdentification});
 
-  bool? isFocusOnTextField;
+  bool? isFocusOnUsername;
+  bool? isFocusOnPhone;
+  bool? isFocusOnAddress;
+  bool? isFocusOnCitizenIdentification;
+  bool? isFocusOnBirthDay;
 }
 
 class InputUsernameGoogleAuthEvent extends CompleteGoogleRegisterEvent {

@@ -23,7 +23,14 @@ class _RegisterScreen extends State<RegisterScreen> {
   final formState = GlobalKey<FormState>();
   final registerBloc = RegisterBloc();
   final dateFormat = DateFormat("yyyy-MM-dd");
+
   final dobTextFieldController = TextEditingController();
+  final usernameTextEditingController = TextEditingController();
+  final passwordTextEditingController = TextEditingController();
+  final emailTextEditingController = TextEditingController();
+  final addressTextEditingController = TextEditingController();
+  final phoneTextEditingController = TextEditingController();
+  final idCardTextEditingController = TextEditingController();
 
   @override
   void dispose() {
@@ -35,8 +42,13 @@ class _RegisterScreen extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        registerBloc.eventController.sink
-            .add(FocusTextFieldRegisterEvent(isFocus: false));
+        registerBloc.eventController.sink.add(FocusTextFieldRegisterEvent(
+            isFocusOnUsername: false,
+            isFocusOnPassword: false,
+            isFocusOnAddress: false,
+            isFocusOnPhone: false,
+            isFocusOnCitizenIdentification: false,
+            isFocusOnBirthday: false));
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Stack(children: [
@@ -81,39 +93,65 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    controller: usernameTextEditingController,
                                     style: const TextStyle(
                                         color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
-                                      label: Text(
+                                      label: const Text(
                                         "Username",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 12,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.account_box,
                                         color: Colors.black,
                                       ),
-                                      enabledBorder: UnderlineInputBorder(
+                                      suffixIcon: IconButton(
+                                          onPressed: () {
+                                            if (snapshot
+                                                    .data!.focusUsernameColor ==
+                                                Colors.black45) {
+                                              usernameTextEditingController
+                                                  .clear();
+                                              registerBloc.eventController.sink
+                                                  .add(InputUsernameEvent(
+                                                      username:
+                                                          usernameTextEditingController
+                                                              .text));
+                                            }
+                                          },
+                                          icon: Icon(
+                                            Icons.close,
+                                            color: snapshot
+                                                .data!.focusUsernameColor,
+                                          )),
+                                      enabledBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 2.5)),
-                                      focusedBorder: UnderlineInputBorder(
+                                      focusedBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.white, width: 3.0)),
-                                      errorStyle: TextStyle(
+                                      errorStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.redAccent),
                                     ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
-                                            isFocus: true)),
+                                            isFocusOnUsername: true,
+                                            isFocusOnAddress: false,
+                                            isFocusOnBirthday: false,
+                                            isFocusOnCitizenIdentification:
+                                                false,
+                                            isFocusOnPassword: false,
+                                            isFocusOnPhone: false)),
                                     onChanged: (value) => registerBloc
                                         .eventController.sink
                                         .add(InputUsernameEvent(
@@ -128,39 +166,65 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    controller: passwordTextEditingController,
                                     style: const TextStyle(
                                         color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
-                                      label: Text(
+                                      label: const Text(
                                         "Password",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 12,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.lock,
                                         color: Colors.black,
                                       ),
-                                      enabledBorder: UnderlineInputBorder(
+                                      suffixIcon: IconButton(
+                                          onPressed: () {
+                                            if (snapshot
+                                                    .data!.focusPasswordColor ==
+                                                Colors.black45) {
+                                              passwordTextEditingController
+                                                  .clear();
+                                              registerBloc.eventController.sink
+                                                  .add(InputPasswordEvent(
+                                                      password:
+                                                          passwordTextEditingController
+                                                              .text));
+                                            }
+                                          },
+                                          icon: Icon(
+                                            Icons.close,
+                                            color: snapshot
+                                                .data!.focusPasswordColor,
+                                          )),
+                                      enabledBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 2.5)),
-                                      focusedBorder: UnderlineInputBorder(
+                                      focusedBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.white, width: 3.0)),
-                                      errorStyle: TextStyle(
+                                      errorStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.redAccent),
                                     ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
-                                            isFocus: true)),
+                                            isFocusOnPassword: true,
+                                            isFocusOnAddress: false,
+                                            isFocusOnBirthday: false,
+                                            isFocusOnCitizenIdentification:
+                                                false,
+                                            isFocusOnPhone: false,
+                                            isFocusOnUsername: false)),
                                     onChanged: (value) => registerBloc
                                         .eventController.sink
                                         .add(InputPasswordEvent(
@@ -180,39 +244,66 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    controller: emailTextEditingController,
                                     style: const TextStyle(
                                         color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
-                                      label: Text(
+                                      label: const Text(
                                         "Email",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 12,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.mail,
                                         color: Colors.black,
                                       ),
-                                      enabledBorder: UnderlineInputBorder(
+                                      suffixIcon: IconButton(
+                                          onPressed: () {
+                                            if (snapshot
+                                                    .data!.focusEmailColor ==
+                                                Colors.black45) {
+                                              emailTextEditingController
+                                                  .clear();
+                                              registerBloc.eventController.sink
+                                                  .add(InputEmailEvent(
+                                                      email:
+                                                          emailTextEditingController
+                                                              .text));
+                                            }
+                                          },
+                                          icon: Icon(
+                                            Icons.close,
+                                            color:
+                                                snapshot.data!.focusEmailColor,
+                                          )),
+                                      enabledBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 2.5)),
-                                      focusedBorder: UnderlineInputBorder(
+                                      focusedBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.white, width: 3.0)),
-                                      errorStyle: TextStyle(
+                                      errorStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.redAccent),
                                     ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
-                                            isFocus: true)),
+                                            isFocusOnEmail: true,
+                                            isFocusOnAddress: false,
+                                            isFocusOnBirthday: false,
+                                            isFocusOnCitizenIdentification:
+                                                false,
+                                            isFocusOnPassword: false,
+                                            isFocusOnPhone: false,
+                                            isFocusOnUsername: false)),
                                     onChanged: (value) => registerBloc
                                         .eventController.sink
                                         .add(InputEmailEvent(email: value)),
@@ -226,39 +317,66 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    controller: addressTextEditingController,
                                     style: const TextStyle(
                                         color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
-                                      label: Text(
+                                      label: const Text(
                                         "Address",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 12,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.location_city,
                                         color: Colors.black,
                                       ),
-                                      enabledBorder: UnderlineInputBorder(
+                                      suffixIcon: IconButton(
+                                          onPressed: () {
+                                            if (snapshot
+                                                    .data!.focusAddressColor ==
+                                                Colors.black45) {
+                                              addressTextEditingController
+                                                  .clear();
+                                              registerBloc.eventController.sink
+                                                  .add(InputAddressEvent(
+                                                      address:
+                                                          addressTextEditingController
+                                                              .text));
+                                            }
+                                          },
+                                          icon: Icon(
+                                            Icons.close,
+                                            color: snapshot
+                                                .data!.focusAddressColor,
+                                          )),
+                                      enabledBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 2.5)),
-                                      focusedBorder: UnderlineInputBorder(
+                                      focusedBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.white, width: 3.0)),
-                                      errorStyle: TextStyle(
+                                      errorStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.redAccent),
                                     ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
-                                            isFocus: true)),
+                                            isFocusOnAddress: true,
+                                            isFocusOnBirthday: false,
+                                            isFocusOnCitizenIdentification:
+                                                false,
+                                            isFocusOnEmail: false,
+                                            isFocusOnPassword: false,
+                                            isFocusOnPhone: false,
+                                            isFocusOnUsername: false)),
                                     onChanged: (value) => registerBloc
                                         .eventController.sink
                                         .add(InputAddressEvent(address: value)),
@@ -277,40 +395,67 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    controller: phoneTextEditingController,
                                     keyboardType: TextInputType.phone,
                                     style: const TextStyle(
                                         color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
-                                      label: Text(
+                                      label: const Text(
                                         "Phone",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 12,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.phone,
                                         color: Colors.black,
                                       ),
-                                      enabledBorder: UnderlineInputBorder(
+                                      suffixIcon: IconButton(
+                                          onPressed: () {
+                                            if (snapshot
+                                                    .data!.focusPhoneColor ==
+                                                Colors.black45) {
+                                              phoneTextEditingController
+                                                  .clear();
+                                              registerBloc.eventController.sink
+                                                  .add(InputPhoneEvent(
+                                                      phone:
+                                                          phoneTextEditingController
+                                                              .text));
+                                            }
+                                          },
+                                          icon: Icon(
+                                            Icons.close,
+                                            color:
+                                                snapshot.data!.focusPhoneColor,
+                                          )),
+                                      enabledBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 2.5)),
-                                      focusedBorder: UnderlineInputBorder(
+                                      focusedBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.white, width: 3.0)),
-                                      errorStyle: TextStyle(
+                                      errorStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.redAccent),
                                     ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
-                                            isFocus: true)),
+                                      isFocusOnPhone: true,
+                                      isFocusOnAddress: false,
+                                      isFocusOnBirthday: false,
+                                      isFocusOnCitizenIdentification: false,
+                                      isFocusOnEmail: false,
+                                      isFocusOnPassword: false,
+                                      isFocusOnUsername: false,
+                                    )),
                                     onChanged: (value) => registerBloc
                                         .eventController.sink
                                         .add(InputPhoneEvent(phone: value)),
@@ -324,40 +469,67 @@ class _RegisterScreen extends State<RegisterScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: TextFormField(
+                                    controller: idCardTextEditingController,
                                     keyboardType: TextInputType.number,
                                     style: const TextStyle(
                                         color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
-                                      label: Text(
+                                      label: const Text(
                                         "ID Card",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 12,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.card_membership,
                                         color: Colors.black,
                                       ),
-                                      enabledBorder: UnderlineInputBorder(
+                                      suffixIcon: IconButton(
+                                          onPressed: () {
+                                            if (snapshot.data!
+                                                    .focusCitizenIdentificationColor ==
+                                                Colors.black45) {
+                                              idCardTextEditingController
+                                                  .clear();
+                                              registerBloc.eventController.sink.add(
+                                                  InputCitizenIdentificationEvent(
+                                                      citizenIdentification:
+                                                          idCardTextEditingController
+                                                              .text));
+                                            }
+                                          },
+                                          icon: Icon(
+                                            Icons.close,
+                                            color: snapshot.data!
+                                                .focusCitizenIdentificationColor,
+                                          )),
+                                      enabledBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 2.5)),
-                                      focusedBorder: UnderlineInputBorder(
+                                      focusedBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.white, width: 3.0)),
-                                      errorStyle: TextStyle(
+                                      errorStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.redAccent),
                                     ),
                                     onTap: () => registerBloc
                                         .eventController.sink
                                         .add(FocusTextFieldRegisterEvent(
-                                            isFocus: true)),
+                                            isFocusOnCitizenIdentification:
+                                                true,
+                                            isFocusOnAddress: false,
+                                            isFocusOnBirthday: false,
+                                            isFocusOnEmail: false,
+                                            isFocusOnPassword: false,
+                                            isFocusOnPhone: false,
+                                            isFocusOnUsername: false)),
                                     onChanged: (value) => registerBloc
                                         .eventController.sink
                                         .add(InputCitizenIdentificationEvent(
@@ -427,10 +599,6 @@ class _RegisterScreen extends State<RegisterScreen> {
                                             registerBloc.eventController.sink
                                                 .add(ChooseGenderEvent(
                                                     gender: value));
-                                            registerBloc.eventController.sink
-                                                .add(
-                                                    FocusTextFieldRegisterEvent(
-                                                        isFocus: true));
                                           },
                                         ),
                                       ),
@@ -446,29 +614,47 @@ class _RegisterScreen extends State<RegisterScreen> {
                                     style: const TextStyle(
                                         color: Colors.black45,
                                         fontWeight: FontWeight.bold),
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
-                                      label: Text(
+                                      label: const Text(
                                         "Birth day",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 12,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.calendar_month,
                                         color: Colors.black,
                                       ),
-                                      enabledBorder: UnderlineInputBorder(
+                                      suffixIcon: IconButton(
+                                          onPressed: () {
+                                            if (snapshot
+                                                    .data!.focusBirthdayColor ==
+                                                Colors.black45) {
+                                              dobTextFieldController.clear();
+                                              registerBloc.eventController.sink
+                                                  .add(InputDobEvent(
+                                                      dob:
+                                                          dobTextFieldController
+                                                              .text));
+                                            }
+                                          },
+                                          icon: Icon(
+                                            Icons.close,
+                                            color: snapshot
+                                                .data!.focusBirthdayColor,
+                                          )),
+                                      enabledBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 2.5)),
-                                      focusedBorder: UnderlineInputBorder(
+                                      focusedBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.white, width: 3.0)),
-                                      errorStyle: TextStyle(
+                                      errorStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.redAccent),
                                     ),
@@ -487,7 +673,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                                                     .text));
                                         registerBloc.eventController.sink.add(
                                             FocusTextFieldRegisterEvent(
-                                                isFocus: true));
+                                                isFocusOnBirthday: true,
+                                                isFocusOnAddress: false,
+                                                isFocusOnCitizenIdentification:
+                                                    false,
+                                                isFocusOnEmail: false,
+                                                isFocusOnPassword: false,
+                                                isFocusOnPhone: false,
+                                                isFocusOnUsername: false));
                                       });
                                     },
                                     validator: (value) =>

@@ -10,7 +10,11 @@ class CompleteGoogleRegisterState {
       this.gender,
       this.dob,
       this.avatarUrl,
-      this.isFocusOnTextField});
+      this.focusAddressColor,
+      this.focusBirthDayColor,
+      this.focusCitizenIdentificationColor,
+      this.focusPhoneColor,
+      this.focusUsernameColor});
 
   String? username;
   String? email;
@@ -20,7 +24,11 @@ class CompleteGoogleRegisterState {
   String? gender;
   String? avatarUrl;
   String? dob;
-  bool? isFocusOnTextField;
+  Color? focusUsernameColor;
+  Color? focusPhoneColor;
+  Color? focusAddressColor;
+  Color? focusCitizenIdentificationColor;
+  Color? focusBirthDayColor;
 
   String? validateUsername() {
     if (username == null || username == "") {
@@ -28,14 +36,6 @@ class CompleteGoogleRegisterState {
     }
 
     return null;
-  }
-
-  Color focusColor() {
-    if (isFocusOnTextField == true) {
-      return Colors.black45;
-    } else {
-      return Colors.white;
-    }
   }
 
   String? validateEmail() {

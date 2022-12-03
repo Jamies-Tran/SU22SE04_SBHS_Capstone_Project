@@ -11,7 +11,13 @@ class RegisterState {
       this.avatarUrl,
       this.dob,
       this.phone,
-      this.isFocusOnTextField});
+      this.focusUsernameColor,
+      this.focusPasswordColor,
+      this.focusEmailColor,
+      this.focusAddressColor,
+      this.focusPhoneColor,
+      this.focusCitizenIdentificationColor,
+      this.focusBirthdayColor});
 
   String? username;
   String? password;
@@ -23,15 +29,13 @@ class RegisterState {
   String? dob;
   String? avatarUrl;
 
-  bool? isFocusOnTextField;
-
-  Color focusColor() {
-    if (isFocusOnTextField!) {
-      return Colors.white;
-    } else {
-      return Colors.white24;
-    }
-  }
+  Color? focusUsernameColor;
+  Color? focusPasswordColor;
+  Color? focusEmailColor;
+  Color? focusAddressColor;
+  Color? focusPhoneColor;
+  Color? focusCitizenIdentificationColor;
+  Color? focusBirthdayColor;
 
   String? validateUsername() {
     if (username == "" || username == null) {
