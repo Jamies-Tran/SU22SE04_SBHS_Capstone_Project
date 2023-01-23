@@ -6,7 +6,7 @@ class CompleteGoogleRegisterState {
       this.email,
       this.phone,
       this.address,
-      this.citizenIdentification,
+      this.idCardNumber,
       this.gender,
       this.dob,
       this.avatarUrl,
@@ -20,10 +20,11 @@ class CompleteGoogleRegisterState {
   String? email;
   String? phone;
   String? address;
-  String? citizenIdentification;
+  String? idCardNumber;
   String? gender;
   String? avatarUrl;
   String? dob;
+
   Color? focusUsernameColor;
   Color? focusPhoneColor;
   Color? focusAddressColor;
@@ -62,8 +63,8 @@ class CompleteGoogleRegisterState {
     return null;
   }
 
-  String? validateCitizenIdentification() {
-    if (citizenIdentification == null || citizenIdentification == "") {
+  String? validateIdCardNumber() {
+    if (idCardNumber == null || idCardNumber == "") {
       return "Enter citizen identification";
     }
 

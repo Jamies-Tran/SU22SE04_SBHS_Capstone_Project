@@ -1,6 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:staywithme_passenger_application/screen/authenticate/change_password_screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/complete_google_reg_screen.dart';
+import 'package:staywithme_passenger_application/screen/authenticate/forget_password_screen.dart';
+import 'package:staywithme_passenger_application/screen/authenticate/google_chosen_screen.dart';
+import 'package:staywithme_passenger_application/screen/authenticate/google_validation_screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/log_in_screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/register_screen.dart';
 import 'package:staywithme_passenger_application/service_locator/service_locator.dart';
@@ -9,6 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   setup();
+  await dotenv.load();
   runApp(const MyApp());
 }
 
@@ -43,7 +49,15 @@ class MyApp extends StatelessWidget {
         CompleteGoogleRegisterScreen.completeGoogleRegisterScreenRoute:
             (context) => const CompleteGoogleRegisterScreen(),
         GoogleAccountValidationScreen.checkValidGoogleAccountRoute: (context) =>
-            const GoogleAccountValidationScreen()
+            const GoogleAccountValidationScreen(),
+        ForgetPasswordScreen.forgetPasswordRoute: (context) =>
+            const ForgetPasswordScreen(),
+        SendMailScreen.sendMailScreenRoute: (context) => const SendMailScreen(),
+        ValidatePasswordModificationOtpScreen
+                .validatePasswordModificationScreenRoute:
+            (context) => const ValidatePasswordModificationOtpScreen(),
+        ChangePasswordScreen.changePasswordScreenRoute: (context) =>
+            const ChangePasswordScreen()
       },
     );
   }

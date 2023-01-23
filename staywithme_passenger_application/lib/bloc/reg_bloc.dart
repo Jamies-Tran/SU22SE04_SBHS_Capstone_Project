@@ -1,21 +1,38 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:staywithme_passenger_application/bloc/event/reg_event.dart';
 import 'package:staywithme_passenger_application/bloc/state/reg_state.dart';
+import 'package:staywithme_passenger_application/model/exc_model.dart';
+import 'package:staywithme_passenger_application/model/passenger_model.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/complete_google_reg_screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/log_in_screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/register_screen.dart';
+import 'package:staywithme_passenger_application/service/auth_service.dart';
+import 'package:staywithme_passenger_application/service/google_auth_service.dart';
+import 'package:staywithme_passenger_application/service_locator/service_locator.dart';
+
+import '../screen/authenticate/google_chosen_screen.dart';
+import '../screen/authenticate/google_validation_screen.dart';
 
 class RegisterBloc {
   final eventController = StreamController<RegisterEvent>();
 
   final stateController = StreamController<RegisterState>();
 
+  final authenticateService = locator.get<IAuthenticateService>();
+
+  final _googleSignIn = GoogleSignIn();
+
+  final _googleAuthService = locator.get<IAuthenticateByGoogleService>();
+
   String? _username;
   String? _password;
   String? _email;
   String? _address;
-  String? _citizenIdentification;
+  String? _idCardNumber;
   String? _dob;
   String? _gender;
   String? _phone;
@@ -34,7 +51,7 @@ class RegisterBloc {
       username: null,
       address: null,
       avatarUrl: null,
-      citizenIdentification: null,
+      idCardNumber: null,
       dob: null,
       email: null,
       gender: "Male",
@@ -63,8 +80,8 @@ class RegisterBloc {
       _email = event.email;
     } else if (event is InputAddressEvent) {
       _address = event.address;
-    } else if (event is InputCitizenIdentificationEvent) {
-      _citizenIdentification = event.citizenIdentification;
+    } else if (event is InputidCardNumberEvent) {
+      _idCardNumber = event.idCardNumber;
     } else if (event is InputDobEvent) {
       _dob = event.dob;
     } else if (event is ChooseGenderEvent) {
@@ -91,14 +108,28 @@ class RegisterBloc {
       _focusBirthdayColor =
           event.isFocusOnBirthday == true ? Colors.black45 : Colors.white;
     } else if (event is ChooseGoogleAccountEvent) {
-      Navigator.of(event.context!)
-          .pushNamed(ChooseGoogleAccountScreen.chooseGoogleAccountScreenRoute);
+      _googleSignIn.isSignedIn().then((value) {
+        if (value == true) {
+          _googleAuthService.signOut().then((value) {
+            if (value is TimeoutException || value is SocketException) {
+              Navigator.pushNamed(event.context!, LoginScreen.loginScreenRoute,
+                  arguments: {
+                    "isExceptionOccured": true,
+                    "message": "Network error"
+                  });
+            }
+          });
+        }
+      });
+      Navigator.of(event.context!).pushNamed(
+          ChooseGoogleAccountScreen.chooseGoogleAccountScreenRoute,
+          arguments: {"isGoogleRegister": true});
     } else if (event is ValidateGoogleAccountEvent) {
       Navigator.pushReplacementNamed(event.context!,
           GoogleAccountValidationScreen.checkValidGoogleAccountRoute,
           arguments: {
-            'googleSignInAccount': event.googleSignInAccount,
-            'googleSignIn': event.googleSignIn
+            'googleSignIn': event.googleSignIn,
+            "isGoogleRegister": true
           });
     } else if (event is NavigateToCompleteGoogelRegScreenEvent) {
       Navigator.of(event.context!).pushReplacementNamed(
@@ -110,13 +141,46 @@ class RegisterBloc {
     } else if (event is NaviageToLoginScreenEvent) {
       Navigator.of(event.context!)
           .pushReplacementNamed(LoginScreen.loginScreenRoute);
-    } else if (event is SubmitRegisterAccountEvent) {}
+    } else if (event is SubmitRegisterAccountEvent) {
+      PassengerModel passenger = PassengerModel(
+          username: event.username,
+          password: event.password,
+          email: event.email,
+          address: event.address,
+          phone: event.phone,
+          idCardNumber: event.idCardNumber,
+          dob: event.dob,
+          gender: event.gender);
+      authenticateService.registerAccount(passenger).then((value) {
+        if (value is ServerExceptionModel) {
+          Navigator.pushNamed(
+              event.context!, RegisterScreen.registerAccountRoute, arguments: {
+            "isExceptionOccured": true,
+            "message": value.message
+          });
+        } else if (value is TimeoutException || value is SocketException) {
+          Navigator.pushNamed(
+              event.context!, RegisterScreen.registerAccountRoute, arguments: {
+            "isExceptionOccured": true,
+            "message": "Network error"
+          });
+        } else if (value is PassengerModel) {
+          TextEditingController usernameTextEditingController =
+              TextEditingController();
+          usernameTextEditingController.text = value.username!;
+          Navigator.pushReplacementNamed(
+              event.context!, LoginScreen.loginScreenRoute, arguments: {
+            "usernameTextEditingController": usernameTextEditingController
+          });
+        }
+      });
+    }
     stateController.sink.add(RegisterState(
         username: _username,
         password: _password,
         address: _address,
         avatarUrl: _avatarUrl,
-        citizenIdentification: _citizenIdentification,
+        idCardNumber: _idCardNumber,
         dob: _dob,
         email: _email,
         gender: _gender,

@@ -7,7 +7,7 @@ class RegisterState {
       this.email,
       this.address,
       this.gender,
-      this.citizenIdentification,
+      this.idCardNumber,
       this.avatarUrl,
       this.dob,
       this.phone,
@@ -25,7 +25,7 @@ class RegisterState {
   String? address;
   String? phone;
   String? gender;
-  String? citizenIdentification;
+  String? idCardNumber;
   String? dob;
   String? avatarUrl;
 
@@ -78,7 +78,7 @@ class RegisterState {
   }
 
   String? validateCitizenIdentification() {
-    if (citizenIdentification == "" || citizenIdentification == null) {
+    if (idCardNumber == "" || idCardNumber == null) {
       return "Enter citizen identification";
     }
 

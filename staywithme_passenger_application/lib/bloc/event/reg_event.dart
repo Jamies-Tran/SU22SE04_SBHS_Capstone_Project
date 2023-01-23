@@ -39,10 +39,10 @@ class ChooseGenderEvent extends RegisterEvent {
   String? gender;
 }
 
-class InputCitizenIdentificationEvent extends RegisterEvent {
-  InputCitizenIdentificationEvent({this.citizenIdentification});
+class InputidCardNumberEvent extends RegisterEvent {
+  InputidCardNumberEvent({this.idCardNumber});
 
-  String? citizenIdentification;
+  String? idCardNumber;
 }
 
 class InputDobEvent extends RegisterEvent {
@@ -83,10 +83,8 @@ class ChooseGoogleAccountEvent extends RegisterEvent {
 }
 
 class ValidateGoogleAccountEvent extends RegisterEvent {
-  ValidateGoogleAccountEvent(
-      {this.googleSignIn, this.googleSignInAccount, this.context});
+  ValidateGoogleAccountEvent({this.googleSignIn, this.context});
 
-  GoogleSignInAccount? googleSignInAccount;
   GoogleSignIn? googleSignIn;
   BuildContext? context;
 }
@@ -114,9 +112,10 @@ class SubmitRegisterAccountEvent extends RegisterEvent {
       this.address,
       this.phone,
       this.gender,
-      this.citizenIdentification,
+      this.idCardNumber,
       this.dob,
-      this.avatarUrl});
+      this.avatarUrl,
+      this.context});
 
   String? username;
   String? password;
@@ -124,7 +123,8 @@ class SubmitRegisterAccountEvent extends RegisterEvent {
   String? address;
   String? phone;
   String? gender;
-  String? citizenIdentification;
+  String? idCardNumber;
   String? dob;
   String? avatarUrl;
+  BuildContext? context;
 }

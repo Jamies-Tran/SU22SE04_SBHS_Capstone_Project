@@ -5,18 +5,17 @@ abstract class CompleteGoogleRegisterEvent {}
 
 class ForwardCompleteGoogleRegisterScreenEvent
     extends CompleteGoogleRegisterEvent {
-  ForwardCompleteGoogleRegisterScreenEvent(
-      {this.context, this.googleSignIn, this.googleSignInAccount});
+  ForwardCompleteGoogleRegisterScreenEvent({this.context, this.googleSignIn});
 
-  GoogleSignInAccount? googleSignInAccount;
   GoogleSignIn? googleSignIn;
   BuildContext? context;
 }
 
 class BackwardToRegisterScreenEvent extends CompleteGoogleRegisterEvent {
-  BackwardToRegisterScreenEvent({this.context});
+  BackwardToRegisterScreenEvent({this.context, this.message});
 
   BuildContext? context;
+  String? message;
 }
 
 class CancelCompleteGoogleAccountRegisterEvent
@@ -43,18 +42,20 @@ class SubmitGoogleCompleteRegisterEvent extends CompleteGoogleRegisterEvent {
       this.phone,
       this.address,
       this.gender,
-      this.citizenIdentification,
-      this.avatarUrl,
-      this.dob});
+      this.idCardNumber,
+      this.googleSignIn,
+      this.dob,
+      this.context});
 
   String? username;
   String? email;
   String? phone;
   String? address;
   String? gender;
-  String? citizenIdentification;
-  String? avatarUrl;
+  String? idCardNumber;
+  GoogleSignIn? googleSignIn;
   String? dob;
+  BuildContext? context;
 }
 
 class FocusTextFieldCompleteGoogleRegEvent extends CompleteGoogleRegisterEvent {
@@ -102,11 +103,10 @@ class ChooseGenderGoogleAuthEvent extends CompleteGoogleRegisterEvent {
   String? gender;
 }
 
-class InputCitizenIdentificationGoogleAuthEvent
-    extends CompleteGoogleRegisterEvent {
-  InputCitizenIdentificationGoogleAuthEvent({this.citizenIdentification});
+class InputIdCardNumberGoogleAuthEvent extends CompleteGoogleRegisterEvent {
+  InputIdCardNumberGoogleAuthEvent({this.idCardNumber});
 
-  String? citizenIdentification;
+  String? idCardNumber;
 }
 
 class InputAvatarUrlGoogleAuthEvent extends CompleteGoogleRegisterEvent {
@@ -119,4 +119,14 @@ class InputDobGoogleAuthEvent extends CompleteGoogleRegisterEvent {
   InputDobGoogleAuthEvent({this.dob});
 
   String? dob;
+}
+
+class BackToRegisterScreenEvent extends CompleteGoogleRegisterEvent {
+  BackToRegisterScreenEvent({this.context});
+
+  BuildContext? context;
+}
+
+class LoginByChosenEmailEvent extends CompleteGoogleRegisterEvent {
+  LoginByChosenEmailEvent();
 }
