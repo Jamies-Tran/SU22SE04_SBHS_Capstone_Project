@@ -27,5 +27,6 @@ class BackwardToChangePasswordScreenEvent extends ChangePasswordEvent {
 
   String? message;
   String? email;
+  String? username;
   BuildContext? context;
 }
