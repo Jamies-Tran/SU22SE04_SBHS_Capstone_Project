@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:staywithme_passenger_application/screen/authenticate/authenticate_wrapper.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/change_password_screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/complete_google_reg_screen.dart';
 import 'package:staywithme_passenger_application/screen/authenticate/forget_password_screen.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      initialRoute: LoginScreen.loginScreenRoute,
+      initialRoute: AuthenticateWrapperScreen.authenticateWrapperScreenRoute,
       routes: {
         LoginScreen.loginScreenRoute: (context) => const LoginScreen(),
         RegisterScreen.registerAccountRoute: (context) =>
@@ -57,7 +58,9 @@ class MyApp extends StatelessWidget {
                 .validatePasswordModificationScreenRoute:
             (context) => const ValidatePasswordModificationOtpScreen(),
         ChangePasswordScreen.changePasswordScreenRoute: (context) =>
-            const ChangePasswordScreen()
+            const ChangePasswordScreen(),
+        AuthenticateWrapperScreen.authenticateWrapperScreenRoute: (context) =>
+            const AuthenticateWrapperScreen()
       },
     );
   }

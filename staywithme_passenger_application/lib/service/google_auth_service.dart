@@ -20,7 +20,7 @@ abstract class IAuthenticateByGoogleService {
 
   Future<dynamic> registerGoogleAccount(PassengerModel passengerModel);
 
-  Future<dynamic> informLoginToFireAuth();
+  Future<dynamic> informLoginToFireAuth(String email, String password);
 }
 
 class AuthenticateByGoogleService extends IAuthenticateByGoogleService {
@@ -111,7 +111,16 @@ class AuthenticateByGoogleService extends IAuthenticateByGoogleService {
   }
 
   @override
-  Future informLoginToFireAuth() async {
-    await _firebaseAuth.signInAnonymously();
+  Future informLoginToFireAuth(String email, String password) async {
+    print(email.split("@").first);
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: email.split("@").first);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "email-already-in-use") {
+        await _firebaseAuth.signInWithEmailAndPassword(
+            email: email, password: password);
+      }
+    }
   }
 }
